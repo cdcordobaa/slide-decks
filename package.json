@@ -1,0 +1,27 @@
+{
+  "name": "harness-talk-deck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Spec-driven slide deck pipeline for the 'You Are the Harness' talk. Compiles designer-ready YAML slide specs into an editable HTML deck, then renders to PDF via the create-slide-deck skill.",
+  "scripts": {
+    "build": "node scripts/build-cards.mjs cards --out build/harness-talk.html",
+    "build:sample": "node scripts/build-cards.mjs cards/_samples --out build/sample-infographic.html",
+    "storyboard": "node scripts/build-storyboard.mjs cards --out build/storyboard.html",
+    "art": "node scripts/gen-infographics.mjs cards",
+    "build:v1": "node scripts/build-deck.mjs specs --out build/v1-designer-spec.html",
+    "render": "NODE_PATH=\"$PWD/node_modules\" node ../create-slide-deck/scripts/render-pdf.mjs build/harness-talk.html build/harness-talk.pdf --screenshots build/shots",
+    "deck": "npm run build && npm run render",
+    "pull": "node scripts/notion-sync.mjs pull",
+    "push-status": "node scripts/notion-sync.mjs push-status"
+  },
+  "dependencies": {
+    "yaml": "^2.5.1"
+  },
+  "optionalDependencies": {
+    "@notionhq/client": "^2.2.15"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}

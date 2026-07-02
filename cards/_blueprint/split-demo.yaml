@@ -1,0 +1,38 @@
+# Demo of the split layout (content half + image half). Reuses images already
+# generated for 4.5 and 6.2 — no new Gemini calls.
+# Build: node scripts/build-blueprint-deck.mjs cards/_blueprint --out build/split-demo.html --all
+section:
+  id: "4"
+  title: "Rung 2 — Supervisor"
+
+cards:
+  - id: "orientation-split"
+    name: "Orientation Tax (split)"
+    layout: split
+    side: image-right          # content left, image right
+    title: "Orientation Tax"
+    subtitle: "Before an agent can work, it must first figure out where it is."
+    body:
+      - "Where are the relevant files?"
+      - "What command runs the tests?"
+      - "What conventions does this repo follow?"
+      - "What architecture — and hidden assumptions — apply?"
+    image:
+      src: "../assets/4.5.png"
+    takeaway: "Good harnesses pay this tax once. Bad harnesses pay it every run."
+    status: ready
+
+  - id: "operator-split"
+    name: "Mission Control (split)"
+    layout: split
+    side: image-left           # image left, content right
+    title: "You operate the fleet"
+    subtitle: "At the operator rung, the human moves from direct execution to controlled delegation."
+    body:
+      - "The harness runs the agents, workspaces, and retries."
+      - "You own specs, priorities, constraints, and review."
+      - "Every run is isolated, logged, and gated."
+    image:
+      src: "../assets/6.2.png"
+    takeaway: "Operator mode is not absence of humans. It is better placement of humans."
+    status: ready

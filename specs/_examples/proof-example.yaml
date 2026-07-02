@@ -1,0 +1,63 @@
+# Reference example ONLY — not part of the Sections 0-2 deck.
+# Exercises the proof/bar_chart path of the generator using the exact
+# example data from the Designer-Ready Slide Spec Architecture doc.
+# Build with: npm run build:example
+section:
+  section_id: "example"
+  section_title: "Example — Proof slide"
+  section_goal: "Demonstrate the chart-rendering path end to end."
+
+slides:
+  - slide_id: "ex.1"
+    section: "Example — Proof slide"
+    slide_title: "Harness structure vs. retrieval"
+    slide_type: "proof"
+    duration: "60 sec"
+    narrative_role: "Demonstrates the bar_chart component and the chart spec format."
+    audience_takeaway: "Harness structure matters more than retrieval alone."
+    on_slide_headline: "Harness structure matters more than retrieval alone."
+    on_slide_body: []
+    speaker_note: "Retrieval alone adds ~5 points; harness structure adds ~33. The bar should read in 5 seconds."
+    visual_brief: "Three-bar comparison with the full-harness bar visually dominant."
+    layout: "Chart dominant; one interpretation line beneath; source note in the corner."
+    visual_elements:
+      - "Bar chart"
+      - "Interpretation line"
+    chart_or_diagram: "bar_chart"
+    chart:
+      chart_type: "bar_chart"
+      claim: "Harness structure matters more than retrieval alone."
+      data:
+        - label: "Baseline"
+          value: 44.9
+          unit: "%"
+          source: "Reef / AlphaCumen"
+        - label: "Better retrieval"
+          value: 49.8
+          unit: "%"
+          source: "Reef / AlphaCumen"
+        - label: "Full harness structure"
+          value: 82.6
+          unit: "%"
+          source: "Reef / AlphaCumen"
+      x_axis: "Harness configuration"
+      y_axis: "Success rate"
+      annotations:
+        - "Retrieval alone adds ~5 points"
+        - "Harness structure adds ~33 points"
+      visual_encoding:
+        - "Baseline: neutral gray"
+        - "Better retrieval: blue"
+        - "Full harness: green / highlighted"
+      designer_notes: "Make the 82.6% bar visually dominant. The chart should read in 5 seconds."
+      source_note: "Reef / AlphaCumen key insights page."
+    data_required: "See chart block."
+    animation:
+      - "Grow bars left to right; full-harness bar lands last"
+    style_direction: "Clean data-ink; highlight the dominant bar."
+    asset_references: []
+    designer_constraints:
+      - "Never render a chart without its source note."
+      - "Do not invent or round the numbers."
+    accessibility_note: "Bars distinguished by label and value, not color alone; highlight also uses weight."
+    status: "ready for design"

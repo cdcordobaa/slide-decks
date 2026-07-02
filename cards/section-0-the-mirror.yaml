@@ -1,0 +1,96 @@
+section:
+  id: "0"
+  title: "The Mirror"
+  goal: "Create the 'oh no, that's me' realization without explaining the whole system yet."
+
+cards:
+  - id: "0.1"
+    name: "The Missing Component"
+    type: "concept"
+    purpose: "Name that a component is missing from the AI stack, before naming what it is."
+    title: "There is a missing component in your AI stack"
+    subtitle: "It does most of the operational work — but it is not engineered."
+    visual:
+      kind: "stack"
+      items:
+        - { label: "Model", caption: "produces tokens" }
+        - { label: "Tools", caption: "actions it can take" }
+        - { label: "Context", caption: "what it can see" }
+        - { label: "Missing runtime", state: "missing", caption: "assembles · runs · retries · judges · gates" }
+        - { label: "Human", caption: "doing the runtime's job by hand" }
+    takeaway: "The talk starts by naming that component."
+    speaker: "Point at the dashed block. Don't say 'harness' yet — let the room sit with the gap in the stack."
+    design_note: "Explainer card: vertical stack, each layer says what it does; one block dashed to mark the gap."
+    status: "ready"
+
+  - id: "0.2"
+    name: "The Jobs Nobody Names"
+    type: "concept"
+    purpose: "Show the six runtime responsibilities the hidden component is quietly doing."
+    title: "It is doing six jobs at once"
+    subtitle: "These are runtime responsibilities, not prompting tricks."
+    visual:
+      kind: "orbit"
+      center: "???"
+      caption: "one component doing all six"
+      items:
+        - { label: "Context", caption: "assemble what the model sees" }
+        - { label: "Tools", caption: "run commands and edits" }
+        - { label: "Retry", caption: "recover when it fails" }
+        - { label: "State", caption: "track what's already done" }
+        - { label: "Evaluation", caption: "judge if it's correct" }
+        - { label: "Safety", caption: "decide what's safe to run" }
+    takeaway: "The hidden runtime is already there — just not engineered."
+    speaker: "Walk the ring once. Keep it abstract; the copy-paste story is Rung 1, not here."
+    design_note: "Hub-and-spoke: six explained responsibilities wired to a blank '???' center. The center stays anonymous — 0.3 reveals it."
+    status: "ready"
+
+  - id: "0.3"
+    name: "The Reveal"
+    type: "big_claim"
+    purpose: "Reveal that the anonymous runtime is the audience. The emotional turn of the opening."
+    title: "You are the harness"
+    subtitle: "You are not just prompting the model. You are operating the missing runtime by hand."
+    visual:
+      kind: "mirror"
+      subject: "YOU"
+      caption: "all six jobs are yours"
+      items:
+        - { label: "Context", caption: "you assemble it" }
+        - { label: "Tools", caption: "you run them" }
+        - { label: "Retry", caption: "you recover" }
+        - { label: "State", caption: "you remember" }
+        - { label: "Evaluation", caption: "you judge" }
+        - { label: "Safety", caption: "you decide" }
+    takeaway: "The goal is not better babysitting. The goal is infrastructure."
+    speaker: "Pause. The '???' from 0.2 is now 'YOU'. Let the reveal land before moving on."
+    design_note: "Same hub as 0.2, but the center resolves from '???' to a highlighted 'YOU' and the captions become 'you …'."
+    status: "ready"
+
+  - id: "0.4"
+    name: "The Journey"
+    type: "transition"
+    purpose: "Turn the reveal into the promise of the talk: a role change from runtime to operator."
+    title: "From being the harness to operating one"
+    subtitle: "We fire you from the runtime one responsibility at a time."
+    visual:
+      kind: "transfer"
+      caption: "one responsibility at a time"
+      from:
+        label: "Human-as-runtime"
+        items:
+          - "Copy context"
+          - "Run tools"
+          - "Retry"
+          - "Judge output"
+      to:
+        label: "Human-as-operator"
+        items:
+          - "Write specs"
+          - "Set constraints"
+          - "Review output"
+          - "Improve the system"
+    takeaway: "This is a role change, not just a tool upgrade."
+    speaker: "This is the promise. Transition straight into the technical definition (Section 1)."
+    design_note: "Two labelled columns with a big arrow between; the human's job list changes from left to right."
+    status: "ready"

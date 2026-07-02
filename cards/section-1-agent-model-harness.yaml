@@ -1,0 +1,119 @@
+section:
+  id: "1"
+  title: "Agent = Model + Harness"
+  goal: "Define the technical primitive and introduce the brain/body mental model."
+
+cards:
+  - id: "1.1"
+    name: "A Model Is Not an Agent"
+    type: "comparison"
+    title: "A model is not an agent"
+    subtitle: "A model produces tokens. An agent produces actions."
+    takeaway: "The difference is not intelligence. The difference is runtime."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "MODEL", result: "input → prediction → text" }
+        - { label: "AGENT", result: "goal → tools → observations → actions" }
+    speaker: "Set the boundary so the talk doesn't become 'better prompting.'"
+    status: "draft"
+
+  - id: "1.2"
+    name: "The Equation"
+    type: "equation"
+    title: "Agent = Model + Harness"
+    subtitle: "The harness is the runtime that lets model intelligence act in the world."
+    takeaway: "No harness, no agent."
+    visual:
+      kind: "equation"
+      terms:
+        - "Model → reasoning"
+        - "Harness → tools, context, memory, state, evals"
+        - "Agent → actions"
+    speaker: "The core equation; a recurring anchor slide."
+    status: "draft"
+
+  - id: "1.3"
+    name: "What the Harness Gives the Model"
+    type: "capability_map"
+    title: "The harness gives the model a body"
+    subtitle: "This is where intelligence becomes operational."
+    takeaway: "The harness is not 'the prompt.' It is the operating environment."
+    visual:
+      kind: "capability_map"
+      center: "MODEL"
+      items: ["Tools", "Context", "Memory", "Runtime loop", "Permissions", "State", "Evaluation", "Recovery", "Environment"]
+    speaker: "A map, not a deep-dive; the rungs unpack each item."
+    status: "draft"
+
+  - id: "1.4"
+    name: "Tony Stark Is Not Iron Man"
+    type: "metaphor"
+    title: "Tony Stark is the model. The armor is the harness."
+    subtitle: "The intelligence matters, but the body determines what the intelligence can do."
+    layout: hero
+    caption: ["Tony = model", "Armor = harness", "Different armor → different capability"]
+    takeaway: "The model may be the brain. The harness is the operational body."
+    visual:
+      kind: "image"
+      transparent: false
+      brief: >
+        Split composition: on the left, a lean human inventor figure (the mind);
+        on the right, a powerful mechanical exosuit/armor (the body). Technical
+        blueprint line-art, steel with cyan and orange accents, clearly two halves
+        of one system.
+    speaker: "Explicit mapping: Tony = model, armor = harness."
+    status: "draft"
+
+  - id: "1.5"
+    name: "You Don't Pick the Brain"
+    type: "concept"
+    title: "You don't pick the brain. You build the body."
+    subtitle: "Everyone can rent the same model. Your leverage is the system around it."
+    takeaway: "Harness engineering is where differentiation moves."
+    visual:
+      kind: "fanout"
+      center: "Claude / GPT / Gemini"
+      items: ["Chat harness", "Code harness", "Orchestration harness"]
+    speaker: "The engineering punchline; say it cleanly."
+    status: "draft"
+
+  - id: "1.6"
+    name: "Different Suits, Different Capabilities"
+    type: "comparison"
+    title: "Different missions need different suits"
+    subtitle: "A harness is a set of tools, skills, memory, and operating constraints."
+    takeaway: "There is no universal suit. There are mission-specific bodies."
+    visual:
+      kind: "cards_row"
+      items: ["Coding harness: repo search · edits · tests · git", "Research harness: web search · citations · synthesis · memory", "Orchestration harness: task queue · workers · state · review gates"]
+    speaker: "Introduce tools + skills + capabilities."
+    status: "draft"
+
+  - id: "1.7"
+    name: "Environment Changes Performance"
+    type: "metaphor"
+    title: "Same Spider-Man. Different city. Different result."
+    subtitle: "The same capabilities perform differently depending on the environment."
+    takeaway: "Do not judge the model without judging the environment you gave it."
+    visual:
+      kind: "image"
+      transparent: false
+      brief: >
+        Split scene, same agile hero in both halves: left, a dense vertical city
+        with many anchor points and paths; right, an empty flat valley with nothing
+        to grip. Technical blueprint line-art, cyan and orange accents.
+    speaker: "Bridge into context; environment is part of the harness."
+    status: "draft"
+
+  - id: "1.8"
+    name: "Capability Is System-Level"
+    type: "equation"
+    title: "Capability is system-level"
+    subtitle: "The unit of evaluation is not the model alone. It is the full system."
+    takeaway: "A stronger model in a weak harness can lose to a weaker model in a strong harness."
+    visual:
+      kind: "formula"
+      terms: ["Model", "Harness", "Environment"]
+    speaker: "Conceptual, not literal; transition to the ladder."
+    status: "draft"

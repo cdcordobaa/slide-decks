@@ -1,0 +1,305 @@
+section:
+  section_id: "1"
+  section_title: "Agent = Model + Harness"
+  duration: "17 min"
+  section_goal: "Define the core technical primitive and the brain/body mental model for the rest of the talk."
+  audience_state_before: "They feel the pain of being the harness but do not yet have a precise definition."
+  audience_state_after: "They understand the model is only one component of an agent system; capability is system-level."
+  core_claim: "The harness is where model intelligence becomes operational."
+  technical_concepts:
+    - "Model vs. agent"
+    - "Harness as runtime (tools, context, memory, state, permissions, evaluation, recovery)"
+    - "Environment as part of system performance"
+  visual_motifs:
+    - "Brain / body"
+    - "Tony Stark / armor"
+    - "Spider-Man: city vs. valley"
+  proof_points:
+    - "None yet; proof comes later in Rung 2."
+  transition_in: "So if you are the harness today, how do we fire you from that job?"
+  transition_out: "If the harness is the body, the journey is moving body-work out of the human and into infrastructure."
+  risks:
+    - "Metaphor overpowers the technical definition."
+    - "Audience thinks harness is only tools; must include memory, state, eval, recovery, environment."
+
+slides:
+  - slide_id: "1.1"
+    section: "Agent = Model + Harness"
+    section_goal: "Define the technical primitive."
+    slide_title: "A model is not an agent"
+    slide_type: "definition"
+    duration: "90 sec"
+    narrative_role: "Set the boundary so the rest of the talk does not collapse into 'better prompts'."
+    audience_takeaway: "A model produces tokens; an agent produces actions."
+    on_slide_headline: "A model is not an agent."
+    on_slide_body: []
+    speaker_note: "Set the boundary clearly. This prevents the rest of the talk from becoming 'write better prompts.'"
+    visual_brief: "Two boxes contrasting outputs: Model produces tokens; Agent produces actions."
+    layout: "Two boxes side by side, each with an output arrow."
+    visual_elements:
+      - "Box: Model"
+      - "Box: Agent"
+    chart_or_diagram: "two_boxes"
+    data_required:
+      boxes:
+        - label: "Model"
+          arrow: "produces"
+          result: "tokens"
+        - label: "Agent"
+          arrow: "produces"
+          result: "actions"
+    animation:
+      - "Reveal Model box, then Agent box"
+    style_direction: "Clean, technical, high contrast, minimal."
+    asset_references: []
+    designer_constraints:
+      - "No superhero art on this slide; keep it conceptual."
+      - "Exactly two boxes."
+    accessibility_note: "Arrows labeled with text ('produces'), not implied by color."
+    status: "ready for design"
+
+  - slide_id: "1.2"
+    section: "Agent = Model + Harness"
+    section_goal: "Give the equation that anchors the rest of the talk."
+    slide_title: "Agent = Model + Harness"
+    slide_type: "definition"
+    duration: "90 sec"
+    narrative_role: "First anchor slide; the core equation."
+    audience_takeaway: "A model becomes an agent only when a harness lets it act."
+    on_slide_headline: "Agent = Model + Harness"
+    on_slide_body:
+      - "Model → tokens"
+      - "Harness → tools, context, memory, state, permissions, evaluation, recovery"
+      - "Agent → actions"
+    speaker_note: "Introduce the core equation. Do not treat it as branding — it is the boundary between a language model and an operational system."
+    visual_brief: "Centered equation dominant; two component boxes merging into an agent box with subtle arrows. Not a complex architecture diagram."
+    layout: "Equation dominant center; small component labels underneath."
+    visual_elements:
+      - "Model box"
+      - "Harness box"
+      - "Agent output box"
+      - "Composition arrows"
+    chart_or_diagram: "equation"
+    data_required:
+      terms:
+        - "Model → tokens"
+        - "Harness → tools, context, memory, state, permissions, evaluation, recovery"
+        - "Agent → actions"
+    animation:
+      - "Reveal Model first"
+      - "Reveal Harness second"
+      - "Reveal Agent equation third"
+    style_direction: "Clean, technical, high contrast, minimal."
+    asset_references:
+      - "Talk page: Harness Engineering — The Operator's Journey"
+    designer_constraints:
+      - "Preserve the exact phrase 'Agent = Model + Harness.'"
+      - "Do not add components beyond Model, Harness, Agent."
+      - "Do not use a robot illustration here; keep it conceptual."
+    accessibility_note: "Equation must be readable from the back of the room."
+    status: "ready for design"
+
+  - slide_id: "1.3"
+    section: "Agent = Model + Harness"
+    section_goal: "Show what the harness supplies, as a map."
+    slide_title: "What the harness gives the model"
+    slide_type: "diagram"
+    duration: "2 min"
+    narrative_role: "Preview the harness responsibilities the rungs will later unpack."
+    audience_takeaway: "The harness gives the model a body: tools, context, memory, state, permissions, evaluation, and recovery."
+    on_slide_headline: "What the harness gives the model"
+    on_slide_body: []
+    speaker_note: "Do not over-explain each item yet. This is a map; the rungs will unpack them one by one."
+    visual_brief: "A capability ring around a central model node; each responsibility is a labeled node on the ring."
+    layout: "Central 'Model' node; responsibility chips arranged around it."
+    visual_elements:
+      - "Center: Model"
+      - "Ring chips: tools, context, memory, state, permissions, evaluation, recovery"
+    chart_or_diagram: "responsibility_ring"
+    data_required:
+      center: "Model"
+      held_by: "harness"
+      items:
+        - "Tools"
+        - "Context"
+        - "Memory"
+        - "State"
+        - "Permissions"
+        - "Evaluation"
+        - "Recovery"
+    animation:
+      - "Chips populate around the ring one by one"
+    style_direction: "Technical schematic; recurring responsibility icons introduced here and reused across the talk."
+    asset_references: []
+    designer_constraints:
+      - "These icons must be reused consistently in Sections 2+."
+      - "Do not annotate each item with a paragraph."
+    accessibility_note: "Each chip has a text label; icon is supportive only. Colorblind-safe palette."
+    status: "ready for design"
+
+  - slide_id: "1.4"
+    section: "Agent = Model + Harness"
+    section_goal: "Introduce the brain/body metaphor, kept technical."
+    slide_title: "The brain and the body"
+    slide_type: "metaphor"
+    duration: "2 min"
+    narrative_role: "First superhero visual; anchor the brain=model, body=harness mapping."
+    audience_takeaway: "The model may be the intelligence, but the harness is where intelligence becomes operational."
+    on_slide_headline: "The brain and the body"
+    on_slide_body:
+      - "The model may be the intelligence, but the harness is where intelligence becomes operational."
+    speaker_note: "Use Tony as the first visual metaphor. Keep the mapping explicit: Tony = model, armor = harness. Without Tony the armor is useless; without armor Tony cannot fly or survive combat."
+    visual_brief: "Tony Stark beside the Iron Man armor, with an explicit mapping table: brain↔model, body/armor↔harness."
+    layout: "Metaphor image left; explicit mapping table right."
+    visual_elements:
+      - "Tony Stark (brain) figure"
+      - "Iron Man armor (body) figure"
+      - "Mapping table"
+    chart_or_diagram: "mapping_table"
+    data_required:
+      rows:
+        - metaphor: "Tony Stark (brain)"
+          technical: "Model / intelligence"
+        - metaphor: "Armor (body)"
+          technical: "Harness / capabilities"
+        - metaphor: "JARVIS, sensors, flight, targeting"
+          technical: "Tools, context, capabilities"
+    animation:
+      - "Reveal mapping rows in sequence with the spoken mapping"
+    style_direction: "Superhero imagery is supportive; the mapping table carries the technical point."
+    asset_references:
+      - "Iron Man / Tony Stark reference (licensing TBD — placeholder illustration acceptable)"
+    designer_constraints:
+      - "The metaphor must support the technical point; no ambiguous fan-service art."
+      - "Mapping must be explicit and readable."
+    accessibility_note: "Mapping conveyed in the table text, independent of the illustration."
+    status: "ready for design"
+
+  - slide_id: "1.5"
+    section: "Agent = Model + Harness"
+    section_goal: "Land the engineering-leverage argument."
+    slide_title: "You don't pick the brain. You build the body."
+    slide_type: "metaphor"
+    duration: "90 sec"
+    narrative_role: "The business/engineering punchline of the section."
+    audience_takeaway: "Everyone can rent the same model; engineering leverage lives in the harness you build around it."
+    on_slide_headline: "You don't pick the brain. You build the body."
+    on_slide_body: []
+    speaker_note: "This is the engineering punchline. Say it cleanly. Everyone can rent the same model; the body is where the leverage lives."
+    visual_brief: "Same model API on one side; several different harnesses/suits on the other."
+    layout: "One 'Model API' node on the left; a fan of different harness/suit builds on the right."
+    visual_elements:
+      - "Shared 'Model API' node"
+      - "Multiple distinct harness builds"
+    chart_or_diagram: "mapping_table"
+    data_required:
+      rows:
+        - metaphor: "Same model APIs (rented)"
+          technical: "Commodity intelligence"
+        - metaphor: "Different suits you build"
+          technical: "Your harness = your leverage"
+    animation:
+      - "The single model fans out into multiple distinct harnesses"
+    style_direction: "Emphasize the many-bodies-one-brain contrast."
+    asset_references: []
+    designer_constraints:
+      - "Preserve the exact phrase 'You don't pick the brain. You build the body.'"
+      - "Do not overload with more than a few suits."
+    accessibility_note: "Contrast between shared vs. built conveyed by labels, not color alone."
+    status: "ready for design"
+
+  - slide_id: "1.6"
+    section: "Agent = Model + Harness"
+    section_goal: "Introduce tools + skills + capabilities as the makeup of a harness."
+    slide_title: "Different suits, different capabilities"
+    slide_type: "metaphor"
+    duration: "90 sec"
+    narrative_role: "Show that harnesses are composed of capability layers, and different missions need different bodies."
+    audience_takeaway: "Harnesses are made of tools, skills, and capabilities — and different missions need different bodies."
+    on_slide_headline: "Different suits, different capabilities"
+    on_slide_body: []
+    speaker_note: "Introduce 'tools + skills + capabilities' here. Mention that two Spider-Man suits can carry different capability sets."
+    visual_brief: "A capability-layer breakdown of a suit: tools / skills / memory / environment shown as stacked modules."
+    layout: "One suit silhouette annotated with a stacked capability layer."
+    visual_elements:
+      - "Suit silhouette"
+      - "Stacked capability modules"
+    chart_or_diagram: "capability_layer"
+    data_required:
+      layers:
+        - "Tools"
+        - "Skills"
+        - "Memory"
+        - "Environment"
+    animation:
+      - "Stack the capability modules onto the suit"
+    style_direction: "Modular, installable feel — capability packs snapping into place."
+    asset_references: []
+    designer_constraints:
+      - "Do not turn this into superhero splash art; the capability stack is the point."
+    accessibility_note: "Each capability layer labeled in text; order stable and readable."
+    status: "ready for design"
+
+  - slide_id: "1.7"
+    section: "Agent = Model + Harness"
+    section_goal: "Introduce environment/context as part of performance."
+    slide_title: "Environment is part of performance"
+    slide_type: "metaphor"
+    duration: "90 sec"
+    narrative_role: "Bridge into context: the same system underperforms in the wrong environment."
+    audience_takeaway: "Same model, same suit, different environment — different performance."
+    on_slide_headline: "Environment is part of performance"
+    on_slide_body:
+      - "Same model. Same suit. Different environment. Different performance."
+    speaker_note: "This is the bridge into context. Spider-Man in Manhattan is powerful; in an empty valley, far less so. Use the 'fish climbing a tree' line if useful."
+    visual_brief: "Split comparison: Spider-Man in dense Manhattan vs. an empty valley — same hero, different environment."
+    layout: "Two-panel split; identical hero, contrasting environments."
+    visual_elements:
+      - "Panel A: dense city (high performance)"
+      - "Panel B: empty valley (low performance)"
+    chart_or_diagram: "mapping_table"
+    data_required:
+      rows:
+        - metaphor: "Manhattan (rich environment)"
+          technical: "Good context → high capability"
+        - metaphor: "Empty valley (poor environment)"
+          technical: "Poor context → low capability"
+    animation:
+      - "Reveal both panels together for direct comparison"
+    style_direction: "The two environments must read at a glance; hero is identical in both."
+    asset_references: []
+    designer_constraints:
+      - "Keep the hero visually identical across panels — only the environment changes."
+    accessibility_note: "Environment difference conveyed by scene content and labels, not color alone."
+    status: "ready for design"
+
+  - slide_id: "1.8"
+    section: "Agent = Model + Harness"
+    section_goal: "Synthesize: capability is system-level."
+    slide_title: "Capability is system-level"
+    slide_type: "definition"
+    duration: "90 sec"
+    narrative_role: "Synthesize the section into one conceptual formula and bridge to the ladder."
+    audience_takeaway: "We should evaluate agent systems as systems, not models in isolation."
+    on_slide_headline: "System capability = Model × Harness × Environment"
+    on_slide_body:
+      - "Conceptual, not a literal formula."
+    speaker_note: "Make clear this is conceptual, not a literal equation. Then transition to the operator ladder: if the harness is the body, the journey is moving body-work out of the human."
+    visual_brief: "A single large conceptual formula with three multiplied factors."
+    layout: "Large centered formula; small 'conceptual, not literal' caption."
+    visual_elements:
+      - "Formula with three factors"
+    chart_or_diagram: "formula"
+    data_required:
+      factors:
+        - "Model"
+        - "Harness"
+        - "Environment"
+    animation:
+      - "Multiply the three factors in one at a time"
+    style_direction: "Clean, high contrast; echoes the 1.2 equation styling."
+    asset_references: []
+    designer_constraints:
+      - "Label it clearly as conceptual so no one reads it as a benchmark."
+    accessibility_note: "Formula legible from the back; '×' rendered as a clear multiplication glyph."
+    status: "ready for design"

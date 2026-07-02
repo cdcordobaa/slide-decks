@@ -1,0 +1,175 @@
+section:
+  section_id: "0"
+  section_title: "Opening — The Mirror"
+  duration: "6 min"
+  section_goal: "Diagnose the hidden role and create the 'oh no, that's me' realization without explaining the whole system yet."
+  audience_state_before: "They have used AI tools and know the feeling of babysitting the model, but have not named what they are doing."
+  audience_state_after: "They realize they are personally acting as runtime infrastructure — the harness."
+  core_claim: "The most important component in your AI workflow may not be the model — it's you, operating the missing runtime by hand."
+  visual_motifs:
+    - "The mirror (opening reveal)"
+    - "Broken/unengineered system component"
+  transition_in: "Cold open. Black slide, silence."
+  transition_out: "So if you are the harness today, the question is: how do we fire you from that job, one responsibility at a time?"
+  risks:
+    - "Explaining the full prompter workflow too early (save copy-paste pain for Rung 1)."
+    - "Saying 'harness' before the 0.4 reveal and killing the turn."
+
+slides:
+  - slide_id: "0.1"
+    section: "Opening — The Mirror"
+    section_goal: "Diagnose the hidden role without repeating Rung 1."
+    slide_title: "The missing component"
+    slide_type: "hook"
+    duration: "60 sec"
+    narrative_role: "Cold open. Create curiosity and tension before naming anything."
+    audience_takeaway: "The most important component in my AI workflow may not be the model."
+    on_slide_headline: "There is a missing component in your AI stack."
+    on_slide_body: []
+    speaker_note: "Open slowly, near silence. Do NOT say 'harness' yet. Let the room wonder what the missing component is."
+    visual_brief: "Near-black slide, one sentence optically centered, enormous negative space. No decoration, no logo dominance."
+    layout: "Single centered line on black."
+    visual_elements:
+      - "One headline, centered"
+    chart_or_diagram: "none"
+    data_required: "none"
+    animation:
+      - "Fade the single line up from black"
+    style_direction: "Maximum restraint. Black background, off-white text. Theatrical."
+    asset_references: []
+    designer_constraints:
+      - "No body text."
+      - "No icons or metaphor art on this slide."
+      - "Do not reveal the word 'harness'."
+    accessibility_note: "Single line must be readable from the back of a large room; very high contrast."
+    status: "ready for design"
+
+  - slide_id: "0.2"
+    section: "Opening — The Mirror"
+    section_goal: "Diagnose the hidden role without repeating Rung 1."
+    slide_title: "The runtime responsibilities"
+    slide_type: "diagram"
+    duration: "75 sec"
+    narrative_role: "Name the jobs the hidden component performs, abstractly."
+    audience_takeaway: "These are runtime responsibilities, not just prompting habits."
+    on_slide_headline: "It assembles context. Runs tools. Catches errors."
+    on_slide_body: []
+    speaker_note: "Name the jobs one by one. Keep it abstract; avoid the copy-paste story here — that lands in Rung 1 as a system diagram."
+    visual_brief: "A minimal checklist of runtime responsibilities revealing one at a time. Read as an infrastructure spec, not a to-do list."
+    layout: "Headline top; responsibility checklist stacked below."
+    visual_elements:
+      - "Checklist rows with a small check/gear glyph"
+    chart_or_diagram: "checklist"
+    data_required:
+      items:
+        - "Assembles context"
+        - "Runs tools"
+        - "Catches errors"
+        - "Judges output"
+        - "Decides what is safe to execute"
+    animation:
+      - "Reveal each responsibility one at a time"
+    style_direction: "Cool, technical, monospace-flavored labels."
+    asset_references: []
+    designer_constraints:
+      - "No copy-paste / file-paste imagery yet."
+      - "Keep items abstract and short."
+    accessibility_note: "Do not rely on the glyph alone; each item has a text label."
+    status: "ready for design"
+
+  - slide_id: "0.3"
+    section: "Opening — The Mirror"
+    section_goal: "Diagnose the hidden role without repeating Rung 1."
+    slide_title: "The unengineered runtime"
+    slide_type: "diagram"
+    duration: "60 sec"
+    narrative_role: "Introduce discomfort: this powerful runtime is not engineered."
+    audience_takeaway: "The hidden runtime is powerful, but it is not engineered."
+    on_slide_headline: "It has no logs. No tests. No memory."
+    on_slide_body:
+      - "It needs coffee."
+    speaker_note: "This is where the discomfort starts. Make it feel like an infrastructure smell — a component in prod with no observability."
+    visual_brief: "A single system-component block flagged with a warning state; the 'missing' engineering properties struck through or greyed."
+    layout: "Centered component block with a warning triangle; missing-properties row beneath."
+    visual_elements:
+      - "Component block"
+      - "Warning triangle"
+      - "Struck-through property tags: logs, tests, version control, memory"
+    chart_or_diagram: "checklist"
+    data_required:
+      state: "missing"
+      items:
+        - "No logs"
+        - "No tests"
+        - "No version control"
+        - "No memory"
+    animation:
+      - "Warning state pulses in after the properties list"
+    style_direction: "Amber/warning accent against the dark base. Restrained, not alarmist."
+    asset_references: []
+    designer_constraints:
+      - "Warning color is an accent, not the whole slide."
+      - "Keep 'It needs coffee.' small and dry — it is a beat, not a joke slide."
+    accessibility_note: "Warning must not be conveyed by color alone; include the triangle glyph and 'No ...' text."
+    status: "ready for design"
+
+  - slide_id: "0.4"
+    section: "Opening — The Mirror"
+    section_goal: "Diagnose the hidden role without repeating Rung 1."
+    slide_title: "The reveal"
+    slide_type: "hook"
+    duration: "75 sec"
+    narrative_role: "The emotional turn. Name the hidden role: the audience is the runtime."
+    audience_takeaway: "I am not just prompting the model — I am operating the missing runtime by hand."
+    on_slide_headline: "You are the harness."
+    on_slide_body: []
+    speaker_note: "Pause after the reveal. This is the emotional turn of the opening. Let it sit before moving on."
+    visual_brief: "A mirror-like reveal landing on the word YOU, resolving into the core phrase. Minimal, high-impact."
+    layout: "Single dominant phrase, centered, mirror motif behind."
+    visual_elements:
+      - "Mirror / reflection motif"
+      - "Core phrase"
+    chart_or_diagram: "none"
+    data_required: "none"
+    animation:
+      - "Mirror resolves from the 0.3 component into the word YOU"
+      - "Then the full phrase 'You are the harness.'"
+    style_direction: "The single most important slide of the opening. Clean, high contrast, no clutter."
+    asset_references: []
+    designer_constraints:
+      - "Preserve the exact phrase 'You are the harness.'"
+      - "No superhero art here — keep it human and conceptual."
+    accessibility_note: "Phrase legible from the back of the room; mirror motif must not reduce text contrast."
+    status: "ready for design"
+
+  - slide_id: "0.5"
+    section: "Opening — The Mirror"
+    section_goal: "Diagnose the hidden role without repeating Rung 1."
+    slide_title: "From harness to operator"
+    slide_type: "transition"
+    duration: "50 sec"
+    narrative_role: "Convert the reveal into the promise of the talk."
+    audience_takeaway: "The talk is about firing yourself from that job one responsibility at a time."
+    on_slide_headline: "From being the harness to operating one."
+    on_slide_body:
+      - "We'll fire you from that job — one responsibility at a time."
+    speaker_note: "This becomes the promise of the talk. Transition immediately into the technical definition (Section 1)."
+    visual_brief: "A simple directional arrow from 'Human-as-harness' to 'Human-as-operator'."
+    layout: "Two labeled nodes with an arrow between; promise line beneath."
+    visual_elements:
+      - "Node: Human-as-harness"
+      - "Arrow"
+      - "Node: Human-as-operator"
+    chart_or_diagram: "arrow_flow"
+    data_required:
+      steps:
+        - "Human-as-harness"
+        - "Human-as-operator"
+    animation:
+      - "Arrow draws left to right"
+    style_direction: "Clean, forward-moving. Sets up the ladder without showing all four rungs yet."
+    asset_references: []
+    designer_constraints:
+      - "Only two nodes here; do not preview all four rungs (that is Section 2)."
+    accessibility_note: "Arrow direction reinforced by node order and labels, not color."
+    status: "ready for design"

@@ -1,0 +1,16 @@
+section:
+  id: "Break"
+  title: "Break"
+  goal: "Reset. The second half is about operating systems of agents."
+
+cards:
+  - id: "B.1"
+    name: "Break"
+    type: "transition"
+    title: "10-minute break"
+    subtitle: "When we come back: from one agent to many."
+    takeaway: "The second half is about operating systems of agents."
+    visual:
+      kind: "flow"
+      steps: ["Execution problem", "Coordination problem"]
+    status: "draft"

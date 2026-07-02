@@ -1,0 +1,23 @@
+# Deck-level metadata + build configuration.
+# The generator reads this for front matter and the status gate;
+# slide content lives in the section-*.yaml files.
+deck:
+  title: "You Are the Harness"
+  subtitle: "The Operator's Journey from Prompting to Agent Systems"
+  audience: "Harness engineering / engineering practitioners"
+  date: "2026"
+  visual_system: >
+    Dark mission-control aesthetic. High contrast, sparse, technical.
+    The superhero metaphor supports the argument and never replaces it.
+  # Phrases that must survive verbatim through design (from the spec architecture doc).
+  core_phrases:
+    - "You are the harness."
+    - "Agent = Model + Harness."
+    - "You don't pick the brain. You build the body."
+    - "The spec is the new keyboard."
+  source:
+    - "Harness Engineering — The Operator's Journey (Notion talk page)"
+    - "Harness Talk — Designer-Ready Slide Spec Architecture (Notion)"
+  # Status gate: only slides at this level or higher are rendered.
+  # Order: draft < needs data < ready for design < designed < reviewed
+  min_status: "ready for design"

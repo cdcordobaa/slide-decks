@@ -1,0 +1,25 @@
+title: |-
+  Rung 2: Supervisor
+  (The Model Gets Hands)
+status: "STATUS: TOOL LOOP ENGAGED // THE MODEL ACTS."
+copy:
+  - "The first operational upgrade moves tool execution out of the human. The model can navigate paths and run commands. You supervise the loop, intervening only when it drifts."
+  - "Do not judge a model's 'code vision' before inspecting the affordances of the environment you gave it."
+diagram:
+  core: "MODEL"
+  phases: ["ACT", "OBSERVE", "ADJUST"]
+  modules: ["Terminal", "Filesystem", "Git", "Tests"]
+  dims:
+    dia: "DIA: 250mm"
+    cycle: "CYCLE: 300ms"
+    bus: "TOOL_INTERFACE_BUS"
+    offset: "OFFSET: 20u"
+illustration:
+  src: "assets/rung2-robot-cut.png"
+  left: 70
+  top: 452
+  width: 196
+legend:
+  - ["cy", "STRUCTURAL / DATA PATH"]
+  - ["orange", "CORE FUNCTION"]
+  - ["steel", "SUPPORT STRUCTURE"]

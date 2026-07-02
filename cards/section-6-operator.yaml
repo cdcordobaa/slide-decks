@@ -1,0 +1,103 @@
+section:
+  id: "6"
+  title: "Rung 4 — Operator"
+  goal: "Show the final form: the agent system as operational infrastructure."
+
+cards:
+  - id: "6.1"
+    name: "Rung 4: Operator"
+    type: "ladder_transition"
+    title: "Rung 4: Operator"
+    subtitle: "You are no longer inside the armor. You are in mission control."
+    takeaway: "The harness runs the fleet. The human manages specs, constraints, and review."
+    visual:
+      kind: "ladder"
+      current: "Operator"
+      rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
+    status: "draft"
+
+  - id: "6.2"
+    name: "Mission Control"
+    type: "metaphor"
+    title: "You don't fly one suit. You operate the fleet."
+    subtitle: "The human moves from direct execution to controlled delegation."
+    layout: split
+    side: image-right
+    body:
+      - "The harness runs the agents, workspaces, and retries."
+      - "You own specs, priorities, constraints, and review."
+      - "Every run is isolated, logged, and gated."
+    takeaway: "Operator mode is not absence of humans. It is better placement of humans."
+    visual:
+      kind: "image"
+      transparent: false
+      brief: >
+        A mission-control room seen from behind an operator, facing a wall of
+        screens; each screen shows a small agent 'suit' running a task. Calm,
+        technical blueprint line-art, steel with cyan and orange accents.
+      overlay: ["Ticket A", "Ticket B", "Ticket C", "CI", "Review", "Logs"]
+    status: "draft"
+
+  - id: "6.3"
+    name: "What the Human Owns Now"
+    type: "comparison"
+    title: "The human owns judgment, not every step"
+    subtitle: "At the operator rung, the human manages intent, constraints, exceptions, and review."
+    takeaway: "The role changes from worker to operator."
+    visual:
+      kind: "transfer"
+      from: { label: "Human owns", items: ["specs", "priorities", "constraints", "review", "exceptions", "system improvement"] }
+      to: { label: "Harness owns", items: ["execution", "state", "workspaces", "tools", "retries", "tests", "handoffs", "PR creation"] }
+    status: "draft"
+
+  - id: "6.4"
+    name: "Containment Creates Trust"
+    type: "concept"
+    title: "Trust comes from containment"
+    subtitle: "You can delegate more when blast radius is engineered."
+    takeaway: "The harness makes delegation safe enough to scale."
+    visual:
+      kind: "capability_map"
+      center: "Agent (sandboxed)"
+      items: ["isolated workspace", "permission boundary", "branch per task", "max turns", "CI gate", "human review"]
+    status: "draft"
+
+  - id: "6.5"
+    name: "The Agent Does Not Grade Its Own Homework"
+    type: "big_claim"
+    title: "The agent should not grade its own homework"
+    subtitle: "The agent can do the work. External systems decide whether it is done."
+    takeaway: "Done is an external judgment, not an agent feeling."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "Agent", result: "opens PR · runs tests · explains work · requests review" }
+        - { label: "CI / Human / Reviewer", result: "decides done" }
+    status: "draft"
+
+  - id: "6.6"
+    name: "Demo: Spec to PR"
+    type: "demo"
+    layout: hero            # image is the main citizen, inside our chrome + label strip
+    title: "Demo: from spec to PR"
+    subtitle: "Watch the harness turn a ticket into controlled, reviewable, testable work."
+    caption: ["Ticket", "Workspace", "Agent", "Tests / CI", "Review", "PR", "Merge"]
+    takeaway: "The demo is not 'AI wrote code.' It is 'the harness controlled the work.'"
+    visual:
+      kind: "flow"
+      steps: ["Ticket", "Ready", "Workspace created", "Agent works", "Tests run", "PR opens", "Human review", "Merge / request changes"]
+    speaker: "Live demo. Have a fallback if it fails."
+    status: "draft"
+
+  - id: "6.7"
+    name: "The Unit of Engineering Changed"
+    type: "concept"
+    title: "The unit of engineering changed"
+    subtitle: "You move from writing every line to designing the system that turns specs into safe work."
+    takeaway: "This is not just productivity. It changes the shape of engineering work."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "Before", result: "Engineer → code" }
+        - { label: "After", result: "Engineer → spec → harness → PR → review" }
+    status: "draft"

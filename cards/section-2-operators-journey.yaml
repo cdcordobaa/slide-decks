@@ -1,0 +1,54 @@
+section:
+  id: "2"
+  title: "The Operator's Journey"
+  goal: "Give the audience the map of the whole talk before entering the rungs."
+
+cards:
+  - id: "2.1"
+    name: "The Ladder"
+    type: "ladder"
+    title: "The operator's journey"
+    subtitle: "Each rung moves one more harness responsibility out of the human."
+    takeaway: "This is a talk about changing your role, not just changing your tools."
+    visual:
+      kind: "ladder"
+      rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
+    speaker: "Second anchor slide; we return to this ladder repeatedly."
+    status: "draft"
+
+  - id: "2.2"
+    name: "The Four Roles"
+    type: "comparison"
+    title: "Four roles, four operating modes"
+    subtitle: "The model may improve, but your job changes only when the harness changes."
+    takeaway: "Each role is a different relationship to the harness."
+    visual:
+      kind: "cards_row"
+      items: ["Prompter — you are the loop", "Supervisor — you babysit the loop", "Orchestrator — you dispatch the loops", "Operator — you operate the system"]
+    speaker: "Preview each rung's relationship to the harness."
+    status: "draft"
+
+  - id: "2.3"
+    name: "The Rule of the Ladder"
+    type: "diagram"
+    title: "The ladder is about responsibility transfer"
+    subtitle: "Each rung is defined by what you stop doing manually."
+    takeaway: "The destination is not autonomy without humans. It is controlled delegation."
+    visual:
+      kind: "transfer"
+      from: { label: "Human", items: ["context", "tools", "state", "retry", "eval", "safety"] }
+      to: { label: "Harness", items: ["context", "tools", "state", "retry", "eval", "safety"] }
+    speaker: "Icons migrate from human to harness as you climb."
+    status: "draft"
+
+  - id: "2.4"
+    name: "Where We're Going"
+    type: "transition"
+    title: "From prompting to operating"
+    subtitle: "We climb by following the failures: attention, orientation, coordination, trust."
+    takeaway: "Every failure on one rung becomes the design requirement for the next."
+    visual:
+      kind: "flow"
+      steps: ["Prompting", "Tool loops", "Multi-agent coordination", "Operational harnesses"]
+    speaker: "Set expectations: each rung solves the previous rung's failure."
+    status: "draft"

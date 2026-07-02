@@ -1,0 +1,227 @@
+section:
+  section_id: "2"
+  section_title: "The Operator's Journey"
+  duration: "5 min"
+  section_goal: "Give the audience the map of the whole talk before entering the rungs."
+  audience_state_before: "They understand the harness as the body but do not yet have the roadmap."
+  audience_state_after: "They hold the four-rung ladder and understand each rung is defined by a responsibility they stop doing manually."
+  core_claim: "Each rung is defined not by what the model can do, but by which harness responsibility you stop doing manually."
+  visual_motifs:
+    - "The ladder: Prompter → Supervisor → Orchestrator → Operator"
+    - "Responsibility icons moving from human to harness"
+  transition_in: "Once you see the harness as the body, the operator's journey becomes obvious: first you are the body, then you build one, then you operate many."
+  transition_out: "Let's start where most of us actually are: Prompter."
+  risks:
+    - "Going deep on any rung here; this section is a map, not the content."
+
+slides:
+  - slide_id: "2.1"
+    section: "The Operator's Journey"
+    section_goal: "Establish the ladder as the map of the talk."
+    slide_title: "The operator's journey"
+    slide_type: "diagram"
+    duration: "90 sec"
+    narrative_role: "Second anchor slide; the ladder the talk returns to repeatedly."
+    audience_takeaway: "The journey is not about smarter models; it is about moving harness responsibilities out of the human."
+    on_slide_headline: "The operator's journey"
+    on_slide_body: []
+    speaker_note: "This is the second anchor slide. Tell the audience you will return to this ladder repeatedly across the talk."
+    visual_brief: "A four-rung ladder rising left-to-right (or bottom-to-top): Prompter → Supervisor → Orchestrator → Operator."
+    layout: "Ascending four-rung ladder spanning the slide."
+    visual_elements:
+      - "Four labeled rungs with an ascending path"
+    chart_or_diagram: "ladder"
+    data_required:
+      rungs:
+        - "Prompter"
+        - "Supervisor"
+        - "Orchestrator"
+        - "Operator"
+      current: null
+    animation:
+      - "Draw the ladder rung by rung, bottom to top"
+    style_direction: "The signature roadmap of the talk; must feel like a map you can return to."
+    asset_references: []
+    designer_constraints:
+      - "Rung order and labels are fixed and reused on every later ladder slide."
+    accessibility_note: "Rungs labeled in text; ascending order conveys progression without relying on color."
+    status: "ready for design"
+
+  - slide_id: "2.2"
+    section: "The Operator's Journey"
+    section_goal: "Preview Rung 1 without going deep."
+    slide_title: "Rung 1 — Prompter"
+    slide_type: "diagram"
+    duration: "35 sec"
+    narrative_role: "Preview the Prompter rung on the shared ladder."
+    audience_takeaway: "At the first rung, you manually drive the model and act as the entire harness."
+    on_slide_headline: "Rung 1 — Prompter"
+    on_slide_body:
+      - "You are the whole harness."
+    speaker_note: "Do not go deep yet. Just preview the role: the human holds every responsibility."
+    visual_brief: "The shared ladder with the Prompter rung highlighted; the human holds all responsibility icons."
+    layout: "Ladder with current rung highlighted; responsibility icons clustered on the human."
+    visual_elements:
+      - "Ladder (Prompter highlighted)"
+      - "Human holding all responsibility icons"
+    chart_or_diagram: "ladder"
+    data_required:
+      rungs:
+        - "Prompter"
+        - "Supervisor"
+        - "Orchestrator"
+        - "Operator"
+      current: "Prompter"
+      caption: "You manually drive the model."
+    animation:
+      - "Highlight the Prompter rung"
+    style_direction: "Consistent with 2.1 ladder; only the highlight changes."
+    asset_references: []
+    designer_constraints:
+      - "Reuse the exact ladder from 2.1; do not redraw a new style."
+    accessibility_note: "Current rung indicated by label emphasis and a marker, not color alone."
+    status: "ready for design"
+
+  - slide_id: "2.3"
+    section: "The Operator's Journey"
+    section_goal: "Preview Rung 2 without going deep."
+    slide_title: "Rung 2 — Supervisor"
+    slide_type: "diagram"
+    duration: "40 sec"
+    narrative_role: "Preview the Supervisor rung on the shared ladder."
+    audience_takeaway: "The model gets tools, but you still supervise context, judgment, and recovery."
+    on_slide_headline: "Rung 2 — Supervisor"
+    on_slide_body:
+      - "Execution is partially offloaded; you still babysit."
+    speaker_note: "Preview tool loops and babysitting. Mention this is where code understanding, Orientation Tax, and Context Anxiety will land."
+    visual_brief: "Shared ladder with Supervisor highlighted; model now has hands/tools while the human watches closely."
+    layout: "Ladder with current rung highlighted; model with tools, human observing."
+    visual_elements:
+      - "Ladder (Supervisor highlighted)"
+      - "Model with hands/tools"
+      - "Human watching"
+    chart_or_diagram: "ladder"
+    data_required:
+      rungs:
+        - "Prompter"
+        - "Supervisor"
+        - "Orchestrator"
+        - "Operator"
+      current: "Supervisor"
+      caption: "The model has tools, but you babysit."
+    animation:
+      - "Highlight the Supervisor rung"
+    style_direction: "Consistent ladder styling."
+    asset_references: []
+    designer_constraints:
+      - "Reuse the exact ladder from 2.1."
+    accessibility_note: "Current rung indicated by label emphasis and a marker, not color alone."
+    status: "ready for design"
+
+  - slide_id: "2.4"
+    section: "The Operator's Journey"
+    section_goal: "Preview Rung 3 without going deep."
+    slide_title: "Rung 3 — Orchestrator"
+    slide_type: "diagram"
+    duration: "40 sec"
+    narrative_role: "Preview the Orchestrator rung on the shared ladder."
+    audience_takeaway: "Once agents can act, the hard problem becomes coordination."
+    on_slide_headline: "Rung 3 — Orchestrator"
+    on_slide_body:
+      - "You dispatch agents from specs; coordination becomes the problem."
+    speaker_note: "Preview specs, subagents, isolation, and proof-of-work — the coordination problems of many agents."
+    visual_brief: "Shared ladder with Orchestrator highlighted; a human dispatching multiple agents from tickets/specs."
+    layout: "Ladder with current rung highlighted; human dispatching several agents."
+    visual_elements:
+      - "Ladder (Orchestrator highlighted)"
+      - "Human dispatching multiple agents"
+      - "Tickets / specs"
+    chart_or_diagram: "ladder"
+    data_required:
+      rungs:
+        - "Prompter"
+        - "Supervisor"
+        - "Orchestrator"
+        - "Operator"
+      current: "Orchestrator"
+      caption: "You dispatch agents from specs."
+    animation:
+      - "Highlight the Orchestrator rung"
+    style_direction: "Consistent ladder styling."
+    asset_references: []
+    designer_constraints:
+      - "Reuse the exact ladder from 2.1."
+    accessibility_note: "Current rung indicated by label emphasis and a marker, not color alone."
+    status: "ready for design"
+
+  - slide_id: "2.5"
+    section: "The Operator's Journey"
+    section_goal: "Preview Rung 4 and set up the demo."
+    slide_title: "Rung 4 — Operator"
+    slide_type: "diagram"
+    duration: "45 sec"
+    narrative_role: "Preview the Operator rung and foreshadow the live demo."
+    audience_takeaway: "At the top, the harness runs the fleet and the human manages specs, constraints, and review."
+    on_slide_headline: "Rung 4 — Operator"
+    on_slide_body:
+      - "The harness runs the fleet; you manage specs, constraints, and review."
+    speaker_note: "Preview the demo. Make clear the goal is not full autonomy; it is controlled, reviewable work — mission control, not being inside the suit."
+    visual_brief: "Shared ladder with Operator highlighted; mission control overseeing a fleet of suits."
+    layout: "Ladder with current rung highlighted; mission-control view of a fleet."
+    visual_elements:
+      - "Ladder (Operator highlighted)"
+      - "Mission control"
+      - "Fleet of suits"
+    chart_or_diagram: "ladder"
+    data_required:
+      rungs:
+        - "Prompter"
+        - "Supervisor"
+        - "Orchestrator"
+        - "Operator"
+      current: "Operator"
+      caption: "The harness runs the system."
+    animation:
+      - "Highlight the Operator rung"
+    style_direction: "Consistent ladder styling; introduce the mission-control motif that returns in Rung 4."
+    asset_references: []
+    designer_constraints:
+      - "Reuse the exact ladder from 2.1."
+      - "Operator = human in the control room, not inside the suit."
+    accessibility_note: "Current rung indicated by label emphasis and a marker, not color alone."
+    status: "ready for design"
+
+  - slide_id: "2.6"
+    section: "The Operator's Journey"
+    section_goal: "State the rule of the ladder and transition into Rung 1."
+    slide_title: "The rule of the ladder"
+    slide_type: "transition"
+    duration: "50 sec"
+    narrative_role: "Give the rule that governs every rung, then hand off to Rung 1."
+    audience_takeaway: "Each rung is defined by which harness responsibility you stop doing manually."
+    on_slide_headline: "The rule of the ladder"
+    on_slide_body:
+      - "Each rung is defined by which harness responsibility you stop doing manually."
+    speaker_note: "Use this as the transition into Rung 1: 'Let's start where most of us actually are.' Show responsibility icons migrating from human to harness."
+    visual_brief: "The same ladder with the responsibility icons visibly moving from the human toward the harness as the rungs rise."
+    layout: "Ladder with responsibility icons mid-migration from human to harness."
+    visual_elements:
+      - "Ladder"
+      - "Responsibility icons migrating human → harness"
+    chart_or_diagram: "ladder"
+    data_required:
+      rungs:
+        - "Prompter"
+        - "Supervisor"
+        - "Orchestrator"
+        - "Operator"
+      current: null
+      caption: "Responsibilities move from human to harness as you climb."
+    animation:
+      - "Icons slide from the human side to the harness side across the rungs"
+    style_direction: "Ties the section together; the migration is the whole point."
+    asset_references: []
+    designer_constraints:
+      - "Use the same responsibility icons introduced in 1.3."
+    accessibility_note: "Migration conveyed by icon position and labels, not color alone."
+    status: "ready for design"

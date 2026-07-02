@@ -1,0 +1,209 @@
+/* ============================================================
+   NotebookLM-style explainer cards — light, clean, diagram-first.
+   One teaching card per slide: eyebrow, big title, teaching
+   subtitle, central visual, bottom takeaway.
+   Compatible with create-slide-deck: each card also carries the
+   .slide class so render-pdf.mjs finds and paginates it.
+   ============================================================ */
+
+:root {
+  --page: #eceef2;
+  --card: #ffffff;
+  --ink: #171b21;
+  --ink-soft: #3a424e;
+  --muted: #6b7482;
+  --line: #e2e6ec;
+  --line-strong: #cfd5de;
+  --accent: #3b5bdb;         /* indigo */
+  --accent-ink: #2a41a8;
+  --accent-soft: #eef1fe;
+  --accent-soft-line: #d6ddfb;
+  --dashed: #aab2bf;
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+/* ---------- Editing toolbar ---------- */
+.edit-toolbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 12px 22px;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+.edit-toolbar p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
+.edit-toolbar strong { color: var(--ink); font-weight: 700; }
+
+/* ---------- Deck + card frame ---------- */
+.deck { display: grid; gap: 40px; justify-items: center; padding: 40px 32px 80px; }
+.slide-wrap { width: var(--slide-w); }
+
+.card.slide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--slide-w);
+  height: var(--slide-h);
+  overflow: hidden;
+  padding: 58px 68px 30px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(23, 27, 33, 0.12);
+}
+.card.slide:focus { outline: 3px solid var(--accent-soft-line); outline-offset: 6px; }
+
+.card__eyebrow {
+  font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 700; color: var(--accent); margin-bottom: 18px;
+}
+.card__title { margin: 0; font-size: 46px; line-height: 1.06; letter-spacing: -0.015em; font-weight: 800; }
+.card__subtitle { margin: 14px 0 0; font-size: 25px; line-height: 1.32; color: var(--ink-soft); max-width: 1000px; }
+
+.card__visual { flex: 1 1 auto; display: grid; place-items: center; width: 100%; padding: 14px 0; min-height: 0; }
+
+.card__takeaway {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 22px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-line);
+  border-radius: 12px;
+  font-size: 21px; font-weight: 650; color: var(--ink);
+}
+.card__takeaway-mark { color: var(--accent); font-weight: 800; }
+
+/* Big-claim cards center the header and enlarge the title */
+.card--big_claim { text-align: center; }
+.card--big_claim .card__title { font-size: 60px; }
+.card--big_claim .card__subtitle { margin-left: auto; margin-right: auto; }
+
+/* ============================================================
+   Visual kinds
+   ============================================================ */
+
+.ico { width: 22px; height: 22px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+/* stack — layered diagram; icon + label + what each layer does */
+.stack { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; width: min(620px, 100%); }
+.stack__item {
+  display: flex; align-items: center; gap: 15px;
+  padding: 14px 20px; text-align: left;
+  border: 1px solid var(--line-strong); border-radius: 12px;
+  background: #f7f9fc;
+}
+.stack__ico { color: var(--accent); width: 24px; height: 24px; }
+.stack__label { font-size: 22px; font-weight: 700; }
+.stack__cap { font-size: 16px; color: var(--muted); font-weight: 500; }
+.stack__cap::before { content: "— "; }
+.stack__tag {
+  margin-left: auto; font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--muted); border: 1px dashed var(--dashed); border-radius: 999px; padding: 4px 12px;
+}
+.stack__item--missing {
+  border-style: dashed; border-color: var(--dashed);
+  background: repeating-linear-gradient(45deg, #f4f6fa, #f4f6fa 10px, #eef1f6 10px, #eef1f6 20px);
+}
+.stack__item--missing .stack__ico { color: var(--muted); }
+.stack__item--missing .stack__label { color: var(--ink-soft); }
+
+/* hub — central node + explained satellites + connector wires */
+.hub { position: relative; width: 100%; max-width: 1010px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 26px; min-height: 340px; }
+.hub__wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.hub__wires line { stroke: var(--line-strong); stroke-width: 1.5; }
+.hub__col { display: grid; gap: 16px; z-index: 1; }
+.hub__col--left { justify-items: end; }
+.hub__col--left .hub__node { flex-direction: row-reverse; text-align: right; }
+.hub__node {
+  display: flex; align-items: center; gap: 12px; max-width: 300px;
+  padding: 12px 16px; border: 1px solid var(--line-strong); border-radius: 12px;
+  background: var(--card); box-shadow: 0 4px 12px rgba(23, 27, 33, 0.05);
+}
+.hub__ico { color: var(--accent); }
+.hub__label { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.hub__cap { font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+.hub__center {
+  z-index: 1; justify-self: center; display: grid; justify-items: center; gap: 4px;
+  min-width: 132px; padding: 20px 24px; text-align: center;
+  border: 2px solid var(--line-strong); border-radius: 18px; background: #f7f9fc;
+}
+.hub__center-ico { width: 26px; height: 26px; color: var(--muted); }
+.hub__center-label { font-size: 30px; font-weight: 800; color: var(--muted); }
+.hub__center-cap { font-size: 13.5px; color: var(--muted); max-width: 150px; }
+.hub--reveal .hub__center { border-color: var(--accent); background: var(--accent-soft); }
+.hub--reveal .hub__center-ico, .hub--reveal .hub__center-label { color: var(--accent-ink); }
+
+/* transfer — two labelled columns (icons per item) with an arrow + caption */
+.transfer { display: grid; grid-template-columns: 1fr auto 1fr; gap: 22px; align-items: center; width: 100%; }
+.transfer__col { padding: 22px 26px; border: 1px solid var(--line-strong); border-radius: 16px; background: #f7f9fc; }
+.transfer__col--to { border-color: var(--accent-soft-line); background: var(--accent-soft); }
+.transfer__label { font-size: 20px; font-weight: 800; margin-bottom: 14px; }
+.transfer__col--to .transfer__label { color: var(--accent-ink); }
+.transfer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.transfer__list li { display: flex; align-items: center; gap: 11px; font-size: 20px; color: var(--ink-soft); }
+.transfer__ico { color: var(--accent); }
+.transfer__mid { display: grid; justify-items: center; gap: 8px; }
+.transfer__arrow { font-size: 42px; color: var(--accent); line-height: 1; }
+.transfer__cap { font-size: 13.5px; color: var(--muted); max-width: 120px; text-align: center; }
+
+/* image — hybrid Gemini illustration with HTML labels overlaid */
+.figure { position: relative; width: min(760px, 100%); aspect-ratio: 16 / 9; max-height: 100%; }
+.figure__img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(23, 27, 33, 0.12); }
+.figure__placeholder {
+  width: 100%; height: 100%; display: grid; place-content: center; gap: 10px; justify-items: center;
+  border: 2px dashed var(--line-strong); border-radius: 16px; background: #f7f9fc; color: var(--muted); text-align: center;
+}
+.figure__placeholder span { font-size: 20px; font-weight: 700; }
+.figure__placeholder code { font-size: 13px; background: #eef1f6; padding: 4px 10px; border-radius: 6px; color: var(--ink-soft); }
+.figure__tag {
+  position: absolute; padding: 8px 14px; font-size: 16px; font-weight: 600; color: var(--ink);
+  background: rgba(255, 255, 255, 0.94); border: 1px solid var(--line-strong); border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(23, 27, 33, 0.12); white-space: nowrap;
+}
+.figure__tag--1 { top: 7%; left: 4%; }
+.figure__tag--2 { top: 7%; right: 4%; }
+.figure__tag--3 { top: 45%; left: 1%; }
+.figure__tag--4 { top: 45%; right: 1%; }
+.figure__tag--5 { bottom: 7%; left: 50%; transform: translateX(-50%); }
+.figure__tag--6 { bottom: 7%; right: 5%; }
+
+/* optional label chips under a visual */
+.card__labels { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.card__labels li { padding: 9px 16px; border: 1px solid var(--line-strong); border-radius: 999px; background: #f7f9fc; font-size: 18px; color: var(--ink-soft); }
+
+/* ---------- Speaker/production notes (screen only) ---------- */
+.card-notes {
+  margin-top: 14px; padding: 16px 20px;
+  border: 1px dashed var(--line-strong); border-radius: 10px;
+  background: #fbfcfe; font-size: 14px; color: var(--muted); line-height: 1.5;
+}
+.card-notes h3 { margin: 0 0 8px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.card-notes dl { display: grid; grid-template-columns: 130px 1fr; gap: 4px 16px; margin: 0; }
+.card-notes dt { color: var(--ink-soft); font-weight: 600; }
+.card-notes dd { margin: 0; }
+.card-notes .status { color: var(--accent-ink); font-weight: 700; }
+
+/* ============================================================
+   Print — one 16:9 card per page, notes hidden
+   ============================================================ */
+@media print {
+  @page { size: 13.333in 7.5in; margin: 0; }
+  body { background: #fff; }
+  .edit-toolbar, .card-notes { display: none !important; }
+  .deck { display: block; padding: 0; gap: 0; }
+  .slide-wrap { width: auto; }
+  .card.slide {
+    width: 13.333in; height: 7.5in; margin: 0;
+    border: 0; border-radius: 0; box-shadow: none;
+    break-after: page; page-break-after: always;
+  }
+  .card.slide:last-of-type { break-after: auto; page-break-after: auto; }
+  .card.slide:focus { outline: none; }
+}

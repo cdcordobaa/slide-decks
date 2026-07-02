@@ -1,0 +1,123 @@
+section:
+  id: "4"
+  title: "Rung 2 — Supervisor"
+  goal: "Explain tool loops, code understanding, Orientation Tax, and Context Anxiety."
+
+cards:
+  - id: "4.1"
+    name: "Rung 2: Supervisor"
+    type: "ladder_transition"
+    title: "Rung 2: Supervisor"
+    subtitle: "The model gets hands, but you still babysit the loop."
+    takeaway: "Execution is partially offloaded. Judgment is still human-held."
+    visual:
+      kind: "ladder"
+      current: "Supervisor"
+      rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
+    speaker: "Frame as the first real agentic upgrade."
+    status: "draft"
+
+  - id: "4.2"
+    name: "The Tool Loop"
+    type: "system_diagram"
+    title: "A tool loop turns tokens into actions"
+    subtitle: "The model can now act, observe, adjust, and continue."
+    takeaway: "An agent is a loop, not a single response."
+    visual:
+      kind: "tool_loop"
+      core: "MODEL"
+      phases: ["ACT", "OBSERVE", "ADJUST"]
+      modules: ["Terminal", "Filesystem", "Git", "Tests"]
+    speaker: "The harness provides the loop and the available tools."
+    status: "draft"
+
+  - id: "4.3"
+    name: "What the Harness Gives It Hands For"
+    type: "capability_map"
+    title: "The harness gives the model operational hands"
+    subtitle: "File access, terminal, tests, APIs, and git turn language into work."
+    takeaway: "The first big shift is from describing work to doing work."
+    visual:
+      kind: "capability_map"
+      center: "MODEL"
+      items: ["File read", "File write", "Search / grep", "Terminal", "Tests", "Browser", "APIs", "Git"]
+    speaker: "Connect back to Tony getting the armor."
+    status: "draft"
+
+  - id: "4.4"
+    name: "Code Understanding Is a Harness Capability"
+    type: "comparison"
+    title: "When an agent 'doesn't understand the code,' ask what eyes it has"
+    subtitle: "Same model, different harness, different code vision."
+    takeaway: "Do not blame the brain before inspecting the body."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "Raw chat", result: "sees a line" }
+        - { label: "Grep / filesystem agent", result: "sees a path" }
+        - { label: "Cursor-like harness", result: "sees a map" }
+        - { label: "Cloud / sandbox agent", result: "sees a hologram" }
+    speaker: "Where Cursor/codebase indexing and sandboxed agents fit later."
+    status: "draft"
+
+  - id: "4.5"
+    name: "Orientation Tax"
+    type: "failure_mode"
+    title: "Orientation Tax"
+    subtitle: "Before an agent can work, it must first figure out where it is."
+    layout: split
+    side: image-left
+    body:
+      - "Where are the relevant files?"
+      - "What command runs the tests?"
+      - "What conventions does the repo follow?"
+      - "What architecture — and hidden assumptions — apply?"
+    takeaway: "Good harnesses pay this tax once. Bad harnesses pay it every run."
+    visual:
+      kind: "image"
+      transparent: false
+      brief: >
+        A small robot agent standing at the entrance of a large maze shaped like a
+        software repository — folders and files forming the walls — looking unsure
+        at a fork. Technical blueprint line-art, steel with cyan and orange accents.
+      overlay: ["relevant files?", "test command?", "conventions?", "architecture?", "hidden assumptions?"]
+    speaker: "Quick repo examples: auth, packages, tests, style."
+    status: "draft"
+
+  - id: "4.6"
+    name: "Paying Down the Orientation Tax"
+    type: "capability_map"
+    title: "A good harness gives the agent a map"
+    subtitle: "Maps, skills, memory, and conventions reduce re-orientation every run."
+    takeaway: "The agent should not rediscover the codebase from scratch."
+    visual:
+      kind: "capability_map"
+      center: "Orientation Tax ↓"
+      items: ["AGENTS.md", "Repo map", "Code search", "Embeddings", "Skills", "Memory", "Test commands", "Known failure notes"]
+    speaker: "Introduce AGENTS.md as 'map, not manual.'"
+    status: "draft"
+
+  - id: "4.7"
+    name: "Context Anxiety"
+    type: "failure_mode"
+    title: "Context Anxiety"
+    subtitle: "The model starts behaving as if context is scarce or unstable."
+    takeaway: "Context management is a harness responsibility."
+    visual:
+      kind: "failure_mode"
+      center: "context window ~ full"
+      items: ["rushing", "truncating", "over-summarizing", "forgetting constraints", "declaring done too early"]
+    speaker: "Not just model weakness; unmanaged runtime state."
+    status: "draft"
+
+  - id: "4.8"
+    name: "Supervisor Mode Hits a Ceiling"
+    type: "transition"
+    title: "You can supervise one or two loops. Not twenty."
+    subtitle: "Once agents can act, the bottleneck moves from execution to coordination."
+    takeaway: "The next problem is no longer execution. It is coordination."
+    visual:
+      kind: "flow"
+      steps: ["1 agent → manageable", "3 agents → stressful", "20 agents → coordination collapse"]
+    speaker: "Transition to the break, then Rung 3."
+    status: "draft"

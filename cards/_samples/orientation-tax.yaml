@@ -1,0 +1,35 @@
+# Sample card for the hybrid AI-art route (not part of the main deck build).
+# Build:    node scripts/build-cards.mjs cards/_samples --out build/sample-infographic.html
+# Generate: node scripts/gen-infographics.mjs cards/_samples --only orientation-tax
+section:
+  id: "4"
+  title: "Rung 2 — Supervisor"
+  goal: "Demonstrate the hybrid image kind: Gemini art + HTML text overlay."
+
+cards:
+  - id: "orientation-tax"
+    name: "Orientation Tax"
+    type: "concept"
+    purpose: "Name the cost every agent pays before doing useful work."
+    title: "Orientation Tax"
+    subtitle: "Before an agent can work, it must first figure out where it is."
+    visual:
+      kind: "image"
+      # Prompt for Gemini (art only — no text; labels are overlaid as HTML).
+      brief: >
+        A small friendly robot agent standing at the entrance of a large maze
+        shaped like a software repository — folders, files and branching paths
+        forming the maze walls. The robot looks slightly unsure at the fork.
+        Isometric, calm, explanatory; indigo accent on the robot and the correct
+        path, soft grey maze walls.
+      # Crisp HTML labels placed around the illustration.
+      overlay:
+        - "relevant files?"
+        - "test command?"
+        - "conventions?"
+        - "architecture?"
+        - "hidden assumptions?"
+    takeaway: "Good harnesses pay this tax once. Bad harnesses pay it every run."
+    speaker: "Define the concept, then give quick repo examples: auth, packages, tests, style."
+    design_note: "Hybrid card: Gemini illustration in the center, questions overlaid as HTML chips around the maze."
+    status: "ready"
