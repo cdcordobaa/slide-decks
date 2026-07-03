@@ -13,6 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
+import { ICONS } from "../theme/tabler-icons.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const THEME = path.join(HERE, "..", "theme", "blueprint.css");
@@ -92,8 +93,42 @@ function toolLoop(d = {}) {
   </svg>`;
 }
 
+// ---------- Tabler icons ----------
+function iconFor(label) {
+  const s = String(label ?? "").toLowerCase();
+  const h = (re) => re.test(s);
+  if (h(/\bmodel\b|core/)) return "model";
+  if (h(/context|assemble/)) return "context";
+  if (h(/\btool/)) return "tools";
+  if (h(/memory|remember/)) return "memory";
+  if (h(/state|track/)) return "state";
+  if (h(/permission/)) return "permissions";
+  if (h(/eval|judge|correct|grade/)) return "evaluation";
+  if (h(/recover|retry/)) return "recovery";
+  if (h(/safe|safety|constraint/)) return "safety";
+  if (h(/environment|\benv\b/)) return "environment";
+  if (h(/human|operator|\byou\b/)) return "human";
+  if (h(/coordinat|orchestrat/)) return "coordination";
+  if (h(/git|branch/)) return "git";
+  if (h(/terminal/)) return "terminal";
+  if (h(/filesystem|folder|workspace/)) return "workspace";
+  if (h(/\btest|ci\b/)) return "tests";
+  if (h(/browser|web/)) return "browser";
+  if (h(/review/)) return "review";
+  if (h(/ticket/)) return "ticket";
+  if (h(/spec|\bfile\b/)) return "specs";
+  if (h(/improve|system/)) return "improve";
+  if (h(/api|plug/)) return "api";
+  if (h(/custom|skill/)) return "custom";
+  if (h(/runtime|loop/)) return "runtime";
+  if (h(/missing|\?\?\?/)) return "missing";
+  if (h(/agent|robot/)) return "agent";
+  return "generic";
+}
+const icon = (name, cls) => `<svg class="ico${cls ? " " + cls : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] ?? ICONS.generic}</svg>`;
+
 // ---------- HTML blueprint diagrams ----------
-const stack = (v) => `<div class="bp-stk">${asList(v.items).map(norm).map((it) => `<div class="bp-stk__row${it.state === "missing" ? " is-missing" : ""}"><span class="bp-stk__label">${esc(it.label)}</span>${it.caption ? `<span class="bp-stk__cap">${esc(it.caption)}</span>` : ""}${it.state === "missing" ? `<span class="bp-stk__tag">not engineered</span>` : ""}</div>`).join("")}</div>`;
+const stack = (v) => `<div class="bp-stk">${asList(v.items).map(norm).map((it) => `<div class="bp-stk__row${it.state === "missing" ? " is-missing" : ""}">${icon(it.state === "missing" ? "missing" : iconFor(it.label), "bp-stk__ico")}<span class="bp-stk__label">${esc(it.label)}</span>${it.caption ? `<span class="bp-stk__cap">${esc(it.caption)}</span>` : ""}${it.state === "missing" ? `<span class="bp-stk__tag">not engineered</span>` : ""}</div>`).join("")}</div>`;
 
 const comparison = (v) => `<div class="bp-cmp">${asList(v.boxes).map((b) => `<div class="bp-cmp__col"><div class="bp-cmp__h">${esc(b.label)}</div><div class="bp-cmp__b">${esc(b.result)}</div></div>`).join("")}</div>`;
 
@@ -114,7 +149,7 @@ function ladder(v) {
   return `<div class="bp-ladder">${rungs.slice().reverse().map((r, i) => { const n = rungs.length - i; return `<div class="bp-rung${String(r).toLowerCase() === cur ? " is-current" : ""}"><span class="bp-rung__n">${n}</span>${esc(r)}</div>`; }).join("")}</div>`;
 }
 
-const capmap = (v) => `<div class="bp-cap"><div class="bp-cap__c">${esc(v.center)}</div><div class="bp-cap__items">${asList(v.items).map((i) => `<span class="bp-chip">${esc(i)}</span>`).join("")}</div></div>`;
+const capmap = (v) => `<div class="bp-cap"><div class="bp-cap__c">${esc(v.center)}</div><div class="bp-cap__items">${asList(v.items).map((i) => `<span class="bp-chip">${icon(iconFor(i), "bp-chip__ico")}${esc(i)}</span>`).join("")}</div></div>`;
 
 const flow = (v) => `<div class="bp-flow">${asList(v.steps).map((s, i, a) => `<div class="bp-flow__step">${esc(s)}</div>${i < a.length - 1 ? `<div class="bp-flow__arw">↓</div>` : ""}`).join("")}</div>`;
 
@@ -124,7 +159,7 @@ function hub(v, reveal) {
   const center = v.center ?? v.subject ?? "";
   const items = asList(v.items).map(norm);
   const half = Math.ceil(items.length / 2), left = items.slice(0, half), right = items.slice(half);
-  const node = (it) => `<div class="bp-hub__node"><b>${esc(it.label)}</b>${it.caption ? `<span>${esc(it.caption)}</span>` : ""}</div>`;
+  const node = (it) => `<div class="bp-hub__node">${icon(iconFor(it.label), "bp-hub__ico")}<div class="bp-hub__t"><b>${esc(it.label)}</b>${it.caption ? `<span>${esc(it.caption)}</span>` : ""}</div></div>`;
   const col = (a) => `<div class="bp-hub__col">${a.map(node).join("")}</div>`;
   return `<div class="bp-hub${reveal ? " is-reveal" : ""}">${col(left)}<div class="bp-hub__c">${esc(center)}</div>${col(right)}</div>`;
 }
@@ -141,8 +176,27 @@ function image(v, card) {
 // formula — factors joined by × (e.g. Model × Harness × Environment)
 const formula = (v) => `<div class="bp-eq">${asList(v.terms).map((t, i, a) => `<div class="bp-eq__box"><div class="bp-eq__l">${esc(t)}</div></div>` + (i < a.length - 1 ? `<div class="bp-eq__op">×</div>` : "")).join("")}</div>`;
 
+// harness_ring — coded SVG: an orange model core ringed by icon-labelled subsystem
+// modules wired by cyan pipes (replaces the Gemini "harness machine" illustration).
+function harnessRing(v) {
+  const items = asList(v.items).map(norm);
+  const n = items.length || 1;
+  const cx = 430, cy = 305, R = 212, hexR = 54, bw = 150, bh = 46;
+  const hexPts = Array.from({ length: 6 }, (_, k) => { const a = ((-90 + 60 * k) * Math.PI) / 180; return `${(cx + hexR * Math.cos(a)).toFixed(1)},${(cy + hexR * Math.sin(a)).toFixed(1)}`; }).join(" ");
+  const pipes = [], boxes = [];
+  items.forEach((it, i) => {
+    const a = (-90 + (i * 360) / n) * (Math.PI / 180);
+    const mx = cx + R * Math.cos(a), my = cy + R * Math.sin(a);
+    pipes.push(`<line x1="${(cx + hexR * Math.cos(a)).toFixed(1)}" y1="${(cy + hexR * Math.sin(a)).toFixed(1)}" x2="${(mx - (bw / 2 - 8) * Math.cos(a)).toFixed(1)}" y2="${(my - (bh / 2 - 4) * Math.sin(a)).toFixed(1)}" stroke="#1fb6d6" stroke-width="6" stroke-linecap="round"/>`);
+    const bx = mx - bw / 2, by = my - bh / 2;
+    boxes.push(`<g><rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw}" height="${bh}" rx="9" fill="#f8f7f1" stroke="#2b333b" stroke-width="1.5"/><svg x="${(bx + 11).toFixed(1)}" y="${(by + 12).toFixed(1)}" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f7f96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[iconFor(it.label)] ?? ICONS.generic}</svg><text x="${(bx + 42).toFixed(1)}" y="${(by + 29).toFixed(1)}" class="hr-label">${esc(it.label)}</text></g>`);
+  });
+  const core = `<polygon points="${hexPts}" fill="#f2a51c" stroke="#b5771a" stroke-width="3"/><text x="${cx}" y="${(cy + 6).toFixed(1)}" text-anchor="middle" class="hr-core">${esc(v.center ?? "MODEL")}</text>`;
+  return `<svg class="bp-dia bp-ring" viewBox="0 0 860 610">${pipes.join("")}${boxes.join("")}${core}</svg>`;
+}
+
 const VIS = {
-  stack, comparison, equation, formula, transfer, fanout, ladder, flow,
+  stack, comparison, equation, formula, transfer, fanout, ladder, flow, harness_ring: harnessRing,
   tool_loop: toolLoop, cards_row: cardsRow, capability_map: capmap,
   system_diagram: (v) => (asList(v.steps).length ? flow(v) : capmap(v)),
   failure_mode: (v) => capmap({ center: v.center ?? "⚠ Failure modes", items: v.items }),

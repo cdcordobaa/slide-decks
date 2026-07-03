@@ -16,6 +16,7 @@
     "push-status": "node scripts/notion-sync.mjs push-status"
   },
   "dependencies": {
+    "@tabler/icons": "^3.44.0",
     "yaml": "^2.5.1"
   },
   "optionalDependencies": {

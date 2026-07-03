@@ -38,23 +38,11 @@ cards:
     type: "capability_map"
     title: "The harness gives the model a body"
     subtitle: "This is where intelligence becomes operational."
-    layout: hero
-    caption: ["Tools", "Context", "Memory", "State", "Evaluation", "Recovery"]
-    image:
-      brief: >
-        A rich, detailed technical blueprint illustration on a cream graph-paper
-        background: a central glowing orange hexagonal core (the model) enclosed within
-        an intricate engineered steel exoskeleton / machine frame (the harness), built
-        from many interconnected mechanical subsystem modules and struts wired to the
-        core by cyan data pipes. Thin cyan dashed dimension lines and tick marks frame
-        the assembly like an engineering schematic. Steel-grey line-art with fine
-        cross-hatching, cyan structural lines, orange accents on the core. Highly
-        detailed, precise, isometric. Absolutely no text, no words, no letters, no numbers.
     takeaway: "The harness is not 'the prompt.' It is the operating environment."
     visual:
-      kind: "capability_map"
+      kind: "harness_ring"
       center: "MODEL"
-      items: ["Tools", "Context", "Memory", "Runtime loop", "Permissions", "State", "Evaluation", "Recovery", "Environment"]
+      items: ["Tools", "Context", "Memory", "State", "Permissions", "Evaluation", "Recovery", "Environment"]
     speaker: "A map, not a deep-dive; the rungs unpack each item."
     status: "draft"
 

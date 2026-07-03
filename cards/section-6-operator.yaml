@@ -21,12 +21,8 @@ cards:
     type: "metaphor"
     title: "You don't fly one suit. You operate the fleet."
     subtitle: "The human moves from direct execution to controlled delegation."
-    layout: split
-    side: image-right
-    body:
-      - "The harness runs the agents, workspaces, and retries."
-      - "You own specs, priorities, constraints, and review."
-      - "Every run is isolated, logged, and gated."
+    layout: hero
+    caption: ["You own: specs · constraints · review", "Harness runs: agents · workspaces · retries · gates"]
     takeaway: "Operator mode is not absence of humans. It is better placement of humans."
     visual:
       kind: "image"
@@ -48,18 +44,6 @@ cards:
       kind: "transfer"
       from: { label: "Human owns", items: ["specs", "priorities", "constraints", "review", "exceptions", "system improvement"] }
       to: { label: "Harness owns", items: ["execution", "state", "workspaces", "tools", "retries", "tests", "handoffs", "PR creation"] }
-    status: "draft"
-
-  - id: "6.4"
-    name: "Containment Creates Trust"
-    type: "concept"
-    title: "Trust comes from containment"
-    subtitle: "You can delegate more when blast radius is engineered."
-    takeaway: "The harness makes delegation safe enough to scale."
-    visual:
-      kind: "capability_map"
-      center: "Agent (sandboxed)"
-      items: ["isolated workspace", "permission boundary", "branch per task", "max turns", "CI gate", "human review"]
     status: "draft"
 
   - id: "6.5"

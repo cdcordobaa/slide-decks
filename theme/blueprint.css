@@ -200,6 +200,20 @@ body { margin: 0; background: #d7d8d0; color: var(--ink); font-family: var(--mon
 .bp-full__ph { width: 100%; height: 100%; display: grid; place-content: center; gap: 8px; justify-items: center; color: #6b7480; }
 .bp-full__ph code { font-size: 13px; background: #eef1f6; padding: 4px 10px; border-radius: 6px; }
 
+/* Tabler icons in coded diagrams */
+.ico { width: 20px; height: 20px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.bp-stk__ico { color: var(--cyan-deep); width: 24px; height: 24px; }
+.bp-chip { display: inline-flex; align-items: center; gap: 8px; }
+.bp-chip__ico { color: var(--cyan-deep); width: 18px; height: 18px; }
+.bp-hub__node { display: flex; align-items: center; gap: 12px; }
+.bp-hub__ico { color: var(--cyan-deep); width: 22px; height: 22px; }
+.bp-hub__t { min-width: 0; }
+
+/* harness_ring (coded SVG replacement for the Gemini harness illustration) */
+.bp-ring { width: min(770px, 100%); height: auto; }
+.bp-ring .hr-core { fill: #3a2400; font-family: var(--mono); font-weight: 800; font-size: 16px; }
+.bp-ring .hr-label { fill: var(--ink); font-family: var(--mono); font-size: 13.5px; font-weight: 600; }
+
 @media print {
   @page { size: 13.333in 7.5in; margin: 0; }
   body { background: #fff; }
