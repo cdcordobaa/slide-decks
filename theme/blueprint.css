@@ -259,3 +259,22 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-spectrum { width: min(1000px, 100%); height: auto; }
 .bp-spectrum .sp-label { fill: var(--ink); font-family: var(--mono); font-weight: 700; font-size: 19px; }
 .bp-spectrum .sp-cap { fill: var(--muted); font-family: var(--mono); font-size: 14px; }
+
+/* control_plane — orchestration architecture diagram */
+.bp-cplane { display: flex; flex-direction: column; align-items: center; gap: 5px; width: min(900px, 100%); }
+.cp__box { border: 1.5px solid var(--ink); border-radius: 10px; background: var(--panel); padding: 7px 16px; text-align: center; max-width: 540px; }
+.cp__box b { font-size: 15.5px; display: block; color: var(--ink); }
+.cp__box span { font-size: 12px; color: var(--muted); font-family: var(--mono); display: block; margin-top: 2px; }
+.cp__box em { font-size: 11px; color: var(--green-deep); font-style: normal; display: block; margin-top: 2px; }
+.cp__list { display: flex; flex-wrap: wrap; gap: 2px 12px; justify-content: center; list-style: none; margin: 3px 0 0; padding: 0; }
+.cp__list li { font-size: 12px; font-family: var(--mono); color: var(--ink); }
+.cp__list li::before { content: "\203A"; color: var(--green-deep); margin-right: 4px; }
+.cp--orch { border-width: 2px; background: var(--panel-green); border-color: var(--green-deep); }
+.cp--sink { background: var(--panel-green); border-color: var(--green-deep); }
+.cp__row { display: flex; align-items: center; gap: 10px; justify-content: center; }
+.cp--board { max-width: 240px; }
+.cp__link { font-family: var(--mono); font-size: 10.5px; color: var(--muted); text-align: center; white-space: nowrap; }
+.cp__link::before { content: "\25C0  \25B6"; display: block; color: var(--green-deep); font-size: 12px; }
+.cp__arw { position: relative; height: 15px; width: 2px; background: var(--green); }
+.cp__arw::after { content: "\25BC"; position: absolute; bottom: -3px; left: -4px; color: var(--green); font-size: 10px; }
+.cp__arw span { position: absolute; left: 10px; top: 1px; font-family: var(--mono); font-size: 10px; color: var(--muted); white-space: nowrap; }

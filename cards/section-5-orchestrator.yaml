@@ -82,6 +82,38 @@ cards:
         - { label: "Markdown body", result: "for the agent: instructions, constraints, behavior" }
     status: "draft"
 
+  - id: "5.9"
+    name: "The Orchestrator Is the Control Plane"
+    type: "system_diagram"
+    title: "The orchestrator is the control plane"
+    subtitle: "It turns repo rules and board state into isolated agent runs."
+    takeaway: "The orchestrator does not do the work. It governs how work becomes agent-executable."
+    visual:
+      kind: "control_plane"
+      repo:
+        title: "Target repo"
+        items: "WORKFLOW.md · AGENTS.md / DESIGN.md · specs/*.md · src/"
+        note: "defines the operating contract"
+      orchestrator:
+        title: "Orchestrator · control plane"
+        items: ["Workflow loader", "State reconciler", "Workspace manager", "Runtime launcher", "Progress reporter"]
+      board:
+        title: "Task board / tracker"
+        items: "Linear · Jira · GitHub Issues"
+        note: "Ready → In progress → Review"
+      workspace:
+        title: "Per-ticket workspace"
+        items: "ENG-142/ · project code · mcp.json · logs / workpad"
+        note: "isolates blast radius"
+      agent:
+        title: "Agent runtime"
+        items: "Claude · Codex · Cursor · tools + MCPs + skills"
+      sink:
+        title: "PR + Human Review"
+        note: "closes the loop"
+    speaker: "The missing architecture layer: the orchestrator connects repo, board, workflow, workspace, runtime, and the review boundary."
+    status: "draft"
+
   - id: "5.8"
     name: "One Ticket Becomes One Isolated Run"
     type: "system_diagram"

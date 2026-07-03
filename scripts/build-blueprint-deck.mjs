@@ -268,8 +268,16 @@ function spectrum(v) {
   return `<svg class="bp-dia bp-spectrum" viewBox="0 0 1040 290">${grad}${track}${nodes}</svg>`;
 }
 
+// control_plane — orchestration architecture: repo + board -> orchestrator -> workspace -> agent -> review
+function controlPlane(v) {
+  const box = (n, cls) => n ? `<div class="cp__box ${cls}"><b>${esc(n.title)}</b>${Array.isArray(n.items) ? `<ul class="cp__list">${n.items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>` : n.items ? `<span>${esc(n.items)}</span>` : ""}${n.note ? `<em>${esc(n.note)}</em>` : ""}</div>` : "";
+  const arw = (t) => `<div class="cp__arw"><span>${esc(t)}</span></div>`;
+  return `<div class="bp-dia bp-cplane">${box(v.repo, "cp--repo")}${arw(v.l1 || "repo rules")}<div class="cp__row">${box(v.orchestrator, "cp--orch")}<div class="cp__link">board state</div>${box(v.board, "cp--board")}</div>${arw(v.l2 || "spawns isolated runs")}${box(v.workspace, "cp--ws")}${arw(v.l3 || "launches")}${box(v.agent, "cp--agent")}${arw(v.l4 || "output")}${box(v.sink, "cp--sink")}</div>`;
+}
+
 const VIS = {
   stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum,
+  control_plane: controlPlane,
   harness_ring: harnessRing, fleet, matrix, four_functions: fourFunctions,
   tool_loop: toolLoop, cards_row: cardsRow, capability_map: capmap,
   system_diagram: (v) => (asList(v.steps).length ? flow(v) : capmap(v)),

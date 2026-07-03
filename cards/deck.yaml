@@ -21,7 +21,7 @@ deck:
   # Status gate: draft < ready < final. Only cards >= min_status render.
   min_status: "ready"
   # The 20-slide "spine" core cut, in narrative order (blueprint build target).
-  core: ["0.1", "0.3", "0.4", "1.1", "1.2", "1.12", "1.9", "1.4", "1.5", "2.1", "2.5", "3.4", "4.2", "4.4", "4.5", "4.9", "5.2", "5.6", "5.7", "5.8", "6.2", "6.3", "6.5", "6.8", "6.9", "6.10", "6.6", "7.2", "7.3", "7.4"]
+  core: ["0.1", "0.3", "0.4", "1.1", "1.2", "1.12", "1.9", "1.4", "1.5", "2.1", "2.5", "3.4", "4.2", "4.4", "4.5", "4.9", "5.2", "5.6", "5.7", "5.9", "5.8", "6.2", "6.3", "6.5", "6.8", "6.9", "6.10", "6.6", "7.2", "7.3"]
 
 # AI infographic generation (hybrid route). Structural diagrams stay coded;
 # cards with `visual.kind: image` get a Gemini-generated illustration whose
