@@ -35,9 +35,10 @@ cards:
     name: "Where to Learn This"
     type: "concept"
     title: "Where to learn this"
-    subtitle: "Learn to build the systems around the model — specs, skills, MCPs, evaluation, and workflows."
-    takeaway: "Learn to build the system around the model."
+    subtitle: "Build the systems around the model — specs, skills, MCPs, evaluation, and workflows."
+    takeaway: "Hardcore AI by 30x — become an agentic engineer. Build the body, not just prompt the brain."
     visual:
       kind: "flow"
-      steps: ["Think in harnesses", "Build with specs / skills / MCPs / workflows", "Operate agentic systems safely"]
+      steps: ["Think in harnesses", "Build with specs · skills · MCPs · workflows", "Operate agentic systems safely"]
+    speaker: "The course / learning path — the natural next step after the final question. Keep it professional, not an ad."
     status: "draft"
