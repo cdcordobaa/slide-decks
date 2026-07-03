@@ -101,5 +101,5 @@ cards:
     takeaway: "A ticket is a unit of controlled work."
     visual:
       kind: "flow"
-      steps: ["Ticket → Ready", "Workspace created", "mcp.json loaded", "Agent runs", "Workpad / PR", "Human review"]
+      steps: ["Ticket: Ready", "Workflow Loader reads WORKFLOW.md", "Workspace created (ENG-142/)", "Repo cloned · per-workspace mcp.json", "Agent runtime launches (Claude / Codex)", "Workpad updates + PR", "Human review"]
     status: "draft"

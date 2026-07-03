@@ -71,6 +71,17 @@ cards:
         - { label: "CI / Human / Reviewer", result: "decides done" }
     status: "draft"
 
+  - id: "6.8"
+    name: "Verification Moves to Spec Compliance"
+    type: "concept"
+    title: "Verification moves from code review to spec compliance"
+    subtitle: "You cannot review every generated line; you verify artifacts against intent, behavior, and structure."
+    takeaway: "Verify against intent, not line by line."
+    visual:
+      kind: "flow"
+      steps: ["Spec / intent", "Acceptance criteria", "Functional tests", "Structural tests", "CI + Human Review"]
+    status: "draft"
+
   - id: "6.6"
     name: "Demo: Spec to PR"
     type: "demo"
@@ -83,17 +94,6 @@ cards:
       kind: "flow"
       steps: ["Ticket", "Ready", "Workspace created", "Agent works", "Tests run", "PR opens", "Human review", "Merge / request changes"]
     speaker: "Live demo. Have a fallback if it fails."
-    status: "draft"
-
-  - id: "6.8"
-    name: "Verification Moves to Spec Compliance"
-    type: "concept"
-    title: "Verification moves from code review to spec compliance"
-    subtitle: "You cannot review every generated line; you verify artifacts against intent, behavior, and structure."
-    takeaway: "Verify against intent, not line by line."
-    visual:
-      kind: "flow"
-      steps: ["Spec (intent)", "Functional tests (behavior)", "Structural tests (shape)", "CI / Human review"]
     status: "draft"
 
   - id: "6.7"
