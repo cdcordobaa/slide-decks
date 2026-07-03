@@ -46,18 +46,6 @@ cards:
       to: { label: "Harness owns", items: ["execution", "state", "workspaces", "tools", "retries", "tests", "handoffs", "PR creation"] }
     status: "draft"
 
-  - id: "6.4"
-    name: "Containment Creates Trust"
-    type: "concept"
-    title: "Trust comes from containment"
-    subtitle: "You can delegate more when blast radius is engineered."
-    takeaway: "The harness makes delegation safe enough to scale."
-    visual:
-      kind: "capability_map"
-      center: "Agent (sandboxed)"
-      items: ["isolated workspace", "permission boundary", "branch per task", "max turns", "CI gate", "human review"]
-    status: "draft"
-
   - id: "6.5"
     name: "The Agent Does Not Grade Its Own Homework"
     type: "big_claim"

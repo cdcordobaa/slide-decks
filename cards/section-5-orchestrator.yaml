@@ -16,20 +16,6 @@ cards:
       rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
     status: "draft"
 
-  - id: "5.2"
-    name: "From Prompt to Spec"
-    type: "comparison"
-    title: "The interface changes: prompt → spec"
-    subtitle: "You no longer ask for help. You define bounded work."
-    takeaway: "The spec becomes the control surface."
-    visual:
-      kind: "comparison"
-      boxes:
-        - { label: "Prompt", result: "“Please fix this bug.”" }
-        - { label: "Spec / Ticket", result: "scope · repo · constraints · tests · done criteria" }
-    speaker: "Sets up WORKFLOW.md and ticket-driven agents."
-    status: "draft"
-
   - id: "5.3"
     name: "Multi-Agent Harness"
     type: "system_diagram"
@@ -42,17 +28,6 @@ cards:
       hub: "Orchestrator"
       agents: ["Agent A", "Agent B", "Agent C"]
       gate: "CI + Review"
-    status: "draft"
-
-  - id: "5.4"
-    name: "Teams Fail Differently Than Individuals"
-    type: "failure_mode"
-    title: "Teams fail differently than individuals"
-    subtitle: "Multi-agent failures are usually coordination failures, not intelligence failures."
-    takeaway: "More agents without coordination is just faster chaos."
-    visual:
-      kind: "failure_mode"
-      items: ["same file touched twice", "conflicting patterns", "no shared state", "silent failure", "integration fails after local success"]
     status: "draft"
 
   - id: "5.5"
