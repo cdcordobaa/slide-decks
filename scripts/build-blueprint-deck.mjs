@@ -246,9 +246,11 @@ function fleet(v) {
 // matrix — small comparison table
 function matrix(v) {
   const cols = asList(v.columns), rows = asList(v.rows);
+  const mk = (c) => esc(c).replace(/✅/g, '<span class="mx-y">✓</span>').replace(/❌/g, '<span class="mx-n">✕</span>').replace(/⚠️?/g, '<span class="mx-m">~</span>');
   const th = cols.map((c) => `<th>${esc(c)}</th>`).join("");
-  const trs = rows.map((r) => `<tr>${asList(r).map((c, i) => `<td${i === 0 ? ' class="bp-mx__h"' : ""}>${esc(c)}</td>`).join("")}</tr>`).join("");
-  return `<table class="bp-mx"><thead><tr>${th}</tr></thead><tbody>${trs}</tbody></table>`;
+  const trs = rows.map((r) => `<tr>${asList(r).map((c, i) => `<td${i === 0 ? ' class="bp-mx__h"' : ""}>${mk(c)}</td>`).join("")}</tr>`).join("");
+  const src = v.source ? `<div class="bp-mx__src">Source: ${esc(v.source)}</div>` : "";
+  return `<div class="bp-mxwrap"><table class="bp-mx${v.dense ? " bp-mx--dense" : ""}"><thead><tr>${th}</tr></thead><tbody>${trs}</tbody></table>${src}</div>`;
 }
 
 // four_functions — 2x2 labelled cards

@@ -162,17 +162,33 @@ cards:
     name: "Different Harnesses Expose Different Capabilities"
     type: "comparison"
     title: "Different harnesses expose different capabilities"
-    subtitle: "Claude Code, Codex, OpenCode, OpenHands, Droid, and Gemini CLI give the model different bodies."
+    subtitle: "Same model, different harness — a full tool-capability matrix across six coding harnesses."
     takeaway: "Same model, different harness, different capability."
     visual:
       kind: "matrix"
-      columns: ["Harness", "Tools", "Subagents", "Sandbox", "MCP"]
+      dense: true
+      source: "Leonardo Gonzales"
+      columns: ["Capability", "Claude Code", "Codex", "OpenCode", "OpenHands", "Droid", "Gemini CLI"]
       rows:
-        - ["Claude Code", "shell · files · web", "yes", "local", "yes"]
-        - ["Codex", "shell · files", "limited", "cloud", "—"]
-        - ["OpenCode", "shell · files · LSP", "yes", "local", "yes"]
-        - ["OpenHands", "shell · browser", "yes", "cloud", "—"]
-        - ["Droid", "shell · files", "yes", "cloud", "yes"]
-        - ["Gemini CLI", "shell · files · web", "limited", "local", "yes"]
-    speaker: "Values are illustrative — verify against the reference table before the talk."
-    status: "needs data"
+        - ["Shell execution", "✅ Bash", "✅ shell_command", "✅ bash", "✅ TerminalTool", "✅ Execute", "✅ run_shell_command"]
+        - ["Shell stdin / session", "✅ KillShell", "✅ write_stdin", "❌", "❌", "❌", "❌"]
+        - ["File read", "✅ Read", "✅ read_file", "✅ read", "✅ FileEditorTool", "✅ Read", "✅ read_file"]
+        - ["File create", "✅ Write", "✅ apply_patch", "✅ write", "✅ FileEditorTool", "✅ Create", "✅ write_file"]
+        - ["File edit", "✅ Edit", "✅ apply_patch", "✅ edit", "✅ FileEditorTool", "✅ Edit", "✅ replace"]
+        - ["Content search (grep)", "✅ Grep", "✅ grep_files", "✅ grep", "✅ GrepTool", "✅ Grep", "✅ grep_search"]
+        - ["Pattern search (glob)", "✅ Glob", "❌", "✅ glob", "✅ GlobTool", "✅ Glob", "✅ glob"]
+        - ["Directory listing", "✅", "✅ list_dir", "✅ list", "✅", "✅ LS", "✅ list_directory"]
+        - ["Web fetch", "✅ WebFetch", "✅ web_search", "✅ webfetch", "✅ BrowserToolSet", "✅ FetchUrl", "✅ web_fetch"]
+        - ["Web search", "✅ WebSearch", "✅ web_search", "✅ websearch", "❌", "✅ WebSearch", "✅ google_web_search"]
+        - ["Ask user", "✅ AskUserQuestion", "✅ request_user_input", "✅ question", "❌", "❌", "✅ ask_user"]
+        - ["Sub-agent delegation", "✅ Agent / Task", "✅ spawn_agent", "✅ task", "✅ TaskToolSet", "✅ Task", "✅"]
+        - ["Sub-agent lifecycle", "✅ fg / bg", "✅ resume / wait", "❌", "❌", "❌", "❌"]
+        - ["Planning / todo", "✅ TaskCreate", "✅ update_plan", "✅ todowrite", "✅ TaskTrackerTool", "✅ TodoWrite", "❌"]
+        - ["Skills", "✅ Skills", "✅", "✅ skill", "✅", "✅", "✅ activate_skill"]
+        - ["Memory persistence", "❌", "❌", "❌", "⚠️ user modeling", "❌", "✅ save_memory"]
+        - ["Browser automation ⭐", "❌", "❌", "❌", "✅ 12+ tools", "❌", "❌"]
+        - ["Notebook editing", "✅ NotebookEdit", "❌", "❌", "❌", "❌", "❌"]
+        - ["LSP / code intelligence", "✅ LSP", "❌", "✅ lsp", "❌", "❌", "❌"]
+        - ["Philosophy", "Popular, polished", "Rising star", "Flexible, OSS", "Benchmark king", "Commercial", "Google eco"]
+    speaker: "Full reference matrix (Leonardo Gonzales). Same model, very different bodies."
+    status: "ready"

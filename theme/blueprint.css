@@ -308,3 +308,14 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-oprompt .op-label { fill: var(--ink); font-family: var(--mono); font-size: 13px; font-weight: 600; }
 .bp-oprompt .op-core { fill: var(--green); font-family: var(--mono); font-size: 17px; font-weight: 800; }
 .bp-oprompt .op-sub { fill: #e6b566; font-family: var(--mono); font-size: 12px; }
+
+/* dense matrix (full capability reference) + source credit */
+.bp-mxwrap { display: flex; flex-direction: column; align-items: center; }
+.bp-mx--dense { font-size: 11px; max-width: 1180px; }
+.bp-mx--dense th, .bp-mx--dense td { padding: 3px 8px; line-height: 1.25; font-family: var(--mono); }
+.bp-mx--dense thead th { font-size: 11px; }
+.bp-mx--dense .bp-mx__h { font-weight: 700; text-align: left; white-space: nowrap; }
+.mx-y { color: var(--green-deep); font-weight: 700; }
+.mx-n { color: #b23b3b; }
+.mx-m { color: #c98a2b; font-weight: 700; }
+.bp-mx__src { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 8px; align-self: flex-end; }
