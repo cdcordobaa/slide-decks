@@ -49,9 +49,9 @@ cards:
     subtitle: "Instructions alone cannot reliably provide tools, memory, state, recovery, and evaluation."
     takeaway: "Prompting is not the problem. Architecture is."
     visual:
-      kind: "capability_map"
-      center: "PROMPT"
-      items: ["Tools", "Memory", "State", "Recovery", "Evaluation", "Safety"]
+      kind: "overloaded_prompt"
+      center: "One prompt"
+      jobs: ["Context", "Memory", "Tools", "State", "Recovery", "Evaluation"]
     speaker: "The key line for Rung 1."
     status: "draft"
 

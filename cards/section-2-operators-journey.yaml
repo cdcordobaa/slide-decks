@@ -52,13 +52,14 @@ cards:
     subtitle: "As you climb, behavior moves into versioned artifacts: maps, skills, MCPs, specs, workflow, design."
     takeaway: "Your harness is version-controlled."
     visual:
-      kind: "stack"
-      items:
-        - { label: "AGENTS.md", caption: "map & conventions" }
-        - { label: "DESIGN.md", caption: "architecture & intent" }
-        - { label: "skills/*.md", caption: "capability packs" }
-        - { label: "mcp.json", caption: "tool servers" }
-        - { label: "WORKFLOW.md", caption: "operating procedure" }
-        - { label: "specs/*.md", caption: "bounded work" }
-        - { label: "memory / evals", caption: "state & judgment" }
+      kind: "file_tree"
+      root: "your-project/"
+      entries:
+        - { name: "AGENTS.md", note: "map & conventions" }
+        - { name: "DESIGN.md", note: "architecture & intent" }
+        - { name: "mcp.json", note: "tool servers" }
+        - { name: "WORKFLOW.md", note: "operating procedure" }
+        - { name: "skills/", note: "capability packs", children: ["test.md", "deploy.md", "review.md"] }
+        - { name: "specs/*.md", note: "bounded work" }
+        - { name: "memory/ · evals/", note: "state & judgment" }
     status: "draft"

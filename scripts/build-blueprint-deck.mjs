@@ -275,9 +275,61 @@ function controlPlane(v) {
   return `<div class="bp-dia bp-cplane">${box(v.repo, "cp--repo")}${arw(v.l1 || "repo rules")}<div class="cp__row">${box(v.orchestrator, "cp--orch")}<div class="cp__link">board state</div>${box(v.board, "cp--board")}</div>${arw(v.l2 || "spawns isolated runs")}${box(v.workspace, "cp--ws")}${arw(v.l3 || "launches")}${box(v.agent, "cp--agent")}${arw(v.l4 || "output")}${box(v.sink, "cp--sink")}</div>`;
 }
 
+// agentic_search_loop — search as a loop: plan -> act -> inspect -> refine, with query in / results out
+function agenticLoop(v) {
+  const loop = asList(v.loop); const n = Math.max(loop.length, 3);
+  const cx = 450, cy = 225, R = 152;
+  const pos = (i) => { const th = (180 + i * 360 / n) * Math.PI / 180; return [cx + R * Math.cos(th), cy + R * Math.sin(th)]; };
+  const ring = `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#bfd732" stroke-width="4"/>`;
+  const chevrons = loop.map((_, i) => {
+    const th = (180 + (i + 0.5) * 360 / n) * Math.PI / 180;
+    const px = cx + R * Math.cos(th), py = cy + R * Math.sin(th);
+    const tx = -Math.sin(th), ty = Math.cos(th), nx = Math.cos(th), ny = Math.sin(th);
+    const p = (s) => `${(px - 7 * tx + s * 5 * nx).toFixed(1)},${(py - 7 * ty + s * 5 * ny).toFixed(1)}`;
+    return `<path d="M ${p(1)} L ${px.toFixed(1)},${py.toFixed(1)} L ${p(-1)}" fill="none" stroke="#bfd732" stroke-width="3.5" stroke-linecap="round"/>`;
+  }).join("");
+  const nodes = loop.map((l, i) => { const [x, y] = pos(i); return `<g><rect x="${(x - 80).toFixed(1)}" y="${(y - 20).toFixed(1)}" width="160" height="40" rx="9" fill="#f4f7ef" stroke="#00292e" stroke-width="1.5"/><text x="${x.toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="middle" class="al-label">${esc(l)}</text></g>`; }).join("");
+  const center = `<text x="${cx}" y="${cy + 5}" text-anchor="middle" class="al-center">${esc(v.center || "search loop")}</text>`;
+  const io = (label, x, fill) => `<g><rect x="${x - 82}" y="${cy - 21}" width="164" height="42" rx="10" fill="${fill}" stroke="#1f7a3d" stroke-width="1.6"/><text x="${x}" y="${cy + 5}" text-anchor="middle" class="al-io">${esc(label)}</text></g>`;
+  const entry = v.entry ? io(v.entry, 100, "#eef4dd") + `<line x1="182" y1="${cy}" x2="${cx - R - 6}" y2="${cy}" stroke="#bfd732" stroke-width="4"/>` : "";
+  const ei = Math.floor(n / 2); const [exX] = pos(ei);
+  const exit = v.exit ? `<line x1="${cx + R + 6}" y1="${cy}" x2="798" y2="${cy}" stroke="#bfd732" stroke-width="4"/>` + io(v.exit, 890, "#bfd732") : "";
+  return `<svg class="bp-dia bp-aloop" viewBox="0 0 990 460">${ring}${chevrons}${entry}${exit}${nodes}${center}</svg>`;
+}
+
+// build_stack — layered system (base -> top)
+const buildStack = (v) => { const layers = [...asList(v.layers)].reverse(); return `<div class="bp-bstack">${layers.map((l, i) => `<div class="bs__layer${i === 0 ? " bs__layer--top" : ""}${i === layers.length - 1 ? " bs__layer--base" : ""}"><b>${esc(l.label)}</b>${l.note ? `<span>${esc(l.note)}</span>` : ""}</div>`).join("")}</div>`; };
+
+// file_tree — coded repo tree
+function fileTree(v) {
+  const es = asList(v.entries); const rows = [];
+  es.forEach((e, i) => {
+    const last = i === es.length - 1 && !asList(e.children).length;
+    const dir = /\/$|\/\*/.test(e.name || e.label || "");
+    rows.push(`<div class="ft__row"><span class="ft__c">${last ? "└─" : "├─"}</span><span class="ft__n${dir ? " ft__dir" : ""}">${esc(e.name || e.label)}</span>${e.note ? `<span class="ft__note">${esc(e.note)}</span>` : ""}</div>`);
+    asList(e.children).forEach((c, j, arr) => rows.push(`<div class="ft__row"><span class="ft__c">${i === es.length - 1 ? "  " : "│ "} ${j === arr.length - 1 ? "└─" : "├─"}</span><span class="ft__n">${esc(c)}</span></div>`));
+  });
+  return `<div class="bp-ftree"><div class="ft__root">${esc(v.root || "project/")}</div>${rows.join("")}</div>`;
+}
+
+// overloaded_prompt — one prompt carrying an OS's jobs (amber = strain)
+function overloadedPrompt(v) {
+  const jobs = asList(v.jobs); const n = Math.max(jobs.length, 1);
+  const cx = 450, cy = 230, R = 172, bw = 156, bh = 42, hw = 152, hh = 66;
+  const defs = `<defs><marker id="opar" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 z" fill="#c98a2b"/></marker></defs>`;
+  const items = jobs.map((j, i) => {
+    const a = (-90 + i * 360 / n) * Math.PI / 180, x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
+    const line = `<line x1="${(x - (bw / 2 - 6) * Math.cos(a)).toFixed(1)}" y1="${(y - (bh / 2 - 4) * Math.sin(a)).toFixed(1)}" x2="${(cx + (hw / 2 + 10) * Math.cos(a)).toFixed(1)}" y2="${(cy + (hh / 2 + 10) * Math.sin(a)).toFixed(1)}" stroke="#c98a2b" stroke-width="4" marker-end="url(#opar)"/>`;
+    return line + `<g><rect x="${(x - bw / 2).toFixed(1)}" y="${(y - bh / 2).toFixed(1)}" width="${bw}" height="${bh}" rx="9" fill="#f4f7ef" stroke="#00292e" stroke-width="1.5"/><text x="${x.toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="middle" class="op-label">${esc(j)}</text></g>`;
+  }).join("");
+  const core = `<rect x="${cx - hw / 2}" y="${cy - hh / 2}" width="${hw}" height="${hh}" rx="11" fill="#00292e" stroke="#c98a2b" stroke-width="3"/><text x="${cx}" y="${cy - 2}" text-anchor="middle" class="op-core">${esc(v.center || "One prompt")}</text><text x="${cx}" y="${cy + 18}" text-anchor="middle" class="op-sub">doing an OS's job</text>`;
+  return `<svg class="bp-dia bp-oprompt" viewBox="0 0 900 470">${defs}${items}${core}</svg>`;
+}
+
 const VIS = {
   stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum,
-  control_plane: controlPlane,
+  control_plane: controlPlane, agentic_search_loop: agenticLoop, build_stack: buildStack,
+  file_tree: fileTree, overloaded_prompt: overloadedPrompt,
   harness_ring: harnessRing, fleet, matrix, four_functions: fourFunctions,
   tool_loop: toolLoop, cards_row: cardsRow, capability_map: capmap,
   system_diagram: (v) => (asList(v.steps).length ? flow(v) : capmap(v)),

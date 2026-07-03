@@ -77,8 +77,12 @@ cards:
     subtitle: "We used agentic development practices to make quality evaluation explicit and repeatable."
     takeaway: "We made quality evaluation explicit and repeatable."
     visual:
-      kind: "flow"
-      steps: ["Video processing pipeline", "Cursor agents + AGENT.md", "Spec-driven dev + skills", "Evaluation system"]
+      kind: "build_stack"
+      layers:
+        - { label: "Video processing pipeline", note: "the system under test" }
+        - { label: "Cursor agents + AGENT.md", note: "agentic development" }
+        - { label: "Spec-driven dev + skills", note: "explicit, repeatable" }
+        - { label: "Evaluation system", note: "quality made measurable" }
     status: "draft"
 
   - id: "6.10"
@@ -88,8 +92,10 @@ cards:
     subtitle: "Search becomes a loop: plan, call tools, inspect results, and refine."
     takeaway: "Search becomes a loop, not a single query."
     visual:
-      kind: "flow"
-      steps: ["Query", "Plan", "MCP calls", "Skills", "Inspect", "Refine", "Matched results"]
+      kind: "agentic_search_loop"
+      entry: "Query"
+      loop: ["Plan", "Call tools · MCPs · skills", "Inspect results", "Refine"]
+      exit: "Matched results"
     status: "draft"
 
   - id: "6.6"
