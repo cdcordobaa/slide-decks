@@ -70,6 +70,28 @@ cards:
       steps: ["Spec / intent", "Acceptance criteria", "Functional tests", "Structural tests", "CI + Human Review"]
     status: "draft"
 
+  - id: "6.9"
+    name: "Client Project: Video Pipeline Evaluation"
+    type: "concept"
+    title: "Client project: an evaluation system for a video pipeline"
+    subtitle: "We used agentic development practices to make quality evaluation explicit and repeatable."
+    takeaway: "We made quality evaluation explicit and repeatable."
+    visual:
+      kind: "flow"
+      steps: ["Video processing pipeline", "Cursor agents + AGENT.md", "Spec-driven dev + skills", "Evaluation system"]
+    status: "draft"
+
+  - id: "6.10"
+    name: "Client Project: Agentic Search Harness"
+    type: "concept"
+    title: "Client project: an agentic search harness"
+    subtitle: "Search becomes a loop: plan, call tools, inspect results, and refine."
+    takeaway: "Search becomes a loop, not a single query."
+    visual:
+      kind: "flow"
+      steps: ["Query", "Plan", "MCP calls", "Skills", "Inspect", "Refine", "Matched results"]
+    status: "draft"
+
   - id: "6.6"
     name: "Demo: Spec to PR"
     type: "demo"

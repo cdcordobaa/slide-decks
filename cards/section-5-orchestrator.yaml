@@ -16,6 +16,20 @@ cards:
       rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
     status: "draft"
 
+  - id: "5.2"
+    name: "From Prompt to Spec"
+    type: "comparison"
+    title: "The interface changes: prompt → spec"
+    subtitle: "You no longer ask for help. You define bounded work."
+    takeaway: "The spec becomes the control surface."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "Prompt", result: "“Please fix this bug.”" }
+        - { label: "Spec / Ticket", result: "scope · repo · constraints · tests · done criteria" }
+    speaker: "Sets up WORKFLOW.md and ticket-driven agents."
+    status: "draft"
+
   - id: "5.3"
     name: "Multi-Agent Harness"
     type: "system_diagram"
