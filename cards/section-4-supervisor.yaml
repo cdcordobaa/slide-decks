@@ -143,3 +143,19 @@ cards:
       steps: ["1 agent → manageable", "3 agents → stressful", "20 agents → coordination collapse"]
     speaker: "Transition to the break, then Rung 3."
     status: "draft"
+
+  - id: "4.9"
+    name: "Memory Is Still an Open Design Choice"
+    type: "concept"
+    title: "Memory is still an open design choice"
+    subtitle: "There is no industry consensus; choose the retrieval policy that matches your codebase and task."
+    takeaway: "Pick the memory that fits the task, not the hype."
+    visual:
+      kind: "matrix"
+      columns: ["Approach", "Best for", "Tradeoff"]
+      rows:
+        - ["Grep + Glob", "small / medium repos", "no semantic recall"]
+        - ["Markdown (AGENTS.md)", "conventions & maps", "manual upkeep"]
+        - ["RAG / Embeddings", "large codebases", "index staleness"]
+        - ["GraphRAG", "structural / cross-file queries", "setup cost"]
+    status: "draft"

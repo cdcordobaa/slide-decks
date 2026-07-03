@@ -33,16 +33,31 @@ cards:
     speaker: "The core equation; a recurring anchor slide."
     status: "draft"
 
+  - id: "1.12"
+    name: "A Harness Does Four Jobs"
+    type: "concept"
+    title: "A harness does four jobs"
+    subtitle: "It contains, directs, connects, and signals so raw model capability becomes useful work."
+    takeaway: "Contain, direct, connect, signal — that's the whole job."
+    visual:
+      kind: "four_functions"
+      items:
+        - { label: "Contains", caption: "boundaries, permissions, isolation" }
+        - { label: "Directs", caption: "the loop, the plan, the next step" }
+        - { label: "Connects", caption: "tools, context, memory, MCPs" }
+        - { label: "Signals", caption: "observations, evaluation, done / not done" }
+    status: "draft"
+
   - id: "1.3"
     name: "What the Harness Gives the Model"
     type: "capability_map"
-    title: "The harness gives the model a body"
-    subtitle: "This is where intelligence becomes operational."
+    title: "The harness is the agent's body and environment"
+    subtitle: "Context, tools, skills, memory, permissions, and runtime define what the model can actually do."
     takeaway: "The harness is not 'the prompt.' It is the operating environment."
     visual:
       kind: "harness_ring"
       center: "MODEL"
-      items: ["Tools", "Context", "Memory", "State", "Permissions", "Evaluation", "Recovery", "Environment"]
+      items: ["Context", "Tools", "Skills", "MCPs", "Memory", "Runtime", "Permissions", "Evaluation"]
     speaker: "A map, not a deep-dive; the rungs unpack each item."
     status: "draft"
 
@@ -82,7 +97,7 @@ cards:
     name: "Different Suits, Different Capabilities"
     type: "comparison"
     title: "Different missions need different suits"
-    subtitle: "A harness is a set of tools, skills, memory, and operating constraints."
+    subtitle: "A harness is tools, skills, memory, and constraints — add a skill, tool, MCP, or subagent and you extend the body."
     layout: hero
     caption: ["Coding harness", "Research harness", "Orchestration harness", "Custom harness"]
     image:
@@ -130,3 +145,22 @@ cards:
       terms: ["Model", "Harness", "Environment"]
     speaker: "Conceptual, not literal; transition to the ladder."
     status: "draft"
+
+  - id: "1.11"
+    name: "Different Harnesses Expose Different Capabilities"
+    type: "comparison"
+    title: "Different harnesses expose different capabilities"
+    subtitle: "Claude Code, Codex, OpenCode, OpenHands, Droid, and Gemini CLI give the model different bodies."
+    takeaway: "Same model, different harness, different capability."
+    visual:
+      kind: "matrix"
+      columns: ["Harness", "Tools", "Subagents", "Sandbox", "MCP"]
+      rows:
+        - ["Claude Code", "shell · files · web", "yes", "local", "yes"]
+        - ["Codex", "shell · files", "limited", "cloud", "—"]
+        - ["OpenCode", "shell · files · LSP", "yes", "local", "yes"]
+        - ["OpenHands", "shell · browser", "yes", "cloud", "—"]
+        - ["Droid", "shell · files", "yes", "cloud", "yes"]
+        - ["Gemini CLI", "shell · files · web", "limited", "local", "yes"]
+    speaker: "Values are illustrative — verify against the reference table before the talk."
+    status: "needs data"

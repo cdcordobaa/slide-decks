@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 /*
- * build-blueprint-deck.mjs — render the core-cut card manifest as a full
- * blueprint-style deck. Most diagrams are blueprint-styled HTML/CSS (crisp,
- * wrapping text); the tool-loop is SVG. Text stays editable; images are the
- * only generated layer (placeholder until generated).
+ * build-blueprint-deck.mjs — render the card manifest as the Globant-branded
+ * blueprint deck: a green-forward engineering board (grid + navy margins),
+ * greens-only accents, via theme/blueprint.css. Adds a branded cover slide and
+ * a Globant logo mark on every card.
  *
  *   node scripts/build-blueprint-deck.mjs cards --out build/harness-blueprint.html [--all]
+ *   node scripts/build-blueprint-deck.mjs cards --ids 0.1,0.3 --out build/verify.html
  *
- * By default renders deck.core (the 20-slide spine) in order; --all renders every card.
+ * By default renders deck.core (the spine) in order; --all renders every card;
+ * --ids <a,b,c> renders just those cards (used to verify the theme quickly).
+ * --no-cover skips the title slide.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -17,6 +20,14 @@ import { ICONS } from "../theme/tabler-icons.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const THEME = path.join(HERE, "..", "theme", "blueprint.css");
+const LOGO_PATH = path.join(HERE, "..", "cards", "assets", "globant-logo.svg");
+const LOGO_RAW = fs.readFileSync(LOGO_PATH, "utf8");
+// The mark is a single-fill green wordmark; recolor per surface.
+const logoURI = (hex) => "data:image/svg+xml;base64," + Buffer.from(LOGO_RAW.replace(/#bfd732/gi, hex)).toString("base64");
+const LOGO_GREEN = logoURI("#bfd732");        // for dark surfaces
+const LOGO_NAVY = logoURI("#00292e");         // for the light board
+const LOGO_TAG = `<img class="bp-logo" src="${LOGO_NAVY}" alt="Globant">`;
+
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const asList = (v) => (Array.isArray(v) ? v : v == null || v === "" ? [] : [v]);
 const norm = (it) => (typeof it === "object" && it ? { label: it.label, caption: it.caption ?? null, state: it.state ?? null } : { label: it, caption: null, state: null });
@@ -24,11 +35,13 @@ const norm = (it) => (typeof it === "object" && it ? { label: it.label, caption:
 let CTX = { dir: ".", outDir: ".", assets: new Set() };
 
 function parseArgs(argv) {
-  const o = { dir: "cards", out: "build/harness-blueprint.html", all: false };
+  const o = { dir: "cards", out: "build/harness-blueprint.html", all: false, ids: null, cover: true };
   const rest = [];
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === "--out") o.out = argv[++i];
     else if (argv[i] === "--all") o.all = true;
+    else if (argv[i] === "--ids") o.ids = argv[++i].split(",").map((s) => s.trim()).filter(Boolean);
+    else if (argv[i] === "--no-cover") o.cover = false;
     else rest.push(argv[i]);
   }
   if (rest[0]) o.dir = rest[0];
@@ -51,41 +64,57 @@ function loadCards(dir) {
   return map;
 }
 
-// ---------- SVG chrome ----------
+// Slide-number badge (bottom-right). num/total are 1-based.
+const pageNo = (num, total) => `<div class="bp-pageno"><b>${String(num).padStart(2, "0")}</b> / ${total}</div>`;
+
+// ---------- Cover slide ----------
+function cover(deck, num, total) {
+  return `<section class="slide bp bp-cover" aria-label="cover">
+    ${frameSVG()}${pageNo(num, total)}
+    <img class="bp-cover__logo" src="${LOGO_NAVY}" alt="Globant">
+    <div class="bp-cover__eyebrow">${esc(deck.audience ?? "Harness Engineering")}</div>
+    <h1 class="bp-cover__title">${esc(deck.title ?? "Deck")}</h1>
+    <div class="bp-cover__rule"></div>
+    <p class="bp-cover__sub">${esc(deck.subtitle ?? "")}</p>
+    <div class="bp-cover__meta"><b>GLOBANT</b> &nbsp;//&nbsp; Harness Engineering</div>
+  </section>`;
+}
+
+// ---------- SVG chrome (Globant navy) ----------
 function frameSVG() {
-  const corner = (x, y, sx, sy) => `<path d="M ${x} ${y + sy * 22} L ${x} ${y} L ${x + sx * 22} ${y}" fill="none" stroke="#2b333b" stroke-width="1.6"/>`;
+  const corner = (x, y, sx, sy) => `<path d="M ${x} ${y + sy * 22} L ${x} ${y} L ${x + sx * 22} ${y}" fill="none" stroke="#00292e" stroke-width="1.6"/>`;
   return `<svg class="bp-frame" viewBox="0 0 1280 720" preserveAspectRatio="none">
-    <rect x="20" y="20" width="1240" height="680" fill="none" stroke="#2b333b" stroke-width="1.2"/>
+    <rect x="20" y="20" width="1240" height="680" fill="none" stroke="#00292e" stroke-width="1.2" opacity="0.55"/>
     ${corner(34, 34, 1, 1)}${corner(1246, 34, -1, 1)}${corner(34, 686, 1, -1)}${corner(1246, 686, -1, -1)}
-    <rect x="628" y="694" width="24" height="12" fill="none" stroke="#2b333b" stroke-width="1.2"/>
+    <rect x="628" y="694" width="24" height="12" fill="none" stroke="#00292e" stroke-width="1.2"/>
   </svg>`;
 }
 
-// ---------- SVG tool loop ----------
+// ---------- SVG tool loop (green pipes, navy modules, teal core) ----------
 const C = { x: 300, y: 292 };
 function moduleSVG(cx, cy, label) {
   const w = 122, h = 80, x = cx - w / 2, y = cy - h / 2;
-  const bolt = (bx, by) => `<circle cx="${bx}" cy="${by}" r="3" fill="#222a30"/>`;
-  return `<g><rect x="${x}" y="${y + 6}" width="${w}" height="${h - 6}" rx="10" fill="#3c4650" stroke="#222a30" stroke-width="2"/><rect x="${x + 6}" y="${y}" width="${w - 12}" height="18" rx="7" fill="#59636f" stroke="#222a30" stroke-width="2"/>${bolt(x + 12, y + h - 12)}${bolt(x + w - 12, y + h - 12)}<text x="${cx}" y="${cy + 16}" text-anchor="middle" class="mod-label">${esc(label)}</text></g>`;
+  const bolt = (bx, by) => `<circle cx="${bx}" cy="${by}" r="3" fill="#0a3a40"/>`;
+  return `<g><rect x="${x}" y="${y + 6}" width="${w}" height="${h - 6}" rx="10" fill="#00292e" stroke="#0a3a40" stroke-width="2"/><rect x="${x + 6}" y="${y}" width="${w - 12}" height="18" rx="7" fill="#17505a" stroke="#0a3a40" stroke-width="2"/>${bolt(x + 12, y + h - 12)}${bolt(x + w - 12, y + h - 12)}<text x="${cx}" y="${cy + 16}" text-anchor="middle" class="mod-label">${esc(label)}</text></g>`;
 }
 function pipeSVG(cx, cy) {
   const dx = C.x - cx, dy = C.y - cy, len = Math.hypot(dx, dy), ux = dx / len, uy = dy / len;
   const sx = cx + ux * 46, sy = cy + uy * 46, ex = C.x - ux * 128, ey = C.y - uy * 128;
-  return `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#1fb6d6" stroke-width="11" stroke-linecap="round"/><line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#c7ecf4" stroke-width="3.5" stroke-linecap="round"/>`;
+  return `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#bfd732" stroke-width="11" stroke-linecap="round"/><line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="#e8f5b3" stroke-width="3.5" stroke-linecap="round"/>`;
 }
 function hexSVG(cx, cy, r, label) {
   const pts = Array.from({ length: 6 }, (_, k) => { const a = ((-90 + 60 * k) * Math.PI) / 180; return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`; }).join(" ");
-  return `<polygon points="${pts}" fill="#f2a51c" stroke="#b5771a" stroke-width="3"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" class="core-label">${esc(label)}</text>`;
+  return `<polygon points="${pts}" fill="#00292e" stroke="#1f7a3d" stroke-width="3"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" class="core-label">${esc(label)}</text>`;
 }
-function arrowhead(deg) { const a = (deg * Math.PI) / 180, x = C.x + 118 * Math.cos(a), y = C.y + 118 * Math.sin(a); return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg + 90})"><path d="M -9 -7 L 9 0 L -9 7 Z" fill="#0f7f96"/></g>`; }
+function arrowhead(deg) { const a = (deg * Math.PI) / 180, x = C.x + 118 * Math.cos(a), y = C.y + 118 * Math.sin(a); return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg + 90})"><path d="M -9 -7 L 9 0 L -9 7 Z" fill="#00292e"/></g>`; }
 function toolLoop(d = {}) {
   const mods = asList(d.modules).slice(0, 4);
   const pos = [[95, 96], [505, 96], [95, 488], [505, 488]];
   const phases = asList(d.phases), phasePos = [[C.x, 198], [C.x + 84, C.y + 4], [C.x - 84, C.y + 4]];
   return `<svg class="bp-diagram bp-dia" viewBox="0 0 600 604">
     ${mods.map((_, i) => pipeSVG(pos[i][0], pos[i][1])).join("")}
-    <circle cx="${C.x}" cy="${C.y}" r="118" fill="none" stroke="#1fb6d6" stroke-width="16" opacity="0.82"/>
-    <circle cx="${C.x}" cy="${C.y}" r="76" fill="none" stroke="#0f7f96" stroke-width="1" stroke-dasharray="4 5"/>
+    <circle cx="${C.x}" cy="${C.y}" r="118" fill="none" stroke="#bfd732" stroke-width="16" opacity="0.9"/>
+    <circle cx="${C.x}" cy="${C.y}" r="76" fill="none" stroke="#00877b" stroke-width="1" stroke-dasharray="4 5"/>
     ${[-58, 62, 182].map(arrowhead).join("")}
     ${mods.map((m, i) => moduleSVG(pos[i][0], pos[i][1], m)).join("")}
     ${hexSVG(C.x, C.y, 46, d.core ?? "MODEL")}
@@ -103,12 +132,12 @@ function iconFor(label) {
   if (h(/memory|remember/)) return "memory";
   if (h(/state|track/)) return "state";
   if (h(/permission/)) return "permissions";
-  if (h(/eval|judge|correct|grade/)) return "evaluation";
+  if (h(/eval|judge|correct|grade|verif/)) return "evaluation";
   if (h(/recover|retry/)) return "recovery";
-  if (h(/safe|safety|constraint/)) return "safety";
+  if (h(/safe|safety|constraint|contain/)) return "safety";
   if (h(/environment|\benv\b/)) return "environment";
   if (h(/human|operator|\byou\b/)) return "human";
-  if (h(/coordinat|orchestrat/)) return "coordination";
+  if (h(/coordinat|orchestrat|direct/)) return "coordination";
   if (h(/git|branch/)) return "git";
   if (h(/terminal/)) return "terminal";
   if (h(/filesystem|folder|workspace/)) return "workspace";
@@ -116,9 +145,9 @@ function iconFor(label) {
   if (h(/browser|web/)) return "browser";
   if (h(/review/)) return "review";
   if (h(/ticket/)) return "ticket";
-  if (h(/spec|\bfile\b/)) return "specs";
-  if (h(/improve|system/)) return "improve";
-  if (h(/api|plug/)) return "api";
+  if (h(/spec|\bfile\b|mcp/)) return "specs";
+  if (h(/improve|system|signal/)) return "improve";
+  if (h(/api|plug|connect/)) return "api";
   if (h(/custom|skill/)) return "custom";
   if (h(/runtime|loop/)) return "runtime";
   if (h(/missing|\?\?\?/)) return "missing";
@@ -126,8 +155,10 @@ function iconFor(label) {
   return "generic";
 }
 const icon = (name, cls) => `<svg class="ico${cls ? " " + cls : ""}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] ?? ICONS.generic}</svg>`;
+// SVG-embedded icon (nested <svg>, explicit Globant green-deep stroke)
+const svgIcon = (name, x, y) => `<svg x="${x}" y="${y}" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f7a3d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] ?? ICONS.generic}</svg>`;
 
-// ---------- HTML blueprint diagrams ----------
+// ---------- HTML diagrams ----------
 const stack = (v) => `<div class="bp-stk">${asList(v.items).map(norm).map((it) => `<div class="bp-stk__row${it.state === "missing" ? " is-missing" : ""}">${icon(it.state === "missing" ? "missing" : iconFor(it.label), "bp-stk__ico")}<span class="bp-stk__label">${esc(it.label)}</span>${it.caption ? `<span class="bp-stk__cap">${esc(it.caption)}</span>` : ""}${it.state === "missing" ? `<span class="bp-stk__tag">not engineered</span>` : ""}</div>`).join("")}</div>`;
 
 const comparison = (v) => `<div class="bp-cmp">${asList(v.boxes).map((b) => `<div class="bp-cmp__col"><div class="bp-cmp__h">${esc(b.label)}</div><div class="bp-cmp__b">${esc(b.result)}</div></div>`).join("")}</div>`;
@@ -173,11 +204,9 @@ function image(v, card) {
   return `<figure class="bp-fig">${inner}${tags}</figure>`;
 }
 
-// formula — factors joined by × (e.g. Model × Harness × Environment)
 const formula = (v) => `<div class="bp-eq">${asList(v.terms).map((t, i, a) => `<div class="bp-eq__box"><div class="bp-eq__l">${esc(t)}</div></div>` + (i < a.length - 1 ? `<div class="bp-eq__op">×</div>` : "")).join("")}</div>`;
 
-// harness_ring — coded SVG: an orange model core ringed by icon-labelled subsystem
-// modules wired by cyan pipes (replaces the Gemini "harness machine" illustration).
+// harness_ring — model core ringed by icon-labelled subsystem modules (Globant colors)
 function harnessRing(v) {
   const items = asList(v.items).map(norm);
   const n = items.length || 1;
@@ -187,43 +216,53 @@ function harnessRing(v) {
   items.forEach((it, i) => {
     const a = (-90 + (i * 360) / n) * (Math.PI / 180);
     const mx = cx + R * Math.cos(a), my = cy + R * Math.sin(a);
-    pipes.push(`<line x1="${(cx + hexR * Math.cos(a)).toFixed(1)}" y1="${(cy + hexR * Math.sin(a)).toFixed(1)}" x2="${(mx - (bw / 2 - 8) * Math.cos(a)).toFixed(1)}" y2="${(my - (bh / 2 - 4) * Math.sin(a)).toFixed(1)}" stroke="#1fb6d6" stroke-width="6" stroke-linecap="round"/>`);
+    pipes.push(`<line x1="${(cx + hexR * Math.cos(a)).toFixed(1)}" y1="${(cy + hexR * Math.sin(a)).toFixed(1)}" x2="${(mx - (bw / 2 - 8) * Math.cos(a)).toFixed(1)}" y2="${(my - (bh / 2 - 4) * Math.sin(a)).toFixed(1)}" stroke="#bfd732" stroke-width="6" stroke-linecap="round"/>`);
     const bx = mx - bw / 2, by = my - bh / 2;
-    boxes.push(`<g><rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw}" height="${bh}" rx="9" fill="#f8f7f1" stroke="#2b333b" stroke-width="1.5"/><svg x="${(bx + 11).toFixed(1)}" y="${(by + 12).toFixed(1)}" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f7f96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[iconFor(it.label)] ?? ICONS.generic}</svg><text x="${(bx + 42).toFixed(1)}" y="${(by + 29).toFixed(1)}" class="hr-label">${esc(it.label)}</text></g>`);
+    boxes.push(`<g><rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw}" height="${bh}" rx="9" fill="#f4f7ef" stroke="#00292e" stroke-width="1.5"/>${svgIcon(iconFor(it.label), (bx + 11).toFixed(1), (by + 12).toFixed(1))}<text x="${(bx + 42).toFixed(1)}" y="${(by + 29).toFixed(1)}" class="hr-label">${esc(it.label)}</text></g>`);
   });
-  const core = `<polygon points="${hexPts}" fill="#f2a51c" stroke="#b5771a" stroke-width="3"/><text x="${cx}" y="${(cy + 6).toFixed(1)}" text-anchor="middle" class="hr-core">${esc(v.center ?? "MODEL")}</text>`;
+  const core = `<polygon points="${hexPts}" fill="#00292e" stroke="#1f7a3d" stroke-width="3"/><text x="${cx}" y="${(cy + 6).toFixed(1)}" text-anchor="middle" class="hr-core">${esc(v.center ?? "MODEL")}</text>`;
   return `<svg class="bp-dia bp-ring" viewBox="0 0 860 610">${pipes.join("")}${boxes.join("")}${core}</svg>`;
 }
 
-// fleet — coded SVG: source → orchestrator hub → N agents in isolated workspaces
-// → CI/review gate (replaces the Gemini multi-agent illustration).
+// fleet — source -> orchestrator -> isolated agents -> CI/review gate
 function fleet(v) {
   const agents = asList(v.agents).length ? asList(v.agents) : ["Agent A", "Agent B", "Agent C"];
   const source = v.source ?? "Tickets", hub = v.hub ?? "Orchestrator", gate = v.gate ?? "CI + Review";
   const nodeW = 164, nodeH = 44, wsW = 200, wsH = 66;
   const nb = (cx, cy, label, ic, accent) => {
     const x = cx - nodeW / 2, y = cy - nodeH / 2;
-    return `<g><rect x="${x}" y="${y}" width="${nodeW}" height="${nodeH}" rx="10" fill="${accent ? "rgba(242,165,28,0.12)" : "#f8f7f1"}" stroke="${accent ? "#b5771a" : "#2b333b"}" stroke-width="1.5"/><svg x="${x + 12}" y="${cy - 11}" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f7f96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[ic] ?? ICONS.generic}</svg><text x="${x + 40}" y="${cy + 5}" class="hr-label">${esc(label)}</text></g>`;
+    return `<g><rect x="${x}" y="${y}" width="${nodeW}" height="${nodeH}" rx="10" fill="${accent ? "rgba(191,215,50,0.22)" : "#f4f7ef"}" stroke="${accent ? "#1f7a3d" : "#00292e"}" stroke-width="1.5"/>${svgIcon(ic, x + 12, cy - 11)}<text x="${x + 40}" y="${cy + 5}" class="hr-label">${esc(label)}</text></g>`;
   };
-  const pipe = (x1, y1, x2, y2) => `<path d="M ${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}" fill="none" stroke="#1fb6d6" stroke-width="5" stroke-linecap="round"/>`;
+  const pipe = (x1, y1, x2, y2) => `<path d="M ${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}" fill="none" stroke="#bfd732" stroke-width="5" stroke-linecap="round"/>`;
   const src = { x: 110, y: 240 }, hb = { x: 320, y: 240 }, gt = { x: 820, y: 240 }, ax = 590;
   const ays = agents.map((_, i) => (agents.length === 1 ? 240 : 110 + (i * 260) / (agents.length - 1)));
   const pipes = [pipe(src.x + nodeW / 2, src.y, hb.x - nodeW / 2, hb.y)];
   agents.forEach((_, i) => { pipes.push(pipe(hb.x + nodeW / 2, hb.y, ax - wsW / 2, ays[i])); pipes.push(pipe(ax + wsW / 2, ays[i], gt.x - nodeW / 2, gt.y)); });
-  const ws = agents.map((a, i) => `<rect x="${ax - wsW / 2}" y="${ays[i] - wsH / 2}" width="${wsW}" height="${wsH}" rx="10" fill="none" stroke="#8a9199" stroke-width="1.3" stroke-dasharray="5 4"/>` + nb(ax, ays[i], a, "agent")).join("");
+  const ws = agents.map((a, i) => `<rect x="${ax - wsW / 2}" y="${ays[i] - wsH / 2}" width="${wsW}" height="${wsH}" rx="10" fill="none" stroke="#7c8a7e" stroke-width="1.3" stroke-dasharray="5 4"/>` + nb(ax, ays[i], a, "agent")).join("");
   const nodes = nb(src.x, src.y, source, "ticket") + nb(hb.x, hb.y, hub, "coordination") + nb(gt.x, gt.y, gate, "review", true);
   return `<svg class="bp-dia bp-fleet" viewBox="0 0 930 480">${pipes.join("")}${ws}${nodes}</svg>`;
 }
 
+// matrix — small comparison table
+function matrix(v) {
+  const cols = asList(v.columns), rows = asList(v.rows);
+  const th = cols.map((c) => `<th>${esc(c)}</th>`).join("");
+  const trs = rows.map((r) => `<tr>${asList(r).map((c, i) => `<td${i === 0 ? ' class="bp-mx__h"' : ""}>${esc(c)}</td>`).join("")}</tr>`).join("");
+  return `<table class="bp-mx"><thead><tr>${th}</tr></thead><tbody>${trs}</tbody></table>`;
+}
+
+// four_functions — 2x2 labelled cards
+const fourFunctions = (v) => `<div class="bp-4fn">${asList(v.items).map(norm).map((it) => `<div class="bp-4fn__q">${icon(iconFor(it.label), "bp-4fn__ico")}<div><b>${esc(it.label)}</b>${it.caption ? `<span>${esc(it.caption)}</span>` : ""}</div></div>`).join("")}</div>`;
+
 const VIS = {
-  stack, comparison, equation, formula, transfer, fanout, ladder, flow, harness_ring: harnessRing, fleet,
+  stack, comparison, equation, formula, transfer, fanout, ladder, flow,
+  harness_ring: harnessRing, fleet, matrix, four_functions: fourFunctions,
   tool_loop: toolLoop, cards_row: cardsRow, capability_map: capmap,
   system_diagram: (v) => (asList(v.steps).length ? flow(v) : capmap(v)),
   failure_mode: (v) => capmap({ center: v.center ?? "⚠ Failure modes", items: v.items }),
   mirror: (v) => hub(v, true), orbit: (v) => hub(v, false),
 };
 
-// Copy an asset next to the HTML and return its relative path.
 function copyAsset(absSrc) {
   const base = path.basename(absSrc);
   const d = path.join(CTX.outDir, "assets");
@@ -232,13 +271,11 @@ function copyAsset(absSrc) {
   return `assets/${base}`;
 }
 
-// Placeholder for an image slot with no generated art yet — shows the prompt.
 function phBox(card) {
   const brief = String(card.visual?.brief || card.image?.brief || "").trim();
   return `<div class="bp-fig__ph"><div class="bp-fig__ph-h">🖼 IMAGE — prompt (not generated)</div>${brief ? `<div class="bp-fig__ph-b">${esc(brief)}</div>` : ""}<code>gen ${esc(card.id)}</code></div>`;
 }
 
-// The image half of a split slide (its own image block, or the card's visual image).
 function splitMedia(card) {
   const im = card.image ?? (card.visual?.kind === "image" ? card.visual : {});
   const src = im.src ? path.resolve(CTX.dir, im.src) : path.join(CTX.dir, "assets", `${card.id}.png`);
@@ -256,15 +293,14 @@ function renderVisual(card) {
 }
 
 // ---------- slide ----------
-function slide(card) {
+function slide(card, num, total) {
   const sec = card._sec ?? {};
   const eyebrow = `<div class="bp-eyebrow">§${esc(sec.id ?? "")} · ${esc((sec.title ?? "").toUpperCase())} · ${esc(card.id)}</div>`;
   const title = `<h1 class="bp-h">${esc(card.title)}</h1>`;
   const sub = card.subtitle ? `<p class="bp-sub">${esc(card.subtitle)}</p>` : "";
   const take = card.takeaway ? `<div class="bp-take"><span>▸</span> ${esc(card.takeaway)}</div>` : "";
-  const credit = `<div class="bp-credit">HARNESS ENGINEERING // ${esc(card.id)}</div>`;
+  const credit = `<div class="bp-credit">HARNESS ENGINEERING // ${esc(card.id)}</div>${pageNo(num, total)}`;
 
-  // Full layout: one rich full-bleed infographic image (baked text), no chrome.
   if (card.layout === "full") {
     const src = path.join(CTX.dir, "assets", `${card.id}.png`);
     const img = fs.existsSync(src)
@@ -273,8 +309,6 @@ function slide(card) {
     return `<section class="slide bp bp-full" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">${img}</section>`;
   }
 
-  // Hero layout: a large framed image is the main element, held inside the
-  // blueprint chrome, with crisp HTML title/takeaway and an optional label strip.
   if (card.layout === "hero") {
     const im = card.image ?? (card.visual?.kind === "image" ? card.visual : {});
     const src = im.src ? path.resolve(CTX.dir, im.src) : path.join(CTX.dir, "assets", `${card.id}.png`);
@@ -285,14 +319,13 @@ function slide(card) {
       ? `<div class="bp-hero__cap">${asList(card.caption).map((c) => `<span>${esc(c)}</span>`).join('<i>→</i>')}</div>`
       : "";
     return `<section class="slide bp bp-card bp-hero" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
-    ${frameSVG()}
+    ${frameSVG()}${LOGO_TAG}
     ${eyebrow}${title}
     <div class="bp-hero__media">${media}</div>
     ${cap}${take}${credit}
   </section>`;
   }
 
-  // Split layout: content on one half, image on the other.
   if (card.layout === "split") {
     const body = asList(card.body).length
       ? `<ul class="bp-body">${asList(card.body).map((b) => `<li>${esc(b)}</li>`).join("")}</ul>`
@@ -301,14 +334,14 @@ function slide(card) {
         : "";
     const content = `<div class="bp-half__content">${eyebrow}${title}${sub}${body}</div>`;
     return `<section class="slide bp bp-card" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
-    ${frameSVG()}
+    ${frameSVG()}${LOGO_TAG}
     <div class="bp-split${card.side === "image-left" ? " is-left" : ""}">${content}${splitMedia(card)}</div>
     ${take}${credit}
   </section>`;
   }
 
   return `<section class="slide bp bp-card" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
-    ${frameSVG()}
+    ${frameSVG()}${LOGO_TAG}
     ${eyebrow}${title}${sub}
     <div class="bp-stage">${renderVisual(card)}</div>
     ${take}${credit}
@@ -320,19 +353,24 @@ function main() {
   CTX.dir = opts.dir; CTX.outDir = path.dirname(path.resolve(opts.out));
   const deck = loadDeck(opts.dir);
   const cards = loadCards(opts.dir);
-  const order = opts.all ? [...cards.keys()] : asList(deck.core).map(String);
+  const order = opts.ids ? opts.ids : opts.all ? [...cards.keys()] : asList(deck.core).map(String);
   const chosen = order.map((id) => cards.get(id)).filter(Boolean);
   const missing = order.filter((id) => !cards.get(id));
   if (missing.length) console.error(`  ! not found: ${missing.join(", ")}`);
 
   const css = fs.readFileSync(THEME, "utf8");
-  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(deck.title ?? "Deck")} — blueprint</title>
+  const total = (opts.cover ? 1 : 0) + chosen.length;
+  let n = 0;
+  const slides = [];
+  if (opts.cover) slides.push(cover(deck, (n += 1), total));
+  for (const card of chosen) slides.push(slide(card, (n += 1), total));
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(deck.title ?? "Deck")} — Globant</title>
 <style>${css}</style></head><body><main class="deck">
-${chosen.map(slide).join("\n")}
+${slides.join("\n")}
 </main></body></html>`;
   fs.mkdirSync(CTX.outDir, { recursive: true });
   fs.writeFileSync(opts.out, html);
   if (CTX.assets.size) { const d = path.join(CTX.outDir, "assets"); fs.mkdirSync(d, { recursive: true }); for (const id of CTX.assets) fs.copyFileSync(path.join(CTX.dir, "assets", `${id}.png`), path.join(d, `${id}.png`)); }
-  console.log(`Wrote ${opts.out} — ${chosen.length} slides (${CTX.assets.size} images embedded)`);
+  console.log(`Wrote ${opts.out} — ${slides.length} slides (${CTX.assets.size} images embedded)`);
 }
-try { main(); } catch (e) { console.error(`build-blueprint-deck failed: ${e.stack || e.message}`); process.exit(1); }
+try { main(); } catch (e) { console.error(`build-globant-deck failed: ${e.stack || e.message}`); process.exit(1); }

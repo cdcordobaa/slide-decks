@@ -79,3 +79,27 @@ cards:
       items: ["routing logic", "state policy", "workspace rules", "agent instructions", "review gates"]
     speaker: "The key Rung 3 line."
     status: "draft"
+
+  - id: "5.7"
+    name: "WORKFLOW.md Has Two Audiences"
+    type: "comparison"
+    title: "WORKFLOW.md has two audiences"
+    subtitle: "YAML tells the harness how to operate. Markdown tells the agent how to behave."
+    takeaway: "One file, two contracts."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "YAML front matter", result: "for the harness: routing, state, workspaces, gates" }
+        - { label: "Markdown body", result: "for the agent: instructions, constraints, behavior" }
+    status: "draft"
+
+  - id: "5.8"
+    name: "One Ticket Becomes One Isolated Run"
+    type: "system_diagram"
+    title: "One ticket becomes one isolated run"
+    subtitle: "The workflow turns task state into workspace, agent execution, progress, PR, and review."
+    takeaway: "A ticket is a unit of controlled work."
+    visual:
+      kind: "flow"
+      steps: ["Ticket → Ready", "Workspace created", "mcp.json loaded", "Agent runs", "Workpad / PR", "Human review"]
+    status: "draft"
