@@ -22,6 +22,18 @@ cards:
     type: "system_diagram"
     title: "A tool loop turns tokens into actions"
     subtitle: "The model can now act, observe, adjust, and continue."
+    layout: hero
+    caption: ["Act → Observe → Adjust", "Terminal · Filesystem · Git · Tests"]
+    image:
+      brief: >
+        A rich technical blueprint illustration on a cream graph-paper background: a
+        central glowing orange hexagonal core (the model) surrounded by a thick cyan
+        circular pipeline forming a continuous loop with three large flow arrows. Four
+        detailed steel tool-module boxes sit at the corners, each wired into the loop by
+        cyan pipes with small connector bolts. Thin dashed dimension lines and tick marks
+        surround the assembly. Steel-grey line-art with fine detail, cyan pipes, orange
+        core. Precise engineering-diagram look. Absolutely no text, no words, no letters,
+        no numbers.
     takeaway: "An agent is a loop, not a single response."
     visual:
       kind: "tool_loop"
@@ -49,6 +61,16 @@ cards:
     type: "comparison"
     title: "When an agent 'doesn't understand the code,' ask what eyes it has"
     subtitle: "Same model, different harness, different code vision."
+    layout: hero
+    caption: ["Raw chat → line", "Grep → path", "Cursor → map", "Sandbox → hologram"]
+    image:
+      brief: >
+        A technical blueprint comparison showing the same piece of code understood at
+        four increasing depths, left to right: (1) a single highlighted line of code,
+        (2) a branching file-path tree, (3) a 2D map of connected modules, (4) a 3D
+        holographic exploded view of the whole system. Steel-grey line-art, cyan
+        structural lines, orange highlights; each stage visibly richer than the last.
+        No text, no labels.
     takeaway: "Do not blame the brain before inspecting the body."
     visual:
       kind: "comparison"

@@ -35,6 +35,19 @@ cards:
     type: "system_diagram"
     title: "A multi-agent harness is a coordination system"
     subtitle: "Now the harness manages agents, tasks, state, isolation, and review."
+    layout: hero
+    caption: ["Tickets", "Orchestrator", "Agents (isolated)", "CI + Review"]
+    image:
+      brief: >
+        A rich, detailed technical blueprint illustration on a cream graph-paper
+        background, left to right: a human operator at a control console wired by a cyan
+        bus to a central orchestrator machine block, which dispatches via cyan pipes to
+        three separate active robot agents, each enclosed in its own dashed isolated
+        workspace box, with small warning-triangle and gate badges on the connections,
+        converging into a review / CI gate on the right. Thin dashed dimension lines and
+        tick marks frame the system. Steel-grey line-art with fine detail, cyan pipes,
+        orange accents on gates and warnings. Highly detailed, precise. Absolutely no
+        text, no words, no letters, no numbers.
     takeaway: "The harness is no longer model + tools. It is model + tools + coordination."
     visual:
       kind: "system_diagram"

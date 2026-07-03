@@ -38,6 +38,18 @@ cards:
     type: "capability_map"
     title: "The harness gives the model a body"
     subtitle: "This is where intelligence becomes operational."
+    layout: hero
+    caption: ["Tools", "Context", "Memory", "State", "Evaluation", "Recovery"]
+    image:
+      brief: >
+        A rich, detailed technical blueprint illustration on a cream graph-paper
+        background: a central glowing orange hexagonal core (the model) enclosed within
+        an intricate engineered steel exoskeleton / machine frame (the harness), built
+        from many interconnected mechanical subsystem modules and struts wired to the
+        core by cyan data pipes. Thin cyan dashed dimension lines and tick marks frame
+        the assembly like an engineering schematic. Steel-grey line-art with fine
+        cross-hatching, cyan structural lines, orange accents on the core. Highly
+        detailed, precise, isometric. Absolutely no text, no words, no letters, no numbers.
     takeaway: "The harness is not 'the prompt.' It is the operating environment."
     visual:
       kind: "capability_map"
@@ -83,10 +95,21 @@ cards:
     type: "comparison"
     title: "Different missions need different suits"
     subtitle: "A harness is a set of tools, skills, memory, and operating constraints."
+    layout: hero
+    caption: ["Coding harness", "Research harness", "Orchestration harness", "Custom harness"]
+    image:
+      brief: >
+        A technical blueprint comparison of four engineered exosuits side by side, each
+        fitted with different tool modules: a coding suit (repo, edit, test, git
+        instruments), a research suit (search, citation, synthesis instruments), an
+        orchestration suit (queue, worker, state, review instruments), and a custom /
+        modular suit shown with open plug-in slots where extra tool and skill modules can
+        be snapped in. Steel-grey line-art, cyan detail lines, orange accents on the
+        custom suit's open slots. No text, no labels.
     takeaway: "There is no universal suit. There are mission-specific bodies."
     visual:
       kind: "cards_row"
-      items: ["Coding harness: repo search · edits · tests · git", "Research harness: web search · citations · synthesis · memory", "Orchestration harness: task queue · workers · state · review gates"]
+      items: ["Coding harness: repo search · edits · tests · git", "Research harness: web search · citations · synthesis · memory", "Orchestration harness: task queue · workers · state · review gates", "Custom harness: add your own tools · skills · memory"]
     speaker: "Introduce tools + skills + capabilities."
     status: "draft"
 
@@ -95,6 +118,8 @@ cards:
     type: "metaphor"
     title: "Same Spider-Man. Different city. Different result."
     subtitle: "The same capabilities perform differently depending on the environment."
+    layout: hero
+    caption: ["Dense city = rich context", "Empty valley = no context"]
     takeaway: "Do not judge the model without judging the environment you gave it."
     visual:
       kind: "image"
