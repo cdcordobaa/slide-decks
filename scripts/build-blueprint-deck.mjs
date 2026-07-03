@@ -254,8 +254,22 @@ function matrix(v) {
 // four_functions — 2x2 labelled cards
 const fourFunctions = (v) => `<div class="bp-4fn">${asList(v.items).map(norm).map((it) => `<div class="bp-4fn__q">${icon(iconFor(it.label), "bp-4fn__ico")}<div><b>${esc(it.label)}</b>${it.caption ? `<span>${esc(it.caption)}</span>` : ""}</div></div>`).join("")}</div>`;
 
+// spectrum — the operator's journey as a continuum: a gradient track with staged nodes
+function spectrum(v) {
+  const stages = asList(v.stages).map(norm);
+  const n = Math.max(stages.length, 2);
+  const x0 = 130, x1 = 910, y = 150, step = (x1 - x0) / (n - 1);
+  const grad = `<defs><linearGradient id="spg" gradientUnits="userSpaceOnUse" x1="${x0}" y1="${y}" x2="${x1}" y2="${y}"><stop offset="0" stop-color="#8a9199"/><stop offset="1" stop-color="#bfd732"/></linearGradient></defs>`;
+  const track = `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="url(#spg)" stroke-width="7" stroke-linecap="round"/>`;
+  const nodes = stages.map((s, i) => {
+    const x = x0 + i * step, last = i === n - 1;
+    return `<g><circle cx="${x}" cy="${y}" r="${last ? 14 : 11}" fill="${last ? "#bfd732" : "#00292e"}" stroke="#00292e" stroke-width="2.5"/><text x="${x}" y="${y - 30}" text-anchor="middle" class="sp-label">${esc(s.label)}</text>${s.caption ? `<text x="${x}" y="${y + 44}" text-anchor="middle" class="sp-cap">${esc(s.caption)}</text>` : ""}</g>`;
+  }).join("");
+  return `<svg class="bp-dia bp-spectrum" viewBox="0 0 1040 290">${grad}${track}${nodes}</svg>`;
+}
+
 const VIS = {
-  stack, comparison, equation, formula, transfer, fanout, ladder, flow,
+  stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum,
   harness_ring: harnessRing, fleet, matrix, four_functions: fourFunctions,
   tool_loop: toolLoop, cards_row: cardsRow, capability_map: capmap,
   system_diagram: (v) => (asList(v.steps).length ? flow(v) : capmap(v)),

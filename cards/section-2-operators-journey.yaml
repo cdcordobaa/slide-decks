@@ -8,12 +8,16 @@ cards:
     name: "The Ladder"
     type: "ladder"
     title: "The operator's journey"
-    subtitle: "Each rung moves one more harness responsibility out of the human."
+    subtitle: "A continuum — each step moves one more harness responsibility out of the human."
     takeaway: "This is a talk about changing your role, not just changing your tools."
     visual:
-      kind: "ladder"
-      rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
-    speaker: "Second anchor slide; we return to this ladder repeatedly."
+      kind: "spectrum"
+      stages:
+        - { label: "Prompter", caption: "you are the whole harness" }
+        - { label: "Supervisor", caption: "execution offloaded" }
+        - { label: "Orchestrator", caption: "coordination is the job" }
+        - { label: "Operator", caption: "the harness runs it" }
+    speaker: "Second anchor slide; we return to this continuum repeatedly."
     status: "draft"
 
   - id: "2.2"

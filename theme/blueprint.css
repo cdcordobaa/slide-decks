@@ -254,3 +254,8 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-4fn__ico { color: var(--green-deep); width: 26px; height: 26px; }
 .bp-4fn__q b { font-size: 20px; }
 .bp-4fn__q span { display: block; margin-top: 4px; font-size: 15px; line-height: 1.4; color: var(--muted); }
+
+/* spectrum — operator's journey continuum */
+.bp-spectrum { width: min(1000px, 100%); height: auto; }
+.bp-spectrum .sp-label { fill: var(--ink); font-family: var(--mono); font-weight: 700; font-size: 19px; }
+.bp-spectrum .sp-cap { fill: var(--muted); font-family: var(--mono); font-size: 14px; }
