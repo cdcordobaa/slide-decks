@@ -20,18 +20,6 @@ cards:
     speaker: "Second anchor slide; we return to this continuum repeatedly."
     status: "draft"
 
-  - id: "2.2"
-    name: "The Four Roles"
-    type: "comparison"
-    title: "Four roles, four operating modes"
-    subtitle: "The model may improve, but your job changes only when the harness changes."
-    takeaway: "Each role is a different relationship to the harness."
-    visual:
-      kind: "cards_row"
-      items: ["Prompter — you are the loop", "Supervisor — you babysit the loop", "Orchestrator — you dispatch the loops", "Operator — you operate the system"]
-    speaker: "Preview each rung's relationship to the harness."
-    status: "draft"
-
   - id: "2.3"
     name: "The Rule of the Ladder"
     type: "diagram"
