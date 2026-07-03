@@ -211,6 +211,7 @@ body { margin: 0; background: #d7d8d0; color: var(--ink); font-family: var(--mon
 
 /* harness_ring (coded SVG replacement for the Gemini harness illustration) */
 .bp-ring { width: min(770px, 100%); height: auto; }
+.bp-fleet { width: min(900px, 100%); height: auto; }
 .bp-ring .hr-core { fill: #3a2400; font-family: var(--mono); font-weight: 800; font-size: 16px; }
 .bp-ring .hr-label { fill: var(--ink); font-family: var(--mono); font-size: 13.5px; font-weight: 600; }
 

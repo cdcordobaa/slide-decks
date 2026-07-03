@@ -195,8 +195,28 @@ function harnessRing(v) {
   return `<svg class="bp-dia bp-ring" viewBox="0 0 860 610">${pipes.join("")}${boxes.join("")}${core}</svg>`;
 }
 
+// fleet — coded SVG: source → orchestrator hub → N agents in isolated workspaces
+// → CI/review gate (replaces the Gemini multi-agent illustration).
+function fleet(v) {
+  const agents = asList(v.agents).length ? asList(v.agents) : ["Agent A", "Agent B", "Agent C"];
+  const source = v.source ?? "Tickets", hub = v.hub ?? "Orchestrator", gate = v.gate ?? "CI + Review";
+  const nodeW = 164, nodeH = 44, wsW = 200, wsH = 66;
+  const nb = (cx, cy, label, ic, accent) => {
+    const x = cx - nodeW / 2, y = cy - nodeH / 2;
+    return `<g><rect x="${x}" y="${y}" width="${nodeW}" height="${nodeH}" rx="10" fill="${accent ? "rgba(242,165,28,0.12)" : "#f8f7f1"}" stroke="${accent ? "#b5771a" : "#2b333b"}" stroke-width="1.5"/><svg x="${x + 12}" y="${cy - 11}" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f7f96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[ic] ?? ICONS.generic}</svg><text x="${x + 40}" y="${cy + 5}" class="hr-label">${esc(label)}</text></g>`;
+  };
+  const pipe = (x1, y1, x2, y2) => `<path d="M ${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}" fill="none" stroke="#1fb6d6" stroke-width="5" stroke-linecap="round"/>`;
+  const src = { x: 110, y: 240 }, hb = { x: 320, y: 240 }, gt = { x: 820, y: 240 }, ax = 590;
+  const ays = agents.map((_, i) => (agents.length === 1 ? 240 : 110 + (i * 260) / (agents.length - 1)));
+  const pipes = [pipe(src.x + nodeW / 2, src.y, hb.x - nodeW / 2, hb.y)];
+  agents.forEach((_, i) => { pipes.push(pipe(hb.x + nodeW / 2, hb.y, ax - wsW / 2, ays[i])); pipes.push(pipe(ax + wsW / 2, ays[i], gt.x - nodeW / 2, gt.y)); });
+  const ws = agents.map((a, i) => `<rect x="${ax - wsW / 2}" y="${ays[i] - wsH / 2}" width="${wsW}" height="${wsH}" rx="10" fill="none" stroke="#8a9199" stroke-width="1.3" stroke-dasharray="5 4"/>` + nb(ax, ays[i], a, "agent")).join("");
+  const nodes = nb(src.x, src.y, source, "ticket") + nb(hb.x, hb.y, hub, "coordination") + nb(gt.x, gt.y, gate, "review", true);
+  return `<svg class="bp-dia bp-fleet" viewBox="0 0 930 480">${pipes.join("")}${ws}${nodes}</svg>`;
+}
+
 const VIS = {
-  stack, comparison, equation, formula, transfer, fanout, ladder, flow, harness_ring: harnessRing,
+  stack, comparison, equation, formula, transfer, fanout, ladder, flow, harness_ring: harnessRing, fleet,
   tool_loop: toolLoop, cards_row: cardsRow, capability_map: capmap,
   system_diagram: (v) => (asList(v.steps).length ? flow(v) : capmap(v)),
   failure_mode: (v) => capmap({ center: v.center ?? "⚠ Failure modes", items: v.items }),
