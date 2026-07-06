@@ -1,6 +1,6 @@
 section:
   id: "4"
-  title: "Rung 2 — Supervisor"
+  title: "Rung 2: Supervisor"
   goal: "Explain tool loops, code understanding, Orientation Tax, and Context Anxiety."
 
 cards:
@@ -93,14 +93,14 @@ cards:
       - "Where are the relevant files?"
       - "What command runs the tests?"
       - "What conventions does the repo follow?"
-      - "What architecture — and hidden assumptions — apply?"
+      - "What architecture (and hidden assumptions) apply?"
     takeaway: "Good harnesses pay this tax once. Bad harnesses pay it every run."
     visual:
       kind: "image"
       transparent: false
       brief: >
         A small robot agent standing at the entrance of a large maze shaped like a
-        software repository — folders and files forming the walls — looking unsure
+        software repository (folders and files forming the walls) looking unsure
         at a fork. Technical blueprint line-art, steel with cyan and orange accents.
       overlay: ["relevant files?", "test command?", "conventions?", "architecture?", "hidden assumptions?"]
     speaker: "Quick repo examples: auth, packages, tests, style."

@@ -1,7 +1,7 @@
 section:
   id: "3"
-  title: "Rung 1 — Prompter"
-  goal: "Show prompter mode as a manual harness architecture — the engineering diagram of the opening."
+  title: "Rung 1: Prompter"
+  goal: "Show prompter mode as a manual harness architecture, the engineering diagram of the opening."
 
 cards:
   - id: "3.1"
@@ -35,7 +35,7 @@ cards:
     type: "failure_mode"
     title: "The paste loop is a symptom"
     subtitle: "Copy-paste is what missing infrastructure feels like."
-    takeaway: "The problem is not that prompting is bad — it's that prompting is doing too much."
+    takeaway: "The problem is not that prompting is bad, it's that prompting is doing too much."
     visual:
       kind: "flow"
       steps: ["Paste task", "Paste file", "Paste error", "Paste logs", "Inspect output", "Paste next observation", "Retry"]

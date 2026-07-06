@@ -8,7 +8,7 @@ cards:
     name: "The Ladder"
     type: "ladder"
     title: "The operator's journey"
-    subtitle: "Four ladder steps — each moves one more harness responsibility out of the human."
+    subtitle: "Four ladder steps, each moves one more harness responsibility out of the human."
     takeaway: "This is a talk about changing your role, not just changing your tools."
     visual:
       kind: "spectrum"

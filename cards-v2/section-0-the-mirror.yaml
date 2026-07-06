@@ -8,7 +8,7 @@ cards:
     name: "You Are the Harness"
     type: "big_claim"
     title: "You are the harness"
-    subtitle: "There is a missing runtime in your AI stack, doing six jobs at once — and right now, it is you."
+    subtitle: "There is a missing runtime in your AI stack, doing six jobs at once, and right now, it is you."
     visual:
       kind: "duo"
       left:
@@ -32,7 +32,7 @@ cards:
           - { label: "Evaluation", caption: "you judge" }
           - { label: "Safety", caption: "you decide" }
     takeaway: "The goal is not better babysitting. The goal is infrastructure."
-    speaker: "Merged opener — name the missing component in the AI stack, the six jobs it does, and the reveal that it's you. Pause on the reveal."
+    speaker: "Merged opener, name the missing component in the AI stack, the six jobs it does, and the reveal that it's you. Pause on the reveal."
     status: "ready"
 
   - id: "0.4"

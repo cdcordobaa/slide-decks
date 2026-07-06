@@ -5,7 +5,7 @@ deck:
   audience: "Engineering practitioners / harness engineering"
   style: >
     NotebookLM-style explainer cards: light, clean, diagram-first. One teaching
-    card per slide — big title, a subtitle that teaches, a central visual, and a
+    card per slide, big title, a subtitle that teaches, a central visual, and a
     bottom takeaway. The slide teaches the idea; the speaker expands it.
   core_lines:
     - "You are the harness."
@@ -16,8 +16,8 @@ deck:
     - "The spec is the new keyboard."
     - "Every failure on one rung becomes the design requirement for the next."
   source:
-    - "Harness Talk — NotebookLM-Style Slide Builder Skill (Notion)"
-    - "Harness Engineering — The Operator's Journey (Notion talk page)"
+    - "Harness Talk, NotebookLM-Style Slide Builder Skill (Notion)"
+    - "Harness Engineering, The Operator's Journey (Notion talk page)"
   # Status gate: draft < ready < final. Only cards >= min_status render.
   min_status: "ready"
   # The 20-slide "spine" core cut, in narrative order (blueprint build target).
@@ -31,7 +31,7 @@ art:
   model: "gemini-2.5-flash-image"
   aspect: "16:9"
   # Shared style preamble prepended to every image prompt so the whole deck
-  # shares one visual language. NOTE: "no text" — we overlay words as HTML.
+  # shares one visual language. NOTE: "no text", we overlay words as HTML.
   style: >
     Technical blueprint / engineering-schematic illustration on a cream graph-paper
     background (#f2efe4) with a faint grid. Dark steel-grey linework (#3c4650), cyan

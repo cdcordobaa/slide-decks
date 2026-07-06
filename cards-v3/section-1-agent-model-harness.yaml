@@ -5,11 +5,11 @@ section:
 
 cards:
   - id: "1.1"
-    name: "A Model Is Not an Agent — Agent = Model + Harness"
+    name: "A Model Is Not an Agent: Agent = Model + Harness"
     type: "equation"
     title: "A model is not an agent: Agent = Model + Harness"
     subtitle: "A model produces tokens; an agent produces actions. The harness is the runtime that turns one into the other."
-    takeaway: "No harness, no agent — the difference is not intelligence, it is runtime."
+    takeaway: "No harness, no agent, the difference is not intelligence, it is runtime."
     visual:
       kind: "duo"
       left:
@@ -32,8 +32,8 @@ cards:
     name: "A Harness Is the Agent's Body and Environment"
     type: "capability_map"
     title: "A harness is the agent's body and environment"
-    subtitle: "It contains, directs, connects, and signals — via context, tools, skills, MCPs, memory, runtime, permissions, and evaluation."
-    takeaway: "Contain, direct, connect, signal — the harness is the operating body, not the prompt."
+    subtitle: "It contains, directs, connects, and signals, via context, tools, skills, MCPs, memory, runtime, permissions, and evaluation."
+    takeaway: "Contain, direct, connect, signal, the harness is the operating body, not the prompt."
     visual:
       kind: "duo"
       left:
@@ -49,7 +49,7 @@ cards:
         kind: "harness_ring"
         center: "MODEL"
         items: ["Context", "Tools", "Skills", "MCPs", "Memory", "Runtime", "Permissions", "Evaluation"]
-    speaker: "The harness does four jobs — contain, direct, connect, signal — through these eight components."
+    speaker: "The harness does four jobs (contain, direct, connect, signal) through these eight components."
     status: "draft"
 
   - id: "1.4"
@@ -108,10 +108,10 @@ cards:
     status: "draft"
 
   - id: "1.7"
-    name: "Same Hero, Different City — Capability Is System-Level"
+    name: "Same Hero, Different City: Capability Is System-Level"
     type: "metaphor"
     layout: split
-    title: "Same hero, different city — capability is system-level"
+    title: "Same hero, different city: capability is system-level"
     subtitle: "The same Spider-Man performs differently in a different environment. The unit of evaluation is the full system, not the model alone."
     takeaway: "A stronger model in a weak harness can lose to a weaker model in a strong harness."
     visual:
@@ -124,7 +124,7 @@ cards:
     name: "Different Harnesses Expose Different Capabilities"
     type: "comparison"
     title: "Different harnesses expose different capabilities"
-    subtitle: "Same model, different harness — a full tool-capability matrix across six coding harnesses."
+    subtitle: "Same model, different harness, a full tool-capability matrix across six coding harnesses."
     takeaway: "Same model, different harness, different capability."
     visual:
       kind: "matrix"

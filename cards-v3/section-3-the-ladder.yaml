@@ -1,13 +1,13 @@
 section:
   id: "3"
   title: "The Four Ladder Steps"
-  goal: "Tell the whole operator's journey as four condensed steps — one slide each."
+  goal: "Tell the whole operator's journey as four condensed steps, one slide each."
 
 cards:
   - id: "3.1"
-    name: "Ladder Step 1 — Prompter"
+    name: "Ladder Step 1: Prompter"
     type: "concept"
-    title: "Ladder Step 1 · Prompter — you are the entire harness"
+    title: "Ladder Step 1 · Prompter: you are the entire harness"
     subtitle: "At the first step every non-token job is yours, and the prompt is being asked to do the work of an operating system."
     takeaway: "Prompting is not the problem. Architecture is."
     visual:
@@ -15,7 +15,7 @@ cards:
       left:
         kind: "points"
         items:
-          - { label: "You are the whole harness", caption: "assemble context, run tools, track state, judge output — by hand" }
+          - { label: "You are the whole harness", caption: "assemble context, run tools, track state, judge output, by hand" }
           - { label: "The paste loop is the symptom", caption: "copy task, paste files, paste errors, paste logs, retry" }
           - { label: "The prompt does an OS's job", caption: "tools, memory, state, recovery, evaluation" }
       right:
@@ -27,10 +27,10 @@ cards:
     status: "draft"
 
   - id: "3.2"
-    name: "Ladder Step 2 — Supervisor"
+    name: "Ladder Step 2: Supervisor"
     type: "concept"
-    title: "Ladder Step 2 · Supervisor — the model gets hands"
-    subtitle: "A tool loop turns tokens into actions, but you still babysit the loop — and attention is the bottleneck."
+    title: "Ladder Step 2 · Supervisor: the model gets hands"
+    subtitle: "A tool loop turns tokens into actions, but you still babysit the loop, and attention is the bottleneck."
     takeaway: "You can supervise one or two loops. Not twenty."
     visual:
       kind: "duo"
@@ -38,8 +38,8 @@ cards:
         kind: "points"
         items:
           - { label: "A tool loop turns tokens into actions", caption: "act → observe → adjust; the harness gives the model hands" }
-          - { label: "Supervise one or two loops — not twenty", caption: "the bottleneck moves from execution to coordination" }
-          - { label: "Memory is still a design choice", caption: "grep, markdown, RAG, or graph — pick per task" }
+          - { label: "Supervise one or two loops, not twenty", caption: "the bottleneck moves from execution to coordination" }
+          - { label: "Memory is still a design choice", caption: "grep, markdown, RAG, or graph, pick per task" }
       right:
         title: "The loop"
         kind: "tool_loop"
@@ -50,9 +50,9 @@ cards:
     status: "draft"
 
   - id: "3.3"
-    name: "Ladder Step 3 — Orchestrator"
+    name: "Ladder Step 3: Orchestrator"
     type: "concept"
-    title: "Ladder Step 3 · Orchestrator — the control plane"
+    title: "Ladder Step 3 · Orchestrator: the control plane"
     subtitle: "The interface changes from prompt to spec; WORKFLOW.md turns repo rules and board state into isolated agent runs."
     takeaway: "The orchestrator does not do the work. It governs how work becomes agent-executable."
     visual:
@@ -91,22 +91,22 @@ cards:
         screens; each screen shows a small agent 'suit' running a task. Calm,
         technical blueprint line-art, steel with cyan and orange accents.
       overlay: ["Ticket A", "Ticket B", "Ticket C", "CI", "Review", "Logs"]
-    speaker: "The visual payoff of the Operator step — the fleet under one operator."
+    speaker: "The visual payoff of the Operator step, the fleet under one operator."
     status: "draft"
 
   - id: "3.4"
-    name: "Ladder Step 4 — Operator"
+    name: "Ladder Step 4: Operator"
     type: "concept"
-    title: "Ladder Step 4 · Operator — you run the fleet"
+    title: "Ladder Step 4 · Operator: you run the fleet"
     subtitle: "You move from doing the work to operating the system that turns specs into safe, reviewed work."
-    takeaway: "The unit of engineering changed — from writing code to designing the system that produces it."
+    takeaway: "The unit of engineering changed, from writing code to designing the system that produces it."
     visual:
       kind: "duo"
       left:
         kind: "points"
         items:
           - { label: "Operate the fleet, not one suit", caption: "controlled delegation across many agents" }
-          - { label: "The human owns judgment", caption: "specs, constraints, review — not every step" }
+          - { label: "The human owns judgment", caption: "specs, constraints, review, not every step" }
           - { label: "No self-grading", caption: "CI and human review decide 'done'" }
           - { label: "Verification = spec compliance", caption: "intent, behavior, structure" }
       right:

@@ -9,7 +9,7 @@ cards:
     type: "concept"
     purpose: "Name that a component is missing from the AI stack, before naming what it is."
     title: "There is a missing component in your AI stack"
-    subtitle: "It does most of the operational work — but it is not engineered."
+    subtitle: "It does most of the operational work, but it is not engineered."
     visual:
       kind: "stack"
       items:
@@ -19,7 +19,7 @@ cards:
         - { label: "Missing runtime", state: "missing", caption: "assembles · runs · retries · judges · gates" }
         - { label: "Human", caption: "doing the runtime's job by hand" }
     takeaway: "The talk starts by naming that component."
-    speaker: "Point at the dashed block. Don't say 'harness' yet — let the room sit with the gap in the stack."
+    speaker: "Point at the dashed block. Don't say 'harness' yet, let the room sit with the gap in the stack."
     design_note: "Explainer card: vertical stack, each layer says what it does; one block dashed to mark the gap."
     status: "ready"
 
@@ -40,9 +40,9 @@ cards:
         - { label: "State", caption: "track what's already done" }
         - { label: "Evaluation", caption: "judge if it's correct" }
         - { label: "Safety", caption: "decide what's safe to run" }
-    takeaway: "The hidden runtime is already there — just not engineered."
+    takeaway: "The hidden runtime is already there, just not engineered."
     speaker: "Walk the ring once. Keep it abstract; the copy-paste story is Rung 1, not here."
-    design_note: "Hub-and-spoke: six explained responsibilities wired to a blank '???' center. The center stays anonymous — 0.3 reveals it."
+    design_note: "Hub-and-spoke: six explained responsibilities wired to a blank '???' center. The center stays anonymous, 0.3 reveals it."
     status: "ready"
 
   - id: "0.3"

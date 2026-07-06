@@ -38,7 +38,7 @@ cards:
     type: "concept"
     title: "A harness does four jobs"
     subtitle: "It contains, directs, connects, and signals so raw model capability becomes useful work."
-    takeaway: "Contain, direct, connect, signal — that's the whole job."
+    takeaway: "Contain, direct, connect, signal, that's the whole job."
     visual:
       kind: "four_functions"
       items:
@@ -162,7 +162,7 @@ cards:
     name: "Different Harnesses Expose Different Capabilities"
     type: "comparison"
     title: "Different harnesses expose different capabilities"
-    subtitle: "Same model, different harness — a full tool-capability matrix across six coding harnesses."
+    subtitle: "Same model, different harness, a full tool-capability matrix across six coding harnesses."
     takeaway: "Same model, different harness, different capability."
     visual:
       kind: "matrix"
