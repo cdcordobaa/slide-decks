@@ -13,7 +13,6 @@ cards:
     visual:
       kind: "duo"
       left:
-        title: "The story"
         kind: "points"
         items:
           - { label: "You are the whole harness", caption: "assemble context, run tools, track state, judge output — by hand" }
@@ -36,7 +35,6 @@ cards:
     visual:
       kind: "duo"
       left:
-        title: "The story"
         kind: "points"
         items:
           - { label: "A tool loop turns tokens into actions", caption: "act → observe → adjust; the harness gives the model hands" }
@@ -60,7 +58,6 @@ cards:
     visual:
       kind: "duo"
       left:
-        title: "The story"
         kind: "points"
         items:
           - { label: "Prompt → spec", caption: "you define bounded work, not requests" }
@@ -76,30 +73,6 @@ cards:
         agent: { title: "Agent runtime", items: "Claude · Codex · tools + MCPs" }
         sink: { title: "PR + Human Review", note: "closes the loop" }
     speaker: "Condenses 5.2 prompt→spec + 5.3/5.5 coordination + 5.6/5.7 WORKFLOW.md + 5.9 control plane + 5.8 loop. Walk the WORKFLOW.md loop here."
-    status: "draft"
-
-  - id: "3.4"
-    name: "Ladder Step 4 — Operator"
-    type: "concept"
-    title: "Ladder Step 4 · Operator — you run the fleet"
-    subtitle: "You move from doing the work to operating the system that turns specs into safe, reviewed work."
-    takeaway: "The unit of engineering changed — from writing code to designing the system that produces it."
-    visual:
-      kind: "duo"
-      left:
-        title: "The story"
-        kind: "points"
-        items:
-          - { label: "Operate the fleet, not one suit", caption: "controlled delegation across many agents" }
-          - { label: "The human owns judgment", caption: "specs, constraints, review — not every step" }
-          - { label: "No self-grading", caption: "CI and human review decide 'done'" }
-          - { label: "Verification = spec compliance", caption: "intent, behavior, structure" }
-      right:
-        title: "Who owns what"
-        kind: "transfer"
-        from: { label: "Human owns", items: ["specs", "priorities", "constraints", "review", "exceptions"] }
-        to: { label: "Harness owns", items: ["execution", "state", "tools", "retries", "tests", "PR creation"] }
-    speaker: "Condenses 6.3 judgment + 6.5 no self-grading + 6.8 verification + 6.7 unit changed."
     status: "draft"
 
   - id: "3.5"
@@ -119,4 +92,27 @@ cards:
         technical blueprint line-art, steel with cyan and orange accents.
       overlay: ["Ticket A", "Ticket B", "Ticket C", "CI", "Review", "Logs"]
     speaker: "The visual payoff of the Operator step — the fleet under one operator."
+    status: "draft"
+
+  - id: "3.4"
+    name: "Ladder Step 4 — Operator"
+    type: "concept"
+    title: "Ladder Step 4 · Operator — you run the fleet"
+    subtitle: "You move from doing the work to operating the system that turns specs into safe, reviewed work."
+    takeaway: "The unit of engineering changed — from writing code to designing the system that produces it."
+    visual:
+      kind: "duo"
+      left:
+        kind: "points"
+        items:
+          - { label: "Operate the fleet, not one suit", caption: "controlled delegation across many agents" }
+          - { label: "The human owns judgment", caption: "specs, constraints, review — not every step" }
+          - { label: "No self-grading", caption: "CI and human review decide 'done'" }
+          - { label: "Verification = spec compliance", caption: "intent, behavior, structure" }
+      right:
+        title: "Who owns what"
+        kind: "transfer"
+        from: { label: "Human owns", items: ["specs", "priorities", "constraints", "review", "exceptions"] }
+        to: { label: "Harness owns", items: ["execution", "state", "tools", "retries", "tests", "PR creation"] }
+    speaker: "Condenses 6.3 judgment + 6.5 no self-grading + 6.8 verification + 6.7 unit changed."
     status: "draft"
