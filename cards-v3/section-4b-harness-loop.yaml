@@ -21,13 +21,31 @@ cards:
   - id: "L2"
     name: "A Loop Is a Control System"
     type: "system_diagram"
+    layout: hero
     title: "A loop is a control system, not a prompt"
     subtitle: "Not 'prompt the agent again,' but 'design the system that prompts, checks, and routes.'"
+    caption: ["Trigger", "Act", "Observe", "Verify", "Update state", "Repeat"]
     takeaway: "You design the loop that generates and checks the next step, not each step by hand."
     visual:
-      kind: "agentic_search_loop"
-      center: "control loop"
-      loop: ["Trigger", "Assign work", "Agent acts", "External check", "State update", "Decide next"]
+      kind: "image"
+      transparent: false
+      brief: >
+        A large, highly detailed technical infographic of an agentic control loop drawn
+        as an engineering cutaway schematic, dense but organized. A central hexagonal
+        processing core with an inner glowing octagon sits in the middle. Around it, six
+        distinct station modules are arranged on a thick circular pipeline connected by
+        directional flow pipes with clear arrowheads, forming one continuous clockwise
+        cycle: a trigger station with a toggle switch and an input hopper; an actuator
+        station with an articulated robotic arm and interlocking gears; an observation
+        station with a camera lens and radiating signal waves; a verification station
+        with a pressure gauge, a checklist clipboard, and a pass/fail indicator lamp; a
+        state-register station with stacked memory drawers and a small database cylinder;
+        and a routing gate station with a branching Y-junction and a decision valve.
+        Each station has small connector bolts and a dashed circular callout that zooms
+        into a magnified internal detail. A secondary feedback pipe branches from the
+        verification station back toward the core. Thin dimension lines with tick marks,
+        fine cross-hatching, and blueprint registration marks frame the whole assembly.
+        Isometric-leaning orthographic view, precise, generous margins, richly detailed.
     speaker: "Something triggers it: a schedule, a ticket state, a failing CI run. The harness acts; the system observes, records state outside the chat, then decides: continue, stop, retry, hand off, or escalate."
     status: "draft"
 

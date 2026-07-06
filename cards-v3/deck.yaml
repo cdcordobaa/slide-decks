@@ -33,8 +33,9 @@ art:
   # Shared style preamble prepended to every image prompt so the whole deck
   # shares one visual language. NOTE: "no text", we overlay words as HTML.
   style: >
-    Technical blueprint / engineering-schematic illustration on a cream graph-paper
-    background (#f2efe4) with a faint grid. Dark steel-grey linework (#3c4650), cyan
-    structural/data lines (#1fb6d6), and a few orange accents (#f2a51c). Isometric or
-    clean orthographic, precise, calm, generous margins, centered subject, 16:9.
-    Absolutely no text, no words, no letters, no numbers anywhere in the image.
+    Technical blueprint / engineering-schematic illustration on a pale sage-green
+    graph-paper background (#e8ede1) with a faint navy grid. Dark navy-teal linework
+    (#00292e), lime-green structural/data lines (#bfd732), and forest-green accents
+    (#1f7a3d). Isometric or clean orthographic, precise, calm, generous margins,
+    centered subject, 16:9. Absolutely no text, no words, no letters, no numbers
+    anywhere in the image.
