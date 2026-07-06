@@ -1,0 +1,33 @@
+section:
+  id: "5"
+  title: "In Practice — Client Work"
+  goal: "Two concrete case studies: harness engineering on real client systems."
+
+cards:
+  - id: "5.1"
+    name: "Client Project: Video Pipeline Evaluation"
+    type: "concept"
+    title: "Client project: an evaluation system for a video pipeline"
+    subtitle: "We used agentic development practices to make quality evaluation explicit and repeatable."
+    takeaway: "We made quality evaluation explicit and repeatable."
+    visual:
+      kind: "build_stack"
+      layers:
+        - { label: "Video processing pipeline", note: "the system under test" }
+        - { label: "Cursor agents + AGENT.md", note: "agentic development" }
+        - { label: "Spec-driven dev + skills", note: "explicit, repeatable" }
+        - { label: "Evaluation system", note: "quality made measurable" }
+    status: "draft"
+
+  - id: "5.2"
+    name: "Client Project: Agentic Search Harness"
+    type: "concept"
+    title: "Client project: an agentic search harness"
+    subtitle: "Search becomes a loop: plan, call tools, inspect results, and refine."
+    takeaway: "Search becomes a loop, not a single query."
+    visual:
+      kind: "agentic_search_loop"
+      entry: "Query"
+      loop: ["Plan", "Call tools · MCPs · skills", "Inspect results", "Refine"]
+      exit: "Matched results"
+    status: "draft"

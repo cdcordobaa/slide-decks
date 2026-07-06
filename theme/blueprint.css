@@ -397,4 +397,10 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-duo__col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .bp-duo__t { font-family: var(--mono); font-weight: 700; font-size: 13px; color: var(--green-deep); text-transform: uppercase; letter-spacing: .05em; text-align: center; }
 .bp-duo__fig { width: 100%; display: flex; justify-content: center; align-items: center; }
-.bp-duo__fig > svg, .bp-duo__fig > .bp-dia { width: 100%; height: auto; }
+.bp-duo__fig > svg, .bp-duo__fig > .bp-dia { width: 100%; height: auto; max-height: 400px; }
+
+/* points — condensed bullet column for step slides */
+.bp-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; text-align: left; width: 100%; }
+.bp-points li { border-left: 3px solid var(--green); padding: 1px 0 1px 14px; }
+.bp-points b { display: block; font-size: 17px; color: var(--ink); line-height: 1.25; }
+.bp-points span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; line-height: 1.35; }

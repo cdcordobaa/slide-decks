@@ -330,6 +330,9 @@ function overloadedPrompt(v) {
   return `<svg class="bp-dia bp-oprompt" viewBox="0 0 900 470">${defs}${items}${core}</svg>`;
 }
 
+// points — condensed bullet list (left column of a step slide)
+const points = (v) => `<ul class="bp-points">${asList(v.items).map(norm).map((it) => `<li><b>${esc(it.label)}</b>${it.caption ? `<span>${esc(it.caption)}</span>` : ""}</li>`).join("")}</ul>`;
+
 // duo — two figures side by side (keeps both slides' visuals when merging)
 function duo(v) {
   const col = (sv) => sv ? `<div class="bp-duo__col">${sv.title ? `<div class="bp-duo__t">${esc(sv.title)}</div>` : ""}<div class="bp-duo__fig">${(VIS[sv.kind] || (() => ""))(sv)}</div></div>` : "";
@@ -337,7 +340,7 @@ function duo(v) {
 }
 
 const VIS = {
-  stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum, duo,
+  stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum, duo, points,
   control_plane: controlPlane, agentic_search_loop: agenticLoop, build_stack: buildStack,
   file_tree: fileTree, overloaded_prompt: overloadedPrompt,
   harness_ring: harnessRing, fleet, matrix, four_functions: fourFunctions,

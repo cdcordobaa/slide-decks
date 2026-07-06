@@ -1,0 +1,40 @@
+section:
+  id: "2"
+  title: "The Operator's Journey"
+  goal: "Give the audience the map of the whole talk before entering the rungs."
+
+cards:
+  - id: "2.1"
+    name: "The Ladder"
+    type: "ladder"
+    title: "The operator's journey"
+    subtitle: "Four ladder steps — each moves one more harness responsibility out of the human."
+    takeaway: "This is a talk about changing your role, not just changing your tools."
+    visual:
+      kind: "spectrum"
+      stages:
+        - { label: "Prompter", caption: "you are the whole harness" }
+        - { label: "Supervisor", caption: "execution offloaded" }
+        - { label: "Orchestrator", caption: "coordination is the job" }
+        - { label: "Operator", caption: "the harness runs it" }
+    speaker: "Second anchor slide; we return to this continuum repeatedly."
+    status: "draft"
+
+  - id: "2.5"
+    name: "Your Harness Becomes a Filesystem"
+    type: "concept"
+    title: "Your harness becomes a filesystem"
+    subtitle: "As you climb, behavior moves into versioned artifacts: maps, skills, MCPs, specs, workflow, design."
+    takeaway: "Your harness is version-controlled."
+    visual:
+      kind: "file_tree"
+      root: "your-project/"
+      entries:
+        - { name: "AGENTS.md", note: "map & conventions" }
+        - { name: "DESIGN.md", note: "architecture & intent" }
+        - { name: "mcp.json", note: "tool servers" }
+        - { name: "WORKFLOW.md", note: "operating procedure" }
+        - { name: "skills/", note: "capability packs", children: ["test.md", "deploy.md", "review.md"] }
+        - { name: "specs/*.md", note: "bounded work" }
+        - { name: "memory/ · evals/", note: "state & judgment" }
+    status: "draft"
