@@ -1,0 +1,46 @@
+section:
+  id: "4b"
+  title: "Harness and Loop"
+  goal: "Clarify how loop engineering relates to harness engineering, after the perception segment."
+
+cards:
+  - id: "L1"
+    name: "Harness vs. Loop"
+    type: "concept"
+    title: "Harness engineering vs. loop engineering"
+    subtitle: "The harness defines what the agent can do. The loop defines how the agent keeps doing it."
+    takeaway: "The harness is the body. The loop is the body in motion."
+    visual:
+      kind: "flow"
+      steps:
+        - "MODEL · reasoning core"
+        - "HARNESS: context · tools · memory · permissions · evaluation"
+        - "LOOP: trigger · act · observe · verify · update state · repeat"
+    speaker: "Harness engineering is the broader discipline (what body did we give the model). Loop engineering asks how the system keeps moving once that body exists."
+    status: "draft"
+
+  - id: "L2"
+    name: "A Loop Is a Control System"
+    type: "system_diagram"
+    title: "A loop is a control system, not a prompt"
+    subtitle: "Not 'prompt the agent again,' but 'design the system that prompts, checks, and routes.'"
+    takeaway: "You design the loop that generates and checks the next step, not each step by hand."
+    visual:
+      kind: "agentic_search_loop"
+      center: "control loop"
+      loop: ["Trigger", "Assign work", "Agent acts", "External check", "State update", "Decide next"]
+    speaker: "Something triggers it: a schedule, a ticket state, a failing CI run. The harness acts; the system observes, records state outside the chat, then decides: continue, stop, retry, hand off, or escalate."
+    status: "draft"
+
+  - id: "L3"
+    name: "From Spec to Loop"
+    type: "system_diagram"
+    title: "From spec to loop"
+    subtitle: "In an agentic workflow the spec is not just input. The spec becomes the control surface."
+    takeaway: "The spec is the new keyboard: you shape the artifact that lets the harness run the loop safely."
+    visual:
+      kind: "agentic_search_loop"
+      center: "the spec loop"
+      loop: ["Spec", "Agent run", "Tests / evals", "State update", "Human review", "Refine spec"]
+    speaker: "The agent uses the spec to understand the task; tests and evals verify against it; the reviewer decides acceptability; the loop decides continue, stop, or escalate."
+    status: "draft"
