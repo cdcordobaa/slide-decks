@@ -1,0 +1,51 @@
+section:
+  id: "0"
+  title: "The Mirror"
+  goal: "Create the 'oh no, that's me' realization without explaining the whole system yet."
+
+cards:
+  - id: "0.1"
+    name: "You Are the Harness"
+    type: "big_claim"
+    title: "You are the harness"
+    subtitle: "There is a missing runtime in your AI stack, doing six jobs at once — and right now, it is you."
+    visual:
+      kind: "mirror"
+      subject: "YOU"
+      caption: "all six jobs are yours"
+      items:
+        - { label: "Context", caption: "you assemble it" }
+        - { label: "Tools", caption: "you run them" }
+        - { label: "Retry", caption: "you recover" }
+        - { label: "State", caption: "you remember" }
+        - { label: "Evaluation", caption: "you judge" }
+        - { label: "Safety", caption: "you decide" }
+    takeaway: "The goal is not better babysitting. The goal is infrastructure."
+    speaker: "Merged opener — name the missing component in the AI stack, the six jobs it does, and the reveal that it's you. Pause on the reveal."
+    status: "ready"
+
+  - id: "0.4"
+    name: "The Journey"
+    type: "transition"
+    title: "From being the harness to operating one"
+    subtitle: "We fire you from the runtime one responsibility at a time."
+    visual:
+      kind: "transfer"
+      caption: "one responsibility at a time"
+      from:
+        label: "Human-as-runtime"
+        items:
+          - "Copy context"
+          - "Run tools"
+          - "Retry"
+          - "Judge output"
+      to:
+        label: "Human-as-operator"
+        items:
+          - "Write specs"
+          - "Set constraints"
+          - "Review output"
+          - "Improve the system"
+    takeaway: "This is a role change, not just a tool upgrade."
+    speaker: "This is the promise. Transition straight into the technical definition (Section 1)."
+    status: "ready"

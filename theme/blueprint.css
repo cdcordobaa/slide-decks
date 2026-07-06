@@ -319,3 +319,75 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .mx-n { color: #b23b3b; }
 .mx-m { color: #c98a2b; font-weight: 700; }
 .bp-mx__src { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 8px; align-self: flex-end; }
+
+/* ============================================================
+   Corporate "Tech Talks" structural components
+   (Globant template conventions, rendered in the green blueprint
+   skin): top header band, Engineering lockup, two-tier title,
+   confidential footer, section divider, agenda/index, thank-you.
+   ============================================================ */
+
+/* Top header band — navy bar with green logo, spans full width */
+.bp-band {
+  position: absolute; top: 0; left: 0; right: 0; height: 118px; z-index: 4;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px 0 64px;
+}
+.bp-band__ttl { display: flex; flex-direction: column; gap: 3px; }
+.bp-band__eyebrow { font-size: 13px; letter-spacing: 0.16em; font-weight: 700; text-transform: uppercase; color: var(--green); }
+.bp-band__main { font-size: 27px; font-weight: 800; letter-spacing: -0.3px; color: #fff; line-height: 1.05; }
+.bp-band__logo { height: 24px; width: auto; }
+/* cards with a band push their content below it */
+.bp-card.has-band { padding-top: 150px; }
+.bp-card.has-band .bp-logo { display: none; }
+
+/* "Engineering" sub-brand lockup: two overlapping rounded parallelograms + wordmark */
+.bp-eng { display: inline-flex; align-items: center; gap: 12px; }
+.bp-eng__mark { width: 40px; height: 30px; flex: none; }
+.bp-eng__word { font-size: 24px; font-weight: 800; letter-spacing: -0.3px; color: var(--ink); }
+.bp-eng--onDark .bp-eng__word { color: #fff; }
+
+/* Confidential footer strip (bottom-center-right), sits with the page number */
+.bp-conf { position: absolute; right: 150px; bottom: 22px; font-size: 10.5px; letter-spacing: 0.04em; color: #9aa5a3; }
+
+/* ---- Section divider slide ---- */
+.slide.bp.bp-div { display: flex; flex-direction: column; justify-content: center; padding: 0 96px; }
+.bp-div__no { font-size: 150px; font-weight: 800; line-height: 0.9; color: var(--green); letter-spacing: -4px; -webkit-text-stroke: 2px var(--green-deep); }
+.bp-div__eyebrow { margin-top: 14px; font-size: 15px; letter-spacing: 0.2em; font-weight: 700; text-transform: uppercase; color: var(--green-deep); }
+.bp-div__title { margin: 8px 0 0; font-size: 52px; font-weight: 800; letter-spacing: -1px; color: var(--ink); max-width: 900px; line-height: 1.05; }
+.bp-div__rule { width: 120px; height: 8px; background: var(--green); border-radius: 4px; margin-top: 26px; }
+
+/* ---- Index / agenda slide ---- */
+.bp-index__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 64px; max-width: 1000px; margin: 8px auto 0; }
+.bp-index__row { display: flex; align-items: baseline; gap: 18px; }
+.bp-index__n { font-size: 38px; font-weight: 800; color: var(--green); min-width: 52px; text-align: right; letter-spacing: -1px; }
+.bp-index__label { font-size: 21px; font-weight: 600; color: var(--ink); }
+.bp-index__sub { font-size: 14px; color: var(--muted-2); display: block; margin-top: 2px; }
+
+/* Authentic Engineering lockup image (extracted from PPTX) */
+.bp-englogo { width: auto; display: block; }
+/* White panel to carry the (black-text) Engineering lockup on dark surfaces */
+.bp-eng-panel { display: inline-flex; align-items: center; background: #fff; border-radius: 14px; padding: 12px 22px; box-shadow: 0 6px 18px rgba(0, 41, 46, 0.28); }
+
+/* ---- Thank-you closing slide ---- */
+.slide.bp.bp-thanks { display: flex; flex-direction: column; justify-content: center; padding: 0 96px; }
+.bp-thanks__eng { margin-bottom: 42px; }
+.bp-thanks__msg { font-size: 68px; font-weight: 300; color: var(--ink); letter-spacing: -1.5px; }
+.bp-thanks__msg b { font-weight: 800; color: var(--green-deep); }
+.bp-thanks__logo { position: absolute; left: 96px; bottom: 60px; height: 30px; }
+
+/* Dark variant — navy full-bleed closer with white logo + green grid */
+.slide.bp.bp-thanks.is-dark {
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(rgba(191, 215, 50, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(191, 215, 50, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(191, 215, 50, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(191, 215, 50, 0.10) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px, 130px 130px, 130px 130px;
+}
+.bp-thanks.is-dark .bp-thanks__msg { color: #fff; }
+.bp-thanks.is-dark .bp-thanks__msg b { color: var(--green); }
+.bp-thanks.is-dark .bp-pageno { color: #7f9a86; }
+.bp-thanks.is-dark .bp-pageno b { color: var(--green); }

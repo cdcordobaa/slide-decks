@@ -1,0 +1,136 @@
+section:
+  id: "1"
+  title: "Agent = Model + Harness"
+  goal: "Define the technical primitive and introduce the brain/body mental model."
+
+cards:
+  - id: "1.1"
+    name: "A Model Is Not an Agent — Agent = Model + Harness"
+    type: "equation"
+    title: "A model is not an agent: Agent = Model + Harness"
+    subtitle: "A model produces tokens; an agent produces actions. The harness is the runtime that turns one into the other."
+    takeaway: "No harness, no agent — the difference is not intelligence, it is runtime."
+    visual:
+      kind: "equation"
+      terms:
+        - "Model → reasoning"
+        - "Harness → tools, context, memory, state, evals"
+        - "Agent → actions"
+    speaker: "Definition + equation together: a model produces tokens, an agent produces actions. The core anchor."
+    status: "draft"
+
+  - id: "1.9"
+    name: "A Harness Is the Agent's Body and Environment"
+    type: "capability_map"
+    title: "A harness is the agent's body and environment"
+    subtitle: "It contains, directs, connects, and signals — via context, tools, skills, MCPs, memory, runtime, permissions, and evaluation."
+    takeaway: "Contain, direct, connect, signal — the harness is the operating body, not the prompt."
+    visual:
+      kind: "harness_ring"
+      center: "MODEL"
+      items: ["Context", "Tools", "Skills", "MCPs", "Memory", "Runtime", "Permissions", "Evaluation"]
+    speaker: "The harness does four jobs — contain, direct, connect, signal — through these eight components."
+    status: "draft"
+
+  - id: "1.4"
+    name: "Tony Stark Is Not Iron Man"
+    type: "metaphor"
+    title: "Tony Stark is the model. The armor is the harness."
+    subtitle: "The intelligence matters, but the body determines what the intelligence can do."
+    layout: hero
+    caption: ["Tony = model", "Armor = harness", "Different armor → different capability"]
+    takeaway: "The model may be the brain. The harness is the operational body."
+    visual:
+      kind: "image"
+      transparent: false
+      brief: >
+        Split composition: on the left, a lean human inventor figure (the mind);
+        on the right, a powerful mechanical exosuit/armor (the body). Technical
+        blueprint line-art, steel with cyan and orange accents, clearly two halves
+        of one system.
+    speaker: "Explicit mapping: Tony = model, armor = harness."
+    status: "draft"
+
+  - id: "1.6"
+    name: "Different Suits, Different Capabilities"
+    type: "comparison"
+    title: "Different missions need different suits"
+    subtitle: "A harness is a set of tools, skills, memory, and operating constraints."
+    layout: hero
+    caption: ["Coding harness", "Research harness", "Orchestration harness", "Custom harness"]
+    image:
+      brief: >
+        A technical blueprint comparison of four engineered exosuits side by side, each
+        fitted with different tool modules: a coding suit (repo, edit, test, git
+        instruments), a research suit (search, citation, synthesis instruments), an
+        orchestration suit (queue, worker, state, review instruments), and a custom /
+        modular suit shown with open plug-in slots where extra tool and skill modules can
+        be snapped in. Steel-grey line-art, cyan detail lines, orange accents on the
+        custom suit's open slots. No text, no labels.
+    takeaway: "There is no universal suit. There are mission-specific bodies."
+    visual:
+      kind: "cards_row"
+      items: ["Coding harness: repo search · edits · tests · git", "Research harness: web search · citations · synthesis · memory", "Orchestration harness: task queue · workers · state · review gates", "Custom harness: add your own tools · skills · memory"]
+    speaker: "Introduce tools + skills + capabilities."
+    status: "draft"
+
+  - id: "1.5"
+    name: "You Don't Pick the Brain"
+    type: "concept"
+    title: "You don't pick the brain. You build the body."
+    subtitle: "Everyone can rent the same model. Your leverage is the system around it."
+    takeaway: "Harness engineering is where differentiation moves."
+    visual:
+      kind: "fanout"
+      center: "Claude / GPT / Gemini"
+      items: ["Chat harness", "Code harness", "Orchestration harness"]
+    speaker: "The engineering punchline; say it cleanly."
+    status: "draft"
+
+  - id: "1.7"
+    name: "Same Hero, Different City — Capability Is System-Level"
+    type: "metaphor"
+    layout: split
+    title: "Same hero, different city — capability is system-level"
+    subtitle: "The same Spider-Man performs differently in a different environment. The unit of evaluation is the full system, not the model alone."
+    takeaway: "A stronger model in a weak harness can lose to a weaker model in a strong harness."
+    visual:
+      kind: "formula"
+      terms: ["Model", "Harness", "Environment"]
+    speaker: "Keep both figures: the environment metaphor (image) and the capability formula. Environment is part of the harness."
+    status: "draft"
+
+  - id: "1.11"
+    name: "Different Harnesses Expose Different Capabilities"
+    type: "comparison"
+    title: "Different harnesses expose different capabilities"
+    subtitle: "Same model, different harness — a full tool-capability matrix across six coding harnesses."
+    takeaway: "Same model, different harness, different capability."
+    visual:
+      kind: "matrix"
+      dense: true
+      source: "Leonardo Gonzales"
+      columns: ["Capability", "Claude Code", "Codex", "OpenCode", "OpenHands", "Droid", "Gemini CLI"]
+      rows:
+        - ["Shell execution", "✅ Bash", "✅ shell_command", "✅ bash", "✅ TerminalTool", "✅ Execute", "✅ run_shell_command"]
+        - ["Shell stdin / session", "✅ KillShell", "✅ write_stdin", "❌", "❌", "❌", "❌"]
+        - ["File read", "✅ Read", "✅ read_file", "✅ read", "✅ FileEditorTool", "✅ Read", "✅ read_file"]
+        - ["File create", "✅ Write", "✅ apply_patch", "✅ write", "✅ FileEditorTool", "✅ Create", "✅ write_file"]
+        - ["File edit", "✅ Edit", "✅ apply_patch", "✅ edit", "✅ FileEditorTool", "✅ Edit", "✅ replace"]
+        - ["Content search (grep)", "✅ Grep", "✅ grep_files", "✅ grep", "✅ GrepTool", "✅ Grep", "✅ grep_search"]
+        - ["Pattern search (glob)", "✅ Glob", "❌", "✅ glob", "✅ GlobTool", "✅ Glob", "✅ glob"]
+        - ["Directory listing", "✅", "✅ list_dir", "✅ list", "✅", "✅ LS", "✅ list_directory"]
+        - ["Web fetch", "✅ WebFetch", "✅ web_search", "✅ webfetch", "✅ BrowserToolSet", "✅ FetchUrl", "✅ web_fetch"]
+        - ["Web search", "✅ WebSearch", "✅ web_search", "✅ websearch", "❌", "✅ WebSearch", "✅ google_web_search"]
+        - ["Ask user", "✅ AskUserQuestion", "✅ request_user_input", "✅ question", "❌", "❌", "✅ ask_user"]
+        - ["Sub-agent delegation", "✅ Agent / Task", "✅ spawn_agent", "✅ task", "✅ TaskToolSet", "✅ Task", "✅"]
+        - ["Sub-agent lifecycle", "✅ fg / bg", "✅ resume / wait", "❌", "❌", "❌", "❌"]
+        - ["Planning / todo", "✅ TaskCreate", "✅ update_plan", "✅ todowrite", "✅ TaskTrackerTool", "✅ TodoWrite", "❌"]
+        - ["Skills", "✅ Skills", "✅", "✅ skill", "✅", "✅", "✅ activate_skill"]
+        - ["Memory persistence", "❌", "❌", "❌", "⚠️ user modeling", "❌", "✅ save_memory"]
+        - ["Browser automation ⭐", "❌", "❌", "❌", "✅ 12+ tools", "❌", "❌"]
+        - ["Notebook editing", "✅ NotebookEdit", "❌", "❌", "❌", "❌", "❌"]
+        - ["LSP / code intelligence", "✅ LSP", "❌", "✅ lsp", "❌", "❌", "❌"]
+        - ["Philosophy", "Popular, polished", "Rising star", "Flexible, OSS", "Benchmark king", "Commercial", "Google eco"]
+    speaker: "Full reference matrix (Leonardo Gonzales). Same model, very different bodies."
+    status: "ready"

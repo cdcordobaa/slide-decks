@@ -1,0 +1,69 @@
+section:
+  id: "3"
+  title: "Rung 1 — Prompter"
+  goal: "Show prompter mode as a manual harness architecture — the engineering diagram of the opening."
+
+cards:
+  - id: "3.1"
+    name: "Rung 1: Prompter"
+    type: "ladder_transition"
+    title: "Rung 1: Prompter"
+    subtitle: "At the first rung, you are the entire harness."
+    takeaway: "The model is not alone. It is running inside you."
+    visual:
+      kind: "ladder"
+      current: "Prompter"
+      rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
+    speaker: "Starts the first technical rung."
+    status: "draft"
+
+  - id: "3.2"
+    name: "Manual Harness Architecture"
+    type: "system_diagram"
+    title: "Prompter mode is manual harness architecture"
+    subtitle: "The human performs every non-token-producing part of the system."
+    takeaway: "The model may be smart, but the architecture is weak."
+    visual:
+      kind: "system_diagram"
+      center: "Human"
+      items: ["assembles context", "selects tools", "executes commands", "copies observations", "tracks state", "retries on failure", "evaluates output", "controls safety"]
+    speaker: "The engineering-diagram version of the opening."
+    status: "draft"
+
+  - id: "3.3"
+    name: "The Paste Loop Is a Symptom"
+    type: "failure_mode"
+    title: "The paste loop is a symptom"
+    subtitle: "Copy-paste is what missing infrastructure feels like."
+    takeaway: "The problem is not that prompting is bad — it's that prompting is doing too much."
+    visual:
+      kind: "flow"
+      steps: ["Paste task", "Paste file", "Paste error", "Paste logs", "Inspect output", "Paste next observation", "Retry"]
+    speaker: "Mention the familiar pain briefly; don't make it a therapy session."
+    status: "draft"
+
+  - id: "3.4"
+    name: "The Prompt Is Not an Operating System"
+    type: "big_claim"
+    title: "The prompt is being asked to do the job of an operating system"
+    subtitle: "Instructions alone cannot reliably provide tools, memory, state, recovery, and evaluation."
+    takeaway: "Prompting is not the problem. Architecture is."
+    visual:
+      kind: "overloaded_prompt"
+      center: "One prompt"
+      jobs: ["Context", "Memory", "Tools", "State", "Recovery", "Evaluation"]
+    speaker: "The key line for Rung 1."
+    status: "draft"
+
+  - id: "3.5"
+    name: "Give the Model Hands"
+    type: "transition"
+    title: "The first upgrade is not a better prompt"
+    subtitle: "It is moving one responsibility out of the human and into the harness."
+    takeaway: "Give the model hands."
+    visual:
+      kind: "transfer"
+      from: { label: "Human runs tools", items: ["File read", "File write", "Terminal", "Search", "Tests"] }
+      to: { label: "Harness runs tools", items: ["File read", "File write", "Terminal", "Search", "Tests"] }
+    speaker: "Transition to Rung 2: tool loops."
+    status: "draft"

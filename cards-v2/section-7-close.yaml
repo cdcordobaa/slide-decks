@@ -1,0 +1,44 @@
+section:
+  id: "7"
+  title: "Close"
+  goal: "Land the transformation and send the room away with a clear next question."
+
+cards:
+  - id: "7.2"
+    name: "The Three Lines"
+    type: "recap"
+    title: "Three lines to remember"
+    subtitle: "If the room remembers only this, the talk worked."
+    takeaway: "Harness engineering is the discipline of making model intelligence operational."
+    visual:
+      kind: "cards_row"
+      items:
+        - "The model is the brain. The harness is the body."
+        - "The body determines what the brain can do in the world."
+        - "The spec is the new keyboard."
+    status: "draft"
+
+  - id: "7.3"
+    name: "The Question"
+    type: "closing_question"
+    title: "Which harness responsibility are you still doing manually?"
+    subtitle: "And which one will you fire yourself from next?"
+    takeaway: "Start with one responsibility. Then climb."
+    visual:
+      kind: "transfer"
+      from: { label: "Human", items: ["context", "tools", "state", "retry", "eval", "safety", "coordination", "trust"] }
+      to: { label: "Harness", items: ["context", "tools", "state", "retry", "eval", "safety", "coordination", "trust"] }
+    speaker: "End with the question. Do not over-explain the close."
+    status: "draft"
+
+  - id: "7.4"
+    name: "Where to Learn This"
+    type: "concept"
+    title: "Where to learn this"
+    subtitle: "Build the systems around the model — specs, skills, MCPs, evaluation, and workflows."
+    takeaway: "Hardcore AI by 30x — become an agentic engineer. Build the body, not just prompt the brain."
+    visual:
+      kind: "flow"
+      steps: ["Think in harnesses", "Build with specs · skills · MCPs · workflows", "Operate agentic systems safely"]
+    speaker: "The course / learning path — the natural next step after the final question. Keep it professional, not an ad."
+    status: "draft"

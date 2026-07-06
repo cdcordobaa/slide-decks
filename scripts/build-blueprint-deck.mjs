@@ -22,11 +22,13 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const THEME = path.join(HERE, "..", "theme", "blueprint.css");
 const LOGO_PATH = path.join(HERE, "..", "cards", "assets", "globant-logo.svg");
 const LOGO_RAW = fs.readFileSync(LOGO_PATH, "utf8");
-// The mark is a single-fill green wordmark; recolor per surface.
-const logoURI = (hex) => "data:image/svg+xml;base64," + Buffer.from(LOGO_RAW.replace(/#bfd732/gi, hex)).toString("base64");
-const LOGO_GREEN = logoURI("#bfd732");        // for dark surfaces
-const LOGO_NAVY = logoURI("#00292e");         // for the light board
-const LOGO_TAG = `<img class="bp-logo" src="${LOGO_NAVY}" alt="Globant">`;
+// The brand logo is two-tone: wordmark (no fill → inherits) + green arrow (.cls-1).
+// `letters` sets the wordmark colour; the arrow always stays Globant green.
+const logoTwo = (letters, arrow = "#bfd732") => "data:image/svg+xml;base64," +
+  Buffer.from(LOGO_RAW.replace(/fill:#bfd732/gi, `fill:${arrow}`).replace(/<svg /, `<svg fill="${letters}" `)).toString("base64");
+const LOGO_BRAND = logoTwo("#00292e");     // navy wordmark + green arrow — for the light board
+const LOGO_BRAND_REV = logoTwo("#ffffff"); // white wordmark + green arrow — for the navy band
+const LOGO_TAG = `<img class="bp-logo" src="${LOGO_BRAND}" alt="Globant">`;
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const asList = (v) => (Array.isArray(v) ? v : v == null || v === "" ? [] : [v]);
@@ -71,7 +73,7 @@ const pageNo = (num, total) => `<div class="bp-pageno"><b>${String(num).padStart
 function cover(deck, num, total) {
   return `<section class="slide bp bp-cover" aria-label="cover">
     ${frameSVG()}${pageNo(num, total)}
-    <img class="bp-cover__logo" src="${LOGO_NAVY}" alt="Globant">
+    <img class="bp-cover__logo" src="${LOGO_BRAND}" alt="Globant">
     <div class="bp-cover__eyebrow">${esc(deck.audience ?? "Harness Engineering")}</div>
     <h1 class="bp-cover__title">${esc(deck.title ?? "Deck")}</h1>
     <div class="bp-cover__rule"></div>

@@ -1,0 +1,126 @@
+section:
+  id: "5"
+  title: "Rung 3 — Orchestrator"
+  goal: "Move from individual coding agent to a coordinated system of agents."
+
+cards:
+  - id: "5.1"
+    name: "Rung 3: Orchestrator"
+    type: "ladder_transition"
+    title: "Rung 3: Orchestrator"
+    subtitle: "You stop typing turns and start dispatching work."
+    takeaway: "Once agents can act, the hard problem becomes coordination."
+    visual:
+      kind: "ladder"
+      current: "Orchestrator"
+      rungs: ["Prompter", "Supervisor", "Orchestrator", "Operator"]
+    status: "draft"
+
+  - id: "5.2"
+    name: "From Prompt to Spec"
+    type: "comparison"
+    title: "The interface changes: prompt → spec"
+    subtitle: "You no longer ask for help. You define bounded work."
+    takeaway: "The spec becomes the control surface."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "Prompt", result: "“Please fix this bug.”" }
+        - { label: "Spec / Ticket", result: "scope · repo · constraints · tests · done criteria" }
+    speaker: "Sets up WORKFLOW.md and ticket-driven agents."
+    status: "draft"
+
+  - id: "5.3"
+    name: "Multi-Agent Harness"
+    type: "system_diagram"
+    title: "A multi-agent harness is a coordination system"
+    subtitle: "Now the harness manages agents, tasks, state, isolation, and review."
+    takeaway: "The harness is no longer model + tools. It is model + tools + coordination."
+    visual:
+      kind: "fleet"
+      source: "Tickets"
+      hub: "Orchestrator"
+      agents: ["Agent A", "Agent B", "Agent C"]
+      gate: "CI + Review"
+    status: "draft"
+
+  - id: "5.5"
+    name: "What the Orchestrator Adds"
+    type: "capability_map"
+    title: "The orchestrator adds system responsibilities"
+    subtitle: "Queues, isolation, logging, CI, review, and recovery become first-class."
+    takeaway: "Coordination is a harness capability."
+    visual:
+      kind: "capability_map"
+      center: "Orchestrator"
+      items: ["Task queue", "Issue tracker", "Workspace isolation", "Branch per task", "Subagents", "Progress logs", "CI gates", "Review hooks", "Failure recovery"]
+    status: "draft"
+
+  - id: "5.6"
+    name: "WORKFLOW.md Is Infrastructure"
+    type: "concept"
+    title: "WORKFLOW.md is not documentation. It is infrastructure."
+    subtitle: "It is the contract between the human, the harness, and the agent."
+    takeaway: "The spec becomes the new keyboard."
+    visual:
+      kind: "capability_map"
+      center: "WORKFLOW.md"
+      items: ["routing logic", "state policy", "workspace rules", "agent instructions", "review gates"]
+    speaker: "The key Rung 3 line."
+    status: "draft"
+
+  - id: "5.7"
+    name: "WORKFLOW.md Has Two Audiences"
+    type: "comparison"
+    title: "WORKFLOW.md has two audiences"
+    subtitle: "YAML tells the harness how to operate. Markdown tells the agent how to behave."
+    takeaway: "One file, two contracts."
+    visual:
+      kind: "comparison"
+      boxes:
+        - { label: "YAML front matter", result: "for the harness: routing, state, workspaces, gates" }
+        - { label: "Markdown body", result: "for the agent: instructions, constraints, behavior" }
+    status: "draft"
+
+  - id: "5.9"
+    name: "The Orchestrator Is the Control Plane"
+    type: "system_diagram"
+    title: "The orchestrator is the control plane"
+    subtitle: "It turns repo rules and board state into isolated agent runs."
+    takeaway: "The orchestrator does not do the work. It governs how work becomes agent-executable."
+    visual:
+      kind: "control_plane"
+      repo:
+        title: "Target repo"
+        items: "WORKFLOW.md · AGENTS.md / DESIGN.md · specs/*.md · src/"
+        note: "defines the operating contract"
+      orchestrator:
+        title: "Orchestrator · control plane"
+        items: ["Workflow loader", "State reconciler", "Workspace manager", "Runtime launcher", "Progress reporter"]
+      board:
+        title: "Task board / tracker"
+        items: "Linear · Jira · GitHub Issues"
+        note: "Ready → In progress → Review"
+      workspace:
+        title: "Per-ticket workspace"
+        items: "ENG-142/ · project code · mcp.json · logs / workpad"
+        note: "isolates blast radius"
+      agent:
+        title: "Agent runtime"
+        items: "Claude · Codex · Cursor · tools + MCPs + skills"
+      sink:
+        title: "PR + Human Review"
+        note: "closes the loop"
+    speaker: "The missing architecture layer: the orchestrator connects repo, board, workflow, workspace, runtime, and the review boundary."
+    status: "draft"
+
+  - id: "5.8"
+    name: "One Ticket Becomes One Isolated Run"
+    type: "system_diagram"
+    title: "One ticket becomes one isolated run"
+    subtitle: "The workflow turns task state into workspace, agent execution, progress, PR, and review."
+    takeaway: "A ticket is a unit of controlled work."
+    visual:
+      kind: "flow"
+      steps: ["Ticket: Ready", "Workflow Loader reads WORKFLOW.md", "Workspace created (ENG-142/)", "Repo cloned · per-workspace mcp.json", "Agent runtime launches (Claude / Codex)", "Workpad updates + PR", "Human review"]
+    status: "draft"
