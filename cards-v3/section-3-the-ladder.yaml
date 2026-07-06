@@ -99,5 +99,24 @@ cards:
         kind: "transfer"
         from: { label: "Human owns", items: ["specs", "priorities", "constraints", "review", "exceptions"] }
         to: { label: "Harness owns", items: ["execution", "state", "tools", "retries", "tests", "PR creation"] }
-    speaker: "Condenses 6.2 fleet + 6.3 judgment + 6.5 no self-grading + 6.8 verification + 6.7 unit changed."
+    speaker: "Condenses 6.3 judgment + 6.5 no self-grading + 6.8 verification + 6.7 unit changed."
+    status: "draft"
+
+  - id: "3.5"
+    name: "Mission Control"
+    type: "metaphor"
+    title: "You don't fly one suit. You operate the fleet."
+    subtitle: "The human moves from direct execution to controlled delegation."
+    layout: hero
+    caption: ["You own: specs · constraints · review", "Harness runs: agents · workspaces · retries · gates"]
+    takeaway: "Operator mode is not absence of humans. It is better placement of humans."
+    visual:
+      kind: "image"
+      transparent: false
+      brief: >
+        A mission-control room seen from behind an operator, facing a wall of
+        screens; each screen shows a small agent 'suit' running a task. Calm,
+        technical blueprint line-art, steel with cyan and orange accents.
+      overlay: ["Ticket A", "Ticket B", "Ticket C", "CI", "Review", "Logs"]
+    speaker: "The visual payoff of the Operator step — the fleet under one operator."
     status: "draft"
