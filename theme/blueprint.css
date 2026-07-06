@@ -404,3 +404,9 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-points li { border-left: 3px solid var(--green); padding: 1px 0 1px 14px; }
 .bp-points b { display: block; font-size: 17px; color: var(--ink); line-height: 1.25; }
 .bp-points span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+
+/* harness_loop — concentric body + motion diagram */
+.bp-hloop { width: min(660px, 100%); height: auto; max-height: 430px; }
+.bp-hloop .hl-core { fill: var(--green); font-family: var(--mono); font-weight: 800; font-size: 15px; }
+.bp-hloop .hl-h { fill: var(--ink); font-family: var(--mono); font-size: 11.5px; font-weight: 600; }
+.bp-hloop .hl-l { fill: var(--green-deep); font-family: var(--mono); font-size: 12.5px; font-weight: 700; }

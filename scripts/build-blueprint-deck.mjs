@@ -339,8 +339,36 @@ function duo(v) {
   return `<div class="bp-duo">${col(v.left)}${col(v.right)}</div>`;
 }
 
+// harness_loop — concentric "body + motion": MODEL core, HARNESS body ring, LOOP motion ring
+function harnessLoop(v) {
+  const cx = 350, cy = 285, hexR = 40, R1 = 120, R2 = 232;
+  const harness = asList(v.harness), loop = asList(v.loop);
+  const nH = harness.length || 1, nL = loop.length || 1, bw = 98, bh = 30;
+  const hexPts = Array.from({ length: 6 }, (_, k) => { const a = ((-90 + 60 * k) * Math.PI) / 180; return `${(cx + hexR * Math.cos(a)).toFixed(1)},${(cy + hexR * Math.sin(a)).toFixed(1)}`; }).join(" ");
+  const core = `<polygon points="${hexPts}" fill="#00292e" stroke="#1f7a3d" stroke-width="3"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" class="hl-core">${esc(v.center || "MODEL")}</text>`;
+  const inner = harness.map((h, i) => {
+    const a = (-90 + i * 360 / nH) * Math.PI / 180, x = cx + R1 * Math.cos(a), y = cy + R1 * Math.sin(a);
+    const pipe = `<line x1="${(cx + hexR * Math.cos(a)).toFixed(1)}" y1="${(cy + hexR * Math.sin(a)).toFixed(1)}" x2="${(x - (bw / 2 - 6) * Math.cos(a)).toFixed(1)}" y2="${(y - (bh / 2 - 4) * Math.sin(a)).toFixed(1)}" stroke="#bfd732" stroke-width="4"/>`;
+    return pipe + `<g><rect x="${(x - bw / 2).toFixed(1)}" y="${(y - bh / 2).toFixed(1)}" width="${bw}" height="${bh}" rx="7" fill="#f4f7ef" stroke="#00292e" stroke-width="1.4"/><text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" class="hl-h">${esc(h)}</text></g>`;
+  }).join("");
+  const ring = `<circle cx="${cx}" cy="${cy}" r="${R2}" fill="none" stroke="#bfd732" stroke-width="3"/>`;
+  const chev = loop.map((_, i) => {
+    const th = (-90 + (i + 0.5) * 360 / nL) * Math.PI / 180, px = cx + R2 * Math.cos(th), py = cy + R2 * Math.sin(th);
+    const tx = -Math.sin(th), ty = Math.cos(th), nx = Math.cos(th), ny = Math.sin(th);
+    const p = (s) => `${(px - 7 * tx + s * 5 * nx).toFixed(1)},${(py - 7 * ty + s * 5 * ny).toFixed(1)}`;
+    return `<path d="M ${p(1)} L ${px.toFixed(1)},${py.toFixed(1)} L ${p(-1)}" fill="none" stroke="#bfd732" stroke-width="3" stroke-linecap="round"/>`;
+  }).join("");
+  const outer = loop.map((l, i) => {
+    const a = (-90 + i * 360 / nL) * Math.PI / 180, x = cx + R2 * Math.cos(a), y = cy + R2 * Math.sin(a);
+    const lx = cx + (R2 + 14) * Math.cos(a), ly = cy + (R2 + 14) * Math.sin(a) + 4;
+    const anch = Math.abs(Math.cos(a)) < 0.35 ? "middle" : (Math.cos(a) > 0 ? "start" : "end");
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="#1f7a3d"/><text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anch}" class="hl-l">${esc(l)}</text>`;
+  }).join("");
+  return `<svg class="bp-dia bp-hloop" viewBox="0 0 700 570">${ring}${chev}${outer}${inner}${core}</svg>`;
+}
+
 const VIS = {
-  stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum, duo, points,
+  stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum, duo, points, harness_loop: harnessLoop,
   control_plane: controlPlane, agentic_search_loop: agenticLoop, build_stack: buildStack,
   file_tree: fileTree, overloaded_prompt: overloadedPrompt,
   harness_ring: harnessRing, fleet, matrix, four_functions: fourFunctions,

@@ -11,11 +11,10 @@ cards:
     subtitle: "The harness defines what the agent can do. The loop defines how the agent keeps doing it."
     takeaway: "The harness is the body. The loop is the body in motion."
     visual:
-      kind: "flow"
-      steps:
-        - "MODEL · reasoning core"
-        - "HARNESS: context · tools · memory · permissions · evaluation"
-        - "LOOP: trigger · act · observe · verify · update state · repeat"
+      kind: "harness_loop"
+      center: "MODEL"
+      harness: ["Context", "Tools", "Memory", "Permissions", "Evaluation"]
+      loop: ["Trigger", "Act", "Observe", "Verify", "Update state", "Repeat"]
     speaker: "Harness engineering is the broader discipline (what body did we give the model). Loop engineering asks how the system keeps moving once that body exists."
     status: "draft"
 
