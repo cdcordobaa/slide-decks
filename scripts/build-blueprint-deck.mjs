@@ -330,8 +330,14 @@ function overloadedPrompt(v) {
   return `<svg class="bp-dia bp-oprompt" viewBox="0 0 900 470">${defs}${items}${core}</svg>`;
 }
 
+// duo — two figures side by side (keeps both slides' visuals when merging)
+function duo(v) {
+  const col = (sv) => sv ? `<div class="bp-duo__col">${sv.title ? `<div class="bp-duo__t">${esc(sv.title)}</div>` : ""}<div class="bp-duo__fig">${(VIS[sv.kind] || (() => ""))(sv)}</div></div>` : "";
+  return `<div class="bp-duo">${col(v.left)}${col(v.right)}</div>`;
+}
+
 const VIS = {
-  stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum,
+  stack, comparison, equation, formula, transfer, fanout, ladder, flow, spectrum, duo,
   control_plane: controlPlane, agentic_search_loop: agenticLoop, build_stack: buildStack,
   file_tree: fileTree, overloaded_prompt: overloadedPrompt,
   harness_ring: harnessRing, fleet, matrix, four_functions: fourFunctions,

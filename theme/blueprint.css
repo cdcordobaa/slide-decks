@@ -391,3 +391,10 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-thanks.is-dark .bp-thanks__msg b { color: var(--green); }
 .bp-thanks.is-dark .bp-pageno { color: #7f9a86; }
 .bp-thanks.is-dark .bp-pageno b { color: var(--green); }
+
+/* duo — two figures side by side (merged slides keep both) */
+.bp-duo { display: flex; gap: 30px; align-items: center; justify-content: center; width: 100%; }
+.bp-duo__col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.bp-duo__t { font-family: var(--mono); font-weight: 700; font-size: 13px; color: var(--green-deep); text-transform: uppercase; letter-spacing: .05em; text-align: center; }
+.bp-duo__fig { width: 100%; display: flex; justify-content: center; align-items: center; }
+.bp-duo__fig > svg, .bp-duo__fig > .bp-dia { width: 100%; height: auto; }

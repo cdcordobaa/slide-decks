@@ -11,11 +11,20 @@ cards:
     subtitle: "A model produces tokens; an agent produces actions. The harness is the runtime that turns one into the other."
     takeaway: "No harness, no agent — the difference is not intelligence, it is runtime."
     visual:
-      kind: "equation"
-      terms:
-        - "Model → reasoning"
-        - "Harness → tools, context, memory, state, evals"
-        - "Agent → actions"
+      kind: "duo"
+      left:
+        title: "A model is not an agent"
+        kind: "comparison"
+        boxes:
+          - { label: "MODEL", result: "input → prediction → text" }
+          - { label: "AGENT", result: "goal → tools → observations → actions" }
+      right:
+        title: "Agent = Model + Harness"
+        kind: "equation"
+        terms:
+          - "Model → reasoning"
+          - "Harness → tools, context, memory, state, evals"
+          - "Agent → actions"
     speaker: "Definition + equation together: a model produces tokens, an agent produces actions. The core anchor."
     status: "draft"
 
@@ -26,9 +35,20 @@ cards:
     subtitle: "It contains, directs, connects, and signals — via context, tools, skills, MCPs, memory, runtime, permissions, and evaluation."
     takeaway: "Contain, direct, connect, signal — the harness is the operating body, not the prompt."
     visual:
-      kind: "harness_ring"
-      center: "MODEL"
-      items: ["Context", "Tools", "Skills", "MCPs", "Memory", "Runtime", "Permissions", "Evaluation"]
+      kind: "duo"
+      left:
+        title: "It does four jobs"
+        kind: "four_functions"
+        items:
+          - { label: "Contains", caption: "boundaries, permissions" }
+          - { label: "Directs", caption: "the loop, the plan" }
+          - { label: "Connects", caption: "tools, context, memory" }
+          - { label: "Signals", caption: "observations, evaluation" }
+      right:
+        title: "Through the agent's body"
+        kind: "harness_ring"
+        center: "MODEL"
+        items: ["Context", "Tools", "Skills", "MCPs", "Memory", "Runtime", "Permissions", "Evaluation"]
     speaker: "The harness does four jobs — contain, direct, connect, signal — through these eight components."
     status: "draft"
 

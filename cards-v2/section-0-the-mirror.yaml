@@ -10,16 +10,27 @@ cards:
     title: "You are the harness"
     subtitle: "There is a missing runtime in your AI stack, doing six jobs at once — and right now, it is you."
     visual:
-      kind: "mirror"
-      subject: "YOU"
-      caption: "all six jobs are yours"
-      items:
-        - { label: "Context", caption: "you assemble it" }
-        - { label: "Tools", caption: "you run them" }
-        - { label: "Retry", caption: "you recover" }
-        - { label: "State", caption: "you remember" }
-        - { label: "Evaluation", caption: "you judge" }
-        - { label: "Safety", caption: "you decide" }
+      kind: "duo"
+      left:
+        title: "The AI stack"
+        kind: "stack"
+        items:
+          - { label: "Model", caption: "produces tokens" }
+          - { label: "Tools", caption: "actions it can take" }
+          - { label: "Context", caption: "what it can see" }
+          - { label: "Missing runtime", state: "missing", caption: "assembles · runs · retries · judges" }
+          - { label: "Human", caption: "does the runtime's job by hand" }
+      right:
+        title: "That runtime is you"
+        kind: "mirror"
+        subject: "YOU"
+        items:
+          - { label: "Context", caption: "you assemble" }
+          - { label: "Tools", caption: "you run" }
+          - { label: "Retry", caption: "you recover" }
+          - { label: "State", caption: "you remember" }
+          - { label: "Evaluation", caption: "you judge" }
+          - { label: "Safety", caption: "you decide" }
     takeaway: "The goal is not better babysitting. The goal is infrastructure."
     speaker: "Merged opener — name the missing component in the AI stack, the six jobs it does, and the reveal that it's you. Pause on the reveal."
     status: "ready"
