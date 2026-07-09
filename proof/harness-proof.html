@@ -1,0 +1,954 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>
+
+<title>Operators, Not Authors: How the Eval Harness Was Specified</title>
+<style>
+  :root {
+    --ground: #e8ede1;
+    --ground-2: #dbe4cf;
+    --sheet: #f6f9f0;
+    --ink: #00292e;
+    --ink-soft: #3a4a41;
+    --ink-faint: #6a7a6e;
+    --line: #cdd8bf;
+    --line-strong: #b1c19c;
+    --grid: rgba(0, 41, 46, 0.05);
+    --signal: #1f7a3d;
+    --signal-bright: #2c9e4f;
+    --signal-wash: rgba(31, 122, 61, 0.10);
+    --agent: #6f8f16;
+    --agent-wash: rgba(191, 215, 50, 0.20);
+    --warn: #a96a1f;
+    --warn-wash: rgba(169, 106, 31, 0.12);
+    --dead: #b1483f;
+    --dead-wash: rgba(177, 72, 63, 0.10);
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --shadow: 0 1px 2px rgba(0,41,46,.05), 0 8px 30px rgba(0,41,46,.07);
+    --maxw: 1080px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0a1a1c; --ground-2: #0e2325; --sheet: #102a2d;
+      --ink: #e7f0ea; --ink-soft: #a9bcb0; --ink-faint: #6c8279;
+      --line: #1f3a3d; --line-strong: #2b4d50; --grid: rgba(191, 215, 50, 0.05);
+      --signal: #4fb56a; --signal-bright: #6ccf85; --signal-wash: rgba(79, 181, 106, 0.12);
+      --agent: #bfd732; --agent-wash: rgba(191, 215, 50, 0.14);
+      --warn: #e0a44a; --warn-wash: rgba(224, 164, 74, 0.13);
+      --dead: #e07b74; --dead-wash: rgba(224, 123, 116, 0.12);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 14px 40px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #e8ede1; --ground-2: #dbe4cf; --sheet: #f6f9f0;
+    --ink: #00292e; --ink-soft: #3a4a41; --ink-faint: #6a7a6e;
+    --line: #cdd8bf; --line-strong: #b1c19c; --grid: rgba(0, 41, 46, 0.05);
+    --signal: #1f7a3d; --signal-bright: #2c9e4f; --signal-wash: rgba(31, 122, 61, 0.10);
+    --agent: #6f8f16; --agent-wash: rgba(191, 215, 50, 0.20);
+    --warn: #a96a1f; --warn-wash: rgba(169, 106, 31, 0.12);
+    --dead: #b1483f; --dead-wash: rgba(177, 72, 63, 0.10);
+    --shadow: 0 1px 2px rgba(0,41,46,.05), 0 8px 30px rgba(0,41,46,.07);
+  }
+  :root[data-theme="dark"] {
+    --ground: #0a1a1c; --ground-2: #0e2325; --sheet: #102a2d;
+    --ink: #e7f0ea; --ink-soft: #a9bcb0; --ink-faint: #6c8279;
+    --line: #1f3a3d; --line-strong: #2b4d50; --grid: rgba(191, 215, 50, 0.05);
+    --signal: #4fb56a; --signal-bright: #6ccf85; --signal-wash: rgba(79, 181, 106, 0.12);
+    --agent: #bfd732; --agent-wash: rgba(191, 215, 50, 0.14);
+    --warn: #e0a44a; --warn-wash: rgba(224, 164, 74, 0.13);
+    --dead: #e07b74; --dead-wash: rgba(224, 123, 116, 0.12);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 14px 40px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- shared type ---------- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--signal);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 26px; height: 1px;
+    background: var(--signal);
+    display: inline-block;
+  }
+  h1, h2, h3 { font-family: var(--font-mono); text-wrap: balance; letter-spacing: -0.01em; }
+  p { text-wrap: pretty; }
+  .lead { max-width: 62ch; color: var(--ink-soft); }
+  code, .mono { font-family: var(--font-mono); }
+
+  /* ---------- hero ---------- */
+  header.hero {
+    position: relative;
+    padding: 92px 0 64px;
+    border-bottom: 1px solid var(--line);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 34px 34px;
+    background-position: center top;
+    overflow: hidden;
+  }
+  .hero .reg { position: absolute; width: 14px; height: 14px; opacity: .5; }
+  .hero .reg::before, .hero .reg::after { content:""; position:absolute; background: var(--signal); }
+  .hero .reg.tl { top: 22px; left: 22px; }
+  .hero .reg.tr { top: 22px; right: 22px; }
+  .hero .reg::before { width: 14px; height: 1.5px; top: 6px; }
+  .hero .reg::after  { width: 1.5px; height: 14px; left: 6px; }
+  .hero .reg.tr::after { left: auto; right: 6px; }
+
+  .hero h1 {
+    font-size: clamp(34px, 6vw, 64px);
+    line-height: 1.02;
+    margin: 22px 0 0;
+    font-weight: 700;
+  }
+  .hero h1 .b { color: var(--signal); }
+  .hero .lead { font-size: clamp(16px, 2vw, 19px); margin-top: 22px; }
+  .hero .lead strong { color: var(--ink); font-weight: 600; }
+
+  .statrow {
+    display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px;
+  }
+  .stat {
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 18px;
+    min-width: 132px;
+    box-shadow: var(--shadow);
+  }
+  .stat .n { font-family: var(--font-mono); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 12px; color: var(--ink-faint); font-family: var(--font-mono); letter-spacing: .04em; text-transform: uppercase; margin-top: 2px; }
+  .stat.s .n { color: var(--signal); }
+  .stat.a .n { color: var(--agent); }
+  .stat.w .n { color: var(--warn); }
+  .stat.d .n { color: var(--dead); }
+
+  /* ---------- section scaffold ---------- */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  .sechead { max-width: 66ch; margin-bottom: 40px; }
+  .sechead h2 { font-size: clamp(24px, 3.4vw, 34px); margin: 14px 0 0; font-weight: 700; }
+  .sechead p { margin: 14px 0 0; color: var(--ink-soft); font-size: 16.5px; }
+
+  /* ---------- panel ---------- */
+  .panel {
+    position: relative;
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .panel .corner { position:absolute; width:9px; height:9px; border:1.5px solid var(--line-strong); }
+  .panel .corner.tl { top:-1px; left:-1px; border-right:0; border-bottom:0; border-top-left-radius:14px; }
+  .panel .corner.tr { top:-1px; right:-1px; border-left:0; border-bottom:0; border-top-right-radius:14px; }
+  .panel .corner.bl { bottom:-1px; left:-1px; border-right:0; border-top:0; border-bottom-left-radius:14px; }
+  .panel .corner.br { bottom:-1px; right:-1px; border-left:0; border-top:0; border-bottom-right-radius:14px; }
+
+  /* ---------- operating model diagram ---------- */
+  .model {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+  .node {
+    position: relative;
+    padding: 22px 20px 24px;
+    border-right: 1px dashed var(--line-strong);
+    display: flex; flex-direction: column;
+  }
+  .node:last-child { border-right: 0; }
+  .node .idx {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+    color: var(--ink-faint); text-transform: uppercase;
+  }
+  .node .role {
+    font-family: var(--font-mono); font-weight: 700; font-size: 16px;
+    margin-top: 8px; letter-spacing: -0.01em;
+  }
+  .node .desc { font-size: 13.5px; color: var(--ink-soft); margin-top: 8px; }
+  .node .chip {
+    margin-top: auto; padding-top: 14px;
+    font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint);
+  }
+  .node .chip b { color: var(--ink); font-weight: 600; }
+  .node.spec  { background: var(--signal-wash); }
+  .node.spec .role { color: var(--signal); }
+  .node.agent { background: var(--agent-wash); }
+  .node.agent .role { color: var(--agent); }
+  .node .flow {
+    position: absolute; right: -9px; top: 50%; transform: translateY(-50%);
+    z-index: 3; font-family: var(--font-mono); font-size: 15px; color: var(--ink-faint);
+    background: var(--sheet); padding: 2px 0; line-height: 1;
+  }
+  .feedback {
+    grid-column: 1 / -1;
+    border-top: 1px dashed var(--line-strong);
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-soft);
+    background: repeating-linear-gradient(45deg, transparent, transparent 9px, var(--grid) 9px, var(--grid) 10px);
+  }
+  .feedback .k { color: var(--signal); font-weight: 700; letter-spacing: .04em; }
+
+  .substrate {
+    margin-top: 18px;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  }
+  .substrate .lbl {
+    font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .tag {
+    font-family: var(--font-mono); font-size: 12.5px;
+    padding: 5px 11px; border-radius: 999px;
+    border: 1px solid var(--line-strong); color: var(--ink-soft);
+    background: var(--ground-2);
+  }
+  .tag.sig { border-color: var(--signal); color: var(--signal); background: var(--signal-wash); }
+  .tag.ag  { border-color: var(--agent); color: var(--agent); background: var(--agent-wash); }
+
+  /* ---------- change anatomy ---------- */
+  .artifacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .art { padding: 24px 22px 26px; }
+  .art .file {
+    font-family: var(--font-mono); font-weight: 700; font-size: 15px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .art .file .dot { width: 9px; height: 9px; border-radius: 2px; background: var(--signal); }
+  .art:nth-child(2) .file .dot { background: var(--agent); }
+  .art:nth-child(3) .file .dot { background: var(--warn); }
+  .art .q { margin-top: 4px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: .02em; }
+  .art ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .art li { font-size: 13.5px; color: var(--ink-soft); padding-left: 18px; position: relative; }
+  .art li::before {
+    content: "›"; position: absolute; left: 0; top: -1px;
+    color: var(--signal); font-family: var(--font-mono); font-weight: 700;
+  }
+  .art:nth-child(2) li::before { color: var(--agent); }
+  .art:nth-child(3) li::before { color: var(--warn); }
+  .art .head-strip { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); background: var(--ground-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-top: 16px; }
+  .art .head-strip b { color: var(--ink); }
+
+  /* ---------- lifecycle ring ---------- */
+  .ring-layout { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: 40px; align-items: center; }
+  .ring-wrap { width: 100%; }
+  svg.ring { width: 100%; height: auto; display: block; }
+  .ring text { font-family: var(--font-mono); fill: var(--ink); }
+  .ring .ring-track { fill: none; stroke: var(--line-strong); stroke-width: 2; }
+  .ring .node-c { fill: var(--sheet); stroke: var(--signal); stroke-width: 2; }
+  .ring .node-verb { font-weight: 700; }
+  .ring .node-idx { fill: var(--ink-faint); font-size: 13px; }
+  .ring .arrow { fill: var(--signal); }
+  .ring .backedge { fill: none; stroke: var(--agent); stroke-width: 1.6; stroke-dasharray: 5 5; }
+  .ring .backedge-arrow { fill: var(--agent); }
+  .ring .back-label { fill: var(--agent); font-size: 12.5px; }
+  .ring .center-l { fill: var(--ink-faint); font-size: 12px; letter-spacing: .12em; }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: st; }
+  .steps li {
+    display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: baseline;
+    padding: 11px 0; border-bottom: 1px solid var(--line);
+  }
+  .steps li:last-child { border-bottom: 0; }
+  .steps .sv { font-family: var(--font-mono); font-weight: 700; color: var(--ink); }
+  .steps .si { font-family: var(--font-mono); font-size: 12px; color: var(--signal); font-weight: 700; }
+  .steps .sd { color: var(--ink-soft); font-size: 14px; }
+  .steps .sd b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- phase timeline ---------- */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 30px; }
+  .legend .li { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-soft); }
+  .legend .sw { width: 11px; height: 11px; border-radius: 3px; }
+  .sw.shipped { background: var(--signal); }
+  .sw.active { background: var(--agent); }
+  .sw.reversal { background: var(--warn); }
+  .sw.abandoned { background: var(--dead); }
+
+  .timeline { position: relative; margin-left: 6px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--line-strong);
+  }
+  .ph { position: relative; padding: 0 0 20px 52px; }
+  .ph .dot {
+    position: absolute; left: 6px; top: 4px; width: 20px; height: 20px;
+    border-radius: 50%; background: var(--sheet); border: 3px solid var(--signal);
+    z-index: 2;
+  }
+  .ph.active .dot { border-color: var(--agent); }
+  .ph.reversal .dot { border-color: var(--warn); }
+  .ph.abandoned .dot { border-color: var(--dead); border-style: dashed; }
+  .ph .card {
+    background: var(--sheet); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .ph.abandoned .card { border-style: dashed; background: var(--dead-wash); }
+  .ph.reversal .card { background: var(--warn-wash); }
+  .ph .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+  .ph .pidx { font-family: var(--font-mono); font-weight: 700; font-size: 13px; letter-spacing: .06em; color: var(--signal); }
+  .ph.active .pidx { color: var(--agent); }
+  .ph.reversal .pidx { color: var(--warn); }
+  .ph.abandoned .pidx { color: var(--dead); }
+  .ph .pname { font-family: var(--font-mono); font-weight: 700; font-size: 15px; }
+  .ph .state {
+    margin-left: auto; font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: .1em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+    border: 1px solid var(--line-strong); color: var(--ink-faint);
+  }
+  .ph.shipped .state { color: var(--signal); border-color: var(--signal); }
+  .ph.active .state { color: var(--agent); border-color: var(--agent); }
+  .ph.reversal .state { color: var(--warn); border-color: var(--warn); }
+  .ph.abandoned .state { color: var(--dead); border-color: var(--dead); }
+  .ph .decision { margin: 12px 0 0; font-size: 14.5px; color: var(--ink-soft); }
+  .ph .decision b { color: var(--ink); font-weight: 600; }
+  .ph .meta { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint); }
+  .ph .meta span { border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; background: var(--ground-2); }
+
+  /* ---------- deploy / skills ---------- */
+  .deploy-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
+  .skill-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .skill {
+    background: var(--sheet); border: 1px solid var(--line); border-radius: 11px;
+    padding: 15px 17px; box-shadow: var(--shadow);
+  }
+  .skill .sk-name { font-family: var(--font-mono); font-weight: 700; font-size: 14px; color: var(--agent); }
+  .skill .sk-name::before { content: "/"; opacity: .5; }
+  .skill .sk-desc { font-size: 13.5px; color: var(--ink-soft); margin-top: 5px; }
+  .cloud {
+    background: var(--sheet); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px;
+  }
+  .cloud h3 { margin: 0; font-size: 16px; }
+  .job {
+    border: 1px dashed var(--line-strong); border-radius: 10px; padding: 13px 15px;
+    background: var(--agent-wash);
+  }
+  .job .jn { font-family: var(--font-mono); font-weight: 700; font-size: 13.5px; color: var(--agent); }
+  .job .jd { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+  .rule {
+    margin-top: 4px; padding: 13px 15px; border-radius: 10px;
+    border: 1px solid var(--signal); background: var(--signal-wash);
+    font-size: 13.5px; color: var(--ink);
+  }
+  .rule b { font-family: var(--font-mono); color: var(--signal); }
+
+  /* ---------- principles ---------- */
+  .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .pr { padding: 18px 20px; }
+  .pr .n { font-family: var(--font-mono); font-size: 12px; color: var(--signal); letter-spacing: .1em; }
+  .pr h3 { margin: 8px 0 0; font-size: 15.5px; font-weight: 700; }
+  .pr p { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+
+  /* ---------- footer ---------- */
+  footer { padding: 44px 0 64px; }
+  footer .fnote { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-faint); max-width: 70ch; }
+  footer .fnote b { color: var(--ink-soft); }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- operating manual grid ---------- */
+  .orch-note {
+    margin-top: 22px; padding: 16px 20px;
+    border-left: 3px solid var(--agent); border-radius: 0 10px 10px 0;
+    background: var(--agent-wash);
+    font-size: 15px; color: var(--ink);
+  }
+  .orch-note b { font-family: var(--font-mono); font-weight: 700; }
+  .manual { margin-top: 26px; }
+  .manual .lbl2 {
+    font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-faint); display: block; margin-bottom: 14px;
+  }
+  .manual .mgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .mcard {
+    background: var(--sheet); border: 1px solid var(--line);
+    border-left: 3px solid var(--signal); border-radius: 10px;
+    padding: 15px 16px; box-shadow: var(--shadow);
+  }
+  .mcard.ag { border-left-color: var(--agent); }
+  .mcard .mf { font-family: var(--font-mono); font-weight: 700; font-size: 13px; color: var(--signal); word-break: break-word; }
+  .mcard.ag .mf { color: var(--agent); }
+  .mcard .mrole { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); margin-top: 4px; }
+  .mcard .mdesc { font-size: 12.5px; color: var(--ink-soft); margin-top: 10px; }
+
+  /* ---------- proposed skill ---------- */
+  .proposed-flag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--agent); border: 1px dashed var(--agent); border-radius: 999px;
+    padding: 4px 12px; background: var(--agent-wash); margin-bottom: 16px;
+  }
+  .skillspec { display: grid; grid-template-columns: 1.05fr 1fr; gap: 24px; align-items: start; }
+  .codecard { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: var(--sheet); }
+  .codecard .bar {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    border-bottom: 1px solid var(--line); background: var(--ground-2);
+    font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint);
+  }
+  .codecard .bar .dots { display: flex; gap: 6px; }
+  .codecard .bar .dots i { width: 10px; height: 10px; border-radius: 50%; display: block; opacity: .8; }
+  .codecard .bar .dots i:nth-child(1){ background: var(--dead); }
+  .codecard .bar .dots i:nth-child(2){ background: var(--warn); }
+  .codecard .bar .dots i:nth-child(3){ background: var(--signal); }
+  .codecard pre { margin: 0; padding: 16px 18px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; color: var(--ink); overflow-x: auto; }
+  .codecard .k { color: var(--agent); }
+  .codecard .s { color: var(--signal); }
+  .codecard .c { color: var(--ink-faint); }
+  .autopipe { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; }
+  .autopipe li {
+    display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: start;
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--sheet);
+  }
+  .autopipe .stg {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 6px; background: var(--agent-wash); color: var(--agent);
+    text-align: center; align-self: start; margin-top: 1px;
+  }
+  .autopipe .txt { font-size: 13px; color: var(--ink-soft); }
+  .autopipe .txt b { color: var(--ink); font-weight: 600; }
+  .rationale { padding: 22px 22px 24px; }
+  .rationale h3 { margin: 0; font-size: 15.5px; font-weight: 700; }
+  .rationale ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .rationale li { position: relative; padding-left: 22px; font-size: 13.5px; color: var(--ink-soft); }
+  .rationale li::before { content: "▹"; position: absolute; left: 0; top: -1px; color: var(--agent); }
+  .rationale li b { color: var(--ink); font-weight: 600; }
+  .rationale .kicker { margin: 18px 0 0; padding: 13px 15px; border-radius: 10px; border: 1px solid var(--signal); background: var(--signal-wash); font-size: 13.5px; }
+  .rationale .kicker b { font-family: var(--font-mono); color: var(--signal); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .model { grid-template-columns: 1fr; }
+    .node { border-right: 0; border-bottom: 1px dashed var(--line-strong); }
+    .node .flow { display: none; }
+    .artifacts { grid-template-columns: 1fr; }
+    .ring-layout { grid-template-columns: 1fr; }
+    .ring-wrap { max-width: 380px; margin: 0 auto; }
+    .deploy-grid { grid-template-columns: 1fr; }
+    .principles { grid-template-columns: 1fr; }
+    .manual .mgrid { grid-template-columns: 1fr 1fr; }
+    .skillspec { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .manual .mgrid { grid-template-columns: 1fr; }
+    .autopipe li { grid-template-columns: 1fr; gap: 7px; }
+    .autopipe .stg { justify-self: start; }
+  }
+</style>
+
+<header class="hero">
+  <span class="reg tl"></span><span class="reg tr"></span>
+  <div class="wrap">
+    <span class="eyebrow">MIP Evaluation Harness · A Spec-Driven Build</span>
+    <h1>We didn't write<br>the harness.<br><span class="b">We specified it.</span></h1>
+    <p class="lead">The MIP evaluation harness — two-phase video-pipeline scoring, statistical rigor,
+      a multimodal judge, cloud batch jobs — was grown as roughly <strong>ten written-down changes</strong>.
+      The team never sat in the editor. It <strong>decomposed intent into discrete units of work</strong>,
+      handed each unit to a coding agent, and steered by written record — a proposal, a design, a checklist.
+      <strong>Authorship was the agent's job. Orchestration was ours.</strong></p>
+    <div class="statrow">
+      <div class="stat s"><div class="n">~10</div><div class="k">specified changes</div></div>
+      <div class="stat s"><div class="n">7</div><div class="k">shipped</div></div>
+      <div class="stat a"><div class="n">2</div><div class="k">active on cloud</div></div>
+      <div class="stat w"><div class="n">1</div><div class="k">retired concept</div></div>
+      <div class="stat d"><div class="n">1</div><div class="k">road not taken</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="model">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <span class="eyebrow">The operating model</span>
+      <h2>The specification is the interface between human intent and machine work.</h2>
+      <p>An operator states intent as a written spec. A coding agent reads it — together with the
+        project's standing context — and implements it. Skills carry the work to the cloud. Every run
+        feeds a result back into the next spec. The human moves left-to-right by <em>writing</em>, not
+        by typing code.</p>
+    </div>
+
+    <div class="panel reveal">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="model">
+        <div class="node">
+          <div class="idx">01 · Human</div>
+          <div class="role">Operator</div>
+          <div class="desc">States the pain as a numbered problem list and draws the scope fence.</div>
+          <div class="chip"><b>role:</b> orchestrator</div>
+          <div class="flow">→</div>
+        </div>
+        <div class="node spec">
+          <div class="idx">02 · Written record</div>
+          <div class="role">Specification</div>
+          <div class="desc">proposal · design · tasks. The source of truth for <em>why</em> the code looks the way it does.</div>
+          <div class="chip"><b>artifact:</b> openspec/changes/&lt;name&gt;</div>
+          <div class="flow">→</div>
+        </div>
+        <div class="node agent">
+          <div class="idx">03 · Coding harness</div>
+          <div class="role">Agent</div>
+          <div class="desc">Implements against the checklist, ticks boxes, writes the tests named in the tasks.</div>
+          <div class="chip"><b>reads:</b> the spec + standing context</div>
+          <div class="flow">→</div>
+        </div>
+        <div class="node">
+          <div class="idx">04 · Deploy &amp; run</div>
+          <div class="role">Skills → Cloud</div>
+          <div class="desc">Skills operate the harness and fire Cloud Run Jobs; a real eval validates the change.</div>
+          <div class="chip"><b>records:</b> result into the status line</div>
+        </div>
+        <div class="feedback">
+          <span class="k">FEEDBACK ⟲</span>
+          <span>the validating result is written back into the spec, and it becomes the pain that surfaces the next change.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="orch-note reveal">
+      An orchestrator does not describe the work turn by turn. It sets <b>durable operating guidance
+      once</b>, then hands over discrete units — so every agent, on every change, starts from the same
+      rules without being re-told. That guidance lives in Markdown.
+    </div>
+
+    <div class="manual reveal">
+      <span class="lbl2">The agent's operating manual is Markdown — read before any unit of work</span>
+      <div class="mgrid">
+        <div class="mcard">
+          <div class="mf">CLAUDE.md</div>
+          <div class="mrole">standing instructions</div>
+          <div class="mdesc">The operating manual. Project + user rules the agent must follow — and that <em>override</em> its defaults. Read first, on every task.</div>
+        </div>
+        <div class="mcard">
+          <div class="mf">memory/*.md</div>
+          <div class="mrole">durable decisions</div>
+          <div class="mdesc">One fact per file: the candidate/baseline policy, “N ≥ 30 for a decision,” “run everything on cloud.” Preferences that survive the session.</div>
+        </div>
+        <div class="mcard">
+          <div class="mf">openspec/config.yaml + specs</div>
+          <div class="mrole">the normative rules</div>
+          <div class="mdesc">How a spec must be written — <em>SHALL / MUST</em>, one testable <em>Scenario</em> per requirement. The grammar of a valid unit of work.</div>
+        </div>
+        <div class="mcard ag">
+          <div class="mf">SKILL.md</div>
+          <div class="mrole">named procedures</div>
+          <div class="mdesc">Reusable operations the agent invokes by name — <em>propose a change</em>, <em>run the harness</em>, <em>sync a rubric</em>, <em>add a dimension</em> — so the flow is encoded once, not re-typed per run.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="anatomy">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <span class="eyebrow">The unit of work</span>
+      <h2>Every feature is one change — and every change is the same three files.</h2>
+      <p>A <em>change</em> moves the system from one agreed state to the next. Its shape is the heart of
+        the method: the <em>why</em>, the <em>how</em>, and the <em>checklist</em> — written, in that order,
+        before a line ships.</p>
+    </div>
+
+    <div class="artifacts">
+      <div class="panel art reveal">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="file"><span class="dot"></span>proposal.md</div>
+        <div class="q">// why, and what changes?</div>
+        <ul>
+          <li>The pain, stated as a numbered problem list</li>
+          <li>What changes — capabilities modified / new</li>
+          <li>An explicit <b>Non-Goals</b> fence, drawn immediately</li>
+        </ul>
+        <div class="head-strip">Fenced non-goals later reopen as their <b>own scoped changes</b> — the fence becomes the roadmap.</div>
+      </div>
+      <div class="panel art reveal">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="file"><span class="dot"></span>design.md</div>
+        <div class="q">// how — the load-bearing decisions</div>
+        <ul>
+          <li>Numbered decisions, each with its rationale</li>
+          <li>The <b>rejected alternatives</b>, named, with reasons</li>
+          <li>A closing Deferred / Non-Goals list</li>
+        </ul>
+        <div class="head-strip">e.g. <b>“keep our own ~100 lines”</b> over migrating to a managed eval service — full prompt control, named and defended.</div>
+      </div>
+      <div class="panel art reveal">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="file"><span class="dot"></span>tasks.md</div>
+        <div class="q">// the checklist + its status</div>
+        <ul>
+          <li>A behavioral <b>Principle</b> stated <em>before</em> the tasks</li>
+          <li>Numbered, checkable units — tests included</li>
+          <li>A Status header carrying the <b>validating result</b></li>
+        </ul>
+        <div class="head-strip"><b>“NO SIGNAL at N=5 despite a raw 10-vs-3 tally.”</b> The proof, recorded in the spec.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lifecycle">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <span class="eyebrow">The cadence</span>
+      <h2>One change runs this loop. The harness is ten of them in sequence.</h2>
+      <p>A concrete pain surfaces from running the last version; it becomes a proposal, a design, a
+        checklist; the agent implements; a real eval validates; the folder is archived — and its result
+        seeds the next problem.</p>
+    </div>
+
+    <div class="ring-layout reveal">
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 600 600" role="img" aria-label="The change lifecycle loop: propose, design, tasks, implement, validate, archive — with a back-edge that supersedes and informs the next change.">
+          <circle class="ring-track" cx="300" cy="300" r="210"/>
+
+          <!-- clockwise arrowheads at midpoints between nodes -->
+          <polygon class="arrow" points="510,300 498,293 498,307"/>
+          <polygon class="arrow" points="405,481.9 411,469 397,470"/>
+          <polygon class="arrow" points="195,481.9 203,470 189,469"/>
+          <polygon class="arrow" points="90,300 102,307 102,293"/>
+          <polygon class="arrow" points="195,118.1 189,131 203,130"/>
+          <polygon class="arrow" points="405,118.1 397,130 411,131"/>
+
+          <!-- back-edge: archive -> propose -->
+          <path class="backedge" d="M 118 195 C 150 120, 230 95, 292 118"/>
+          <polygon class="backedge-arrow" points="300,90 289,110 304,105"/>
+          <text class="back-label" x="196" y="150" text-anchor="middle">supersedes /</text>
+          <text class="back-label" x="196" y="166" text-anchor="middle">informs</text>
+
+          <!-- nodes -->
+          <g>
+            <circle class="node-c" cx="300" cy="90" r="50"/>
+            <text class="node-idx" x="300" y="80" text-anchor="middle">01</text>
+            <text class="node-verb" x="300" y="99" text-anchor="middle" font-size="15">Propose</text>
+          </g>
+          <g>
+            <circle class="node-c" cx="481.9" cy="195" r="50"/>
+            <text class="node-idx" x="481.9" y="185" text-anchor="middle">02</text>
+            <text class="node-verb" x="481.9" y="204" text-anchor="middle" font-size="15">Design</text>
+          </g>
+          <g>
+            <circle class="node-c" cx="481.9" cy="405" r="50"/>
+            <text class="node-idx" x="481.9" y="395" text-anchor="middle">03</text>
+            <text class="node-verb" x="481.9" y="414" text-anchor="middle" font-size="15">Tasks</text>
+          </g>
+          <g>
+            <circle class="node-c" cx="300" cy="510" r="50"/>
+            <text class="node-idx" x="300" y="500" text-anchor="middle">04</text>
+            <text class="node-verb" x="300" y="519" text-anchor="middle" font-size="14">Implement</text>
+          </g>
+          <g>
+            <circle class="node-c" cx="118.1" cy="405" r="50"/>
+            <text class="node-idx" x="118.1" y="395" text-anchor="middle">05</text>
+            <text class="node-verb" x="118.1" y="414" text-anchor="middle" font-size="14">Validate</text>
+          </g>
+          <g>
+            <circle class="node-c" cx="118.1" cy="195" r="50"/>
+            <text class="node-idx" x="118.1" y="185" text-anchor="middle">06</text>
+            <text class="node-verb" x="118.1" y="204" text-anchor="middle" font-size="15">Archive</text>
+          </g>
+
+          <text class="center-l" x="300" y="296" text-anchor="middle">THE</text>
+          <text class="center-l" x="300" y="314" text-anchor="middle">CHANGE LOOP</text>
+        </svg>
+      </div>
+
+      <ol class="steps">
+        <li><span class="si">01</span><span><span class="sv">Propose</span><div class="sd">State the pain as a numbered list. <b>Draw the Non-Goals fence immediately.</b></div></span></li>
+        <li><span class="si">02</span><span><span class="sv">Design</span><div class="sd">Make the load-bearing decisions — and <b>name the rejected alternatives</b> with reasons.</div></span></li>
+        <li><span class="si">03</span><span><span class="sv">Tasks</span><div class="sd">Break it into checkable units. <b>State the behavioral principle first.</b></div></span></li>
+        <li><span class="si">04</span><span><span class="sv">Implement</span><div class="sd">The agent ticks the boxes and writes the tests the tasks named.</div></span></li>
+        <li><span class="si">05</span><span><span class="sv">Validate</span><div class="sd">Run a <b>real eval</b>; record the outcome in the status line — the result is part of the spec.</div></span></li>
+        <li><span class="si">06</span><span><span class="sv">Archive</span><div class="sd">Move to <code>archive/&lt;date&gt;-&lt;name&gt;</code>. Its result seeds the next change.</div></span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <span class="eyebrow">The build, phase by phase</span>
+      <h2>The harness was not designed up front. It was grown, one specified decision at a time.</h2>
+      <p>The true build order — reconstructed from each proposal's dependencies. Each phase settled
+        exactly one load-bearing decision. One was abandoned before a line was written; one deleted a
+        concept the method had outgrown.</p>
+    </div>
+
+    <div class="legend reveal">
+      <span class="li"><span class="sw shipped"></span>shipped &amp; archived</span>
+      <span class="li"><span class="sw active"></span>active — productionizing on cloud</span>
+      <span class="li"><span class="sw reversal"></span>reversal — a concept retired</span>
+      <span class="li"><span class="sw abandoned"></span>road not taken</span>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="ph abandoned">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 0</span><span class="pname">model-eval-scripts</span><span class="state">abandoned</span></div>
+          <p class="decision">The minimal instinct: <b>~250 lines on a laptop, no statistics, no history.</b> Written down, looked at whole, and rejected — <b>every one of its non-goals became a feature</b> of the harness that shipped.</p>
+          <div class="meta"><span>0 / 22 tasks</span><span>never started</span></div>
+        </div>
+      </div>
+
+      <div class="ph shipped">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 1</span><span class="pname">eval-framework</span><span class="state">shipped</span></div>
+          <p class="decision">Make comparison possible at all: a <b>substrate-agnostic boundary</b> — the runner takes two GCS paths and doesn't care what's at each. That generality let golden-truth, isolated modes, transcription, and batch-vs-batch all be added later <b>without restructuring the judge.</b></p>
+          <div class="meta"><span>35 / 41 tasks</span><span>4 dimensions</span><span>35 tests</span></div>
+        </div>
+      </div>
+
+      <div class="ph shipped">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 2</span><span class="pname">eval-statistical-rigor</span><span class="state">shipped</span></div>
+          <p class="decision">Stop lying with win counts. <b>Swap-and-average + sign test + BCa bootstrap CI + Benjamini–Hochberg + a “NO SIGNAL” honesty gate</b> — and a golden-vs-golden <b>canary</b> that audits the judge. The spec predicted the A/A calibration study months before the data existed.</p>
+          <div class="meta"><span>34 / 34 tasks</span><span>0.65 adopt bar</span><span>70 tests</span></div>
+        </div>
+      </div>
+
+      <div class="ph shipped">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 3</span><span class="pname">eval-isolated-modes</span><span class="state">shipped</span></div>
+          <p class="decision">Turn a verdict into a <b>cause.</b> A <em>mode</em> holds upstream artifacts constant so a win can be attributed to one step — proving <b>“v2's specificity gain comes entirely from the description prompt; its segmentation prompt is a regression.”</b> The open <code>dimensions</code> parameter made this data, not code.</p>
+          <div class="meta"><span>22 / 24 tasks</span><span>setup · trigger · compare</span></div>
+        </div>
+      </div>
+
+      <div class="ph shipped">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 4</span><span class="pname">eval-data-and-readonly-ui</span><span class="state">shipped</span></div>
+          <p class="decision">Memory and persistence: a <b>Datastore history sink</b>, a read-only dashboard, and <b>rubrics moved from code to GCS YAML byte-for-byte.</b> That last move is what later turned the entire text→multimodal judge turn into a single edited file.</p>
+          <div class="meta"><span>shipped, unticked</span><span>mip-eval-runs</span><span>rubric_sha in every report</span></div>
+        </div>
+      </div>
+
+      <div class="ph shipped">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 5</span><span class="pname">eval-transcription-isolated</span><span class="state">shipped</span></div>
+          <p class="decision">Extend isolation upstream and go <b>multimodal</b> — the judge natively reads the video as a Part plus the two transcripts, with a <b>deterministic word-confidence side-channel</b> alongside the verdict. Everything else was reused; the payoff of earlier pre-shaping.</p>
+          <div class="meta"><span>shipped, unticked</span><span>first multimodal judge</span></div>
+        </div>
+      </div>
+
+      <div class="ph shipped">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 6</span><span class="pname">eval-batch-evaluation</span><span class="state">shipped</span></div>
+          <p class="decision">Decouple generation from judging into <b>two phases sharing only a <code>batch_id</code></b>, with a fingerprint-keyed <b>cumulative verdict cache</b> (CI tightens as N grows) and mode-aware comparability: <b>“lineage is a hint; the hash is the gate.”</b> A run is a spec + a folder.</p>
+          <div class="meta"><span>21 / 21 tasks</span><span>import-baseline</span><span>cumulative engine</span></div>
+        </div>
+      </div>
+
+      <div class="ph reversal">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">PHASE 7</span><span class="pname">eval-retire-preregistration</span><span class="state">reversal</span></div>
+          <p class="decision">Spec-driven development <b>catching its own redundancy.</b> Pre-registration had no clean boundary against the batch yaml and the EvalSpec — so the change <b>deleted</b> it, keeping the <em>practice</em> (commit the decision rule first) as a field on the EvalSpec, not a file. 169 tests still green.</p>
+          <div class="meta"><span>13 / 14 tasks</span><span>deletion as an outcome</span></div>
+        </div>
+      </div>
+
+      <div class="ph active">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">ACTIVE · A1</span><span class="pname">eval-batch-generation</span><span class="state">active</span></div>
+          <p class="decision">Productionize Phase 1 as a <b>Cloud Run Job</b> — claim a manifest slice, fire the workflow, poll, record. Remaining: collapse accreted files, array-task slicing, SIGTERM cancel under scale-down.</p>
+          <div class="meta"><span>18 / 31 tasks</span><span>mip-eval-batch-runner</span></div>
+        </div>
+      </div>
+
+      <div class="ph active">
+        <div class="dot"></div>
+        <div class="card">
+          <div class="top"><span class="pidx">ACTIVE · A2</span><span class="pname">eval-phase2-job</span><span class="state">active</span></div>
+          <p class="decision">Productionize Phase 2 as a parallel <b>Cloud Run Job</b> — slice the sample across array tasks, keep per-<code>cnn_id</code> cache writes parallel-safe, let a <b>single finalize pass</b> aggregate and persist. The driver is operational: the operator steps away and can't keep the laptop awake.</p>
+          <div class="meta"><span>7 / 12 tasks</span><span>mip-eval-phase2-runner</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deploy">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <span class="eyebrow">The deployment layer</span>
+      <h2>Skills are how the orchestrator operates — reusable, named procedures the agent invokes.</h2>
+      <p>Each skill absorbs a unit of work the operator would otherwise repeat by hand — the operator
+        invokes it by name instead of remembering flags, and the flow ends on the cloud by standing rule.
+        Some already existed; others were the obvious next skill the moment a pattern repeated twice.</p>
+    </div>
+
+    <div class="deploy-grid reveal">
+      <ul class="skill-list">
+        <li class="skill"><div class="sk-name">openspec-propose</div><div class="sk-desc">Describe what you want; get a complete proposal + design + tasks, ready to implement.</div></li>
+        <li class="skill"><div class="sk-name">mip-eval-run</div><div class="sk-desc">Operate the harness end-to-end — generate candidate batches (Phase 1) and evaluate against a baseline (Phase 2).</div></li>
+        <li class="skill"><div class="sk-name">prompt-sync</div><div class="sk-desc">Pull the live production prompts out of the workflow YAML into a candidate config — so a prompt change is a clean, isolated arm.</div></li>
+        <li class="skill"><div class="sk-name">rubric-sync</div><div class="sk-desc">Author and version a judge rubric from a dimension spec — bump rubric_version + rubric_sha, guaranteeing the migration never changes verdicts.</div></li>
+        <li class="skill"><div class="sk-name">dimension-add</div><div class="sk-desc">Scaffold a new judged dimension end-to-end: extend the dimensions parameter, wire the rubric, the report, and the datastore entity.</div></li>
+        <li class="skill"><div class="sk-name">dashboard-sync</div><div class="sk-desc">Publish the read-only Streamlit dashboard and reconcile the mip-eval-runs entities after a run.</div></li>
+      </ul>
+
+      <div class="cloud">
+        <h3>Skills fire Cloud Run Jobs</h3>
+        <div class="job">
+          <div class="jn">mip-eval-batch-runner</div>
+          <div class="jd">Phase 1 — generate candidate assets; triggers the video-processing Cloud Workflow over a manifest slice.</div>
+        </div>
+        <div class="job">
+          <div class="jn">mip-eval-phase2-runner</div>
+          <div class="jd">Phase 2 — judge two batches multimodally, aggregate, persist to the dashboard datastore.</div>
+        </div>
+        <div class="rule"><b>STANDING RULE ·</b> both phases default to the cloud, never the laptop. Local runs die on sleep; cloud jobs survive and finish server-side.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skill">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <span class="eyebrow">The capstone skill</span>
+      <h2>One skill chains the whole toolkit into a single command.</h2>
+      <p>Above those primitives sits the loop-closer. Every run this program did by hand was the same
+        choreography — scaffold a change, derive the two arms, fire two cloud jobs, read the verdict,
+        write it back, archive. <code>/eval-change</code> is the skill that runs it all: one hypothesis
+        in, a closed, validated change out.</p>
+    </div>
+
+    <div class="skillspec reveal">
+      <div>
+        <span class="proposed-flag">◇ The loop-closer — chains propose · run · validate · archive</span>
+        <div class="codecard">
+          <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span>.cursor/skills/eval-change/SKILL.md</span></div>
+<pre><span class="c">---</span>
+<span class="k">name</span>: eval-change
+<span class="k">description</span>: <span class="s">Turn one hypothesis into a closed OpenSpec
+  change — scaffold the unit of work, derive both arms,
+  run both cloud jobs, write the verdict back, archive.</span>
+<span class="k">reads</span>: [ CLAUDE.md, memory/*, openspec/config.yaml ]
+<span class="k">chains</span>: [ prompt-sync, rubric-sync, mip-eval-run,
+          dashboard-sync ]
+<span class="k">enforces</span>: [ cloud-first, candidate=flash-lite,
+            N&gt;=30-for-a-decision, principle-first-tasks ]
+<span class="c">---</span>
+
+<span class="c"># Usage</span>
+<span class="c"># /eval-change "flash-lite v4 vs prod-2.5,</span>
+<span class="c">#              description-isolated, N=30"</span></pre>
+        </div>
+
+        <ol class="autopipe">
+          <li><span class="stg">propose</span><span class="txt"><b>Scaffold the change</b> — write <code>proposal · design · tasks</code>, pain + Non-Goals, the isolation-mode decision with its rejected alternative, and a <b>principle-first</b> empty status header.</span></li>
+          <li><span class="stg">generate</span><span class="txt"><b>Derive both arms</b> from the one-line hypothesis — the candidate <code>batch.yaml</code>, the <code>import-baseline</code> config, and the <code>EvalSpec</code> (rubric, judge, sample, decision thresholds).</span></li>
+          <li><span class="stg">run · cloud</span><span class="txt"><b>Fire both Cloud Run Jobs</b> in order — Phase-1 generate, then Phase-2 judge — and poll. Never local (memory: run-everything-on-cloud).</span></li>
+          <li><span class="stg">validate</span><span class="txt"><b>Read the verdict</b> — parse SIGNIFICANT / NO-SIGNAL per dimension straight from the report.</span></li>
+          <li><span class="stg">archive</span><span class="txt"><b>Write it back</b> — fill the <code>tasks.md</code> status line with the validating result and stage the move to <code>archive/</code>. The loop closes itself.</span></li>
+        </ol>
+      </div>
+
+      <div class="panel rationale">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <h3>Why it anchors the toolkit</h3>
+        <ul>
+          <li>The last program ran this by hand — building <b>fresh-30 sets</b>, batch yamls, and EvalSpecs, deploying jobs, <b>topping N to a clean 30</b>, reading verdicts, and folding results into the docs. A dozen steps, every time.</li>
+          <li>It would <b>enforce the standing rules mechanically</b> — cloud-first, flash-lite candidates, N ≥ 30 for a decision — instead of relying on the operator to remember each md file.</li>
+          <li>It makes the <b>unit of work atomic</b>: a hypothesis becomes a fully-scaffolded, run, and recorded change — the orchestrator states intent once and reviews a result, nothing in between.</li>
+          <li>It is a <b>fenced non-goal made real</b> — exactly how this method already turned “UI writes,” “transcription,” and “cloud jobs” into their own later changes.</li>
+        </ul>
+        <p class="kicker"><b>The orchestrator's leverage:</b> every operation the human repeats by hand is a skill waiting to be written. Name it once; invoke it forever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="value">
+  <div class="wrap">
+    <div class="sechead reveal">
+      <span class="eyebrow">Why it compounds</span>
+      <h2>What spec-driven orchestration actually bought us.</h2>
+    </div>
+    <div class="principles reveal">
+      <div class="panel pr">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="n">01</div>
+        <h3>The “why” is recoverable</h3>
+        <p>Why swap-and-average, why the 0.65 bar, why import-baseline — each is one proposal away, with the rejected alternative named. New engineers inherit reasoning, not just code.</p>
+      </div>
+      <div class="panel pr">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="n">02</div>
+        <h3>Pre-shaping made features data</h3>
+        <p>A parameter left open in one phase — <code>dimensions</code>, a <code>--mode</code> namespace, rubrics-as-YAML — let the next phase plug in as configuration, not a rewrite.</p>
+      </div>
+      <div class="panel pr">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="n">03</div>
+        <h3>The specs predicted the experiments</h3>
+        <p>The canary written in Phase 2 <em>is</em> the A/A calibration study that ran months later. Writing the validation down first made it a plan, not an afterthought.</p>
+      </div>
+      <div class="panel pr">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="n">04</div>
+        <h3>Deletion is a legitimate outcome</h3>
+        <p>Phase 7 retired its own abstraction once it stopped earning its keep — the cleanest possible result, reachable only because the overlap was written down and visible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="fnote">Compiled from the repo's own OpenSpec change trail under <b>openspec/changes/</b> —
+      proposal · design · tasks per change — read alongside <b>openspec/config.yaml</b> and the canonical
+      capability specs. Companion docs: <b>docs/spec-driven-development.md</b> (the process) and
+      <b>docs/harness-the-complete-story.md</b> (the product and its findings).</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (e) { e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+
+</body></html>
