@@ -534,7 +534,7 @@
     <div class="stat a"><div class="n">2</div><div class="k">active on cloud</div></div>
     <div class="stat w"><div class="n">1</div><div class="k">retired concept</div></div>
     <div class="stat d"><div class="n">1</div><div class="k">road not taken</div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>1 / 6</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>1 / 4</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The operating model</span>
     <h2>The specification is the interface between human intent and machine work.</h2>
@@ -570,7 +570,7 @@
         <span>the validating result is written back into the spec, and it becomes the pain that surfaces the next change.</span>
       </div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>2 / 6</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>2 / 4</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The unit of work</span>
     <h2>Every feature is one change, and every change is the same three files.</h2>
@@ -608,7 +608,7 @@
       </ul>
       <div class="head-strip"><b>&ldquo;NO SIGNAL at N=5 despite a raw 10-vs-3 tally.&rdquo;</b> The proof, recorded in the spec.</div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>3 / 6</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>3 / 4</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The cadence</span>
     <h2>One change runs this loop. The harness is ten of them in sequence.</h2>
@@ -647,59 +647,5 @@
       <li><span class="si">05</span><span><span class="sv">Validate</span><div class="sd">Run a <b>real eval</b>; record the outcome in the status line. The result is part of the spec.</div></span></li>
       <li><span class="si">06</span><span><span class="sv">Archive</span><div class="sd">Move to <code>archive/&lt;date&gt;-&lt;name&gt;</code>. Its result seeds the next change.</div></span></li>
     </ol>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>4 / 6</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">The capstone skill</span>
-    <h2>One skill chains the whole toolkit into a single command.</h2>
-    <p>Every run this program did by hand was the same choreography: scaffold a change, derive two arms,
-      fire two cloud jobs, read the verdict, write it back, archive. <code>/eval-change</code> runs it all.</p>
-  </div>
-  <div class="skillspec">
-    <div>
-      <span class="proposed-flag">&#9671; The loop-closer &middot; propose &rarr; run &rarr; validate &rarr; archive</span>
-      <div class="codecard">
-        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span>.cursor/skills/eval-change/SKILL.md</span></div>
-<pre><span class="c">---</span>
-<span class="k">name</span>: eval-change
-<span class="k">description</span>: <span class="s">Turn one hypothesis into a closed
-  OpenSpec change: scaffold the unit of work, derive both
-  arms, run both cloud jobs, write the verdict back, archive.</span>
-<span class="k">reads</span>: [ CLAUDE.md, memory/*, openspec/config.yaml ]
-<span class="k">chains</span>: [ prompt-sync, rubric-sync, mip-eval-run,
-          dashboard-sync ]
-<span class="k">enforces</span>: [ cloud-first, candidate=flash-lite,
-            N&gt;=30-for-a-decision, principle-first ]
-<span class="c">---</span></pre>
-      </div>
-    </div>
-    <ol class="autopipe">
-      <li><span class="stg">propose</span><span class="txt"><b>Scaffold the change</b>: <code>proposal &middot; design &middot; tasks</code>, pain + Non-Goals, the isolation-mode decision with its rejected alternative, a <b>principle-first</b> status header.</span></li>
-      <li><span class="stg">generate</span><span class="txt"><b>Derive both arms</b> from the one-line hypothesis: the candidate <code>batch.yaml</code>, the <code>import-baseline</code> config, and the <code>EvalSpec</code>.</span></li>
-      <li><span class="stg">run &middot; cloud</span><span class="txt"><b>Fire both Cloud Run Jobs</b> in order (Phase-1 generate, then Phase-2 judge) and poll. Never local.</span></li>
-      <li><span class="stg">validate</span><span class="txt"><b>Read the verdict</b>: parse SIGNIFICANT / NO-SIGNAL per dimension straight from the report.</span></li>
-      <li><span class="stg">archive</span><span class="txt"><b>Write it back</b>: fill the <code>tasks.md</code> status line with the result and stage the move to <code>archive/</code>. The loop closes itself.</span></li>
-    </ol>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>5 / 6</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">Why it compounds</span>
-    <h2>What spec-driven orchestration actually bought us.</h2>
-  </div>
-  <div class="principles">
-    <div class="panel pr"><span class="corner tl"></span><span class="corner br"></span>
-      <div class="n">01</div><h3>The &ldquo;why&rdquo; is recoverable</h3>
-      <p>Why swap-and-average, why the 0.65 bar, why import-baseline: each is one proposal away, with the rejected alternative named. New engineers inherit reasoning, not just code.</p>
-    </div>
-    <div class="panel pr"><span class="corner tl"></span><span class="corner br"></span>
-      <div class="n">02</div><h3>Pre-shaping made features data</h3>
-      <p>A parameter left open in one phase (<code>dimensions</code>, a <code>--mode</code> namespace, rubrics-as-YAML) let the next phase plug in as configuration, not a rewrite.</p>
-    </div>
-    <div class="panel pr"><span class="corner tl"></span><span class="corner br"></span>
-      <div class="n">03</div><h3>The specs predicted the experiments</h3>
-      <p>The canary written in Phase 2 <em>is</em> the A/A calibration study that ran months later. Writing the validation down first made it a plan, not an afterthought.</p>
-    </div>
-    <div class="panel pr"><span class="corner tl"></span><span class="corner br"></span>
-      <div class="n">04</div><h3>Deletion is a legitimate outcome</h3>
-      <p>Phase 7 retired its own abstraction once it stopped earning its keep: the cleanest result, reachable only because the overlap was written down and visible.</p>
-    </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>6 / 6</span></div></div></div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>4 / 4</span></div></div></div>
 </body></html>
