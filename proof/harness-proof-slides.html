@@ -519,30 +519,32 @@
   /* principles fit */
   .slide .pr { padding: 15px 18px; }
   .slide .pr p { font-size: 12.5px; }
+  /* opener: title + model + manual stacked on one slide */
+  .slide.opener .sechead { margin-bottom: 13px; }
+  .slide.opener .sechead h2 { font-size: 29px; }
+  .slide.opener .sechead p { font-size: 13.5px; }
+  .slide.opener .panel { margin-bottom: 13px; }
+  .slide.opener .manual { margin-top: 0; }
+  .slide.opener .model .node { padding: 12px 14px 14px; }
+  .slide.opener .model .desc { font-size: 11.5px; margin-top: 6px; }
+  .slide.opener .model .chip { padding-top: 9px; font-size: 11px; }
+  .slide.opener .feedback { padding: 9px 16px; font-size: 11.5px; }
+  .slide.opener .mcard { padding: 10px 13px; }
+  .slide.opener .mcard .mdesc { font-size: 11px; margin-top: 6px; }
+  /* one-slide phases: all cards compact, meta hidden */
+  .phgrid--all { gap: 9px 14px; }
+  .phgrid--all .card { padding: 9px 13px; }
+  .phgrid--all .decision { font-size: 11.5px; margin-top: 5px; }
+  .phgrid--all .pname { font-size: 14px; }
+  .phgrid--all .meta { display: none; }
 </style>
-<div class="deck"><div class="slide cover"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <span class="eyebrow">MIP Evaluation Harness &middot; A Spec-Driven Build</span>
-  <h1>We didn't write<br>the harness.<br><span class="b">We specified it.</span></h1>
-  <p class="lead">The MIP evaluation harness (two-phase video-pipeline scoring, statistical rigor,
-    a multimodal judge, cloud batch jobs) was grown as roughly <strong>ten written-down changes</strong>.
-    The team never sat in the editor. It <strong>decomposed intent into discrete units of work</strong>,
-    handed each unit to a coding agent, and steered by written record: a proposal, a design, a checklist.
-    <strong>Authorship was the agent's job. Orchestration was ours.</strong></p>
-  <div class="statrow">
-    <div class="stat s"><div class="n">~10</div><div class="k">specified changes</div></div>
-    <div class="stat s"><div class="n">7</div><div class="k">shipped</div></div>
-    <div class="stat a"><div class="n">2</div><div class="k">active on cloud</div></div>
-    <div class="stat w"><div class="n">1</div><div class="k">retired concept</div></div>
-    <div class="stat d"><div class="n">1</div><div class="k">road not taken</div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>1 / 4</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+<div class="deck"><div class="slide opener"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
-    <span class="eyebrow">The operating model</span>
-    <h2>The specification is the interface between human intent and machine work.</h2>
-    <p>An operator states intent as a written spec. A coding agent reads it, together with the project's
-      standing context, and implements it. Skills carry the work to the cloud. Every run feeds a result
-      back into the next spec.</p>
-  </div>
-  <div class="panel">
+    <span class="eyebrow">MIP Evaluation Harness &middot; A Spec-Driven Build</span>
+    <h2>We didn't write the harness. We specified it.</h2>
+    <p>An operator states intent as a written spec; a coding agent implements it against the project's
+      standing Markdown context; skills carry the work to the cloud; every run feeds a result back into the next spec.</p>
+  </div><div class="panel">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <div class="model">
       <div class="node">
@@ -570,7 +572,26 @@
         <span>the validating result is written back into the spec, and it becomes the pain that surfaces the next change.</span>
       </div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>2 / 4</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div><div class="manual">
+    <div class="mgrid">
+      <div class="mcard">
+        <div class="mf">CLAUDE.md</div><div class="mrole">standing instructions</div>
+        <div class="mdesc">The operating manual. Project and user rules the agent must follow, and that <em>override</em> its defaults. Read first, on every task.</div>
+      </div>
+      <div class="mcard">
+        <div class="mf">memory/*.md</div><div class="mrole">durable decisions</div>
+        <div class="mdesc">One fact per file: the candidate/baseline policy, &ldquo;N &ge; 30 for a decision,&rdquo; &ldquo;run everything on cloud.&rdquo; Preferences that survive the session.</div>
+      </div>
+      <div class="mcard">
+        <div class="mf">openspec/config.yaml + specs</div><div class="mrole">the normative rules</div>
+        <div class="mdesc">How a spec must be written: <em>SHALL / MUST</em>, one testable <em>Scenario</em> per requirement. The grammar of a valid unit of work.</div>
+      </div>
+      <div class="mcard ag">
+        <div class="mf">SKILL.md</div><div class="mrole">named procedures</div>
+        <div class="mdesc">Reusable operations the agent invokes by name (<em>propose a change</em>, <em>run the harness</em>, <em>sync a rubric</em>, <em>add a dimension</em>), so the flow is encoded once, not re-typed per run.</div>
+      </div>
+    </div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>1 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The unit of work</span>
     <h2>Every feature is one change, and every change is the same three files.</h2>
@@ -608,7 +629,7 @@
       </ul>
       <div class="head-strip"><b>&ldquo;NO SIGNAL at N=5 despite a raw 10-vs-3 tally.&rdquo;</b> The proof, recorded in the spec.</div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>3 / 4</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>2 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The cadence</span>
     <h2>One change runs this loop. The harness is ten of them in sequence.</h2>
@@ -647,5 +668,32 @@
       <li><span class="si">05</span><span><span class="sv">Validate</span><div class="sd">Run a <b>real eval</b>; record the outcome in the status line. The result is part of the spec.</div></span></li>
       <li><span class="si">06</span><span><span class="sv">Archive</span><div class="sd">Move to <code>archive/&lt;date&gt;-&lt;name&gt;</code>. Its result seeds the next change.</div></span></li>
     </ol>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>4 / 4</span></div></div></div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>3 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">The build, phase by phase</span>
+    <h2>Grown, not designed. Ten specified decisions, one at a time.</h2>
+  </div>
+<div class="legend"><span class="li"><span class="sw shipped"></span>shipped &amp; archived</span><span class="li"><span class="sw active"></span>active, on cloud</span><span class="li"><span class="sw reversal"></span>reversal, retired</span><span class="li"><span class="sw abandoned"></span>road not taken</span></div><div class="phgrid phgrid--all"><div class="ph abandoned"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 0</span><span class="pname">model-eval-scripts</span><span class="state">abandoned</span></div><p class="decision">~250 lines on a laptop, no stats, no history. Rejected whole; <b>every non-goal became a feature.</b></p><div class="meta"><span>0 / 22 tasks</span><span>never started</span></div></div></div><div class="ph shipped"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 1</span><span class="pname">eval-framework</span><span class="state">shipped</span></div><p class="decision">A <b>substrate-agnostic runner</b>: two GCS paths, indifferent to what is at each. Everything later plugged in without restructuring the judge.</p><div class="meta"><span>35 / 41</span><span>4 dimensions</span><span>35 tests</span></div></div></div><div class="ph shipped"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 2</span><span class="pname">eval-statistical-rigor</span><span class="state">shipped</span></div><p class="decision">Swap-and-average, sign test, BCa bootstrap CI, BH correction, and a <b>NO SIGNAL honesty gate</b>, plus a golden-vs-golden canary.</p><div class="meta"><span>34 / 34</span><span>0.65 bar</span><span>70 tests</span></div></div></div><div class="ph shipped"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 3</span><span class="pname">eval-isolated-modes</span><span class="state">shipped</span></div><p class="decision">A <em>mode</em> holds upstream artifacts constant, so a win is <b>attributable to one step</b>. The open dimensions parameter made this data, not code.</p><div class="meta"><span>22 / 24</span><span>setup &middot; trigger &middot; compare</span></div></div></div><div class="ph shipped"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 4</span><span class="pname">eval-data-and-readonly-ui</span><span class="state">shipped</span></div><p class="decision">Datastore history sink, a read-only dashboard, and <b>rubrics moved to GCS YAML</b> byte-for-byte.</p><div class="meta"><span>mip-eval-runs</span><span>rubric_sha in every report</span></div></div></div><div class="ph shipped"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 5</span><span class="pname">eval-transcription-isolated</span><span class="state">shipped</span></div><p class="decision">Go <b>multimodal</b>: the judge reads the video plus both transcripts, with a deterministic word-confidence side-channel.</p><div class="meta"><span>first multimodal judge</span></div></div></div><div class="ph shipped"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 6</span><span class="pname">eval-batch-evaluation</span><span class="state">shipped</span></div><p class="decision">Decouple generate from judge (shared only by <code>batch_id</code>); a fingerprint-keyed <b>cumulative cache</b> tightens CI as N grows.</p><div class="meta"><span>21 / 21</span><span>cumulative engine</span></div></div></div><div class="ph reversal"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">PHASE 7</span><span class="pname">eval-retire-preregistration</span><span class="state">reversal</span></div><p class="decision">Spec-driven dev <b>catching its own redundancy</b>: delete pre-registration, keep the practice as a field. 169 tests green.</p><div class="meta"><span>13 / 14</span><span>deletion as an outcome</span></div></div></div><div class="ph active"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">ACTIVE &middot; A1</span><span class="pname">eval-batch-generation</span><span class="state">active</span></div><p class="decision">Productionize Phase 1 as a <b>Cloud Run Job</b>: claim a slice, fire the workflow, poll, record.</p><div class="meta"><span>18 / 31</span><span>mip-eval-batch-runner</span></div></div></div><div class="ph active"><div class="dot"></div><div class="card"><div class="top"><span class="pidx">ACTIVE &middot; A2</span><span class="pname">eval-phase2-job</span><span class="state">active</span></div><p class="decision">Productionize Phase 2 as a <b>parallel Cloud Run Job</b> with a single finalize pass. The operator can step away.</p><div class="meta"><span>7 / 12</span><span>mip-eval-phase2-runner</span></div></div></div></div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>4 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">The deployment layer</span>
+    <h2>Skills are how the orchestrator operates: named procedures the agent invokes.</h2>
+    <p>Each skill absorbs a unit of work the operator would otherwise repeat by hand. Invoke it by name;
+      the flow ends on the cloud by standing rule.</p>
+  </div>
+  <div class="deploy-grid">
+    <ul class="skill-list">
+      <li class="skill"><div class="sk-name">openspec-propose</div><div class="sk-desc">Describe what you want; get proposal, design, and tasks ready to implement.</div></li>
+      <li class="skill"><div class="sk-name">mip-eval-run</div><div class="sk-desc">Operate the harness end-to-end: generate candidate batches, evaluate against a baseline.</div></li>
+      <li class="skill"><div class="sk-name">prompt-sync</div><div class="sk-desc">Pull live production prompts into a candidate config, so a prompt change is a clean, isolated arm.</div></li>
+      <li class="skill"><div class="sk-name">rubric-sync</div><div class="sk-desc">Author and version a judge rubric; bump rubric_sha so the migration never changes verdicts.</div></li>
+      <li class="skill"><div class="sk-name">dimension-add</div><div class="sk-desc">Scaffold a new judged dimension end-to-end: parameter, rubric, report, datastore entity.</div></li>
+      <li class="skill"><div class="sk-name">dashboard-sync</div><div class="sk-desc">Publish the read-only dashboard and reconcile the run entities.</div></li>
+    </ul>
+    <div class="cloud">
+      <h3>Skills fire Cloud Run Jobs</h3>
+      <div class="job"><div class="jn">mip-eval-batch-runner</div><div class="jd">Phase 1: generate candidate assets; triggers the video-processing Cloud Workflow over a manifest slice.</div></div>
+      <div class="job"><div class="jn">mip-eval-phase2-runner</div><div class="jd">Phase 2: judge two batches multimodally, aggregate, persist to the dashboard datastore.</div></div>
+      <div class="rule"><b>STANDING RULE &middot;</b> both phases default to the cloud, never the laptop. Local runs die on sleep; cloud jobs survive and finish server-side.</div>
+    </div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING · SPEC-DRIVEN PROOF</span><span>5 / 5</span></div></div></div>
 </body></html>
