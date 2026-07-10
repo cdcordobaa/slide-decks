@@ -539,9 +539,9 @@
   .phgrid--all .meta { display: none; }
 
   /* ===== VIPP additions (shares the base stylesheet above) ===== */
-  .vp-eqline{font-family:var(--font-mono);font-weight:700;font-size:19px;margin-top:22px;color:var(--ink);}
+  .vp-eqline{font-family:var(--font-mono);font-weight:700;font-size:19px;margin-top:20px;color:var(--ink);}
   .vp-eqline b{color:var(--signal);}
-  .vp-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px;}
+  .vp-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;}
   .vp-chip{font-family:var(--font-mono);font-size:12.5px;padding:6px 13px;border-radius:999px;
     border:1px solid var(--line-strong);color:var(--ink-soft);background:var(--sheet);}
   .vp-chip b{color:var(--ink);font-weight:650;}
@@ -555,28 +555,29 @@
   .vp-nsub{font-size:11px;fill:var(--ink-soft);}
   .vp-enum{font-size:13px;font-weight:700;fill:var(--warn);}
   .vp-elabel{font-size:11px;fill:var(--ink-soft);}
-  .vp-twin{display:grid;grid-template-columns:1fr 1fr;gap:22px;flex:1;min-height:0;align-items:stretch;}
-  .vp-zpanel{border-radius:14px;padding:24px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow);}
+  /* twin zoned panels */
+  .vp-twin{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1;min-height:0;align-items:stretch;}
+  .vp-zpanel{border-radius:14px;padding:22px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow);}
   .vp-zpanel.fixed{background:rgba(0,41,46,.04);border:1.5px solid var(--line-strong);}
   .vp-zpanel.dyn{background:var(--signal-wash);border:1.5px solid var(--signal);}
   .vp-zph{font-family:var(--font-mono);font-size:15px;font-weight:700;}
   .vp-zpanel.fixed .vp-zph{color:var(--ink);}
   .vp-zpanel.dyn .vp-zph{color:var(--signal);}
   .vp-psub{font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);margin:3px 0 0;}
-  .vp-chain{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:22px;}
+  .vp-chain{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:20px;}
   .vp-cbox{font-family:var(--font-mono);font-size:13px;background:var(--sheet);border:1px solid var(--line-strong);border-radius:8px;padding:9px 13px;}
   .vp-carw{color:var(--ink-faint);font-family:var(--font-mono);}
-  .vp-hub{display:flex;flex-direction:column;align-items:center;gap:14px;margin:22px 0;}
+  .vp-hub{display:flex;flex-direction:column;align-items:center;gap:14px;margin:20px 0;}
   .vp-hubnode{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--signal);background:var(--sheet);
     border:1.5px solid var(--signal);border-radius:10px;padding:11px 18px;}
   .vp-fan{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
   .vp-sk{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);background:var(--agent-wash);
     border:1px solid var(--agent);border-radius:7px;padding:6px 11px;}
-  .vp-znote{font-family:var(--font-mono);font-size:12px;color:var(--signal);margin-top:24px;}
+  .vp-znote{font-family:var(--font-mono);font-size:12px;color:var(--signal);margin-top:22px;}
   .vp-zpanel.fixed .vp-znote{color:var(--ink-faint);}
+  /* skills */
   .vp-skills{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0;align-content:center;}
-  .vp-skill{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:11px;
-    padding:15px 17px;box-shadow:var(--shadow);}
+  .vp-skill{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:11px;padding:15px 17px;box-shadow:var(--shadow);}
   .vp-skill.util{border-left-color:var(--warn);}
   .vp-skill.txt{border-left-color:var(--agent);}
   .vp-skill .sid{font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--signal);}
@@ -584,12 +585,70 @@
   .vp-skill.txt .sid{color:var(--agent);}
   .vp-skill .schan{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.06em;text-transform:uppercase;margin:6px 0 9px;}
   .vp-skill .sdesc{font-size:13px;color:var(--ink-soft);line-height:1.5;}
+  /* parallel table */
+  .vp-tbl{width:100%;border-collapse:collapse;font-size:13px;}
+  .vp-tbl th,.vp-tbl td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .vp-tbl thead th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);border-bottom:1px solid var(--line-strong);}
+  .vp-tbl thead th.mine{color:var(--signal);}
+  .vp-tbl td.dim{color:var(--ink-faint);}
+  .vp-tbl td.mine{color:var(--ink);}
+  .vp-tbl .rh{font-family:var(--font-mono);font-weight:650;font-size:12px;color:var(--ink);}
+  .vp-tbl code{font-family:var(--font-mono);font-size:.85em;color:var(--signal);}
+  /* definitions */
+  .vp-defs{display:grid;gap:12px;}
+  .vp-def{background:var(--sheet);border:1px solid var(--line);border-radius:11px;padding:14px 18px;box-shadow:var(--shadow);}
+  .vp-def.wf{border-left:3px solid var(--ink-faint);}
+  .vp-def.ag{border-left:3px solid var(--signal);}
+  .vp-def.hn{border-left:3px solid var(--warn);}
+  .vp-def .term{font-family:var(--font-mono);font-size:13px;font-weight:700;}
+  .vp-def.wf .term{color:var(--ink-faint);}
+  .vp-def.ag .term{color:var(--signal);}
+  .vp-def.hn .term{color:var(--warn);}
+  .vp-def .dbody{font-size:13px;color:var(--ink-soft);margin-top:5px;line-height:1.5;}
+  .vp-def .dbody .q{color:var(--ink);font-style:italic;}
+  .vp-def cite{display:block;font-family:var(--font-mono);font-size:10px;color:var(--ink-faint);margin-top:6px;font-style:normal;letter-spacing:.02em;}
+  /* build: construction vs investigation + callout */
+  .vp-callout{margin-top:16px;border:1px solid var(--signal);border-left:3px solid var(--signal);background:var(--signal-wash);
+    border-radius:10px;padding:14px 18px;font-family:var(--font-mono);font-size:14.5px;color:var(--ink);line-height:1.5;}
+  .vp-callout b{color:var(--signal);}
+  /* senses */
+  .vp-senses{display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1;min-height:0;align-content:center;}
+  .vp-sense{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow);}
+  .vp-sense.tools{border-top:3px solid var(--signal);}
+  .vp-sense.know{border-top:3px solid var(--warn);}
+  .vp-sense .sh{font-family:var(--font-mono);font-size:15px;font-weight:700;}
+  .vp-sense.tools .sh{color:var(--signal);}
+  .vp-sense.know .sh{color:var(--warn);}
+  .vp-sense .sb{font-size:13.5px;color:var(--ink-soft);margin-top:10px;line-height:1.55;}
+  .vp-sense .sb em{color:var(--ink);font-weight:600;font-style:normal;}
+  .vp-roadmap{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;font-weight:600;
+    color:var(--warn);background:var(--warn-wash);border:1px solid var(--warn);border-radius:999px;padding:4px 12px;margin-bottom:14px;}
+  /* trace swimlane */
+  .vp-trace{display:grid;gap:6px;flex:1;min-height:0;align-content:center;}
+  .vp-tstep{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;}
+  .vp-tstep .lane{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);text-align:right;}
+  .vp-tc{display:flex;align-items:center;gap:11px;background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--line-strong);border-radius:8px;padding:8px 13px;box-shadow:var(--shadow);}
+  .vp-tc .evn{font-family:var(--font-mono);font-size:12.5px;font-weight:650;}
+  .vp-tc .note{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);}
+  /* drift map */
+  .vp-drift{display:grid;grid-template-columns:210px 1fr;gap:20px;align-items:center;flex:1;min-height:0;}
+  .vp-canon{background:var(--sheet);border:1.5px solid var(--warn);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);}
+  .vp-canon .cl{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--warn);}
+  .vp-canon .cf{font-family:var(--font-mono);font-size:14px;font-weight:700;margin-top:5px;color:var(--ink);}
+  .vp-canon .cn{font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.45;}
+  .vp-surfaces{display:grid;gap:8px;}
+  .vp-surf{display:flex;align-items:center;gap:11px;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:9px 13px;font-family:var(--font-mono);font-size:12.5px;box-shadow:var(--shadow);}
+  .vp-tag{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:3px 8px;border-radius:5px;white-space:nowrap;}
+  .vp-tag.live{color:var(--signal);background:var(--signal-wash);border:1px solid var(--signal);}
+  .vp-tag.gen{color:var(--warn);background:var(--warn-wash);border:1px solid var(--warn);}
+  .vp-surf .sn{color:var(--ink);}
+  .vp-surf .sw{color:var(--ink-faint);margin-left:auto;font-size:11px;}
 </style>
 <div class="deck"><div class="slide cover"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <span class="eyebrow">VIPP Search Harness &middot; Architecture Note</span>
   <h1>You don't write the search.<br>You <span class="b">orchestrate the agent</span> that runs it.</h1>
   <p class="lead">A <strong>harness</strong> turns the archive into skills an agent commands, and turns the team from
-    search operators into agent orchestrators. This is not a search box with an LLM bolted on, and it is not a workflow.
+    search operators into agent orchestrators. Not a search box with an LLM bolted on, and not a workflow.
     It is an agent runtime whose skills happen to be retrieval.</p>
   <div class="vp-eqline">Agent = <b>Model</b> + <b>Harness</b></div>
   <div class="vp-chips">
@@ -598,11 +657,76 @@
     <span class="vp-chip">MCP over <b>stdio</b></span>
     <span class="vp-chip">Gemini <b>2.5 Flash</b> &middot; pluggable</span>
     <span class="vp-chip">&le; <b>12</b> turns / run</span>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>1 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>1 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
-    <span class="eyebrow">The architecture</span>
-    <h2>Agent = Model + Harness, mapped to the code.</h2>
+    <span class="eyebrow">The parallel</span>
+    <h2>Same machine, different world.</h2>
+    <p>Every part of a general agentic harness has a one-to-one counterpart here. Nothing about the design is
+      search-specific except the skills.</p>
   </div>
+  <table class="vp-tbl">
+    <thead><tr><th style="width:16%">Concept</th><th style="width:42%">A generic agentic harness</th><th class="mine" style="width:42%">This search harness</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">The loop</td><td class="dim">LLM reads context, calls a tool, reads the result, decides again.</td><td class="mine"><code>agentLoop()</code>, an async generator: plan, read candidates, refine, answer.</td></tr>
+      <tr><td class="rh">Tool transport</td><td class="dim">Tools exposed over MCP.</td><td class="mine">Identical: a <code>stdio</code> MCP server, spawned as a child.</td></tr>
+      <tr><td class="rh">What tools do</td><td class="dim">Read files, run bash, query APIs.</td><td class="mine">Vector / text / hybrid search, transcription, multimodal, scene lookup.</td></tr>
+      <tr><td class="rh">Skills</td><td class="dim">Tools it calls, and know-how it reads.</td><td class="mine">6 retrieval tools live; an Agent-Skills playbook designed.</td></tr>
+      <tr><td class="rh">Memory</td><td class="dim">Conversation history; scratchpad.</td><td class="mine">Session carryover + a cumulative, deduped result pool.</td></tr>
+      <tr><td class="rh">Transcript</td><td class="dim">The chat log.</td><td class="mine">A <code>Run</code> snapshot, runs/&lt;ulid&gt;.json, every event replayable.</td></tr>
+      <tr><td class="rh">Bounded</td><td class="dim">Step / token budgets.</td><td class="mine"><code>maxTurns = 12</code>, then a max_turns event ends the run.</td></tr>
+    </tbody>
+  </table></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>2 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">Harness, not workflow</span>
+    <h2>Who owns the control flow: the code, or the model?</h2>
+    <p>The established line between two kinds of LLM system. An agentic workflow sits between them, but its control
+      flow is still authored in code: the LLM fills the steps, it does not choose them. This harness is the third thing.</p>
+  </div>
+  <div class="vp-defs">
+    <div class="vp-def wf"><div class="term">Workflow</div>
+      <div class="dbody"><span class="q">"Systems where LLMs and tools are orchestrated through predefined code paths."</span>
+      The route is authored in code. Same input, same path, every time.<cite>Anthropic &middot; Building Effective Agents</cite></div></div>
+    <div class="vp-def ag"><div class="term">Agent</div>
+      <div class="dbody"><span class="q">"Systems where LLMs dynamically direct their own processes and tool usage."</span>
+      An LLM using tools on environmental feedback, in a loop, choosing its own moves.<cite>Anthropic &middot; Building Effective Agents</cite></div></div>
+    <div class="vp-def hn"><div class="term">Harness</div>
+      <div class="dbody"><span class="q">"The software infrastructure surrounding an AI model that manages everything except the model's actual reasoning."</span>
+      Agent = Model + Harness; the model is a pluggable part.<cite>agent-harness engineering &middot; 2026</cite></div></div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>3 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">The tell: run the same probe twice</span>
+    <h2>A pipeline has no dial for depth. A harness is nothing but that dial.</h2>
+    <p>A workflow cannot vary its path, that is its whole virtue. This harness varies constantly, because the model
+      reads what it found and decides what is next.</p>
+  </div>
+  <div class="vp-twin">
+    <div class="vp-zpanel fixed">
+      <div class="vp-zph">Workflow &middot; fixed path</div>
+      <div class="vp-psub">the code decides the route</div>
+      <div class="vp-chain">
+        <span class="vp-cbox">embed</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">vector search</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">rerank</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">fuse</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">answer</span>
+      </div>
+      <div class="vp-znote">identical path, every run &middot; no dial for depth</div>
+    </div>
+    <div class="vp-zpanel dyn">
+      <div class="vp-zph">Harness &middot; the model steers</div>
+      <div class="vp-psub">the model decides the route</div>
+      <div class="vp-hub">
+        <div class="vp-hubnode">model chooses &#8635;</div>
+        <div class="vp-fan">
+          <span class="vp-sk">vector</span><span class="vp-sk">text</span><span class="vp-sk">hybrid</span>
+          <span class="vp-sk">transcription</span><span class="vp-sk">multimodal</span><span class="vp-sk">lookup</span>
+        </div>
+      </div>
+      <div class="vp-znote">observe results &middot; decide again &middot; until it answers</div>
+    </div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>4 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead"><span class="eyebrow">The architecture</span>
+    <h2>Agent = Model + Harness, mapped to the code.</h2></div>
   <div class="vp-dwrap"><svg class="vp-dia" viewBox="0 0 1160 580" role="img" aria-label="VIPP harness architecture: model plus harness equals agent, with an MCP tool server, six retrieval skills, and a run snapshot store, connected by a numbered loop.">
   <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a96a1f"/></marker></defs>
   <rect x="44" y="212" width="220" height="150" rx="14" fill="#eef2e7" stroke="#00292e" stroke-width="1.8"/>
@@ -643,79 +767,104 @@
   <path d="M760,221 C786,221 786,268 800,268" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
   <text class="vp-enum" x="766" y="212">&#9314;</text><text class="vp-elabel" x="782" y="212">tools/call</text>
   <path d="M800,300 C786,300 786,295 760,295" fill="none" stroke="#a96a1f" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#ar)"/>
-  <text class="vp-enum" x="762" y="308">&#9315;</text><text class="vp-elabel" x="662" y="308" text-anchor="end">candidates</text>
+  <text class="vp-enum" x="762" y="322">&#9315;</text>
   <path d="M760,443 C786,443 786,460 800,460" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
   <text class="vp-enum" x="766" y="437">&#9316;</text>
   <path d="M960,186 C960,560 156,560 156,362" fill="none" stroke="#a96a1f" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
   <text class="vp-elabel" x="558" y="552" text-anchor="middle" fill="#a96a1f">&#8635; observe results &middot; decide again &middot; until it answers (&le; 12 turns)</text>
-</svg></div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>2 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+</svg></div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>5 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
-    <span class="eyebrow">Harness, not workflow</span>
-    <h2>Who owns the control flow: the code, or the model?</h2>
-    <p>A workflow's path is authored in code, so the same probe always takes the same route. A harness lets the model
-      read what it found and choose the next move, so the same probe may take a different path every time.</p>
+    <span class="eyebrow">The clean recursion</span>
+    <h2>We used workflows to build the harness.</h2>
+    <p>Two tools for two jobs. The harness is the right substrate for investigation; a workflow is the right tool
+      for construction, where you want the same result every run.</p>
   </div>
   <div class="vp-twin">
     <div class="vp-zpanel fixed">
-      <div class="vp-zph">Workflow &middot; fixed path</div>
-      <div class="vp-psub">the code decides the route</div>
+      <div class="vp-zph">Construction &middot; a workflow</div>
+      <div class="vp-psub">deterministic, same result every run</div>
       <div class="vp-chain">
-        <span class="vp-cbox">embed</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">vector search</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">rerank</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">fuse</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">answer</span>
+        <span class="vp-cbox">scaffold</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">build</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">gate</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">adversarial review</span>
       </div>
-      <div class="vp-znote">identical path, every run &middot; no dial for depth</div>
+      <div class="vp-znote">fleets of coding agents through fixed phases</div>
     </div>
     <div class="vp-zpanel dyn">
-      <div class="vp-zph">Harness &middot; the model steers</div>
-      <div class="vp-psub">the model decides the route</div>
+      <div class="vp-zph">Investigation &middot; a harness</div>
+      <div class="vp-psub">the model finds a path you could not script</div>
       <div class="vp-hub">
-        <div class="vp-hubnode">model chooses &#8635;</div>
-        <div class="vp-fan">
-          <span class="vp-sk">vector</span><span class="vp-sk">text</span><span class="vp-sk">hybrid</span>
-          <span class="vp-sk">transcription</span><span class="vp-sk">multimodal</span><span class="vp-sk">lookup</span>
-        </div>
+        <div class="vp-hubnode">the search harness &#8635;</div>
+        <div class="vp-fan"><span class="vp-sk">plan</span><span class="vp-sk">search</span><span class="vp-sk">refine</span><span class="vp-sk">verify</span><span class="vp-sk">cite</span></div>
       </div>
-      <div class="vp-znote">observe results &middot; decide again &middot; until it answers</div>
+      <div class="vp-znote">a path that cannot be known in advance</div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>3 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">The loop</span>
-    <h2>The model steers a bounded loop until it answers.</h2>
-    <p>In the eval, one probe drove seven searches across six phrasings; another answered in two. Same system,
-      model-chosen depth. A pipeline has no dial for that; a harness is nothing but that dial.</p>
   </div>
-  <div class="vp-dwrap"><svg class="vp-dia" viewBox="0 0 1160 470" role="img" aria-label="The bounded agent loop: plan, call tool, observe, refine, answer, looping until it answers within twelve turns.">
-  <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a96a1f"/></marker></defs>
-  <rect x="30" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="125.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#6a7a6e">PLAN</text><text x="125.0" y="220" text-anchor="middle" class="vp-nsub">choose a search</text>
-  <rect x="268" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="363.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#1f7a3d">CALL TOOL</text><text x="363.0" y="220" text-anchor="middle" class="vp-nsub">one of six skills</text>
-  <rect x="506" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="601.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#1f7a3d">OBSERVE</text><text x="601.0" y="220" text-anchor="middle" class="vp-nsub">read candidates</text>
-  <rect x="744" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="839.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#1f7a3d">REFINE</text><text x="839.0" y="220" text-anchor="middle" class="vp-nsub">reformulate or switch</text>
-  <rect x="946" y="150" width="184" height="72" rx="10" fill="rgba(191,215,50,0.16)" stroke="#6f8f16" stroke-width="1.5"/><text x="1038.0" y="180" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#6f8f16">ANSWER</text><text x="1038.0" y="200" text-anchor="middle" class="vp-nsub">cite the run</text>
-  <path d="M220,206 L266,206" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
-  <path d="M458,206 L504,206" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
-  <path d="M696,206 L742,206" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
-  <path d="M934,196 C942,196 942,186 944,186" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
-  <text class="vp-elabel" x="880" y="172" fill="#6f8f16">answers</text>
-  <path d="M839,242 C839,340 125,340 125,242" fill="none" stroke="#1f7a3d" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
-  <text class="vp-elabel" x="482" y="332" text-anchor="middle" fill="#1f7a3d">&#8635; not yet &middot; the model steers back &middot; result pool carries over</text>
-  <rect x="30" y="60" width="1100" height="40" rx="10" fill="rgba(169,106,31,0.08)" stroke="#a96a1f" stroke-width="1.3"/>
-  <text x="580" y="85" text-anchor="middle" class="vp-elabel" fill="#a96a1f" font-size="12">BOUNDED &middot; maxTurns = 12, then a max_turns event ends the run &middot; every event snapshotted to runs/&lt;ulid&gt;.json</text>
-</svg></div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>4 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="vp-callout"><b>The recursion:</b> the team practised both, orchestrating agents to build the thing that orchestrates agents.</div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>6 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
-    <span class="eyebrow">The skills</span>
+    <span class="eyebrow">The trace</span>
+    <h2>Two channels, one verification, a cited answer: the ReAct pattern, realized.</h2>
+    <p>One probe, every step a real event from a snapshot on disk. The model tries a vector search, reformulates for
+      the text channel, verifies its best hit, then answers.</p>
+  </div>
+  <div class="vp-trace">
+    <div class="vp-tstep"><div class="lane">LOOP</div><div class="vp-tc" style="border-left-color:#6a7a6e"><span class="evn" style="color:#6a7a6e">tools.loaded</span><span class="note">6 skills offered to the model</span></div></div>
+    <div class="vp-tstep"><div class="lane">LLM</div><div class="vp-tc" style="border-left-color:#6f8f16"><span class="evn" style="color:#6f8f16">thought</span><span class="note">&ldquo;I&rsquo;ll start semantic, then confirm by keyword.&rdquo;</span></div></div>
+    <div class="vp-tstep"><div class="lane">&rarr; MCP</div><div class="vp-tc" style="border-left-color:#1f7a3d"><span class="evn" style="color:#1f7a3d">tool.call</span><span class="note">scene_desc_vector_search(&quot;reporter &hellip; wildfire&quot;)</span></div></div>
+    <div class="vp-tstep"><div class="lane">SKILL</div><div class="vp-tc" style="border-left-color:#2c9e4f"><span class="evn" style="color:#2c9e4f">tool.result</span><span class="note">10 candidates &middot; 3873 ms</span></div></div>
+    <div class="vp-tstep"><div class="lane">&rarr; MCP</div><div class="vp-tc" style="border-left-color:#1f7a3d"><span class="evn" style="color:#1f7a3d">tool.call</span><span class="note">scene_desc_text_search(&quot;reporter evacuation orders wildfire&quot;)</span></div></div>
+    <div class="vp-tstep"><div class="lane">SKILL</div><div class="vp-tc" style="border-left-color:#2c9e4f"><span class="evn" style="color:#2c9e4f">tool.result</span><span class="note">10 candidates &middot; pool now deduped to 19</span></div></div>
+    <div class="vp-tstep"><div class="lane">&rarr; MCP</div><div class="vp-tc" style="border-left-color:#1f7a3d"><span class="evn" style="color:#1f7a3d">tool.call</span><span class="note">lookup_scene_metadata(&quot;16366763..._scene24&quot;)</span></div></div>
+    <div class="vp-tstep"><div class="lane">SKILL</div><div class="vp-tc" style="border-left-color:#2c9e4f"><span class="evn" style="color:#2c9e4f">tool.result</span><span class="note">full scene doc &middot; verified</span></div></div>
+    <div class="vp-tstep"><div class="lane">LLM</div><div class="vp-tc" style="border-left-color:#a9761f"><span class="evn" style="color:#a9761f">final</span><span class="note">&ldquo;...a reporter in a charred field, Level 3 evacuation orders... (scene24)&rdquo;</span></div></div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>7 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">Agent skills &middot; the know-how layer</span>
+    <h2>Two senses of "skill": what it can do, and how it knows to do it well.</h2>
+    <p>MCP gives the agent tools; a skill file gives it methodology. The 6 tools are live today; the playbook layer is designed and next.</p>
+  </div>
+  <div class="vp-senses">
+    <div class="vp-sense tools">
+      <div class="sh">Capabilities &middot; the tools it calls</div>
+      <div class="sb">The 6 retrieval skills, over MCP: vector, text, hybrid, transcription, multimodal search, and scene lookup.
+        Frozen schemas, always available. <em>What the agent can reach.</em></div>
+    </div>
+    <div class="vp-sense know">
+      <div class="sh">Agent Skills &middot; the know-how it reads</div>
+      <div class="sb">Markdown playbooks: when to prefer hybrid over vector, the distinct-phrasing discipline, filter recipes,
+        worked examples from the eval. Loaded when relevant, free until then. <em>How the agent uses the tools well.</em></div>
+    </div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>8 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">One playbook, every surface</span>
+    <h2>A single canonical playbook. Everything else reads it live or is a hash-verified copy.</h2>
+    <p>Sameness across clients is not a protocol guarantee; it is a build guarantee.</p>
+  </div>
+  <div class="vp-drift">
+    <div class="vp-canon">
+      <div class="cl">Canonical</div>
+      <div class="cf">investigation.md</div>
+      <div class="cn">the only hand-edited file: the playbook plus worked examples</div>
+    </div>
+    <div class="vp-surfaces">
+      <div class="vp-surf"><span class="vp-tag live">LIVE READ</span><span class="sn">harness system prompt</span><span class="sw">loaded at boot &middot; playbookHash stamped into every snapshot</span></div>
+      <div class="vp-surf"><span class="vp-tag live">LIVE READ</span><span class="sn">MCP instructions</span><span class="sw">~10-line summary &middot; auto-injected at connect</span></div>
+      <div class="vp-surf"><span class="vp-tag live">LIVE READ</span><span class="sn">vipp://skills/{name}</span><span class="sw">any MCP client can pull the current playbook</span></div>
+      <div class="vp-surf"><span class="vp-tag gen">GENERATED</span><span class="sn">.claude/skills/&hellip;/SKILL.md</span><span class="sw">Claude Code &middot; a copy, drift-checked</span></div>
+      <div class="vp-surf"><span class="vp-tag gen">GENERATED</span><span class="sn">.cursor/skills/&hellip;</span><span class="sw">Cursor &middot; same content, hash-verified</span></div>
+    </div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>9 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead"><span class="eyebrow">The skills</span>
     <h2>Six retrieval skills the agent commands over MCP.</h2>
     <p>The tools are the search-specific part; everything around them is a generic agent harness. A better model
-      expands what these skills can do, it does not replace them.</p>
-  </div>
+      expands what these skills can do, it does not replace them.</p></div>
   <div class="vp-skills">
-    <div class="vp-skill vec"><div class="sid">vector_search</div><div class="schan">dense embeddings</div><div class="sdesc">Semantic nearest-neighbour over the embedded archive. The default probe when the phrasing is loose.</div></div>
-    <div class="vp-skill txt"><div class="sid">text_search</div><div class="schan">lexical / BM25</div><div class="sdesc">Exact-term and keyword matching, for names, codes, and quoted phrases the model must not paraphrase.</div></div>
+    <div class="vp-skill vec"><div class="sid">vector_search</div><div class="schan">dense embeddings</div><div class="sdesc">Semantic nearest-neighbour over the embedded archive. The default probe when phrasing is loose.</div></div>
+    <div class="vp-skill txt"><div class="sid">text_search</div><div class="schan">lexical / BM25</div><div class="sdesc">Exact-term matching, for names, codes, and quoted phrases the model must not paraphrase.</div></div>
     <div class="vp-skill "><div class="sid">hybrid_search</div><div class="schan">vector + lexical</div><div class="sdesc">Fuses dense and sparse signals, so a probe gets both meaning and exact matches in one call.</div></div>
-    <div class="vp-skill txt"><div class="sid">transcription_search</div><div class="schan">spoken content</div><div class="sdesc">Searches speech-to-text transcripts, so the agent can find a moment by what was said, not just shown.</div></div>
-    <div class="vp-skill "><div class="sid">multimodal_search</div><div class="schan">vision + text</div><div class="sdesc">Searches the frames themselves, so the agent can retrieve a scene by what it looks like.</div></div>
+    <div class="vp-skill txt"><div class="sid">transcription_search</div><div class="schan">spoken content</div><div class="sdesc">Searches speech-to-text transcripts, to find a moment by what was said, not just shown.</div></div>
+    <div class="vp-skill "><div class="sid">multimodal_search</div><div class="schan">vision + text</div><div class="sdesc">Searches the frames themselves, to retrieve a scene by what it looks like.</div></div>
     <div class="vp-skill util"><div class="sid">scene_lookup</div><div class="schan">direct fetch</div><div class="sdesc">Resolves a known id straight to its scene and metadata, the cheap move once the target is pinned.</div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>5 / 5</span></div></div></div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>10 / 10</span></div></div></div>
 </body></html>
