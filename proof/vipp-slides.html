@@ -1,169 +1,653 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>
+
 <title>VIPP Search Harness · Globant slides</title>
 <style>
-  :root{
-    --ground:#e8ede1; --ground-2:#dbe4cf; --sheet:#f6f9f0;
-    --ink:#00292e; --ink-soft:#3a4a41; --ink-faint:#6a7a6e;
-    --line:#cdd8bf; --line-strong:#b1c19c; --grid:rgba(0,41,46,0.05);
-    --forest:#1f7a3d; --forest-bright:#2c9e4f; --forest-wash:rgba(31,122,61,0.08);
-    --lime:#8fae1f; --lime-wash:rgba(191,215,50,0.16);
-    --gold:#b3781f; --gold-wash:rgba(179,120,31,0.09);
-    --navy-wash:rgba(0,41,46,0.045);
-    --mono:ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,Consolas,monospace;
-    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  :root {
+    --ground: #e8ede1;
+    --ground-2: #dbe4cf;
+    --sheet: #f6f9f0;
+    --ink: #00292e;
+    --ink-soft: #3a4a41;
+    --ink-faint: #6a7a6e;
+    --line: #cdd8bf;
+    --line-strong: #b1c19c;
+    --grid: rgba(0, 41, 46, 0.05);
+    --signal: #1f7a3d;
+    --signal-bright: #2c9e4f;
+    --signal-wash: rgba(31, 122, 61, 0.10);
+    --agent: #6f8f16;
+    --agent-wash: rgba(191, 215, 50, 0.20);
+    --warn: #a96a1f;
+    --warn-wash: rgba(169, 106, 31, 0.12);
+    --dead: #b1483f;
+    --dead-wash: rgba(177, 72, 63, 0.10);
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --shadow: 0 1px 2px rgba(0,41,46,.05), 0 8px 30px rgba(0,41,46,.07);
+    --maxw: 1080px;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;height:auto;overflow:auto;background:#c4cfb6;font-family:var(--sans);color:var(--ink);}
-  .deck{padding:34px 0 40px;}
-  .slide{position:relative;width:1280px;height:720px;margin:0 auto 26px;overflow:hidden;
-    background:var(--ground);
-    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-    background-size:34px 34px;border:1px solid var(--line-strong);
-    box-shadow:0 10px 34px rgba(0,41,46,.14);
-    padding:44px 56px 48px;display:flex;flex-direction:column;}
-  .body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;}
-  .brand{position:absolute;top:28px;right:46px;font-family:var(--mono);font-weight:700;font-size:17px;color:var(--ink);letter-spacing:-.02em;z-index:5;}
-  .brand span{color:var(--forest-bright);}
-  .foot{position:absolute;left:56px;right:56px;bottom:17px;display:flex;justify-content:space-between;
-    font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.1em;text-transform:uppercase;}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--forest);
-    font-weight:600;display:inline-flex;align-items:center;gap:10px;}
-  .eyebrow::before{content:"";width:24px;height:1px;background:var(--forest);}
-  .sechead{margin:0 0 18px;}
-  .sechead h2{font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-.01em;margin:9px 0 0;line-height:1.08;}
-  .sechead p{font-size:14px;color:var(--ink-soft);margin:9px 0 0;max-width:104ch;line-height:1.5;}
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0a1a1c; --ground-2: #0e2325; --sheet: #102a2d;
+      --ink: #e7f0ea; --ink-soft: #a9bcb0; --ink-faint: #6c8279;
+      --line: #1f3a3d; --line-strong: #2b4d50; --grid: rgba(191, 215, 50, 0.05);
+      --signal: #4fb56a; --signal-bright: #6ccf85; --signal-wash: rgba(79, 181, 106, 0.12);
+      --agent: #bfd732; --agent-wash: rgba(191, 215, 50, 0.14);
+      --warn: #e0a44a; --warn-wash: rgba(224, 164, 74, 0.13);
+      --dead: #e07b74; --dead-wash: rgba(224, 123, 116, 0.12);
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 14px 40px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #e8ede1; --ground-2: #dbe4cf; --sheet: #f6f9f0;
+    --ink: #00292e; --ink-soft: #3a4a41; --ink-faint: #6a7a6e;
+    --line: #cdd8bf; --line-strong: #b1c19c; --grid: rgba(0, 41, 46, 0.05);
+    --signal: #1f7a3d; --signal-bright: #2c9e4f; --signal-wash: rgba(31, 122, 61, 0.10);
+    --agent: #6f8f16; --agent-wash: rgba(191, 215, 50, 0.20);
+    --warn: #a96a1f; --warn-wash: rgba(169, 106, 31, 0.12);
+    --dead: #b1483f; --dead-wash: rgba(177, 72, 63, 0.10);
+    --shadow: 0 1px 2px rgba(0,41,46,.05), 0 8px 30px rgba(0,41,46,.07);
+  }
+  :root[data-theme="dark"] {
+    --ground: #0a1a1c; --ground-2: #0e2325; --sheet: #102a2d;
+    --ink: #e7f0ea; --ink-soft: #a9bcb0; --ink-faint: #6c8279;
+    --line: #1f3a3d; --line-strong: #2b4d50; --grid: rgba(191, 215, 50, 0.05);
+    --signal: #4fb56a; --signal-bright: #6ccf85; --signal-wash: rgba(79, 181, 106, 0.12);
+    --agent: #bfd732; --agent-wash: rgba(191, 215, 50, 0.14);
+    --warn: #e0a44a; --warn-wash: rgba(224, 164, 74, 0.13);
+    --dead: #e07b74; --dead-wash: rgba(224, 123, 116, 0.12);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 14px 40px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- shared type ---------- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--signal);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 26px; height: 1px;
+    background: var(--signal);
+    display: inline-block;
+  }
+  h1, h2, h3 { font-family: var(--font-mono); text-wrap: balance; letter-spacing: -0.01em; }
+  p { text-wrap: pretty; }
+  .lead { max-width: 62ch; color: var(--ink-soft); }
+  code, .mono { font-family: var(--font-mono); }
+
+  /* ---------- hero ---------- */
+  header.hero {
+    position: relative;
+    padding: 92px 0 64px;
+    border-bottom: 1px solid var(--line);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 34px 34px;
+    background-position: center top;
+    overflow: hidden;
+  }
+  .hero .reg { position: absolute; width: 14px; height: 14px; opacity: .5; }
+  .hero .reg::before, .hero .reg::after { content:""; position:absolute; background: var(--signal); }
+  .hero .reg.tl { top: 22px; left: 22px; }
+  .hero .reg.tr { top: 22px; right: 22px; }
+  .hero .reg::before { width: 14px; height: 1.5px; top: 6px; }
+  .hero .reg::after  { width: 1.5px; height: 14px; left: 6px; }
+  .hero .reg.tr::after { left: auto; right: 6px; }
+
+  .hero h1 {
+    font-size: clamp(34px, 6vw, 64px);
+    line-height: 1.02;
+    margin: 22px 0 0;
+    font-weight: 700;
+  }
+  .hero h1 .b { color: var(--signal); }
+  .hero .lead { font-size: clamp(16px, 2vw, 19px); margin-top: 22px; }
+  .hero .lead strong { color: var(--ink); font-weight: 600; }
+
+  .statrow {
+    display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px;
+  }
+  .stat {
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 18px;
+    min-width: 132px;
+    box-shadow: var(--shadow);
+  }
+  .stat .n { font-family: var(--font-mono); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 12px; color: var(--ink-faint); font-family: var(--font-mono); letter-spacing: .04em; text-transform: uppercase; margin-top: 2px; }
+  .stat.s .n { color: var(--signal); }
+  .stat.a .n { color: var(--agent); }
+  .stat.w .n { color: var(--warn); }
+  .stat.d .n { color: var(--dead); }
+
+  /* ---------- section scaffold ---------- */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  .sechead { max-width: 66ch; margin-bottom: 40px; }
+  .sechead h2 { font-size: clamp(24px, 3.4vw, 34px); margin: 14px 0 0; font-weight: 700; }
+  .sechead p { margin: 14px 0 0; color: var(--ink-soft); font-size: 16.5px; }
+
+  /* ---------- panel ---------- */
+  .panel {
+    position: relative;
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .panel .corner { position:absolute; width:9px; height:9px; border:1.5px solid var(--line-strong); }
+  .panel .corner.tl { top:-1px; left:-1px; border-right:0; border-bottom:0; border-top-left-radius:14px; }
+  .panel .corner.tr { top:-1px; right:-1px; border-left:0; border-bottom:0; border-top-right-radius:14px; }
+  .panel .corner.bl { bottom:-1px; left:-1px; border-right:0; border-top:0; border-bottom-left-radius:14px; }
+  .panel .corner.br { bottom:-1px; right:-1px; border-left:0; border-top:0; border-bottom-right-radius:14px; }
+
+  /* ---------- operating model diagram ---------- */
+  .model {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    align-items: stretch;
+  }
+  .node {
+    position: relative;
+    padding: 22px 20px 24px;
+    border-right: 1px dashed var(--line-strong);
+    display: flex; flex-direction: column;
+  }
+  .node:last-child { border-right: 0; }
+  .node .idx {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+    color: var(--ink-faint); text-transform: uppercase;
+  }
+  .node .role {
+    font-family: var(--font-mono); font-weight: 700; font-size: 16px;
+    margin-top: 8px; letter-spacing: -0.01em;
+  }
+  .node .desc { font-size: 13.5px; color: var(--ink-soft); margin-top: 8px; }
+  .node .chip {
+    margin-top: auto; padding-top: 14px;
+    font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint);
+  }
+  .node .chip b { color: var(--ink); font-weight: 600; }
+  .node.spec  { background: var(--signal-wash); }
+  .node.spec .role { color: var(--signal); }
+  .node.agent { background: var(--agent-wash); }
+  .node.agent .role { color: var(--agent); }
+  .node .flow {
+    position: absolute; right: -9px; top: 50%; transform: translateY(-50%);
+    z-index: 3; font-family: var(--font-mono); font-size: 15px; color: var(--ink-faint);
+    background: var(--sheet); padding: 2px 0; line-height: 1;
+  }
+  .feedback {
+    grid-column: 1 / -1;
+    border-top: 1px dashed var(--line-strong);
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-soft);
+    background: repeating-linear-gradient(45deg, transparent, transparent 9px, var(--grid) 9px, var(--grid) 10px);
+  }
+  .feedback .k { color: var(--signal); font-weight: 700; letter-spacing: .04em; }
+
+  .substrate {
+    margin-top: 18px;
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  }
+  .substrate .lbl {
+    font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .tag {
+    font-family: var(--font-mono); font-size: 12.5px;
+    padding: 5px 11px; border-radius: 999px;
+    border: 1px solid var(--line-strong); color: var(--ink-soft);
+    background: var(--ground-2);
+  }
+  .tag.sig { border-color: var(--signal); color: var(--signal); background: var(--signal-wash); }
+  .tag.ag  { border-color: var(--agent); color: var(--agent); background: var(--agent-wash); }
+
+  /* ---------- change anatomy ---------- */
+  .artifacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .art { padding: 24px 22px 26px; }
+  .art .file {
+    font-family: var(--font-mono); font-weight: 700; font-size: 15px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .art .file .dot { width: 9px; height: 9px; border-radius: 2px; background: var(--signal); }
+  .art:nth-child(2) .file .dot { background: var(--agent); }
+  .art:nth-child(3) .file .dot { background: var(--warn); }
+  .art .q { margin-top: 4px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); letter-spacing: .02em; }
+  .art ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .art li { font-size: 13.5px; color: var(--ink-soft); padding-left: 18px; position: relative; }
+  .art li::before {
+    content: "›"; position: absolute; left: 0; top: -1px;
+    color: var(--signal); font-family: var(--font-mono); font-weight: 700;
+  }
+  .art:nth-child(2) li::before { color: var(--agent); }
+  .art:nth-child(3) li::before { color: var(--warn); }
+  .art .head-strip { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); background: var(--ground-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-top: 16px; }
+  .art .head-strip b { color: var(--ink); }
+
+  /* ---------- lifecycle ring ---------- */
+  .ring-layout { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: 40px; align-items: center; }
+  .ring-wrap { width: 100%; }
+  svg.ring { width: 100%; height: auto; display: block; }
+  .ring text { font-family: var(--font-mono); fill: var(--ink); }
+  .ring .ring-track { fill: none; stroke: var(--line-strong); stroke-width: 2; }
+  .ring .node-c { fill: var(--sheet); stroke: var(--signal); stroke-width: 2; }
+  .ring .node-verb { font-weight: 700; }
+  .ring .node-idx { fill: var(--ink-faint); font-size: 13px; }
+  .ring .arrow { fill: var(--signal); }
+  .ring .backedge { fill: none; stroke: var(--agent); stroke-width: 1.6; stroke-dasharray: 5 5; }
+  .ring .backedge-arrow { fill: var(--agent); }
+  .ring .back-label { fill: var(--agent); font-size: 12.5px; }
+  .ring .center-l { fill: var(--ink-faint); font-size: 12px; letter-spacing: .12em; }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; counter-reset: st; }
+  .steps li {
+    display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: baseline;
+    padding: 11px 0; border-bottom: 1px solid var(--line);
+  }
+  .steps li:last-child { border-bottom: 0; }
+  .steps .sv { font-family: var(--font-mono); font-weight: 700; color: var(--ink); }
+  .steps .si { font-family: var(--font-mono); font-size: 12px; color: var(--signal); font-weight: 700; }
+  .steps .sd { color: var(--ink-soft); font-size: 14px; }
+  .steps .sd b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- phase timeline ---------- */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 30px; }
+  .legend .li { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-soft); }
+  .legend .sw { width: 11px; height: 11px; border-radius: 3px; }
+  .sw.shipped { background: var(--signal); }
+  .sw.active { background: var(--agent); }
+  .sw.reversal { background: var(--warn); }
+  .sw.abandoned { background: var(--dead); }
+
+  .timeline { position: relative; margin-left: 6px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--line-strong);
+  }
+  .ph { position: relative; padding: 0 0 20px 52px; }
+  .ph .dot {
+    position: absolute; left: 6px; top: 4px; width: 20px; height: 20px;
+    border-radius: 50%; background: var(--sheet); border: 3px solid var(--signal);
+    z-index: 2;
+  }
+  .ph.active .dot { border-color: var(--agent); }
+  .ph.reversal .dot { border-color: var(--warn); }
+  .ph.abandoned .dot { border-color: var(--dead); border-style: dashed; }
+  .ph .card {
+    background: var(--sheet); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .ph.abandoned .card { border-style: dashed; background: var(--dead-wash); }
+  .ph.reversal .card { background: var(--warn-wash); }
+  .ph .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+  .ph .pidx { font-family: var(--font-mono); font-weight: 700; font-size: 13px; letter-spacing: .06em; color: var(--signal); }
+  .ph.active .pidx { color: var(--agent); }
+  .ph.reversal .pidx { color: var(--warn); }
+  .ph.abandoned .pidx { color: var(--dead); }
+  .ph .pname { font-family: var(--font-mono); font-weight: 700; font-size: 15px; }
+  .ph .state {
+    margin-left: auto; font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: .1em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+    border: 1px solid var(--line-strong); color: var(--ink-faint);
+  }
+  .ph.shipped .state { color: var(--signal); border-color: var(--signal); }
+  .ph.active .state { color: var(--agent); border-color: var(--agent); }
+  .ph.reversal .state { color: var(--warn); border-color: var(--warn); }
+  .ph.abandoned .state { color: var(--dead); border-color: var(--dead); }
+  .ph .decision { margin: 12px 0 0; font-size: 14.5px; color: var(--ink-soft); }
+  .ph .decision b { color: var(--ink); font-weight: 600; }
+  .ph .meta { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint); }
+  .ph .meta span { border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; background: var(--ground-2); }
+
+  /* ---------- deploy / skills ---------- */
+  .deploy-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
+  .skill-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .skill {
+    background: var(--sheet); border: 1px solid var(--line); border-radius: 11px;
+    padding: 15px 17px; box-shadow: var(--shadow);
+  }
+  .skill .sk-name { font-family: var(--font-mono); font-weight: 700; font-size: 14px; color: var(--agent); }
+  .skill .sk-name::before { content: "/"; opacity: .5; }
+  .skill .sk-desc { font-size: 13.5px; color: var(--ink-soft); margin-top: 5px; }
+  .cloud {
+    background: var(--sheet); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px;
+  }
+  .cloud h3 { margin: 0; font-size: 16px; }
+  .job {
+    border: 1px dashed var(--line-strong); border-radius: 10px; padding: 13px 15px;
+    background: var(--agent-wash);
+  }
+  .job .jn { font-family: var(--font-mono); font-weight: 700; font-size: 13.5px; color: var(--agent); }
+  .job .jd { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+  .rule {
+    margin-top: 4px; padding: 13px 15px; border-radius: 10px;
+    border: 1px solid var(--signal); background: var(--signal-wash);
+    font-size: 13.5px; color: var(--ink);
+  }
+  .rule b { font-family: var(--font-mono); color: var(--signal); }
+
+  /* ---------- principles ---------- */
+  .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .pr { padding: 18px 20px; }
+  .pr .n { font-family: var(--font-mono); font-size: 12px; color: var(--signal); letter-spacing: .1em; }
+  .pr h3 { margin: 8px 0 0; font-size: 15.5px; font-weight: 700; }
+  .pr p { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+
+  /* ---------- footer ---------- */
+  footer { padding: 44px 0 64px; }
+  footer .fnote { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-faint); max-width: 70ch; }
+  footer .fnote b { color: var(--ink-soft); }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- operating manual grid ---------- */
+  .orch-note {
+    margin-top: 22px; padding: 16px 20px;
+    border-left: 3px solid var(--agent); border-radius: 0 10px 10px 0;
+    background: var(--agent-wash);
+    font-size: 15px; color: var(--ink);
+  }
+  .orch-note b { font-family: var(--font-mono); font-weight: 700; }
+  .manual { margin-top: 26px; }
+  .manual .lbl2 {
+    font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-faint); display: block; margin-bottom: 14px;
+  }
+  .manual .mgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .mcard {
+    background: var(--sheet); border: 1px solid var(--line);
+    border-left: 3px solid var(--signal); border-radius: 10px;
+    padding: 15px 16px; box-shadow: var(--shadow);
+  }
+  .mcard.ag { border-left-color: var(--agent); }
+  .mcard .mf { font-family: var(--font-mono); font-weight: 700; font-size: 13px; color: var(--signal); word-break: break-word; }
+  .mcard.ag .mf { color: var(--agent); }
+  .mcard .mrole { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); margin-top: 4px; }
+  .mcard .mdesc { font-size: 12.5px; color: var(--ink-soft); margin-top: 10px; }
+
+  /* ---------- proposed skill ---------- */
+  .proposed-flag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--agent); border: 1px dashed var(--agent); border-radius: 999px;
+    padding: 4px 12px; background: var(--agent-wash); margin-bottom: 16px;
+  }
+  .skillspec { display: grid; grid-template-columns: 1.05fr 1fr; gap: 24px; align-items: start; }
+  .codecard { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: var(--sheet); }
+  .codecard .bar {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    border-bottom: 1px solid var(--line); background: var(--ground-2);
+    font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint);
+  }
+  .codecard .bar .dots { display: flex; gap: 6px; }
+  .codecard .bar .dots i { width: 10px; height: 10px; border-radius: 50%; display: block; opacity: .8; }
+  .codecard .bar .dots i:nth-child(1){ background: var(--dead); }
+  .codecard .bar .dots i:nth-child(2){ background: var(--warn); }
+  .codecard .bar .dots i:nth-child(3){ background: var(--signal); }
+  .codecard pre { margin: 0; padding: 16px 18px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; color: var(--ink); overflow-x: auto; }
+  .codecard .k { color: var(--agent); }
+  .codecard .s { color: var(--signal); }
+  .codecard .c { color: var(--ink-faint); }
+  .autopipe { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; }
+  .autopipe li {
+    display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: start;
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--sheet);
+  }
+  .autopipe .stg {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 6px; background: var(--agent-wash); color: var(--agent);
+    text-align: center; align-self: start; margin-top: 1px;
+  }
+  .autopipe .txt { font-size: 13px; color: var(--ink-soft); }
+  .autopipe .txt b { color: var(--ink); font-weight: 600; }
+  .rationale { padding: 22px 22px 24px; }
+  .rationale h3 { margin: 0; font-size: 15.5px; font-weight: 700; }
+  .rationale ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .rationale li { position: relative; padding-left: 22px; font-size: 13.5px; color: var(--ink-soft); }
+  .rationale li::before { content: "▹"; position: absolute; left: 0; top: -1px; color: var(--agent); }
+  .rationale li b { color: var(--ink); font-weight: 600; }
+  .rationale .kicker { margin: 18px 0 0; padding: 13px 15px; border-radius: 10px; border: 1px solid var(--signal); background: var(--signal-wash); font-size: 13.5px; }
+  .rationale .kicker b { font-family: var(--font-mono); color: var(--signal); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .model { grid-template-columns: 1fr; }
+    .node { border-right: 0; border-bottom: 1px dashed var(--line-strong); }
+    .node .flow { display: none; }
+    .artifacts { grid-template-columns: 1fr; }
+    .ring-layout { grid-template-columns: 1fr; }
+    .ring-wrap { max-width: 380px; margin: 0 auto; }
+    .deploy-grid { grid-template-columns: 1fr; }
+    .principles { grid-template-columns: 1fr; }
+    .manual .mgrid { grid-template-columns: 1fr 1fr; }
+    .skillspec { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .manual .mgrid { grid-template-columns: 1fr; }
+    .autopipe li { grid-template-columns: 1fr; gap: 7px; }
+    .autopipe .stg { justify-self: start; }
+  }
+
+  /* ===== slide framework ===== */
+  html, body { height: auto; overflow: auto; background: #c4cfb6; }
+  .deck { padding: 34px 0 40px; }
+  .slide {
+    position: relative; width: 1280px; height: 720px; margin: 0 auto 26px;
+    overflow: hidden; background: var(--ground);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 34px 34px;
+    border: 1px solid var(--line-strong);
+    box-shadow: 0 10px 34px rgba(0,41,46,.14);
+    padding: 44px 56px 48px; display: flex; flex-direction: column;
+  }
+  .slide .body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+  .slide section { padding: 0; border: 0; }
+  .slide .wrap { max-width: none; padding: 0; margin: 0; width: 100%; }
+  .slide .sechead { margin: 0 0 18px; max-width: none; }
+  .slide .sechead h2 { font-size: 28px; margin: 9px 0 0; }
+  .slide .sechead p { font-size: 14px; margin: 9px 0 0; max-width: 96ch; }
+  .slide .reveal { opacity: 1; transform: none; }
+  /* chrome */
+  .brand { position: absolute; top: 28px; right: 46px; font-family: var(--font-mono);
+    font-weight: 700; font-size: 17px; color: var(--ink); letter-spacing: -.02em; z-index: 5; }
+  .brand span { color: var(--signal-bright); }
+  .foot { position: absolute; left: 56px; right: 56px; bottom: 17px; display: flex;
+    justify-content: space-between; font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--ink-faint); letter-spacing: .1em; text-transform: uppercase; }
   /* cover */
-  .cover h1{font-family:var(--mono);font-weight:700;font-size:52px;line-height:1.05;margin:16px 0 0;letter-spacing:-.01em;}
-  .cover h1 .hl{color:var(--forest);}
-  .cover .lead{font-size:16px;margin-top:18px;max-width:74ch;color:var(--ink-soft);line-height:1.5;}
-  .cover .lead strong{color:var(--ink);font-weight:650;}
-  .eqline{font-family:var(--mono);font-weight:700;font-size:19px;margin-top:22px;color:var(--ink);}
-  .eqline b{color:var(--forest);}
-  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px;}
-  .chip{font-family:var(--mono);font-size:12.5px;padding:6px 13px;border-radius:999px;border:1px solid var(--line-strong);
-    color:var(--ink-soft);background:var(--sheet);}
-  .chip b{color:var(--ink);font-weight:650;}
-  /* svg diagram */
-  .dwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;}
-  svg.dia{width:100%;height:100%;display:block;}
-  svg.dia text{font-family:var(--mono);fill:var(--ink);}
-  .z-tag{font-size:11px;font-weight:600;letter-spacing:.12em;}
-  .z-title{font-weight:700;letter-spacing:-.01em;}
-  .z-sub{font-size:11px;fill:var(--ink-soft);}
-  .n-title{font-weight:650;fill:var(--forest);}
-  .n-sub{font-size:11px;fill:var(--ink-soft);}
-  .e-num{font-size:13px;font-weight:700;fill:var(--gold);}
-  .e-label{font-size:11px;fill:var(--ink-soft);}
-  /* zoned HTML panels (slide 3) */
-  .twin{display:grid;grid-template-columns:1fr 1fr;gap:22px;flex:1;min-height:0;align-items:stretch;}
-  .zpanel{border-radius:14px;padding:24px 24px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 6px 20px rgba(0,41,46,.08);}
-  .zpanel.fixed{background:var(--navy-wash);border:1.5px solid var(--line-strong);}
-  .zpanel.dyn{background:var(--forest-wash);border:1.5px solid var(--forest);}
-  .zpanel .ph{font-family:var(--mono);font-size:15px;font-weight:700;}
-  .zpanel.fixed .ph{color:var(--ink);}
-  .zpanel.dyn .ph{color:var(--forest);}
-  .zpanel .psub{font-family:var(--mono);font-size:12px;color:var(--ink-faint);margin:3px 0 20px;}
-  .chain{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
-  .cbox{font-family:var(--mono);font-size:13px;background:var(--sheet);border:1px solid var(--line-strong);border-radius:8px;padding:9px 13px;}
-  .carw{color:var(--ink-faint);font-family:var(--mono);}
-  .hub{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:6px;}
-  .hubnode{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--forest);background:var(--sheet);
-    border:1.5px solid var(--forest);border-radius:10px;padding:11px 18px;}
-  .fan{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
-  .sk{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);background:var(--lime-wash);
-    border:1px solid var(--lime);border-radius:7px;padding:6px 11px;}
-  .zpanel .ph{margin-top:0;}
-  .hub{margin:22px 0;}
-  .znote{font-family:var(--mono);font-size:12px;color:var(--forest);margin-top:24px;}
-  .zpanel.fixed .znote{color:var(--ink-faint);}
-  /* skills grid (slide 5) */
-  .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0;align-content:center;}
-  .skill{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--forest);border-radius:11px;
-    padding:15px 17px;box-shadow:0 4px 14px rgba(0,41,46,.06);}
-  .skill.util{border-left-color:var(--gold);}
-  .skill.txt{border-left-color:var(--lime);}
-  .skill .sid{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--forest);}
-  .skill.util .sid{color:var(--gold);}
-  .skill.txt .sid{color:var(--lime);}
-  .skill .schan{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.06em;text-transform:uppercase;margin:6px 0 9px;}
-  .skill .sdesc{font-size:13px;color:var(--ink-soft);line-height:1.5;}
-</style></head><body><div class="deck"><div class="slide cover"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  .slide.cover .body { justify-content: center; }
+  .slide.cover h1 { font-family: var(--font-mono); font-weight: 700; font-size: 58px;
+    line-height: 1.03; margin: 16px 0 0; letter-spacing: -.01em; }
+  .slide.cover h1 .b { color: var(--signal); }
+  .slide.cover .lead { font-size: 15.5px; margin-top: 18px; max-width: 78ch; color: var(--ink-soft); }
+  .slide.cover .lead strong { color: var(--ink); font-weight: 600; }
+  .slide.cover .statrow { margin-top: 24px; }
+  /* model fits */
+  .slide .model .node { padding: 16px 16px 18px; }
+  .slide .model .desc { font-size: 12.5px; }
+  /* timeline reflow: 2-col compact cards, no rail */
+  .phgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+  .phgrid .ph { padding: 0; }
+  .phgrid .ph .dot { display: none; }
+  .phgrid .card { margin: 0; padding: 12px 15px; }
+  .phgrid .decision { margin: 8px 0 0; font-size: 12.5px; }
+  .phgrid .meta { margin-top: 9px; }
+  .slide .legend { margin-bottom: 16px; }
+  /* deploy compact */
+  .slide .skill { padding: 8px 14px; }
+  .slide .skill .sk-desc { font-size: 12px; margin-top: 2px; }
+  .slide .skill-list { gap: 7px; }
+  .slide .cloud { padding: 16px; gap: 11px; }
+  /* capstone: codecard left, pipeline right */
+  .slide .skillspec { grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+  .slide .codecard pre { font-size: 11.5px; line-height: 1.6; }
+  .slide .autopipe { margin-top: 0; }
+  .slide .autopipe li { padding: 9px 12px; }
+  .slide .autopipe .txt { font-size: 12px; }
+  /* principles fit */
+  .slide .pr { padding: 15px 18px; }
+  .slide .pr p { font-size: 12.5px; }
+  /* opener: title + model + manual stacked on one slide */
+  .slide.opener .sechead { margin-bottom: 13px; }
+  .slide.opener .sechead h2 { font-size: 29px; }
+  .slide.opener .sechead p { font-size: 13.5px; }
+  .slide.opener .panel { margin-bottom: 13px; }
+  .slide.opener .manual { margin-top: 0; }
+  .slide.opener .model .node { padding: 12px 14px 14px; }
+  .slide.opener .model .desc { font-size: 11.5px; margin-top: 6px; }
+  .slide.opener .model .chip { padding-top: 9px; font-size: 11px; }
+  .slide.opener .feedback { padding: 9px 16px; font-size: 11.5px; }
+  .slide.opener .mcard { padding: 10px 13px; }
+  .slide.opener .mcard .mdesc { font-size: 11px; margin-top: 6px; }
+  /* one-slide phases: all cards compact, meta hidden */
+  .phgrid--all { gap: 9px 14px; }
+  .phgrid--all .card { padding: 9px 13px; }
+  .phgrid--all .decision { font-size: 11.5px; margin-top: 5px; }
+  .phgrid--all .pname { font-size: 14px; }
+  .phgrid--all .meta { display: none; }
+
+  /* ===== VIPP additions (shares the base stylesheet above) ===== */
+  .vp-eqline{font-family:var(--font-mono);font-weight:700;font-size:19px;margin-top:22px;color:var(--ink);}
+  .vp-eqline b{color:var(--signal);}
+  .vp-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px;}
+  .vp-chip{font-family:var(--font-mono);font-size:12.5px;padding:6px 13px;border-radius:999px;
+    border:1px solid var(--line-strong);color:var(--ink-soft);background:var(--sheet);}
+  .vp-chip b{color:var(--ink);font-weight:650;}
+  .vp-dwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;}
+  svg.vp-dia{width:100%;height:100%;display:block;}
+  svg.vp-dia text{font-family:var(--font-mono);fill:var(--ink);}
+  .vp-ztag{font-size:11px;font-weight:600;letter-spacing:.12em;}
+  .vp-ztitle{font-weight:700;letter-spacing:-.01em;}
+  .vp-zsub{font-size:11px;fill:var(--ink-soft);}
+  .vp-ntitle{font-weight:650;fill:var(--signal);}
+  .vp-nsub{font-size:11px;fill:var(--ink-soft);}
+  .vp-enum{font-size:13px;font-weight:700;fill:var(--warn);}
+  .vp-elabel{font-size:11px;fill:var(--ink-soft);}
+  .vp-twin{display:grid;grid-template-columns:1fr 1fr;gap:22px;flex:1;min-height:0;align-items:stretch;}
+  .vp-zpanel{border-radius:14px;padding:24px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow);}
+  .vp-zpanel.fixed{background:rgba(0,41,46,.04);border:1.5px solid var(--line-strong);}
+  .vp-zpanel.dyn{background:var(--signal-wash);border:1.5px solid var(--signal);}
+  .vp-zph{font-family:var(--font-mono);font-size:15px;font-weight:700;}
+  .vp-zpanel.fixed .vp-zph{color:var(--ink);}
+  .vp-zpanel.dyn .vp-zph{color:var(--signal);}
+  .vp-psub{font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);margin:3px 0 0;}
+  .vp-chain{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:22px;}
+  .vp-cbox{font-family:var(--font-mono);font-size:13px;background:var(--sheet);border:1px solid var(--line-strong);border-radius:8px;padding:9px 13px;}
+  .vp-carw{color:var(--ink-faint);font-family:var(--font-mono);}
+  .vp-hub{display:flex;flex-direction:column;align-items:center;gap:14px;margin:22px 0;}
+  .vp-hubnode{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--signal);background:var(--sheet);
+    border:1.5px solid var(--signal);border-radius:10px;padding:11px 18px;}
+  .vp-fan{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .vp-sk{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);background:var(--agent-wash);
+    border:1px solid var(--agent);border-radius:7px;padding:6px 11px;}
+  .vp-znote{font-family:var(--font-mono);font-size:12px;color:var(--signal);margin-top:24px;}
+  .vp-zpanel.fixed .vp-znote{color:var(--ink-faint);}
+  .vp-skills{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex:1;min-height:0;align-content:center;}
+  .vp-skill{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:11px;
+    padding:15px 17px;box-shadow:var(--shadow);}
+  .vp-skill.util{border-left-color:var(--warn);}
+  .vp-skill.txt{border-left-color:var(--agent);}
+  .vp-skill .sid{font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--signal);}
+  .vp-skill.util .sid{color:var(--warn);}
+  .vp-skill.txt .sid{color:var(--agent);}
+  .vp-skill .schan{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.06em;text-transform:uppercase;margin:6px 0 9px;}
+  .vp-skill .sdesc{font-size:13px;color:var(--ink-soft);line-height:1.5;}
+</style>
+<div class="deck"><div class="slide cover"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <span class="eyebrow">VIPP Search Harness &middot; Architecture Note</span>
-  <h1>You don't write the search.<br>You <span class="hl">orchestrate the agent</span> that runs it.</h1>
+  <h1>You don't write the search.<br>You <span class="b">orchestrate the agent</span> that runs it.</h1>
   <p class="lead">A <strong>harness</strong> turns the archive into skills an agent commands, and turns the team from
     search operators into agent orchestrators. This is not a search box with an LLM bolted on, and it is not a workflow.
     It is an agent runtime whose skills happen to be retrieval.</p>
-  <div class="eqline">Agent = <b>Model</b> + <b>Harness</b></div>
-  <div class="chips">
-    <span class="chip"><b>6</b> retrieval skills</span>
-    <span class="chip"><b>8</b> event types</span>
-    <span class="chip">MCP over <b>stdio</b></span>
-    <span class="chip">Gemini <b>2.5 Flash</b> &middot; pluggable</span>
-    <span class="chip">&le; <b>12</b> turns / run</span>
+  <div class="vp-eqline">Agent = <b>Model</b> + <b>Harness</b></div>
+  <div class="vp-chips">
+    <span class="vp-chip"><b>6</b> retrieval skills</span>
+    <span class="vp-chip"><b>8</b> event types</span>
+    <span class="vp-chip">MCP over <b>stdio</b></span>
+    <span class="vp-chip">Gemini <b>2.5 Flash</b> &middot; pluggable</span>
+    <span class="vp-chip">&le; <b>12</b> turns / run</span>
   </div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>1 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The architecture</span>
     <h2>Agent = Model + Harness, mapped to the code.</h2>
   </div>
-  <div class="dwrap"><svg class="dia" viewBox="0 0 1160 580" role="img" aria-label="VIPP harness architecture: model plus harness equals agent, with an MCP tool server, six retrieval skills, and a run snapshot store, connected by a numbered loop.">
-  <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b3781f"/></marker><marker id="arb" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10,0 L0,5 L10,10 z" fill="#b3781f"/></marker></defs>
-  <!-- MODEL -->
+  <div class="vp-dwrap"><svg class="vp-dia" viewBox="0 0 1160 580" role="img" aria-label="VIPP harness architecture: model plus harness equals agent, with an MCP tool server, six retrieval skills, and a run snapshot store, connected by a numbered loop.">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a96a1f"/></marker></defs>
   <rect x="44" y="212" width="220" height="150" rx="14" fill="#eef2e7" stroke="#00292e" stroke-width="1.8"/>
-  <text class="z-tag" x="64" y="240" fill="#6a7a6e">MODEL</text>
-  <text class="z-title" x="64" y="266" font-size="16" fill="#00292e">Gemini 2.5 Flash</text>
-  <text class="n-sub" x="64" y="288">stateless reasoning</text>
-  <text class="n-sub" x="64" y="308" fill="#6a7a6e">pluggable &middot; LLM_PROVIDER</text>
-  <!-- HARNESS -->
+  <text class="vp-ztag" x="64" y="240" fill="#6a7a6e">MODEL</text>
+  <text class="vp-ztitle" x="64" y="266" font-size="16" fill="#00292e">Gemini 2.5 Flash</text>
+  <text class="vp-nsub" x="64" y="288">stateless reasoning</text>
+  <text class="vp-nsub" x="64" y="308" fill="#6a7a6e">pluggable &middot; LLM_PROVIDER</text>
   <rect x="308" y="40" width="452" height="490" rx="16" fill="rgba(31,122,61,0.07)" stroke="#1f7a3d" stroke-width="2"/>
-  <text class="z-title" x="330" y="78" font-size="17" fill="#1f7a3d">HARNESS</text>
-  <text class="z-sub" x="330" y="98">everything except the reasoning</text>
-  <rect x="330" y="116" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="n-title" x="346" y="142" font-size="13">agentLoop()</text><text class="n-sub" x="346" y="161">an async generator &middot; the loop</text>
-  <rect x="330" y="190" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="n-title" x="346" y="216" font-size="13">tool dispatch &middot; MCP</text><text class="n-sub" x="346" y="235">stdio child &middot; tools/call</text>
-  <rect x="330" y="264" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="n-title" x="346" y="290" font-size="13">result pool + sessions</text><text class="n-sub" x="346" y="309">cumulative, deduped memory</text>
-  <rect x="330" y="338" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="n-title" x="346" y="364" font-size="13">verify + bounds</text><text class="n-sub" x="346" y="383">citations &middot; maxTurns = 12</text>
-  <rect x="330" y="412" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="n-title" x="346" y="438" font-size="13">Run snapshot</text><text class="n-sub" x="346" y="457">runs/&lt;ulid&gt;.json &middot; replayable</text>
-  <!-- AGENT -->
-  <rect x="800" y="66" width="320" height="120" rx="14" fill="rgba(191,215,50,0.15)" stroke="#8fae1f" stroke-width="1.8"/>
-  <text class="z-tag" x="820" y="94" fill="#6f8f16">AGENT</text>
-  <text class="z-title" x="820" y="120" font-size="16" fill="#00292e">the investigator</text>
-  <text class="n-sub" x="820" y="142">searches &middot; refines &middot; verifies &middot; cites</text>
-  <text class="n-sub" x="820" y="162" fill="#6a7a6e">on its own path</text>
-  <!-- MCP + SKILLS -->
+  <text class="vp-ztitle" x="330" y="78" font-size="17" fill="#1f7a3d">HARNESS</text>
+  <text class="vp-zsub" x="330" y="98">everything except the reasoning</text>
+  <rect x="330" y="116" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="vp-ntitle" x="346" y="142" font-size="13">agentLoop()</text><text class="vp-nsub" x="346" y="161">an async generator &middot; the loop</text>
+  <rect x="330" y="190" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="vp-ntitle" x="346" y="216" font-size="13">tool dispatch &middot; MCP</text><text class="vp-nsub" x="346" y="235">stdio child &middot; tools/call</text>
+  <rect x="330" y="264" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="vp-ntitle" x="346" y="290" font-size="13">result pool + sessions</text><text class="vp-nsub" x="346" y="309">cumulative, deduped memory</text>
+  <rect x="330" y="338" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="vp-ntitle" x="346" y="364" font-size="13">verify + bounds</text><text class="vp-nsub" x="346" y="383">citations &middot; maxTurns = 12</text>
+  <rect x="330" y="412" width="408" height="62" rx="9" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.3"/><text class="vp-ntitle" x="346" y="438" font-size="13">Run snapshot</text><text class="vp-nsub" x="346" y="457">runs/&lt;ulid&gt;.json &middot; replayable</text>
+  <rect x="800" y="66" width="320" height="120" rx="14" fill="rgba(191,215,50,0.16)" stroke="#6f8f16" stroke-width="1.8"/>
+  <text class="vp-ztag" x="820" y="94" fill="#6f8f16">AGENT</text>
+  <text class="vp-ztitle" x="820" y="120" font-size="16" fill="#00292e">the investigator</text>
+  <text class="vp-nsub" x="820" y="142">searches &middot; refines &middot; verifies &middot; cites</text>
+  <text class="vp-nsub" x="820" y="162" fill="#6a7a6e">on its own path</text>
   <rect x="800" y="214" width="320" height="182" rx="14" fill="rgba(0,41,46,0.04)" stroke="#b1c19c" stroke-width="1.5"/>
-  <text class="z-tag" x="820" y="240" fill="#6a7a6e">TOOL TRANSPORT</text>
-  <text class="z-title" x="820" y="264" font-size="15" fill="#00292e">stdio MCP server</text>
-  <text class="n-sub" x="820" y="284" fill="#6a7a6e">spawned as a child &middot; tools/list + tools/call</text>
-  <text class="n-title" x="820" y="316" font-size="12.5">vector &middot; text &middot; hybrid</text>
-  <text class="n-title" x="820" y="338" font-size="12.5">transcription &middot; multimodal &middot; scene lookup</text>
-  <text class="n-sub" x="820" y="366" fill="#6a7a6e">6 retrieval skills</text>
-  <!-- RUN STORE -->
-  <rect x="800" y="428" width="320" height="102" rx="14" fill="rgba(179,120,31,0.08)" stroke="#b3781f" stroke-width="1.5"/>
-  <text class="z-tag" x="820" y="454" fill="#b3781f">STATE</text>
-  <text class="z-title" x="820" y="478" font-size="15" fill="#00292e">Run snapshot store</text>
-  <text class="n-sub" x="820" y="498" fill="#6a7a6e">runs/&lt;ulid&gt;.json &middot; every event, replayable</text>
-  <!-- glyphs -->
+  <text class="vp-ztag" x="820" y="240" fill="#6a7a6e">TOOL TRANSPORT</text>
+  <text class="vp-ztitle" x="820" y="264" font-size="15" fill="#00292e">stdio MCP server</text>
+  <text class="vp-nsub" x="820" y="284" fill="#6a7a6e">spawned as a child &middot; tools/list</text>
+  <text class="vp-ntitle" x="820" y="320" font-size="12.5">vector &middot; text &middot; hybrid</text>
+  <text class="vp-ntitle" x="820" y="342" font-size="12.5">transcription &middot; multimodal &middot; lookup</text>
+  <text class="vp-nsub" x="820" y="372" fill="#6a7a6e">6 retrieval skills</text>
+  <rect x="800" y="428" width="320" height="102" rx="14" fill="rgba(169,106,31,0.09)" stroke="#a96a1f" stroke-width="1.5"/>
+  <text class="vp-ztag" x="820" y="454" fill="#a96a1f">STATE</text>
+  <text class="vp-ztitle" x="820" y="478" font-size="15" fill="#00292e">Run snapshot store</text>
+  <text class="vp-nsub" x="820" y="498" fill="#6a7a6e">runs/&lt;ulid&gt;.json &middot; replayable</text>
   <text x="286" y="295" text-anchor="middle" font-size="26" font-weight="700" fill="#6a7a6e">+</text>
-  <text x="780" y="132" text-anchor="middle" font-size="26" font-weight="700" fill="#6a7a6e">=</text>
-  <!-- EDGES -->
-  <!-- 1 model -> harness -->
-  <path d="M264,270 L306,258" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <text class="e-num" x="270" y="250">&#9312;</text><text class="e-label" x="286" y="250">reasoning</text>
-  <!-- 2 harness agentLoop -> agent -->
-  <path d="M760,147 C784,147 784,126 800,126" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <text class="e-num" x="766" y="140">&#9313;</text>
-  <!-- 3 tool dispatch -> mcp -->
-  <path d="M760,221 C786,221 786,268 800,268" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <text class="e-num" x="766" y="215">&#9314;</text><text class="e-label" x="782" y="215">tools/call</text>
-  <!-- 4 mcp -> result pool (dashed back) -->
-  <path d="M800,300 C786,300 786,295 760,295" fill="none" stroke="#b3781f" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#ar)"/>
-  <text class="e-num" x="766" y="322">&#9315;</text><text class="e-label" x="782" y="322">candidates</text>
-  <!-- 5 snapshot -> run store -->
-  <path d="M760,443 C786,443 786,460 800,460" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <text class="e-num" x="766" y="437">&#9316;</text>
-  <!-- loop back agent -> model (under everything) -->
-  <path d="M960,186 C960,560 156,560 156,362" fill="none" stroke="#b3781f" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
-  <text class="e-label" x="558" y="552" text-anchor="middle" fill="#b3781f">&#8635; observe results &middot; decide again &middot; until it answers (&le; 12 turns)</text>
+  <text x="782" y="128" text-anchor="middle" font-size="24" font-weight="700" fill="#6a7a6e">=</text>
+  <path d="M264,270 L306,258" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <text class="vp-enum" x="270" y="250">&#9312;</text><text class="vp-elabel" x="286" y="250">reasoning</text>
+  <path d="M760,150 C784,150 784,130 800,130" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <text class="vp-enum" x="762" y="118">&#9313;</text>
+  <path d="M760,221 C786,221 786,268 800,268" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <text class="vp-enum" x="766" y="212">&#9314;</text><text class="vp-elabel" x="782" y="212">tools/call</text>
+  <path d="M800,300 C786,300 786,295 760,295" fill="none" stroke="#a96a1f" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+  <text class="vp-enum" x="762" y="308">&#9315;</text><text class="vp-elabel" x="662" y="308" text-anchor="end">candidates</text>
+  <path d="M760,443 C786,443 786,460 800,460" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <text class="vp-enum" x="766" y="437">&#9316;</text>
+  <path d="M960,186 C960,560 156,560 156,362" fill="none" stroke="#a96a1f" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
+  <text class="vp-elabel" x="558" y="552" text-anchor="middle" fill="#a96a1f">&#8635; observe results &middot; decide again &middot; until it answers (&le; 12 turns)</text>
 </svg></div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>2 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">Harness, not workflow</span>
@@ -171,30 +655,30 @@
     <p>A workflow's path is authored in code, so the same probe always takes the same route. A harness lets the model
       read what it found and choose the next move, so the same probe may take a different path every time.</p>
   </div>
-  <div class="twin">
-    <div class="zpanel fixed">
-      <div class="ph">Workflow &middot; fixed path</div>
-      <div class="psub">the code decides the route</div>
-      <div class="chain">
-        <span class="cbox">embed</span><span class="carw">&rarr;</span>
-        <span class="cbox">vector search</span><span class="carw">&rarr;</span>
-        <span class="cbox">rerank</span><span class="carw">&rarr;</span>
-        <span class="cbox">fuse</span><span class="carw">&rarr;</span>
-        <span class="cbox">answer</span>
+  <div class="vp-twin">
+    <div class="vp-zpanel fixed">
+      <div class="vp-zph">Workflow &middot; fixed path</div>
+      <div class="vp-psub">the code decides the route</div>
+      <div class="vp-chain">
+        <span class="vp-cbox">embed</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">vector search</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">rerank</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">fuse</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">answer</span>
       </div>
-      <div class="znote">identical path, every run &middot; no dial for depth</div>
+      <div class="vp-znote">identical path, every run &middot; no dial for depth</div>
     </div>
-    <div class="zpanel dyn">
-      <div class="ph">Harness &middot; the model steers</div>
-      <div class="psub">the model decides the route</div>
-      <div class="hub">
-        <div class="hubnode">model chooses &#8635;</div>
-        <div class="fan">
-          <span class="sk">vector</span><span class="sk">text</span><span class="sk">hybrid</span>
-          <span class="sk">transcription</span><span class="sk">multimodal</span><span class="sk">lookup</span>
+    <div class="vp-zpanel dyn">
+      <div class="vp-zph">Harness &middot; the model steers</div>
+      <div class="vp-psub">the model decides the route</div>
+      <div class="vp-hub">
+        <div class="vp-hubnode">model chooses &#8635;</div>
+        <div class="vp-fan">
+          <span class="vp-sk">vector</span><span class="vp-sk">text</span><span class="vp-sk">hybrid</span>
+          <span class="vp-sk">transcription</span><span class="vp-sk">multimodal</span><span class="vp-sk">lookup</span>
         </div>
       </div>
-      <div class="znote">observe results &middot; decide again &middot; until it answers</div>
+      <div class="vp-znote">observe results &middot; decide again &middot; until it answers</div>
     </div>
   </div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>3 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
@@ -203,26 +687,22 @@
     <p>In the eval, one probe drove seven searches across six phrasings; another answered in two. Same system,
       model-chosen depth. A pipeline has no dial for that; a harness is nothing but that dial.</p>
   </div>
-  <div class="dwrap"><svg class="dia" viewBox="0 0 1160 470" role="img" aria-label="The bounded agent loop: plan, call tool, observe, refine, answer, looping until it answers within twelve turns.">
-  <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b3781f"/></marker><marker id="arb" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10,0 L0,5 L10,10 z" fill="#b3781f"/></marker></defs>
-  <rect x="30" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="125.0" y="200" text-anchor="middle" class="n-title" font-size="13.5" fill="#6a7a6e">PLAN</text><text x="125.0" y="220" text-anchor="middle" class="n-sub">choose a search</text>
-  <rect x="268" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="363.0" y="200" text-anchor="middle" class="n-title" font-size="13.5" fill="#1f7a3d">CALL TOOL</text><text x="363.0" y="220" text-anchor="middle" class="n-sub">one of six skills</text>
-  <rect x="506" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="601.0" y="200" text-anchor="middle" class="n-title" font-size="13.5" fill="#1f7a3d">OBSERVE</text><text x="601.0" y="220" text-anchor="middle" class="n-sub">read candidates</text>
-  <rect x="744" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="839.0" y="200" text-anchor="middle" class="n-title" font-size="13.5" fill="#1f7a3d">REFINE</text><text x="839.0" y="220" text-anchor="middle" class="n-sub">reformulate or switch</text>
-  <rect x="946" y="150" width="184" height="72" rx="10" fill="rgba(191,215,50,0.16)" stroke="#8fae1f" stroke-width="1.5"/><text x="1038.0" y="180" text-anchor="middle" class="n-title" font-size="13.5" fill="#6f8f16">ANSWER</text><text x="1038.0" y="200" text-anchor="middle" class="n-sub">cite the run</text>
-  <!-- forward arrows -->
-  <path d="M220,206 L266,206" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <path d="M458,206 L504,206" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <path d="M696,206 L742,206" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <!-- refine -> answer (when confident) -->
-  <path d="M934,196 C942,196 942,186 944,186" fill="none" stroke="#b3781f" stroke-width="2" marker-end="url(#ar)"/>
-  <text class="e-label" x="880" y="172" fill="#6f8f16">answers</text>
-  <!-- loop back refine -> plan -->
+  <div class="vp-dwrap"><svg class="vp-dia" viewBox="0 0 1160 470" role="img" aria-label="The bounded agent loop: plan, call tool, observe, refine, answer, looping until it answers within twelve turns.">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a96a1f"/></marker></defs>
+  <rect x="30" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="125.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#6a7a6e">PLAN</text><text x="125.0" y="220" text-anchor="middle" class="vp-nsub">choose a search</text>
+  <rect x="268" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="363.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#1f7a3d">CALL TOOL</text><text x="363.0" y="220" text-anchor="middle" class="vp-nsub">one of six skills</text>
+  <rect x="506" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="601.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#1f7a3d">OBSERVE</text><text x="601.0" y="220" text-anchor="middle" class="vp-nsub">read candidates</text>
+  <rect x="744" y="170" width="190" height="72" rx="10" fill="#f6f9f0" stroke="#cdd8bf" stroke-width="1.5"/><text x="839.0" y="200" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#1f7a3d">REFINE</text><text x="839.0" y="220" text-anchor="middle" class="vp-nsub">reformulate or switch</text>
+  <rect x="946" y="150" width="184" height="72" rx="10" fill="rgba(191,215,50,0.16)" stroke="#6f8f16" stroke-width="1.5"/><text x="1038.0" y="180" text-anchor="middle" class="vp-ntitle" font-size="13.5" fill="#6f8f16">ANSWER</text><text x="1038.0" y="200" text-anchor="middle" class="vp-nsub">cite the run</text>
+  <path d="M220,206 L266,206" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <path d="M458,206 L504,206" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <path d="M696,206 L742,206" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <path d="M934,196 C942,196 942,186 944,186" fill="none" stroke="#a96a1f" stroke-width="2" marker-end="url(#ar)"/>
+  <text class="vp-elabel" x="880" y="172" fill="#6f8f16">answers</text>
   <path d="M839,242 C839,340 125,340 125,242" fill="none" stroke="#1f7a3d" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
-  <text class="e-label" x="482" y="332" text-anchor="middle" fill="#1f7a3d">&#8635; not yet &middot; the model steers back &middot; result pool carries over</text>
-  <!-- bound -->
-  <rect x="30" y="60" width="1100" height="40" rx="10" fill="rgba(179,120,31,0.08)" stroke="#b3781f" stroke-width="1.3"/>
-  <text x="580" y="85" text-anchor="middle" class="e-label" fill="#b3781f" font-size="12">BOUNDED &middot; maxTurns = 12, then a max_turns event ends the run &middot; every event snapshotted to runs/&lt;ulid&gt;.json</text>
+  <text class="vp-elabel" x="482" y="332" text-anchor="middle" fill="#1f7a3d">&#8635; not yet &middot; the model steers back &middot; result pool carries over</text>
+  <rect x="30" y="60" width="1100" height="40" rx="10" fill="rgba(169,106,31,0.08)" stroke="#a96a1f" stroke-width="1.3"/>
+  <text x="580" y="85" text-anchor="middle" class="vp-elabel" fill="#a96a1f" font-size="12">BOUNDED &middot; maxTurns = 12, then a max_turns event ends the run &middot; every event snapshotted to runs/&lt;ulid&gt;.json</text>
 </svg></div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>4 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The skills</span>
@@ -230,12 +710,12 @@
     <p>The tools are the search-specific part; everything around them is a generic agent harness. A better model
       expands what these skills can do, it does not replace them.</p>
   </div>
-  <div class="skills">
-    <div class="skill vec"><div class="sid">vector_search</div><div class="schan">dense embeddings</div><div class="sdesc">Semantic nearest-neighbour over the embedded archive. The default probe when the phrasing is loose.</div></div>
-    <div class="skill txt"><div class="sid">text_search</div><div class="schan">lexical / BM25</div><div class="sdesc">Exact-term and keyword matching, for names, codes, and quoted phrases the model must not paraphrase.</div></div>
-    <div class="skill "><div class="sid">hybrid_search</div><div class="schan">vector + lexical</div><div class="sdesc">Fuses dense and sparse signals, so a probe gets both meaning and exact matches in one call.</div></div>
-    <div class="skill txt"><div class="sid">transcription_search</div><div class="schan">spoken content</div><div class="sdesc">Searches speech-to-text transcripts, so the agent can find a moment by what was said, not just shown.</div></div>
-    <div class="skill "><div class="sid">multimodal_search</div><div class="schan">vision + text</div><div class="sdesc">Searches the frames themselves, so the agent can retrieve a scene by what it looks like.</div></div>
-    <div class="skill util"><div class="sid">scene_lookup</div><div class="schan">direct fetch</div><div class="sdesc">Resolves a known id straight to its scene and metadata, the cheap move once the target is pinned.</div></div>
+  <div class="vp-skills">
+    <div class="vp-skill vec"><div class="sid">vector_search</div><div class="schan">dense embeddings</div><div class="sdesc">Semantic nearest-neighbour over the embedded archive. The default probe when the phrasing is loose.</div></div>
+    <div class="vp-skill txt"><div class="sid">text_search</div><div class="schan">lexical / BM25</div><div class="sdesc">Exact-term and keyword matching, for names, codes, and quoted phrases the model must not paraphrase.</div></div>
+    <div class="vp-skill "><div class="sid">hybrid_search</div><div class="schan">vector + lexical</div><div class="sdesc">Fuses dense and sparse signals, so a probe gets both meaning and exact matches in one call.</div></div>
+    <div class="vp-skill txt"><div class="sid">transcription_search</div><div class="schan">spoken content</div><div class="sdesc">Searches speech-to-text transcripts, so the agent can find a moment by what was said, not just shown.</div></div>
+    <div class="vp-skill "><div class="sid">multimodal_search</div><div class="schan">vision + text</div><div class="sdesc">Searches the frames themselves, so the agent can retrieve a scene by what it looks like.</div></div>
+    <div class="vp-skill util"><div class="sid">scene_lookup</div><div class="schan">direct fetch</div><div class="sdesc">Resolves a known id straight to its scene and metadata, the cheap move once the target is pinned.</div></div>
   </div></div><div class="foot"><span>HARNESS ENGINEERING · VIPP SEARCH HARNESS</span><span>5 / 5</span></div></div></div>
 </body></html>
