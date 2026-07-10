@@ -643,6 +643,18 @@
   .vp-tag.gen{color:var(--warn);background:var(--warn-wash);border:1px solid var(--warn);}
   .vp-surf .sn{color:var(--ink);}
   .vp-surf .sw{color:var(--ink-faint);margin-left:auto;font-size:11px;}
+  /* equation: Model + Harness = Agent */
+  .vp-eqn{display:flex;align-items:stretch;gap:14px;}
+  .vp-ebox{flex:1 1 210px;background:var(--sheet);border:1px solid var(--line-strong);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:flex-start;}
+  .vp-ebox.model{border-top:3px solid var(--ink-faint);}
+  .vp-ebox.harnessb{border-top:3px solid var(--signal);flex:1.7 1 300px;}
+  .vp-ebox.agentb{border-top:3px solid var(--warn);background:var(--warn-wash);}
+  .vp-eop{align-self:center;font-family:var(--font-mono);font-size:26px;font-weight:700;color:var(--ink-faint);flex:none;}
+  .vp-ebox .lab{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);}
+  .vp-ebox .val{font-family:var(--font-mono);font-weight:700;margin-top:5px;font-size:16px;color:var(--ink);}
+  .vp-ebox .esub{font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.45;}
+  .vp-echips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+  .vp-c2{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft);background:var(--ground-2);border:1px solid var(--line);border-radius:6px;padding:4px 9px;}
 </style>
 <div class="deck"><div class="slide cover"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <span class="eyebrow">VIPP Search Harness &middot; Architecture Note</span>
@@ -655,9 +667,9 @@
     <span class="vp-chip"><b>6</b> retrieval skills</span>
     <span class="vp-chip"><b>8</b> event types</span>
     <span class="vp-chip">MCP over <b>stdio</b></span>
-    <span class="vp-chip">Gemini <b>2.5 Flash</b> &middot; pluggable</span>
+    <span class="vp-chip">Gemini <b>3.1 Pro</b> &middot; pluggable</span>
     <span class="vp-chip">&le; <b>12</b> turns / run</span>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>1 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>1 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The parallel</span>
     <h2>Same machine, different world.</h2>
@@ -675,7 +687,7 @@
       <tr><td class="rh">Transcript</td><td class="dim">The chat log.</td><td class="mine">A <code>Run</code> snapshot, runs/&lt;ulid&gt;.json, every event replayable.</td></tr>
       <tr><td class="rh">Bounded</td><td class="dim">Step / token budgets.</td><td class="mine"><code>maxTurns = 12</code>, then a max_turns event ends the run.</td></tr>
     </tbody>
-  </table></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>2 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </table></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>2 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">Harness, not workflow</span>
     <h2>Who owns the control flow: the code, or the model?</h2>
@@ -692,7 +704,39 @@
     <div class="vp-def hn"><div class="term">Harness</div>
       <div class="dbody"><span class="q">"The software infrastructure surrounding an AI model that manages everything except the model's actual reasoning."</span>
       Agent = Model + Harness; the model is a pluggable part.<cite>agent-harness engineering &middot; 2026</cite></div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>3 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>3 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">Agent = Model + Harness</span>
+    <h2>The formula lands cleanly on the code.</h2>
+    <p>The model supplies reasoning; the harness supplies everything else. Because the model is pluggable, a better
+      model expands what the harness can do, it does not replace it.</p>
+  </div>
+  <div class="vp-eqn">
+    <div class="vp-ebox model">
+      <div class="lab">Model</div>
+      <div class="val">Gemini 3.1 Pro</div>
+      <div class="esub">stateless reasoning &middot; pluggable via <span class="mono">LLM_PROVIDER</span></div>
+    </div>
+    <div class="vp-eop">+</div>
+    <div class="vp-ebox harnessb">
+      <div class="lab">Harness</div>
+      <div class="val">everything except the reasoning</div>
+      <div class="vp-echips">
+        <span class="vp-c2">loop &middot; agent-loop.ts</span>
+        <span class="vp-c2">tool dispatch &middot; MCP</span>
+        <span class="vp-c2">memory &middot; pool + sessions</span>
+        <span class="vp-c2">context &middot; carryover</span>
+        <span class="vp-c2">guardrails &middot; verify + bounds</span>
+        <span class="vp-c2">state &middot; snapshots</span>
+      </div>
+    </div>
+    <div class="vp-eop">=</div>
+    <div class="vp-ebox agentb">
+      <div class="lab">Agent</div>
+      <div class="val">the investigator</div>
+      <div class="esub">a model that searches, refines, verifies, and cites, on its own path</div>
+    </div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>4 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The tell: run the same probe twice</span>
     <h2>A pipeline has no dial for depth. A harness is nothing but that dial.</h2>
@@ -724,14 +768,14 @@
       </div>
       <div class="vp-znote">observe results &middot; decide again &middot; until it answers</div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>4 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>5 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead"><span class="eyebrow">The architecture</span>
     <h2>Agent = Model + Harness, mapped to the code.</h2></div>
   <div class="vp-dwrap"><svg class="vp-dia" viewBox="0 0 1160 580" role="img" aria-label="VIPP harness architecture: model plus harness equals agent, with an MCP tool server, six retrieval skills, and a run snapshot store, connected by a numbered loop.">
   <defs><marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a96a1f"/></marker></defs>
   <rect x="44" y="212" width="220" height="150" rx="14" fill="#eef2e7" stroke="#00292e" stroke-width="1.8"/>
   <text class="vp-ztag" x="64" y="240" fill="#6a7a6e">MODEL</text>
-  <text class="vp-ztitle" x="64" y="266" font-size="16" fill="#00292e">Gemini 2.5 Flash</text>
+  <text class="vp-ztitle" x="64" y="266" font-size="16" fill="#00292e">Gemini 3.1 Pro</text>
   <text class="vp-nsub" x="64" y="288">stateless reasoning</text>
   <text class="vp-nsub" x="64" y="308" fill="#6a7a6e">pluggable &middot; LLM_PROVIDER</text>
   <rect x="308" y="40" width="452" height="490" rx="16" fill="rgba(31,122,61,0.07)" stroke="#1f7a3d" stroke-width="2"/>
@@ -772,7 +816,7 @@
   <text class="vp-enum" x="766" y="437">&#9316;</text>
   <path d="M960,186 C960,560 156,560 156,362" fill="none" stroke="#a96a1f" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
   <text class="vp-elabel" x="558" y="552" text-anchor="middle" fill="#a96a1f">&#8635; observe results &middot; decide again &middot; until it answers (&le; 12 turns)</text>
-</svg></div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>5 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+</svg></div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>6 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The clean recursion</span>
     <h2>We used workflows to build the harness.</h2>
@@ -801,7 +845,7 @@
       <div class="vp-znote">a path that cannot be known in advance</div>
     </div>
   </div>
-  <div class="vp-callout"><b>The recursion:</b> the team practised both, orchestrating agents to build the thing that orchestrates agents.</div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>6 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="vp-callout"><b>The recursion:</b> the team practised both, orchestrating agents to build the thing that orchestrates agents.</div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>7 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The trace</span>
     <h2>Two channels, one verification, a cited answer: the ReAct pattern, realized.</h2>
@@ -818,7 +862,7 @@
     <div class="vp-tstep"><div class="lane">&rarr; MCP</div><div class="vp-tc" style="border-left-color:#1f7a3d"><span class="evn" style="color:#1f7a3d">tool.call</span><span class="note">lookup_scene_metadata(&quot;16366763..._scene24&quot;)</span></div></div>
     <div class="vp-tstep"><div class="lane">SKILL</div><div class="vp-tc" style="border-left-color:#2c9e4f"><span class="evn" style="color:#2c9e4f">tool.result</span><span class="note">full scene doc &middot; verified</span></div></div>
     <div class="vp-tstep"><div class="lane">LLM</div><div class="vp-tc" style="border-left-color:#a9761f"><span class="evn" style="color:#a9761f">final</span><span class="note">&ldquo;...a reporter in a charred field, Level 3 evacuation orders... (scene24)&rdquo;</span></div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>7 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>8 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">Agent skills &middot; the know-how layer</span>
     <h2>Two senses of "skill": what it can do, and how it knows to do it well.</h2>
@@ -835,7 +879,7 @@
       <div class="sb">Markdown playbooks: when to prefer hybrid over vector, the distinct-phrasing discipline, filter recipes,
         worked examples from the eval. Loaded when relevant, free until then. <em>How the agent uses the tools well.</em></div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>8 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>9 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">One playbook, every surface</span>
     <h2>A single canonical playbook. Everything else reads it live or is a hash-verified copy.</h2>
@@ -854,7 +898,7 @@
       <div class="vp-surf"><span class="vp-tag gen">GENERATED</span><span class="sn">.claude/skills/&hellip;/SKILL.md</span><span class="sw">Claude Code &middot; a copy, drift-checked</span></div>
       <div class="vp-surf"><span class="vp-tag gen">GENERATED</span><span class="sn">.cursor/skills/&hellip;</span><span class="sw">Cursor &middot; same content, hash-verified</span></div>
     </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>9 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>10 / 11</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead"><span class="eyebrow">The skills</span>
     <h2>Six retrieval skills the agent commands over MCP.</h2>
     <p>The tools are the search-specific part; everything around them is a generic agent harness. A better model
@@ -866,5 +910,5 @@
     <div class="vp-skill txt"><div class="sid">transcription_search</div><div class="schan">spoken content</div><div class="sdesc">Searches speech-to-text transcripts, to find a moment by what was said, not just shown.</div></div>
     <div class="vp-skill "><div class="sid">multimodal_search</div><div class="schan">vision + text</div><div class="sdesc">Searches the frames themselves, to retrieve a scene by what it looks like.</div></div>
     <div class="vp-skill util"><div class="sid">scene_lookup</div><div class="schan">direct fetch</div><div class="sdesc">Resolves a known id straight to its scene and metadata, the cheap move once the target is pinned.</div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>10 / 10</span></div></div></div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>11 / 11</span></div></div></div>
 </body></html>
