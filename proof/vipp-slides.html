@@ -668,6 +668,29 @@
   .vp-eqn.compact .vp-echips{margin-top:8px;gap:5px;}
   .vp-eqn.compact .vp-c2{font-size:10.5px;padding:3px 7px;}
   .vp-eqn.compact .vp-eop{font-size:22px;}
+  /* compressed definitions (merged harness-not-workflow slide) */
+  .vp-defrow{display:grid;gap:9px;margin-bottom:16px;}
+  .vp-defline{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:baseline;font-size:13px;}
+  .vp-defline .dt{font-family:var(--font-mono);font-size:12.5px;font-weight:700;}
+  .vp-defline.wf .dt{color:var(--ink-faint);}
+  .vp-defline.ag .dt{color:var(--signal);}
+  .vp-defline.hn .dt{color:var(--warn);}
+  .vp-defline .dd{color:var(--ink-soft);}
+  .vp-defline .dd cite{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-faint);font-style:normal;}
+  /* merged skills slide: tight grid + senses strip + drift line */
+  .vp-skills.tight{flex:none;gap:11px;}
+  .vp-skills.tight .vp-skill{padding:12px 15px;}
+  .vp-skills.tight .sdesc{font-size:12px;}
+  .vp-skills.tight .schan{margin:5px 0 7px;}
+  .vp-senstrip{display:flex;gap:14px;margin-top:16px;}
+  .vp-senspill{flex:1;font-family:var(--font-mono);font-size:12px;border-radius:9px;padding:11px 15px;color:var(--ink-soft);}
+  .vp-senspill b{font-weight:700;}
+  .vp-senspill.tools{background:var(--signal-wash);border:1px solid var(--signal);}
+  .vp-senspill.tools b{color:var(--signal);}
+  .vp-senspill.know{background:var(--warn-wash);border:1px solid var(--warn);}
+  .vp-senspill.know b{color:var(--warn);}
+  .vp-driftline{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);margin-top:14px;text-align:center;}
+  .vp-driftline b{color:var(--warn);}
 </style>
 <div class="deck"><div class="slide cover"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <span class="eyebrow">VIPP Search Harness &middot; Architecture Note</span>
@@ -682,45 +705,15 @@
     <span class="vp-chip">MCP over <b>stdio</b></span>
     <span class="vp-chip">Gemini <b>3.1 Pro</b> &middot; pluggable</span>
     <span class="vp-chip">&le; <b>12</b> turns / run</span>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>1 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">The parallel</span>
-    <h2>Same machine, different world.</h2>
-    <p>Every part of a general agentic harness has a one-to-one counterpart here. Nothing about the design is
-      search-specific except the skills.</p>
-  </div>
-  <table class="vp-tbl">
-    <thead><tr><th style="width:16%">Concept</th><th style="width:42%">A generic agentic harness</th><th class="mine" style="width:42%">This search harness</th></tr></thead>
-    <tbody>
-      <tr><td class="rh">The loop</td><td class="dim">LLM reads context, calls a tool, reads the result, decides again.</td><td class="mine"><code>agentLoop()</code>, an async generator: plan, read candidates, refine, answer.</td></tr>
-      <tr><td class="rh">Tool transport</td><td class="dim">Tools exposed over MCP.</td><td class="mine">Identical: a <code>stdio</code> MCP server, spawned as a child.</td></tr>
-      <tr><td class="rh">What tools do</td><td class="dim">Read files, run bash, query APIs.</td><td class="mine">Vector / text / hybrid search, transcription, multimodal, scene lookup.</td></tr>
-      <tr><td class="rh">Skills</td><td class="dim">Tools it calls, and know-how it reads.</td><td class="mine">6 retrieval tools live; an Agent-Skills playbook designed.</td></tr>
-      <tr><td class="rh">Memory</td><td class="dim">Conversation history; scratchpad.</td><td class="mine">Session carryover + a cumulative, deduped result pool.</td></tr>
-      <tr><td class="rh">Transcript</td><td class="dim">The chat log.</td><td class="mine">A <code>Run</code> snapshot, runs/&lt;ulid&gt;.json, every event replayable.</td></tr>
-      <tr><td class="rh">Bounded</td><td class="dim">Step / token budgets.</td><td class="mine"><code>maxTurns = 12</code>, then a max_turns event ends the run.</td></tr>
-    </tbody>
-  </table></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>2 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>1 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">Harness, not workflow</span>
     <h2>Who owns the control flow: the code, or the model?</h2>
-    <p>The established line between two kinds of LLM system. An agentic workflow sits between them, but its control
-      flow is still authored in code: the LLM fills the steps, it does not choose them. This harness is the third thing.</p>
   </div>
-  <div class="vp-defs">
-    <div class="vp-def wf"><div class="term">Workflow</div>
-      <div class="dbody"><span class="q">"Systems where LLMs and tools are orchestrated through predefined code paths."</span>
-      The route is authored in code. Same input, same path, every time.<cite>Anthropic &middot; Building Effective Agents</cite></div></div>
-    <div class="vp-def ag"><div class="term">Agent</div>
-      <div class="dbody"><span class="q">"Systems where LLMs dynamically direct their own processes and tool usage."</span>
-      An LLM using tools on environmental feedback, in a loop, choosing its own moves.<cite>Anthropic &middot; Building Effective Agents</cite></div></div>
-    <div class="vp-def hn"><div class="term">Harness</div>
-      <div class="dbody"><span class="q">"The software infrastructure surrounding an AI model that manages everything except the model's actual reasoning."</span>
-      Agent = Model + Harness; the model is a pluggable part.<cite>agent-harness engineering &middot; 2026</cite></div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>3 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">The tell: run the same probe twice</span>
-    <h2>A pipeline has no dial for depth. A harness is nothing but that dial.</h2>
+  <div class="vp-defrow">
+    <div class="vp-defline wf"><span class="dt">Workflow</span><span class="dd">orchestrated through predefined code paths; the route is authored in code. <cite>Anthropic</cite></span></div>
+    <div class="vp-defline ag"><span class="dt">Agent</span><span class="dd">the LLM dynamically directs its own process and tools, choosing its own moves. <cite>Anthropic</cite></span></div>
+    <div class="vp-defline hn"><span class="dt">Harness</span><span class="dd">the infrastructure around the model that manages everything except the reasoning. <cite>agent-harness engineering &middot; 2026</cite></span></div>
   </div>
   <div class="vp-twin compact">
     <div class="vp-zpanel fixed">
@@ -748,20 +741,7 @@
       <div class="vp-znote">observe results &middot; decide again &middot; until it answers</div>
     </div>
   </div>
-  <div class="vp-eqn compact">
-    <div class="vp-ebox model"><div class="lab">Model</div><div class="val">Gemini 3.1 Pro</div>
-      <div class="esub">stateless &middot; pluggable via LLM_PROVIDER</div></div>
-    <div class="vp-eop">+</div>
-    <div class="vp-ebox harnessb"><div class="lab">Harness</div><div class="val">everything except the reasoning</div>
-      <div class="vp-echips">
-        <span class="vp-c2">loop &middot; agent-loop.ts</span><span class="vp-c2">tool dispatch &middot; MCP</span>
-        <span class="vp-c2">memory &middot; pool</span><span class="vp-c2">context &middot; carryover</span>
-        <span class="vp-c2">guardrails &middot; verify</span><span class="vp-c2">state &middot; snapshots</span>
-      </div></div>
-    <div class="vp-eop">=</div>
-    <div class="vp-ebox agentb"><div class="lab">Agent</div><div class="val">the investigator</div>
-      <div class="esub">searches, refines, verifies, cites</div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>4 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+</div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>2 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead"><span class="eyebrow">The architecture</span>
     <h2>Agent = Model + Harness, mapped to the code.</h2></div>
   <div class="vp-dwrap"><svg class="vp-dia" viewBox="0 0 1160 580" role="img" aria-label="VIPP harness architecture: model plus harness equals agent, with an MCP tool server, six retrieval skills, and a run snapshot store, connected by a numbered loop.">
@@ -809,7 +789,7 @@
   <text class="vp-enum" x="766" y="437">&#9316;</text>
   <path d="M960,186 C960,560 156,560 156,362" fill="none" stroke="#a96a1f" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
   <text class="vp-elabel" x="558" y="552" text-anchor="middle" fill="#a96a1f">&#8635; observe results &middot; decide again &middot; until it answers (&le; 12 turns)</text>
-</svg></div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>5 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+</svg></div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>3 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The trace</span>
     <h2>Two channels, one verification, a cited answer: the ReAct pattern, realized.</h2>
@@ -826,53 +806,20 @@
     <div class="vp-tstep"><div class="lane">&rarr; MCP</div><div class="vp-tc" style="border-left-color:#1f7a3d"><span class="evn" style="color:#1f7a3d">tool.call</span><span class="note">lookup_scene_metadata(&quot;16366763..._scene24&quot;)</span></div></div>
     <div class="vp-tstep"><div class="lane">SKILL</div><div class="vp-tc" style="border-left-color:#2c9e4f"><span class="evn" style="color:#2c9e4f">tool.result</span><span class="note">full scene doc &middot; verified</span></div></div>
     <div class="vp-tstep"><div class="lane">LLM</div><div class="vp-tc" style="border-left-color:#a9761f"><span class="evn" style="color:#a9761f">final</span><span class="note">&ldquo;...a reporter in a charred field, Level 3 evacuation orders... (scene24)&rdquo;</span></div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>6 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">Agent skills &middot; the know-how layer</span>
-    <h2>Two senses of "skill": what it can do, and how it knows to do it well.</h2>
-    <p>MCP gives the agent tools; a skill file gives it methodology. The 6 tools are live today; the playbook layer is designed and next.</p>
-  </div>
-  <div class="vp-senses">
-    <div class="vp-sense tools">
-      <div class="sh">Capabilities &middot; the tools it calls</div>
-      <div class="sb">The 6 retrieval skills, over MCP: vector, text, hybrid, transcription, multimodal search, and scene lookup.
-        Frozen schemas, always available. <em>What the agent can reach.</em></div>
-    </div>
-    <div class="vp-sense know">
-      <div class="sh">Agent Skills &middot; the know-how it reads</div>
-      <div class="sb">Markdown playbooks: when to prefer hybrid over vector, the distinct-phrasing discipline, filter recipes,
-        worked examples from the eval. Loaded when relevant, free until then. <em>How the agent uses the tools well.</em></div>
-    </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>7 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">One playbook, every surface</span>
-    <h2>A single canonical playbook. Everything else reads it live or is a hash-verified copy.</h2>
-    <p>Sameness across clients is not a protocol guarantee; it is a build guarantee.</p>
-  </div>
-  <div class="vp-drift">
-    <div class="vp-canon">
-      <div class="cl">Canonical</div>
-      <div class="cf">investigation.md</div>
-      <div class="cn">the only hand-edited file: the playbook plus worked examples</div>
-    </div>
-    <div class="vp-surfaces">
-      <div class="vp-surf"><span class="vp-tag live">LIVE READ</span><span class="sn">harness system prompt</span><span class="sw">loaded at boot &middot; playbookHash stamped into every snapshot</span></div>
-      <div class="vp-surf"><span class="vp-tag live">LIVE READ</span><span class="sn">MCP instructions</span><span class="sw">~10-line summary &middot; auto-injected at connect</span></div>
-      <div class="vp-surf"><span class="vp-tag live">LIVE READ</span><span class="sn">vipp://skills/{name}</span><span class="sw">any MCP client can pull the current playbook</span></div>
-      <div class="vp-surf"><span class="vp-tag gen">GENERATED</span><span class="sn">.claude/skills/&hellip;/SKILL.md</span><span class="sw">Claude Code &middot; a copy, drift-checked</span></div>
-      <div class="vp-surf"><span class="vp-tag gen">GENERATED</span><span class="sn">.cursor/skills/&hellip;</span><span class="sw">Cursor &middot; same content, hash-verified</span></div>
-    </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>8 / 9</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>4 / 5</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead"><span class="eyebrow">The skills</span>
-    <h2>Six retrieval skills the agent commands over MCP.</h2>
-    <p>The tools are the search-specific part; everything around them is a generic agent harness. A better model
-      expands what these skills can do, it does not replace them.</p></div>
-  <div class="vp-skills">
-    <div class="vp-skill vec"><div class="sid">vector_search</div><div class="schan">dense embeddings</div><div class="sdesc">Semantic nearest-neighbour over the embedded archive. The default probe when phrasing is loose.</div></div>
-    <div class="vp-skill txt"><div class="sid">text_search</div><div class="schan">lexical / BM25</div><div class="sdesc">Exact-term matching, for names, codes, and quoted phrases the model must not paraphrase.</div></div>
-    <div class="vp-skill "><div class="sid">hybrid_search</div><div class="schan">vector + lexical</div><div class="sdesc">Fuses dense and sparse signals, so a probe gets both meaning and exact matches in one call.</div></div>
-    <div class="vp-skill txt"><div class="sid">transcription_search</div><div class="schan">spoken content</div><div class="sdesc">Searches speech-to-text transcripts, to find a moment by what was said, not just shown.</div></div>
+    <h2>Six tools the agent commands over MCP; a playbook layer next.</h2></div>
+  <div class="vp-skills tight">
+    <div class="vp-skill vec"><div class="sid">vector_search</div><div class="schan">dense embeddings</div><div class="sdesc">Semantic nearest-neighbour over the archive. The default probe when phrasing is loose.</div></div>
+    <div class="vp-skill txt"><div class="sid">text_search</div><div class="schan">lexical / BM25</div><div class="sdesc">Exact-term matching for names, codes, and quoted phrases the model must not paraphrase.</div></div>
+    <div class="vp-skill "><div class="sid">hybrid_search</div><div class="schan">vector + lexical</div><div class="sdesc">Fuses dense and sparse signals: meaning and exact matches in one call.</div></div>
+    <div class="vp-skill txt"><div class="sid">transcription_search</div><div class="schan">spoken content</div><div class="sdesc">Searches transcripts, to find a moment by what was said, not just shown.</div></div>
     <div class="vp-skill "><div class="sid">multimodal_search</div><div class="schan">vision + text</div><div class="sdesc">Searches the frames themselves, to retrieve a scene by what it looks like.</div></div>
-    <div class="vp-skill util"><div class="sid">scene_lookup</div><div class="schan">direct fetch</div><div class="sdesc">Resolves a known id straight to its scene and metadata, the cheap move once the target is pinned.</div></div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>9 / 9</span></div></div></div>
+    <div class="vp-skill util"><div class="sid">scene_lookup</div><div class="schan">direct fetch</div><div class="sdesc">Resolves a known id straight to its scene, the cheap move once the target is pinned.</div></div>
+  </div>
+  <div class="vp-senstrip">
+    <div class="vp-senspill tools"><b>Capabilities</b> &middot; the tools it calls (frozen schemas, always available)</div>
+    <div class="vp-senspill know"><b>Agent Skills</b> &middot; the know-how it reads (playbooks, loaded when relevant, next)</div>
+  </div>
+  <div class="vp-driftline"><b>One canonical</b> investigation.md; every surface reads it live or is a hash-verified copy.</div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>5 / 5</span></div></div></div>
 </body></html>
