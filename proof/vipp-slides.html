@@ -655,6 +655,19 @@
   .vp-ebox .esub{font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.45;}
   .vp-echips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
   .vp-c2{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft);background:var(--ground-2);border:1px solid var(--line);border-radius:6px;padding:4px 9px;}
+  /* compact variants for the combined tell + equation slide */
+  .vp-twin.compact{flex:none;}
+  .vp-twin.compact .vp-zpanel{padding:15px 18px;}
+  .vp-twin.compact .vp-hub{margin:12px 0;}
+  .vp-twin.compact .vp-chain{margin-top:13px;}
+  .vp-twin.compact .vp-znote{margin-top:13px;}
+  .vp-eqn.compact{margin-top:16px;}
+  .vp-eqn.compact .vp-ebox{padding:12px 16px;}
+  .vp-eqn.compact .vp-ebox .val{font-size:13.5px;}
+  .vp-eqn.compact .vp-ebox .esub{font-size:11.5px;margin-top:5px;}
+  .vp-eqn.compact .vp-echips{margin-top:8px;gap:5px;}
+  .vp-eqn.compact .vp-c2{font-size:10.5px;padding:3px 7px;}
+  .vp-eqn.compact .vp-eop{font-size:22px;}
 </style>
 <div class="deck"><div class="slide cover"><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <span class="eyebrow">VIPP Search Harness &middot; Architecture Note</span>
@@ -705,6 +718,50 @@
       <div class="dbody"><span class="q">"The software infrastructure surrounding an AI model that manages everything except the model's actual reasoning."</span>
       Agent = Model + Harness; the model is a pluggable part.<cite>agent-harness engineering &middot; 2026</cite></div></div>
   </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>3 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+  <div class="sechead">
+    <span class="eyebrow">The tell: run the same probe twice</span>
+    <h2>A pipeline has no dial for depth. A harness is nothing but that dial.</h2>
+  </div>
+  <div class="vp-twin compact">
+    <div class="vp-zpanel fixed">
+      <div class="vp-zph">Workflow &middot; fixed path</div>
+      <div class="vp-psub">the code decides the route</div>
+      <div class="vp-chain">
+        <span class="vp-cbox">embed</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">vector search</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">rerank</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">fuse</span><span class="vp-carw">&rarr;</span>
+        <span class="vp-cbox">answer</span>
+      </div>
+      <div class="vp-znote">identical path, every run &middot; no dial for depth</div>
+    </div>
+    <div class="vp-zpanel dyn">
+      <div class="vp-zph">Harness &middot; the model steers</div>
+      <div class="vp-psub">the model decides the route</div>
+      <div class="vp-hub">
+        <div class="vp-hubnode">model chooses &#8635;</div>
+        <div class="vp-fan">
+          <span class="vp-sk">vector</span><span class="vp-sk">text</span><span class="vp-sk">hybrid</span>
+          <span class="vp-sk">transcription</span><span class="vp-sk">multimodal</span><span class="vp-sk">lookup</span>
+        </div>
+      </div>
+      <div class="vp-znote">observe results &middot; decide again &middot; until it answers</div>
+    </div>
+  </div>
+  <div class="vp-eqn compact">
+    <div class="vp-ebox model"><div class="lab">Model</div><div class="val">Gemini 3.1 Pro</div>
+      <div class="esub">stateless &middot; pluggable via LLM_PROVIDER</div></div>
+    <div class="vp-eop">+</div>
+    <div class="vp-ebox harnessb"><div class="lab">Harness</div><div class="val">everything except the reasoning</div>
+      <div class="vp-echips">
+        <span class="vp-c2">loop &middot; agent-loop.ts</span><span class="vp-c2">tool dispatch &middot; MCP</span>
+        <span class="vp-c2">memory &middot; pool</span><span class="vp-c2">context &middot; carryover</span>
+        <span class="vp-c2">guardrails &middot; verify</span><span class="vp-c2">state &middot; snapshots</span>
+      </div></div>
+    <div class="vp-eop">=</div>
+    <div class="vp-ebox agentb"><div class="lab">Agent</div><div class="val">the investigator</div>
+      <div class="esub">searches, refines, verifies, cites</div></div>
+  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>4 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead"><span class="eyebrow">The architecture</span>
     <h2>Agent = Model + Harness, mapped to the code.</h2></div>
   <div class="vp-dwrap"><svg class="vp-dia" viewBox="0 0 1160 580" role="img" aria-label="VIPP harness architecture: model plus harness equals agent, with an MCP tool server, six retrieval skills, and a run snapshot store, connected by a numbered loop.">
@@ -752,39 +809,7 @@
   <text class="vp-enum" x="766" y="437">&#9316;</text>
   <path d="M960,186 C960,560 156,560 156,362" fill="none" stroke="#a96a1f" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ar)"/>
   <text class="vp-elabel" x="558" y="552" text-anchor="middle" fill="#a96a1f">&#8635; observe results &middot; decide again &middot; until it answers (&le; 12 turns)</text>
-</svg></div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>4 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
-  <div class="sechead">
-    <span class="eyebrow">The tell: run the same probe twice</span>
-    <h2>A pipeline has no dial for depth. A harness is nothing but that dial.</h2>
-    <p>A workflow cannot vary its path, that is its whole virtue. This harness varies constantly, because the model
-      reads what it found and decides what is next.</p>
-  </div>
-  <div class="vp-twin">
-    <div class="vp-zpanel fixed">
-      <div class="vp-zph">Workflow &middot; fixed path</div>
-      <div class="vp-psub">the code decides the route</div>
-      <div class="vp-chain">
-        <span class="vp-cbox">embed</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">vector search</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">rerank</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">fuse</span><span class="vp-carw">&rarr;</span>
-        <span class="vp-cbox">answer</span>
-      </div>
-      <div class="vp-znote">identical path, every run &middot; no dial for depth</div>
-    </div>
-    <div class="vp-zpanel dyn">
-      <div class="vp-zph">Harness &middot; the model steers</div>
-      <div class="vp-psub">the model decides the route</div>
-      <div class="vp-hub">
-        <div class="vp-hubnode">model chooses &#8635;</div>
-        <div class="vp-fan">
-          <span class="vp-sk">vector</span><span class="vp-sk">text</span><span class="vp-sk">hybrid</span>
-          <span class="vp-sk">transcription</span><span class="vp-sk">multimodal</span><span class="vp-sk">lookup</span>
-        </div>
-      </div>
-      <div class="vp-znote">observe results &middot; decide again &middot; until it answers</div>
-    </div>
-  </div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>5 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
+</svg></div></div><div class="foot"><span>HARNESS ENGINEERING &middot; VIPP SEARCH HARNESS</span><span>5 / 10</span></div></div><div class="slide "><span class="brand">Globant<span>&rsaquo;</span></span><div class="body">
   <div class="sechead">
     <span class="eyebrow">The clean recursion</span>
     <h2>We used workflows to build the harness.</h2>
