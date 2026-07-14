@@ -329,18 +329,25 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 
 /* Top header band — navy bar with green logo, spans full width */
 .bp-band {
-  position: absolute; top: 0; left: 0; right: 0; height: 118px; z-index: 4;
+  position: absolute; top: 0; left: 0; right: 0; height: 88px; z-index: 4;
   background: var(--ink);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 60px 0 64px;
 }
-.bp-band__ttl { display: flex; flex-direction: column; gap: 3px; }
-.bp-band__eyebrow { font-size: 13px; letter-spacing: 0.16em; font-weight: 700; text-transform: uppercase; color: var(--green); }
-.bp-band__main { font-size: 27px; font-weight: 800; letter-spacing: -0.3px; color: #fff; line-height: 1.05; }
-.bp-band__logo { height: 24px; width: auto; }
+.bp-band__ttl { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding-right: 24px; }
+.bp-band__eyebrow { font-size: 12px; letter-spacing: 0.16em; font-weight: 700; text-transform: uppercase; color: var(--green); }
+.bp-band__main { font-size: 23px; font-weight: 800; letter-spacing: -0.3px; color: #fff; line-height: 1.08; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.bp-band__logo { height: 22px; width: auto; flex: none; }
 /* cards with a band push their content below it */
-.bp-card.has-band { padding-top: 150px; }
+.bp-card.has-band { padding-top: 104px; padding-bottom: 40px; }
 .bp-card.has-band .bp-logo { display: none; }
+/* keep band-card media within the reduced content area (no bleed over footer/frame) */
+.has-band .bp-split { padding: 2px 0; }
+.has-band .bp-half__img { max-height: 424px; }
+.has-band .bp-hero__media img { max-height: 356px; }
+.has-band .bp-fig { max-height: 424px; }
+.has-band .bp-stage { padding: 8px 0; }
+.has-band .bp-take { margin-top: 8px; }
 
 /* "Engineering" sub-brand lockup: two overlapping rounded parallelograms + wordmark */
 .bp-eng { display: inline-flex; align-items: center; gap: 12px; }
@@ -398,6 +405,9 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-duo__t { font-family: var(--mono); font-weight: 700; font-size: 13px; color: var(--green-deep); text-transform: uppercase; letter-spacing: .05em; text-align: center; }
 .bp-duo__fig { width: 100%; display: flex; justify-content: center; align-items: center; }
 .bp-duo__fig > svg, .bp-duo__fig > .bp-dia { width: 100%; height: auto; max-height: 400px; }
+.bp-duo.is-stacked { flex-direction: column; gap: 18px; }
+.bp-duo.is-stacked .bp-duo__col { flex: none; width: 100%; }
+.bp-duo.is-stacked .bp-duo__fig > svg, .bp-duo.is-stacked .bp-duo__fig > .bp-dia { max-height: 180px; }
 
 /* points — condensed bullet column for step slides */
 .bp-points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; text-align: left; width: 100%; }
