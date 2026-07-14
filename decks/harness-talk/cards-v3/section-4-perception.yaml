@@ -73,9 +73,14 @@ cards:
     title: "Context Anxiety"
     subtitle: "The model starts behaving as if context is scarce or unstable."
     takeaway: "Context management is a harness responsibility."
+    layout: hero
     visual:
-      kind: "failure_mode"
-      center: "context window ~ full"
-      items: ["rushing", "truncating", "over-summarizing", "forgetting constraints", "declaring done too early"]
+      kind: "image"
+      brief: >
+        Inside-the-helmet HUD view: fuel-gauge arc meter labeled CONTEXT WINDOW
+        with the needle near full/red, five green warning callouts around the
+        visor (RUSHING, TRUNCATING, SUMMARIZING, FORGETTING CONSTRAINTS, DONE
+        TOO EARLY), sloppy cut-off work visible through the visor. Labels
+        baked; blueprint green style. Asset = 4.7.png (label PIL-fixed).
     speaker: "Not just model weakness; unmanaged runtime state."
     status: "draft"
