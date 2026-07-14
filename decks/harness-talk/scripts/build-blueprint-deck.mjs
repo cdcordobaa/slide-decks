@@ -570,6 +570,7 @@ function main() {
   } else {
     if (opts.cover) makers.push((n, t) => cover(deck, n, t));
     for (const c of chosen) makers.push((n, t) => slide(c, n, t, false));
+    makers.push((n, t) => thanksSlide(n, t));
   }
   const total = makers.length;
   let n = 0;
