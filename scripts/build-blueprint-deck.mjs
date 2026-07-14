@@ -29,6 +29,14 @@ const logoTwo = (letters, arrow = "#bfd732") => "data:image/svg+xml;base64," +
 const LOGO_BRAND = logoTwo("#00292e");     // navy wordmark + green arrow — for the light board
 const LOGO_BRAND_REV = logoTwo("#ffffff"); // white wordmark + green arrow — for the navy band
 const LOGO_TAG = `<img class="bp-logo" src="${LOGO_BRAND}" alt="Globant">`;
+// Authentic brand PNGs extracted from the corporate Tech Talks PPTX.
+const pngURI = (f) => "data:image/png;base64," + fs.readFileSync(path.join(HERE, "..", "cards", "assets", f)).toString("base64");
+const LOGO_WHITE = pngURI("globant-white.png");
+const ENG_LOGO = pngURI("engineering-logo.png");
+const engLogo = (h = 30) => `<img class="bp-englogo" style="height:${h}px" src="${ENG_LOGO}" alt="Engineering">`;
+// Corporate structural bits (Tech Talks conventions in the green skin)
+const band = (eyebrow, main) => `<div class="bp-band"><div class="bp-band__ttl"><div class="bp-band__eyebrow">${esc(eyebrow)}</div><div class="bp-band__main">${esc(main)}</div></div><img class="bp-band__logo" src="${LOGO_BRAND_REV}" alt="Globant"></div>`;
+const conf = () => `<div class="bp-conf">Globant proprietary | Confidential information</div>`;
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const asList = (v) => (Array.isArray(v) ? v : v == null || v === "" ? [] : [v]);
@@ -37,13 +45,14 @@ const norm = (it) => (typeof it === "object" && it ? { label: it.label, caption:
 let CTX = { dir: ".", outDir: ".", assets: new Set() };
 
 function parseArgs(argv) {
-  const o = { dir: "cards", out: "build/harness-blueprint.html", all: false, ids: null, cover: true };
+  const o = { dir: "cards", out: "build/harness-blueprint.html", all: false, ids: null, cover: true, corporate: false };
   const rest = [];
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === "--out") o.out = argv[++i];
     else if (argv[i] === "--all") o.all = true;
     else if (argv[i] === "--ids") o.ids = argv[++i].split(",").map((s) => s.trim()).filter(Boolean);
     else if (argv[i] === "--no-cover") o.cover = false;
+    else if (argv[i] === "--corporate") o.corporate = true;
     else rest.push(argv[i]);
   }
   if (rest[0]) o.dir = rest[0];
@@ -83,13 +92,54 @@ function cover(deck, num, total) {
 }
 
 // ---------- SVG chrome (Globant navy) ----------
-function frameSVG() {
-  const corner = (x, y, sx, sy) => `<path d="M ${x} ${y + sy * 22} L ${x} ${y} L ${x + sx * 22} ${y}" fill="none" stroke="#00292e" stroke-width="1.6"/>`;
+function frameSVG(stroke = "#00292e") {
+  const corner = (x, y, sx, sy) => `<path d="M ${x} ${y + sy * 22} L ${x} ${y} L ${x + sx * 22} ${y}" fill="none" stroke="${stroke}" stroke-width="1.6"/>`;
   return `<svg class="bp-frame" viewBox="0 0 1280 720" preserveAspectRatio="none">
-    <rect x="20" y="20" width="1240" height="680" fill="none" stroke="#00292e" stroke-width="1.2" opacity="0.55"/>
+    <rect x="20" y="20" width="1240" height="680" fill="none" stroke="${stroke}" stroke-width="1.2" opacity="0.55"/>
     ${corner(34, 34, 1, 1)}${corner(1246, 34, -1, 1)}${corner(34, 686, 1, -1)}${corner(1246, 686, -1, -1)}
-    <rect x="628" y="694" width="24" height="12" fill="none" stroke="#00292e" stroke-width="1.2"/>
+    <rect x="628" y="694" width="24" height="12" fill="none" stroke="${stroke}" stroke-width="1.2"/>
   </svg>`;
+}
+
+// ---------- Corporate slide types (Tech Talks structure) ----------
+function coverCorporate(deck, num, total) {
+  return `<section class="slide bp bp-cover" aria-label="cover">
+    ${frameSVG()}${pageNo(num, total)}
+    <div style="margin-bottom:34px">${engLogo(34)}</div>
+    <div class="bp-cover__eyebrow">Tech Talks · Engineering</div>
+    <h1 class="bp-cover__title">${esc(deck.title ?? "Deck")}</h1>
+    <div class="bp-cover__rule"></div>
+    <p class="bp-cover__sub">${esc(deck.subtitle ?? "")}</p>
+    <div class="bp-cover__meta"><b>GLOBANT</b> &nbsp;//&nbsp; Harness Engineering</div>
+  </section>`;
+}
+
+function indexSlide(sections, num, total) {
+  const rows = sections.map((s, i) => `<div class="bp-index__row"><span class="bp-index__n">${i + 1}.</span><span class="bp-index__label">${esc(s.title)}</span></div>`).join("");
+  return `<section class="slide bp bp-card has-band" aria-label="index">
+    ${frameSVG()}${band("Presentation title", "Index")}${pageNo(num, total)}${conf()}
+    <div class="bp-index__grid">${rows}</div>
+  </section>`;
+}
+
+function dividerSlide(sec, num, total) {
+  return `<section class="slide bp bp-div" aria-label="§${esc(sec.id)} ${esc(sec.title)}">
+    ${frameSVG()}${pageNo(num, total)}${conf()}
+    <img class="bp-logo" src="${LOGO_BRAND}" alt="Globant">
+    <div class="bp-div__no">${String(sec.n).padStart(2, "0")}</div>
+    <div class="bp-div__eyebrow">Section</div>
+    <h2 class="bp-div__title">${esc(sec.title)}</h2>
+    <div class="bp-div__rule"></div>
+  </section>`;
+}
+
+function thanksSlide(num, total) {
+  return `<section class="slide bp bp-thanks is-dark" aria-label="thanks">
+    ${frameSVG("#8fb98a")}${pageNo(num, total)}
+    <div class="bp-thanks__eng"><span class="bp-eng-panel">${engLogo(34)}</span></div>
+    <div class="bp-thanks__msg">Thank <b>you</b></div>
+    <img class="bp-thanks__logo" src="${LOGO_WHITE}" alt="Globant">
+  </section>`;
 }
 
 // ---------- SVG tool loop (green pipes, navy modules, teal core) ----------
@@ -336,7 +386,7 @@ const points = (v) => `<ul class="bp-points">${asList(v.items).map(norm).map((it
 // duo — two figures side by side (keeps both slides' visuals when merging)
 function duo(v) {
   const col = (sv) => sv ? `<div class="bp-duo__col">${sv.title ? `<div class="bp-duo__t">${esc(sv.title)}</div>` : ""}<div class="bp-duo__fig">${(VIS[sv.kind] || (() => ""))(sv)}</div></div>` : "";
-  return `<div class="bp-duo">${col(v.left)}${col(v.right)}</div>`;
+  return `<div class="bp-duo${v.stacked ? " is-stacked" : ""}">${col(v.left)}${col(v.right)}</div>`;
 }
 
 // harness_loop — concentric "body + motion": MODEL core, HARNESS body ring, LOOP motion ring
@@ -408,13 +458,19 @@ function renderVisual(card) {
 }
 
 // ---------- slide ----------
-function slide(card, num, total) {
+function slide(card, num, total, corporate = false) {
   const sec = card._sec ?? {};
-  const eyebrow = `<div class="bp-eyebrow">§${esc(sec.id ?? "")} · ${esc((sec.title ?? "").toUpperCase())} · ${esc(card.id)}</div>`;
+  const secLabel = (sec.title ?? "").toUpperCase();
+  const eyebrow = `<div class="bp-eyebrow">§${esc(sec.id ?? "")} · ${esc(secLabel)} · ${esc(card.id)}</div>`;
   const title = `<h1 class="bp-h">${esc(card.title)}</h1>`;
   const sub = card.subtitle ? `<p class="bp-sub">${esc(card.subtitle)}</p>` : "";
   const take = card.takeaway ? `<div class="bp-take"><span>▸</span> ${esc(card.takeaway)}</div>` : "";
   const credit = `<div class="bp-credit">HARNESS ENGINEERING // ${esc(card.id)}</div>${pageNo(num, total)}`;
+  // In corporate mode the title is carried by the top band; add the confidential footer.
+  const foot = corporate ? conf() : "";
+  const chrome = corporate ? `${frameSVG()}${band(secLabel || "Presentation title", card.title)}` : `${frameSVG()}${LOGO_TAG}`;
+  const cls = corporate ? "bp-card has-band" : "bp-card";
+  const head = corporate ? sub : `${eyebrow}${title}${sub}`;
 
   if (card.layout === "full") {
     const src = path.join(CTX.dir, "assets", `${card.id}.png`);
@@ -433,11 +489,11 @@ function slide(card, num, total) {
     const cap = asList(card.caption).length
       ? `<div class="bp-hero__cap">${asList(card.caption).map((c) => `<span>${esc(c)}</span>`).join('<i>→</i>')}</div>`
       : "";
-    return `<section class="slide bp bp-card bp-hero" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
-    ${frameSVG()}${LOGO_TAG}
-    ${eyebrow}${title}
+    return `<section class="slide bp ${cls} bp-hero" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
+    ${chrome}
+    ${corporate ? "" : `${eyebrow}${title}`}
     <div class="bp-hero__media">${media}</div>
-    ${cap}${take}${credit}
+    ${cap}${take}${credit}${foot}
   </section>`;
   }
 
@@ -447,19 +503,19 @@ function slide(card, num, total) {
       : card.visual && card.visual.kind !== "image"
         ? `<div class="bp-split__dia">${renderVisual(card)}</div>`
         : "";
-    const content = `<div class="bp-half__content">${eyebrow}${title}${sub}${body}</div>`;
-    return `<section class="slide bp bp-card" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
-    ${frameSVG()}${LOGO_TAG}
+    const content = `<div class="bp-half__content">${corporate ? sub : `${eyebrow}${title}${sub}`}${body}</div>`;
+    return `<section class="slide bp ${cls}" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
+    ${chrome}
     <div class="bp-split${card.side === "image-left" ? " is-left" : ""}">${content}${splitMedia(card)}</div>
-    ${take}${credit}
+    ${take}${credit}${foot}
   </section>`;
   }
 
-  return `<section class="slide bp bp-card" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
-    ${frameSVG()}${LOGO_TAG}
-    ${eyebrow}${title}${sub}
+  return `<section class="slide bp ${cls}" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
+    ${chrome}
+    ${head}
     <div class="bp-stage">${renderVisual(card)}</div>
-    ${take}${credit}
+    ${take}${credit}${foot}
   </section>`;
 }
 
@@ -474,11 +530,22 @@ function main() {
   if (missing.length) console.error(`  ! not found: ${missing.join(", ")}`);
 
   const css = fs.readFileSync(THEME, "utf8");
-  const total = (opts.cover ? 1 : 0) + chosen.length;
+  // Build an ordered list of slide makers first, so page numbers can carry the true total.
+  const makers = [];
+  if (opts.corporate) {
+    // Distinct sections in first-appearance order (for Index + dividers).
+    const sections = []; const seen = new Set();
+    for (const c of chosen) { const s = c._sec ?? {}; const id = String(s.id ?? ""); if (!seen.has(id)) { seen.add(id); sections.push({ id, title: s.title ?? id, n: sections.length + 1 }); } }
+    if (opts.cover) makers.push((n, t) => coverCorporate(deck, n, t));
+    for (const c of chosen) makers.push((n, t) => slide(c, n, t, true));
+    makers.push((n, t) => thanksSlide(n, t));
+  } else {
+    if (opts.cover) makers.push((n, t) => cover(deck, n, t));
+    for (const c of chosen) makers.push((n, t) => slide(c, n, t, false));
+  }
+  const total = makers.length;
   let n = 0;
-  const slides = [];
-  if (opts.cover) slides.push(cover(deck, (n += 1), total));
-  for (const card of chosen) slides.push(slide(card, (n += 1), total));
+  const slides = makers.map((f) => f((n += 1), total));
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(deck.title ?? "Deck")} — Globant</title>
 <style>${css}</style></head><body><main class="deck">
 ${slides.join("\n")}
