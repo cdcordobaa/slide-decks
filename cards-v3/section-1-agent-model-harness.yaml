@@ -12,6 +12,7 @@ cards:
     takeaway: "No harness, no agent, the difference is not intelligence, it is runtime."
     visual:
       kind: "duo"
+      stacked: true
       left:
         title: "A model is not an agent"
         kind: "comparison"
