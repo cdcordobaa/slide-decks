@@ -13,7 +13,12 @@ main deck; the wrapper div uses display:contents so the main .deck grid still
 lays the inserted slides out like any other slide. Main CSS only targets
 .slide.bp, so it cannot leak into the case slides either.
 
-Usage: python3 scripts/stitch-v3-cases.py [insert_after]   (default 21)
+The one-slide client summaries 5.1 and 5.2 are dropped: the inserted case
+decks ARE those two products in full.
+
+Usage: python3 scripts/stitch-v3-cases.py [insert_after]
+       (default: right after L3 "From Spec to Loop", so the theory trio
+        L1-L3 leads into the two case studies)
 """
 import os, re, sys
 
@@ -21,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, ".."))
 P = lambda *p: os.path.join(ROOT, *p)
 
-INSERT_AFTER = int(sys.argv[1]) if len(sys.argv) > 1 else 21
+DROP = ("5.1 Client Project", "5.2 Client Project")
 
 v3 = open(P("build", "harness-v3.html")).read()
 proof = open(P("proof", "harness-proof-slides.html")).read()
@@ -71,6 +76,16 @@ sections = re.split(r'(?=<section class="slide)', v3)
 head, main_slides = sections[0], sections[1:]
 tail_m = re.search(r"(</main>.*)$", main_slides[-1], re.S)
 main_slides[-1], tail = main_slides[-1][: tail_m.start()], tail_m.group(1)
+
+label = lambda s: (re.search(r'aria-label="([^"]*)"', s) or [None, ""])[1]
+kept = [s for s in main_slides if not label(s).startswith(DROP)]
+assert len(kept) == len(main_slides) - len(DROP), "5.1/5.2 not found to drop"
+main_slides = kept
+
+if len(sys.argv) > 1:
+    INSERT_AFTER = int(sys.argv[1])
+else:
+    INSERT_AFTER = next(i for i, s in enumerate(main_slides, 1) if label(s).startswith("L3"))
 assert INSERT_AFTER < len(main_slides)
 
 # ---------- renumber per slide, then assemble ----------
