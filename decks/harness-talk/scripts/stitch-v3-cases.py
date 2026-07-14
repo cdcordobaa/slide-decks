@@ -32,7 +32,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, ".."))
 P = lambda *p: os.path.join(ROOT, *p)
 
-DROP = ("5.1 Client Project", "5.2 Client Project")
+DROP = ("5.1 Client Project", "5.2 Client Project", "7.2 ", "7.3 ", "7.4 ")
+STAR_NOTE = ('<div class="bp-thx-star">If you liked this presentation, remember to '
+             'give a star at <b>StartMeUp</b>.</div>')
 
 v3 = open(P("build", "harness-v3.html")).read()
 proof = open(P("proof", "harness-proof-slides.html")).read()
@@ -115,6 +117,32 @@ scoped += (
     + "\n".join(sy_keyframes) + "\n"
 )
 
+scoped += """
+/* ===== L1-L3 restyled black: the loop-engineering chapter opener ===== */
+.slide.bp.bp-dark {
+  --board:#060607; --paper:#060607; --ink:#f1f2ec; --steel:#15161a; --steel-top:#1f2b2e;
+  --steel-line:#2e2f2a; --line-strong:#e9ebe3; --green-deep:#bfd732; --cyan-deep:#bfd732;
+  --orange:#bfd732; --panel:#121216; --panel-2:#1a1a1f; --panel-green:rgba(191,215,50,.13);
+  --hatch:#1a1b17; --muted:#9a9c93; --muted-2:#6c6e66;
+  background-image:
+    linear-gradient(rgba(241,242,236,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(241,242,236,.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.bp-dark svg text[fill="#00292e"] { fill:#f1f2ec; }
+.bp-dark svg :is(rect,path,polygon,circle,ellipse,line)[stroke="#00292e"] { stroke:#7d867f; }
+.bp-dark svg :is(rect,polygon,circle,ellipse)[fill="#00292e"] { fill:#121216; }
+.bp-dark svg [fill="#f4f7ef"] { fill:#15161a; }
+.bp-dark svg text[fill="#1f7a3d"] { fill:#8fd460; }
+.bp-dark svg [stroke="#1f7a3d"] { stroke:#8fd460; }
+.bp-dark .bp-frame rect, .bp-dark .bp-frame path { stroke:#3f453a; }
+.bp-dark .bp-take { border-color: rgba(191,215,50,.35); }
+
+/* the star CTA on the thanks slide */
+.bp-thanks .bp-thx-star { margin-top: 20px; font-size: 21px; color: #9fb8a5; }
+.bp-thanks .bp-thx-star b { color: var(--green); font-weight: 700; }
+"""
+
 # ---------- assemble ----------
 sections = re.split(r'(?=<section class="slide)', v3)
 head, main_slides = sections[0], sections[1:]
@@ -123,20 +151,43 @@ main_slides[-1], tail = main_slides[-1][: tail_m.start()], tail_m.group(1)
 
 label = lambda s: (re.search(r'aria-label="([^"]*)"', s) or [None, ""])[1]
 kept = [s for s in main_slides if not label(s).startswith(DROP)]
-assert len(kept) == len(main_slides) - len(DROP), "5.1/5.2 not found to drop"
+assert len(kept) == len(main_slides) - len(DROP), "dropped-slide labels not all found"
 main_slides = kept
+
+# pull L1-L3 out: they become the dark loop-engineering chapter opener,
+# placed after the two harness cases and before the symphony slides
+loop_slides = [s for s in main_slides if label(s).startswith(("L1", "L2", "L3"))]
+assert len(loop_slides) == 3
+main_slides = [s for s in main_slides if s not in loop_slides]
+
+def darken(s):
+    s = s.replace('class="slide bp ', 'class="slide bp bp-dark ', 1)
+    m = re.search(r'(<img class="bp-(?:band__)?logo" src="data:image/svg\+xml;base64,)([^"]+)', s)
+    if m:  # navy wordmark -> light, for the black board
+        import base64
+        svg = base64.b64decode(m.group(2)).decode().replace("#00292e", "#f1f2ec")
+        s = s.replace(m.group(2), base64.b64encode(svg.encode()).decode())
+    return s
+loop_slides = [darken(s) for s in loop_slides]
+
+# the star CTA on the thanks slide
+main_slides = [
+    s.replace("</b></div>", "</b></div>" + STAR_NOTE, 1) if label(s) == "thanks" else s
+    for s in main_slides
+]
 
 if len(sys.argv) > 1:
     INSERT_AFTER = int(sys.argv[1])
 else:
-    INSERT_AFTER = next(i for i, s in enumerate(main_slides, 1) if label(s).startswith("L3"))
+    INSERT_AFTER = next(i for i, s in enumerate(main_slides, 1) if label(s).startswith("3.4"))
 assert INSERT_AFTER < len(main_slides)
 
 # ---------- renumber per slide, then assemble ----------
-total = len(main_slides) + len(proof_slides) + len(vipp_slides) + len(sy_slides)
+total = len(main_slides) + len(proof_slides) + len(vipp_slides) + len(loop_slides) + len(sy_slides)
 ordered = (
     [("bp", s) for s in main_slides[:INSERT_AFTER]]
     + [("case", s) for s in proof_slides + vipp_slides]
+    + [("bp", s) for s in loop_slides]
     + [("sy", s) for s in sy_slides]
     + [("bp", s) for s in main_slides[INSERT_AFTER:]]
 )
