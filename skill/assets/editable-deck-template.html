@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editable Slide Deck</title>
+  <style>
+    :root {
+      --paper: #fffdf6;
+      --ink: #102015;
+      --muted: #5f6b61;
+      --line: #d9ddd2;
+      --accent: #2f6f4e;
+      --accent-soft: #e1f2e6;
+      --gold: #c99b3d;
+      --slide-w: 1280px;
+      --slide-h: 720px;
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #edeee7;
+      color: var(--ink);
+    }
+
+    .edit-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 20px;
+      background: rgba(255, 253, 246, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .edit-toolbar p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .deck {
+      display: grid;
+      gap: 32px;
+      justify-items: center;
+      padding: 32px;
+    }
+
+    .slide {
+      position: relative;
+      width: var(--slide-w);
+      height: var(--slide-h);
+      overflow: hidden;
+      padding: 62px 72px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 18px 48px rgba(33, 39, 30, 0.16);
+    }
+
+    .slide:focus {
+      outline: 4px solid rgba(47, 111, 78, 0.28);
+      outline-offset: 8px;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 34px;
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .slide h1 {
+      max-width: 920px;
+      margin: 0 0 28px;
+      font-size: 58px;
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .slide h2 {
+      margin: 0 0 18px;
+      font-size: 30px;
+      line-height: 1.08;
+    }
+
+    .slide p,
+    .slide li {
+      font-size: 24px;
+      line-height: 1.34;
+    }
+
+    .slide p {
+      margin: 0 0 18px;
+    }
+
+    .slide ul {
+      margin: 0;
+      padding-left: 28px;
+    }
+
+    .slide li + li {
+      margin-top: 13px;
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      display: grid;
+      align-content: center;
+      height: 100%;
+    }
+
+    .hero-title h1 {
+      max-width: 980px;
+      font-size: 86px;
+      margin-bottom: 28px;
+    }
+
+    .subtitle {
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 31px;
+      line-height: 1.28;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      min-height: 170px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .card.highlight {
+      border-color: #c7dfcd;
+      background: var(--accent-soft);
+    }
+
+    .metric {
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-size: 54px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .bar-track {
+      height: 30px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f1f0e7;
+    }
+
+    .bar-fill {
+      width: 68%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .callout {
+      margin-top: 28px;
+      padding: 22px 28px;
+      border-left: 8px solid var(--accent);
+      border-radius: 8px;
+      background: var(--accent-soft);
+      font-size: 25px;
+      line-height: 1.28;
+      font-weight: 750;
+    }
+
+    .footer-note {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      bottom: 42px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.3;
+    }
+
+    @media print {
+      @page {
+        size: 13.333in 7.5in;
+        margin: 0;
+      }
+
+      body {
+        background: var(--paper);
+      }
+
+      .edit-toolbar {
+        display: none;
+      }
+
+      .deck {
+        display: block;
+        padding: 0;
+      }
+
+      .slide {
+        width: 13.333in;
+        height: 7.5in;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+      }
+
+      .slide:focus {
+        outline: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside class="edit-toolbar" contenteditable="false">
+    <p>Editable deck. Click slide text to revise. Save with File -> Save Page As... -> Webpage, Complete. Export with browser Print -> Save as PDF.</p>
+  </aside>
+
+  <main class="deck">
+    <section class="slide" contenteditable="true" spellcheck="true" aria-label="Slide 1 Title">
+      <div class="hero-title">
+        <p class="kicker">Presentation Title</p>
+        <h1>One clear promise or thesis goes here.</h1>
+        <p class="subtitle">A concise subtitle explains the audience, context, and reason to keep listening.</p>
+      </div>
+    </section>
+
+    <section class="slide" contenteditable="true" spellcheck="true" aria-label="Slide 2 Context">
+      <div class="slide-header">
+        <span>Context</span>
+        <span>02</span>
+      </div>
+      <h1>The audience needs to understand this shift.</h1>
+      <div class="grid">
+        <div class="card highlight">
+          <h2>What changed</h2>
+          <p>Use this panel for the external change, user pain, market force, or operational reality.</p>
+        </div>
+        <div class="card">
+          <h2>Why now</h2>
+          <p>Use this panel for timing, evidence, urgency, or the cost of staying still.</p>
+        </div>
+      </div>
+      <p class="footer-note">Replace footer notes with sources only when the deck needs visible citations.</p>
+    </section>
+
+    <section class="slide" contenteditable="true" spellcheck="true" aria-label="Slide 3 Main Idea">
+      <div class="slide-header">
+        <span>Main idea</span>
+        <span>03</span>
+      </div>
+      <h1>The solution is simple enough to remember.</h1>
+      <div class="grid three">
+        <div class="card">
+          <h2>Part one</h2>
+          <p>Describe one capability, argument, phase, or benefit.</p>
+        </div>
+        <div class="card highlight">
+          <h2>Part two</h2>
+          <p>Use the highlighted card for the most important piece.</p>
+        </div>
+        <div class="card">
+          <h2>Part three</h2>
+          <p>Close the set with a concrete result or differentiator.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" contenteditable="true" spellcheck="true" aria-label="Slide 4 Evidence">
+      <div class="slide-header">
+        <span>Evidence</span>
+        <span>04</span>
+      </div>
+      <h1>Show proof with numbers, artifacts, or named examples.</h1>
+      <div class="grid">
+        <div class="card">
+          <div class="metric">68%</div>
+          <p>Replace with a real metric, benchmark, or target clearly labeled.</p>
+        </div>
+        <div class="card">
+          <h2>Progress</h2>
+          <div class="bar-track" aria-label="Example progress bar">
+            <div class="bar-fill"></div>
+          </div>
+          <p style="margin-top:18px;">Use proportional charts when amounts need comparison.</p>
+        </div>
+      </div>
+      <div class="callout">The takeaway should be a sentence the presenter can say aloud.</div>
+    </section>
+
+    <section class="slide" contenteditable="true" spellcheck="true" aria-label="Slide 5 Close">
+      <div class="slide-header">
+        <span>Close</span>
+        <span>05</span>
+      </div>
+      <h1>End with the decision, next step, or memorable conclusion.</h1>
+      <ul>
+        <li>State what you want the audience to believe or do.</li>
+        <li>Name the next proof point, milestone, or action.</li>
+        <li>Remove anything that belongs in Q&A or an appendix.</li>
+      </ul>
+    </section>
+  </main>
+
+</body>
+</html>
