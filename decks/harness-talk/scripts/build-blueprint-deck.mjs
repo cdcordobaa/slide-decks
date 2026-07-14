@@ -493,11 +493,35 @@ function slide(card, num, total, corporate = false) {
     const cap = asList(card.caption).length
       ? `<div class="bp-hero__cap">${asList(card.caption).map((c) => `<span>${esc(c)}</span>`).join('<i>→</i>')}</div>`
       : "";
-    return `<section class="slide bp ${cls} bp-hero" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
+    // visual2 with `beside: true` (transfer only): flank the image — from-panel
+    // left, image center, to-panel right, and the via node as a thin strip
+    // below the image. Maximizes the illustration.
+    const v2 = card.visual2;
+    if (v2?.beside && v2.kind === "transfer") {
+      const strip = v2.via
+        ? `<div class="bp-hero__viastrip"><b>${esc(v2.via.label)}</b>${asList(v2.via.items).map((i) => `<span>${esc(i)}</span>`).join("<i>·</i>")}</div>`
+        : "";
+      return `<section class="slide bp ${cls} bp-hero" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
     ${chrome}
-    ${corporate ? "" : `${eyebrow}${title}`}
-    <div class="bp-hero__media">${media}</div>
+    ${corporate ? sub : `${eyebrow}${title}`}
+    <div class="bp-hero__flank">
+      ${xferCol(v2.from, "is-from")}
+      <div class="bp-hero__center"><div class="bp-hero__media">${media}</div>${strip}</div>
+      ${xferCol(v2.to, "is-to")}
+    </div>
     ${cap}${take}${credit}${foot}
+  </section>`;
+    }
+    // Optional coded diagram rendered under the hero image (e.g. the minimal
+    // spectrum line beneath the ladder illustration) — `visual2:` on the card.
+    const under = card.visual2 && VIS[card.visual2.kind]
+      ? `<div class="bp-hero__under">${VIS[card.visual2.kind](card.visual2, card)}</div>`
+      : "";
+    return `<section class="slide bp ${cls} bp-hero${under ? " has-under" : ""}" aria-label="${esc(card.id)} ${esc(card.name ?? "")}">
+    ${chrome}
+    ${corporate ? sub : `${eyebrow}${title}`}
+    <div class="bp-hero__media">${media}</div>
+    ${under}${cap}${take}${credit}${foot}
   </section>`;
   }
 

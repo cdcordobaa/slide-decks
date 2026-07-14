@@ -34,7 +34,7 @@ const TRANSPARENT_CLAUSE =
   " The subject must be isolated on a fully transparent background (PNG with real alpha channel). No background, no scene, no ground, no drop shadow — only the cut-out subject.";
 
 function parseArgs(argv) {
-  const o = { dir: "cards", only: null, force: false, dry: false, brief: null, out: null, transparent: false };
+  const o = { dir: "cards", only: null, force: false, dry: false, brief: null, out: null, transparent: false, aspect: null };
   const rest = [];
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
@@ -44,6 +44,8 @@ function parseArgs(argv) {
     else if (a === "--brief") o.brief = argv[++i];
     else if (a === "--out") o.out = argv[++i];
     else if (a === "--transparent") o.transparent = true;
+    else if (a === "--aspect") o.aspect = argv[++i];
+    else if (a === "--edit") o.edit = argv[++i];
     else rest.push(a);
   }
   if (rest[0]) o.dir = rest[0];
@@ -68,13 +70,21 @@ function collectImageCards(dir) {
   return out;
 }
 
-async function generate(model, key, prompt) {
+async function generate(model, key, prompt, aspect, editImage) {
+  // editImage: path to a PNG to revise in place (Gemini image editing) — the
+  // prompt then describes the fix, e.g. correcting one garbled label.
+  const reqParts = [];
+  if (editImage) reqParts.push({ inlineData: { mimeType: "image/png", data: fs.readFileSync(editImage).toString("base64") } });
+  reqParts.push({ text: prompt });
   const res = await fetch(`${API}/${model}:generateContent?key=${key}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { responseModalities: ["IMAGE"] },
+      contents: [{ parts: reqParts }],
+      generationConfig: {
+        responseModalities: ["IMAGE"],
+        ...(aspect ? { imageConfig: { aspectRatio: aspect } } : {}),
+      },
     }),
   });
   if (!res.ok) throw new Error(`Gemini ${res.status}: ${(await res.text()).slice(0, 400)}`);
@@ -97,8 +107,8 @@ async function main() {
     if (!key) { console.error("GEMINI_API_KEY not set (add to .env)."); process.exit(1); }
     const model = process.env.GEMINI_IMAGE_MODEL || "gemini-2.5-flash-image";
     const prompt = opts.brief + (opts.transparent ? TRANSPARENT_CLAUSE : "");
-    process.stdout.write(`• ad-hoc: generating ${opts.out} with ${model}${opts.transparent ? " (transparent)" : ""}… `);
-    const buf = await generate(model, key, prompt);
+    process.stdout.write(`• ad-hoc: generating ${opts.out} with ${model}${opts.transparent ? " (transparent)" : ""}${opts.aspect ? ` @${opts.aspect}` : ""}${opts.edit ? ` (editing ${opts.edit})` : ""}… `);
+    const buf = await generate(model, key, prompt, opts.aspect, opts.edit);
     fs.mkdirSync(path.dirname(path.resolve(opts.out)), { recursive: true });
     fs.writeFileSync(opts.out, buf);
     console.log(`saved (${Math.round(buf.length / 1024)} KB)`);

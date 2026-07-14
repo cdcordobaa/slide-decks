@@ -39,10 +39,22 @@ cards:
     name: "The Journey"
     type: "transition"
     title: "From being the harness to operating one"
-    subtitle: "We fire you from the runtime one responsibility at a time."
+    subtitle: "Judging is gambling. Reviewing is operating a system you designed."
+    layout: hero
     visual:
+      kind: "image"
+      brief: >
+        Three-stage transformation infographic: person pulling a slot-machine
+        lever (JUDGING OUTPUTS / slot-machine mode) → engineered navy machine
+        with funnel, dials, filter gates (ENGINEERED HARNESS / specs · tests ·
+        gates) → calm reviewer at a checklist console stamping approval
+        (REVIEWING WORK / controlled-output mode). Labels baked; blueprint
+        green style. Generated ad-hoc; asset = 0.4.png (label PIL-fixed).
+    # The responsibility detail restored under the illustration — the three
+    # columns line up with the three figures above (modes are baked in the art).
+    visual2:
       kind: "transfer"
-      caption: "one responsibility at a time"
+      beside: true  # panels flank the image; via renders as a thin strip below
       from:
         label: "Human-as-runtime"
         items:
@@ -50,13 +62,18 @@ cards:
           - "Run tools"
           - "Retry"
           - "Judge output"
+      via:
+        label: "Engineered harness"
+        items:
+          - "Specs + constraints"
+          - "Tests + gates"
       to:
-        label: "Human-as-operator"
+        label: "Human-as-reviewer / operator"
         items:
           - "Write specs"
           - "Set constraints"
-          - "Review output"
+          - "Review compliance"
           - "Improve the system"
-    takeaway: "This is a role change, not just a tool upgrade."
+    takeaway: "Review is not hope. Review is the human checkpoint in a system designed for compliance."
     speaker: "This is the promise. Transition straight into the technical definition (Section 1)."
     status: "ready"

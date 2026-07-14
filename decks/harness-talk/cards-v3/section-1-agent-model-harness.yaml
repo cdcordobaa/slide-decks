@@ -101,10 +101,15 @@ cards:
     title: "You don't pick the brain. You build the body."
     subtitle: "Everyone can rent the same model. Your leverage is the system around it."
     takeaway: "Harness engineering is where differentiation moves."
+    layout: hero
     visual:
-      kind: "fanout"
-      center: "Claude / GPT / Gemini"
-      items: ["Chat harness", "Code harness", "Orchestration harness"]
+      kind: "image"
+      brief: >
+        Hall-of-Armors diagram: one glowing brain in a hexagonal core (SAME
+        BRAIN) feeding three display bays via green conduits — slim
+        conversational suit (CHAT HARNESS), heavy tool-covered workshop suit
+        (CODE HARNESS), command suit with drones (ORCHESTRATION HARNESS).
+        Labels baked; blueprint green style. Asset = 1.5.png (label PIL-fixed).
     speaker: "The engineering punchline; say it cleanly."
     status: "draft"
 

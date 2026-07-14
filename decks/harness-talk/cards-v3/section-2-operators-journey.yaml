@@ -10,7 +10,18 @@ cards:
     title: "The operator's journey"
     subtitle: "Four ladder steps, each moves one more harness responsibility out of the human."
     takeaway: "This is a talk about changing your role, not just changing your tools."
+    layout: hero
     visual:
+      kind: "image"
+      brief: >
+        Four-stage hero progression (suit-up evolution chart): unarmored person at a
+        keyboard (PROMPTER) → powered exosuit hands-on (SUPERVISOR) → directing
+        drone-suits (ORCHESTRATOR) → mission-control fleet console (OPERATOR).
+        Labels + captions baked in the art, blueprint green style. Generated ad-hoc
+        (build/art-tests/ladder-v4.png, spelling edit-fixed); asset = 2.1.png.
+    # The original minimal continuum line, kept under the illustration —
+    # the line states the point, the image tells the story.
+    visual2:
       kind: "spectrum"
       stages:
         - { label: "Prompter", caption: "you are the whole harness" }
