@@ -1,0 +1,881 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Symphony x Claude Code — The Whole System</title>
+<style>
+  :root {
+    /* ---- Globant black ---- */
+    --bg: #060607;
+    --panel: #121216;
+    --panel-2: #1A1A1F;
+    --ink: #F1F2EC;
+    --muted: #9A9C93;
+    --faint: #6C6E66;
+    --line: #24252A;
+    --line-2: #3A3B41;
+    --amber: #EBA23E;
+    --amber-soft: rgba(235,162,62,.13);
+    --cyan: #5BC5DE;
+    --cyan-soft: rgba(91,197,222,.11);
+    --teal: #B4F03C;                 /* Globant green — the hero accent */
+    --teal-soft: rgba(180,240,60,.11);
+    --green: #35C88A;                /* proof / done — emerald */
+    --green-soft: rgba(53,200,138,.11);
+    --violet: #9B93E0;
+    --violet-soft: rgba(155,147,224,.11);
+    --red: #E06B5B;
+    --red-soft: rgba(224,107,91,.10);
+    --grid: rgba(180,240,60,.045);
+    /* map metaphor aliases */
+    --map: #0E1311; --spec: var(--cyan); --spec-soft: var(--cyan-soft);
+    --route: var(--amber); --pin: var(--red); --flag: var(--green); --compass: var(--violet);
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: #030304;
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 34px 0 44px;
+  }
+
+  /* ===== deck / slide framework ===== */
+  .slide {
+    position: relative;
+    width: 1280px; height: 720px;
+    margin: 0 auto 26px;
+    overflow: hidden;
+    background:
+      radial-gradient(1100px 560px at 82% -8%, rgba(180,240,60,.09), transparent 56%),
+      radial-gradient(1000px 520px at 8% 8%, rgba(91,197,222,.06), transparent 55%),
+      radial-gradient(900px 480px at 78% 100%, rgba(235,162,62,.06), transparent 60%),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      var(--bg);
+    background-size: auto, auto, auto, 40px 40px, 40px 40px, auto;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.55);
+    padding: 46px 58px 52px;
+    display: flex; flex-direction: column;
+  }
+  .slide .body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+
+  /* chrome */
+  .brand {
+    position: absolute; top: 28px; right: 56px; z-index: 6;
+    font-family: var(--mono); font-size: 18px; font-weight: 700;
+    letter-spacing: -.02em; color: var(--ink);
+  }
+  .brand .chev { color: var(--teal); font-weight: 700; }
+  .foot {
+    position: absolute; left: 58px; right: 58px; bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 10.5px; color: var(--faint);
+    letter-spacing: .16em; text-transform: uppercase;
+  }
+
+  /* ===== shared type ===== */
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--cyan); margin: 0 0 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--cyan); opacity: .7; }
+  .sec-label {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--teal); margin: 0 0 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sec-label::before { content: ""; width: 26px; height: 1px; background: var(--teal); opacity: .8; }
+  h1 { font-family: var(--mono); font-weight: 600; letter-spacing: -.01em; text-wrap: balance; }
+  h2 {
+    font-family: var(--mono); font-weight: 600; font-size: 29px;
+    letter-spacing: -.01em; margin: 0 0 8px; text-wrap: balance;
+  }
+  .sec-intro { color: var(--muted); margin: 0 0 20px; max-width: 96ch; font-size: 14.5px; }
+  code, .mono { font-family: var(--mono); }
+  .sec-intro code, p code { color: var(--amber); font-size: .9em; }
+
+  /* ===== cover ===== */
+  .slide.cover .body { justify-content: center; }
+  .slide.cover h1 { font-size: 52px; line-height: 1.05; margin: 0 0 22px; max-width: 24ch; }
+  .slide.cover h1 .eng { color: var(--teal); }
+  .slide.cover h1 .tgt { color: var(--cyan); }
+  .slide.cover .lede { font-size: 18px; color: var(--muted); margin: 0; max-width: 90ch; }
+  .slide.cover .lede strong { color: var(--ink); font-weight: 600; }
+  .slide.cover .lede .g { color: var(--teal); } .slide.cover .lede .c { color: var(--cyan); }
+  .statrow { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 30px; }
+  .chip {
+    font-family: var(--mono); font-size: 12.5px; color: var(--muted);
+    border: 1px solid var(--line-2); border-radius: 999px;
+    padding: 7px 14px; background: rgba(255,255,255,.02);
+  }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .chip.t { border-color: var(--teal); color: var(--teal); }
+  .chip.c { border-color: var(--cyan); color: var(--cyan); }
+  .chip.a { border-color: var(--amber); color: var(--amber); }
+
+  /* ===== diagram slides ===== */
+  .slide.diagram .body { justify-content: flex-start; }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center;
+    margin: 0 0 10px; padding: 10px 15px;
+    border: 1px solid var(--line); border-radius: 11px;
+    background: linear-gradient(180deg, rgba(255,255,255,.015), transparent);
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .02em; }
+  .swatch { width: 12px; height: 12px; border-radius: 4px; flex: none; }
+  .swatch.eng, .swatch.spec, .swatch.node-ext { background: var(--cyan-soft); border: 1.5px solid var(--cyan); }
+  .swatch.gl { background: var(--teal-soft); border: 1.5px solid var(--teal); }
+  .swatch.tgt { background: var(--cyan-soft); border: 1.5px solid var(--cyan); }
+  .swatch.agent, .swatch.node-agent, .swatch.work { background: var(--amber-soft); border: 1.5px solid var(--amber); }
+  .swatch.done, .swatch.gate { background: var(--green-soft); border: 1.5px solid var(--green); }
+  .swatch.meta { background: var(--violet-soft); border: 1.5px solid var(--violet); }
+  .swatch.harness, .swatch.node-orch { background: var(--panel-2); border: 1.5px solid var(--line-2); }
+  .swatch.rec { background: transparent; border: 1.5px dashed var(--amber); }
+  .lline { width: 20px; height: 0; flex: none; }
+  .lline.solid { border-top: 2px solid var(--amber); }
+  .lline.dashed { border-top: 2px dashed var(--amber); }
+  .lline.ext { border-top: 2px solid var(--cyan); }
+  .diagram-wrap { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .diagram-wrap svg { display: block; height: 100%; width: auto; max-width: 100%; }
+  .caption { font-family: var(--mono); font-size: 10.5px; color: var(--faint); letter-spacing: .02em; margin: 8px 2px 0; line-height: 1.5; }
+  .caption .mono { color: var(--muted); }
+  svg text { font-family: var(--mono); fill: var(--ink); }
+  .n-title { font-size: 14px; font-weight: 600; }
+  .n-sub { font-size: 11px; fill: var(--muted); }
+  .n-chip { font-size: 11px; fill: var(--muted); }
+  .e-label { font-size: 11px; fill: var(--muted); letter-spacing: .02em; }
+  .e-num { font-size: 12.5px; font-weight: 700; fill: var(--amber); }
+  .zone-title { font-size: 14px; font-weight: 700; letter-spacing: .02em; }
+  .zone-sub, .zone-label { font-size: 10.5px; fill: var(--faint); letter-spacing: .14em; }
+  .flow-dash { stroke-dasharray: 7 6; }
+  @media (prefers-reduced-motion: no-preference) {
+    .flow-anim { stroke-dasharray: 7 7; animation: dashmove 1.2s linear infinite; }
+    @keyframes dashmove { to { stroke-dashoffset: -28; } }
+  }
+
+  /* ===== cast: three zones ===== */
+  .zones { display: grid; grid-template-columns: 1.05fr 1fr 1fr; gap: 18px; }
+  .zone {
+    border: 1px solid var(--line); border-radius: 14px; padding: 20px 20px 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 45%), var(--panel);
+    display: flex; flex-direction: column;
+  }
+  .zone.eng { border-color: color-mix(in srgb, var(--teal) 55%, var(--line)); }
+  .zone.tgt { border-color: color-mix(in srgb, var(--cyan) 55%, var(--line)); }
+  .zone.brd { border-color: color-mix(in srgb, var(--cyan) 40%, var(--line)); }
+  .zone .zt { font-family: var(--mono); font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+  .zone.eng .zt { color: var(--teal); } .zone.tgt .zt, .zone.brd .zt { color: var(--cyan); }
+  .zone .zk { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); margin: 5px 0 15px; }
+  .part { border: 1px solid var(--line); border-radius: 9px; background: var(--panel-2); padding: 10px 13px; margin-bottom: 9px; }
+  .part .pn { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--ink); }
+  .zone.eng .part .pn { color: var(--teal); } .zone.tgt .part .pn { color: var(--cyan); }
+  .part .pd { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+  .zone .znote { font-family: var(--mono); font-size: 11px; color: var(--faint); margin-top: auto; padding-top: 10px; }
+  .zone .flow-line { font-family: var(--mono); font-size: 12px; color: var(--ink); line-height: 1.7; }
+  .zone .flow-line .st { color: var(--faint); }
+  .zone .flow-line.rw { color: var(--violet); }
+  .zone .wp { font-family: var(--mono); font-size: 12px; color: var(--amber); margin-top: 8px; }
+
+  /* ===== step grids ===== */
+  .phase-tag { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 0 0 8px; display: flex; align-items: center; gap: 10px; }
+  .phase-tag .pill { padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line-2); }
+  .phase-tag .pill.setup { color: var(--cyan); border-color: color-mix(in srgb, var(--cyan) 50%, var(--line)); }
+  .phase-tag .pill.loop { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); }
+  .steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .steps.cols4 { grid-template-columns: repeat(4, 1fr); }
+  .steps.cols5 { grid-template-columns: repeat(5, 1fr); }
+  .steps li {
+    counter-increment: step; border: 1px solid var(--line); border-radius: 12px;
+    background: var(--panel); padding: 14px 14px 12px; position: relative;
+  }
+  .steps li.setup { border-top: 2px solid var(--cyan); }
+  .steps li.loop { border-top: 2px solid var(--amber); }
+  .steps li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--amber); letter-spacing: .1em; display: block; margin-bottom: 7px;
+  }
+  .steps li.setup::before { color: var(--cyan); }
+  .steps h3 { font-family: var(--mono); font-size: 13.5px; margin: 0 0 5px; font-weight: 600; }
+  .steps p { margin: 0; font-size: 11.5px; color: var(--muted); line-height: 1.48; }
+  .steps code { font-family: var(--mono); color: var(--amber); font-size: .86em; }
+  .steps .file { display: block; margin-top: 9px; font-family: var(--mono); font-size: 10px; color: var(--faint); letter-spacing: .02em; word-break: break-all; }
+  .loopback {
+    margin-top: 14px; border: 1px dashed var(--line-2); border-radius: 12px;
+    padding: 13px 18px; font-size: 12.5px; color: var(--muted); background: var(--amber-soft);
+  }
+  .loopback strong { color: var(--amber); font-family: var(--mono); font-weight: 600; font-size: 11.5px; letter-spacing: .04em; }
+  .loopback em { color: var(--ink); font-style: normal; font-weight: 600; }
+
+  /* ===== lifecycle ===== */
+  .lifecycle { display: flex; align-items: stretch; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .state {
+    flex: 1 1 130px; border-radius: 10px; padding: 15px 14px 16px;
+    background: var(--panel); border: 1px solid var(--line); border-left-width: 3px; min-width: 130px;
+  }
+  .state .nm { font-family: var(--mono); font-size: 14px; font-weight: 600; }
+  .state .ds { font-size: 12px; color: var(--muted); margin-top: 6px; display: block; }
+  .state.backlog { border-left-color: var(--faint); opacity: .72; border-style: dashed; }
+  .state.todo { border-left-color: var(--cyan); }
+  .state.prog { border-left-color: var(--amber); }
+  .state.review { border-left-color: var(--violet); }
+  .state.merge { border-left-color: var(--green); }
+  .state.done { border-left-color: var(--green); background: rgba(53,200,138,.08); }
+  .arrowchar { align-self: center; color: var(--line-2); font-size: 20px; padding: 0 2px; }
+  .rework-note { margin-top: 22px; font-size: 14px; color: var(--muted); max-width: 100ch; }
+  .rework-note b { color: var(--red); }
+
+  /* ===== the swap callout ===== */
+  .swap {
+    border: 1px solid var(--line); border-left: 3px solid var(--teal); border-radius: 14px;
+    background: linear-gradient(180deg, var(--teal-soft), transparent 72%); padding: 26px 30px;
+  }
+  .swap ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 15px; }
+  .swap li { margin: 12px 0; line-height: 1.55; }
+  .swap li b { color: var(--ink); font-weight: 600; }
+  .swap li code { color: var(--amber); font-family: var(--mono); font-size: .85em; }
+  .swap .vestige { color: var(--amber); font-weight: 600; }
+
+  /* ===== ticket vs description ===== */
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 6px; }
+  .vpanel { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 24px 26px; }
+  .vpanel.ticket { border-top: 3px solid var(--violet); }
+  .vpanel.desc { border-top: 3px solid var(--cyan); }
+  .vpanel h3 { font-family: var(--mono); font-size: 15px; margin: 0 0 12px; }
+  .vpanel.ticket h3 { color: var(--violet); } .vpanel.desc h3 { color: var(--cyan); }
+  .vpanel p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+  .vpanel p b { color: var(--ink); font-weight: 600; }
+  .vpanel code { font-family: var(--mono); font-size: .85em; background: rgba(255,255,255,.05); padding: 1px 6px; border-radius: 5px; }
+  .vpanel .keyline { margin-top: 16px; font-family: var(--mono); font-size: 12.5px; }
+  .vpanel.ticket .keyline { color: var(--violet); } .vpanel.desc .keyline { color: var(--cyan); }
+
+  /* ===== tables ===== */
+  .table-scroll { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  thead th {
+    text-align: left; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em;
+    text-transform: uppercase; padding: 12px 16px; border-bottom: 1px solid var(--line-2);
+    background: var(--panel-2); color: var(--faint);
+  }
+  tbody td { padding: 10px 16px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--muted); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody td:first-child { font-weight: 600; color: var(--ink); }
+  tbody tr:hover td { background: rgba(255,255,255,.015); }
+  td code, td .m { font-family: var(--mono); font-size: 12px; }
+  td .spec-t { color: var(--cyan); } td .work-t { color: var(--amber); } td .meta-t { color: var(--violet); } td .gate-t { color: var(--green); }
+
+  /* ===== invariants / rails ===== */
+  .rails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 6px; }
+  .rail { border: 1px solid var(--line); border-left: 3px solid var(--red); border-radius: 12px; background: var(--panel); padding: 18px 20px; }
+  .rail .rn { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+  .rail .rd { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .rail .rd code { font-family: var(--mono); font-size: 11.5px; color: var(--amber); }
+
+  /* ===== the one rule ===== */
+  .slide.rule .body { justify-content: center; }
+  .rule-eq { display: grid; grid-template-columns: 1fr auto 1fr; gap: 22px; align-items: stretch; margin: 8px 0 26px; }
+  .rule-half { border: 1px solid var(--line); border-radius: 16px; padding: 30px 32px; background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 55%), var(--panel); }
+  .rule-half.git { border-left: 3px solid var(--teal); }
+  .rule-half.lin { border-left: 3px solid var(--cyan); }
+  .rule-half .rh { font-family: var(--mono); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 0 0 12px; }
+  .rule-half .rh em { color: var(--muted); font-style: normal; }
+  .rule-half .rbig { font-family: var(--mono); font-size: 30px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 12px; line-height: 1.1; }
+  .rule-half.git .rbig { color: var(--teal); }
+  .rule-half.lin .rbig { color: var(--cyan); }
+  .rule-half .rsub { font-size: 14px; color: var(--muted); margin: 0; }
+  .rule-half .rsub code { color: var(--ink); background: rgba(255,255,255,.05); padding: 1px 6px; border-radius: 5px; font-family: var(--mono); font-size: .85em; }
+  .rule-vs { align-self: center; font-family: var(--mono); font-size: 15px; color: var(--faint); letter-spacing: .1em; }
+  .never { text-align: center; font-family: var(--mono); font-size: 14px; color: var(--muted); border: 1px dashed var(--line-2); border-radius: 12px; padding: 16px 22px; background: var(--amber-soft); max-width: 82ch; margin: 0 auto; }
+  .never b { color: var(--amber); font-weight: 600; }
+
+  /* ===== three pillars ===== */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .pillar { border: 1px solid var(--line); border-radius: 14px; padding: 24px 24px 22px; background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 45%), var(--panel); }
+  .pillar .pidx { font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: .12em; }
+  .pillar .pt { font-family: var(--mono); font-size: 18px; font-weight: 600; margin: 10px 0 12px; letter-spacing: -.01em; }
+  .pillar:nth-child(1) .pt { color: var(--teal); }
+  .pillar:nth-child(2) .pt { color: var(--amber); }
+  .pillar:nth-child(3) .pt { color: var(--cyan); }
+  .pillar .pd { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.6; }
+  .pillar .pd em { color: var(--ink); font-style: normal; font-weight: 600; }
+
+  /* ===== the map metaphor ===== */
+  .place { font-size: 12px; fill: var(--spec); letter-spacing: .22em; opacity: .72; }
+  .m-title { font-size: 15px; fill: var(--spec); letter-spacing: .28em; font-weight: 600; }
+  .m-sub { font-size: 11px; fill: var(--faint); letter-spacing: .14em; }
+  .anno { font-size: 12px; fill: var(--ink); }
+  .anno-sub { font-size: 11px; fill: var(--muted); }
+  .lg { font-size: 11px; fill: var(--muted); }
+  .lg-title { font-size: 11px; fill: var(--faint); letter-spacing: .16em; }
+  .route-line { stroke: var(--route); stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-dasharray: 2 9; }
+  @media (prefers-reduced-motion: no-preference) {
+    .route-anim { animation: routemove 1.4s linear infinite; }
+    @keyframes routemove { to { stroke-dashoffset: -44; } }
+    .pulse { animation: mappulse 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+    @keyframes mappulse { 0%,100% { opacity: .5; } 50% { opacity: 0; transform: scale(1.9); } }
+  }
+  .invest { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 6px; }
+  .icard { border: 1px solid var(--line); border-radius: 14px; padding: 24px 26px; background: var(--panel); }
+  .icard.map-c { border-left: 3px solid var(--cyan); }
+  .icard.pin-c { border-left: 3px solid var(--red); }
+  .icard h3 { font-family: var(--mono); font-size: 15px; margin: 0 0 10px; }
+  .icard.map-c h3 { color: var(--cyan); } .icard.pin-c h3 { color: var(--red); }
+  .icard p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+  .icard p b { color: var(--ink); font-weight: 600; }
+  .icard code { font-family: var(--mono); font-size: .85em; color: var(--ink); background: rgba(255,255,255,.05); padding: 1px 6px; border-radius: 5px; }
+  .kicker { margin-top: 22px; border: 1px solid var(--line); border-left: 3px solid var(--amber); border-radius: 12px; background: linear-gradient(180deg, var(--amber-soft), transparent 75%); padding: 20px 26px; }
+  .kicker p { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.6; }
+  .kicker b { color: var(--ink); font-weight: 600; }
+
+  /* ===== print ===== */
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    body { padding: 0; background: #fff; }
+    .slide { width: 13.333in; height: 7.5in; margin: 0; border: 0; border-radius: 0; box-shadow: none; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; }
+  }
+</style>
+
+<div class="deck">
+
+  <!-- ============ 1 · COVER ============ -->
+  <section class="slide cover" aria-label="Cover">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="eyebrow">OpenAI Symphony &middot; a complete guide</p>
+      <h1>Symphony &times; Claude Code — the <span class="eng">Engine</span>, the <span class="tgt">Target</span>, and the loop between them</h1>
+      <p class="lede">A long-running orchestrator watches a <strong>Linear board</strong> for actionable tickets and, per ticket, spawns an autonomous <strong>Claude Code</strong> agent in an isolated workspace — driving it turn by turn to Done. Design lives in git as <strong>aidlc-docs</strong>; execution lives in Linear as tickets and the <strong>## Workpad</strong>.</p>
+      <div class="statrow">
+        <span class="chip t"><b>2</b> repos · engine + target</span>
+        <span class="chip a">Linear = the board</span>
+        <span class="chip a">Claude Code = the agent</span>
+        <span class="chip c"><code>claude -p</code> · stream-json</span>
+        <span class="chip">no DB · state rebuilt from Linear</span>
+      </div>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>1 / 9</span></div>
+  </section>
+
+  <!-- ============ 2 · THE WHOLE MAP ============ -->
+  <section class="slide diagram" aria-label="The whole map">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">The whole map</p>
+      <h2 style="margin-bottom:12px">Every moving part, and the loop that connects them</h2>
+      <div class="legend">
+        <span class="legend-item"><span class="swatch gl"></span>The Engine (symphony-claude)</span>
+        <span class="legend-item"><span class="swatch tgt"></span>The Target &amp; Linear</span>
+        <span class="legend-item"><span class="swatch agent"></span>Agent runtime (Claude Code)</span>
+        <span class="legend-item"><span class="swatch done"></span>Proof / done</span>
+        <span class="legend-item"><span class="lline solid"></span>happy path &#9312;&#8594;&#9319;</span>
+        <span class="legend-item"><span class="lline dashed"></span>authored / read-write / loop</span>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1240 880" role="img" aria-label="End-to-end diagram of Symphony with Claude Code.">
+          <defs>
+            <marker id="g-amber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--amber)"/></marker>
+            <marker id="g-amber-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10,0 L0,5 L10,10 z" fill="var(--amber)"/></marker>
+            <marker id="g-cyan" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+            <filter id="glow-teal" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#B4F03C" flood-opacity="0.30"/></filter>
+            <filter id="glow-cyan" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#5BC5DE" flood-opacity="0.30"/></filter>
+            <filter id="glow-amber" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#EBA23E" flood-opacity="0.32"/></filter>
+          </defs>
+          <path d="M1045,120 C1045,58 1010,40 870,40 L240,40 C200,40 185,92 185,150" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#g-amber)"/>
+          <text class="e-num" x="486" y="32">&#9312;</text>
+          <text class="e-label" x="500" y="32">npm start -- WORKFLOW.md</text>
+          <path class="flow-dash" d="M908,222 C860,214 828,196 802,186" fill="none" stroke="var(--cyan)" stroke-width="1.8" marker-end="url(#g-cyan)"/>
+          <text class="e-num" x="820" y="250" fill="var(--cyan)">&#9313;</text>
+          <text class="e-label" x="834" y="250" fill="var(--cyan)">authored as tickets</text>
+          <path d="M312,258 C384,250 424,214 468,200" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#g-amber)"/>
+          <text class="e-num" x="356" y="232">&#9314;</text>
+          <text class="e-label" x="370" y="232">poll Ready/Todo</text>
+          <path class="flow-dash" d="M470,236 C398,272 360,392 314,432" fill="none" stroke="var(--amber)" stroke-width="1.9" marker-end="url(#g-amber)"/>
+          <text class="e-num" x="356" y="350">&#9319;</text>
+          <text class="e-label" x="370" y="350">reconcile · loop</text>
+          <path d="M312,352 C362,424 392,540 446,586" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#g-amber)"/>
+          <text class="e-num" x="330" y="474">&#9315;</text>
+          <text class="e-label" x="344" y="474">clone + mcp.json</text>
+          <path d="M792,650 C832,640 862,610 890,590" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#g-amber)"/>
+          <text class="e-num" x="798" y="632">&#9316;</text>
+          <text class="e-label" x="812" y="632">spawn claude -p</text>
+          <path class="flow-dash flow-anim" d="M892,556 C762,536 702,420 702,274" fill="none" stroke="var(--amber)" stroke-width="2" marker-start="url(#g-amber-s)" marker-end="url(#g-amber)"/>
+          <text class="e-num" x="706" y="404">&#9317;</text>
+          <text class="e-label" x="720" y="404">workpad · state</text>
+          <text class="e-label" x="706" y="422" fill="var(--faint)">(linear_graphql)</text>
+          <path d="M902,762 C808,808 764,806 732,800" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#g-amber)"/>
+          <text class="e-num" x="800" y="792">&#9318;</text>
+          <text class="e-label" x="814" y="792">open PR</text>
+          <rect x="890" y="70" width="310" height="336" rx="16" fill="var(--cyan-soft)" stroke="var(--cyan)" stroke-width="1.7" filter="url(#glow-cyan)"/>
+          <text class="zone-title" x="910" y="100" fill="var(--cyan)">your-project-repo/</text>
+          <text class="zone-sub" x="910" y="117">THE TARGET</text>
+          <rect x="910" y="128" width="270" height="48" rx="9" fill="var(--panel-2)" stroke="var(--cyan)" stroke-width="1.5"/>
+          <text class="n-title" x="928" y="149" fill="var(--cyan)" font-size="13">WORKFLOW.md</text>
+          <text class="n-sub" x="928" y="166">config + agent manual</text>
+          <rect x="910" y="184" width="270" height="86" rx="9" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.4"/>
+          <text class="n-title" x="928" y="206" font-size="13">aidlc-docs/</text>
+          <text class="n-chip" x="1162" y="206" text-anchor="end" fill="var(--cyan)" font-size="10">the specs</text>
+          <text class="n-sub" x="928" y="226">inception · construction</text>
+          <text class="n-sub" x="928" y="245">aidlc-state · audit (design SoT)</text>
+          <rect x="910" y="280" width="128" height="44" rx="9" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.3"/>
+          <text class="n-sub" x="928" y="307" fill="var(--ink)">src/</text>
+          <rect x="1052" y="280" width="128" height="44" rx="9" fill="var(--panel-2)" stroke="var(--line)" stroke-width="1.3"/>
+          <text class="n-sub" x="1070" y="307" fill="var(--ink)">package.json</text>
+          <text class="n-chip" x="910" y="352" fill="var(--faint)">design lives in git &#8595;</text>
+          <rect x="40" y="150" width="292" height="404" rx="16" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.7" filter="url(#glow-teal)"/>
+          <text class="zone-title" x="60" y="180" fill="var(--teal)">symphony-claude/</text>
+          <text class="zone-sub" x="60" y="197">THE ENGINE · NODE.JS / TS</text>
+          <rect x="60" y="222" width="252" height="66" rx="10" fill="var(--panel-2)" stroke="var(--teal)" stroke-width="1.5"/>
+          <text class="n-title" x="78" y="248" fill="var(--teal)" font-size="13.5">Orchestrator</text>
+          <text class="n-sub" x="78" y="268">poll · concurrency · retries</text>
+          <rect x="60" y="308" width="252" height="66" rx="10" fill="var(--panel-2)" stroke="var(--teal)" stroke-width="1.5"/>
+          <text class="n-title" x="78" y="334" fill="var(--teal)" font-size="13.5">Agent Runtime</text>
+          <text class="n-sub" x="78" y="354">spawns claude -p (stream-json)</text>
+          <rect x="60" y="394" width="252" height="66" rx="10" fill="var(--panel-2)" stroke="var(--teal)" stroke-width="1.5"/>
+          <text class="n-title" x="78" y="420" fill="var(--teal)" font-size="13.5">State Reconciler</text>
+          <text class="n-sub" x="78" y="440">external state · recovery</text>
+          <text class="n-chip" x="60" y="490" fill="var(--faint)">+ Loader · Tracker · Workspace</text>
+          <text class="n-chip" x="60" y="512" fill="var(--faint)">no DB — state rebuilt from Linear</text>
+          <rect x="468" y="92" width="336" height="180" rx="14" fill="var(--cyan-soft)" stroke="var(--cyan)" stroke-width="1.6"/>
+          <text class="zone-title" x="490" y="122" fill="var(--cyan)" font-size="14">Linear — the board</text>
+          <text class="n-sub" x="490" y="141">execution lives here</text>
+          <line x1="490" y1="154" x2="782" y2="154" stroke="rgba(91,197,222,.28)" stroke-width="1"/>
+          <text class="n-chip" x="490" y="178">Ready &#8594; In Progress &#8594;</text>
+          <text class="n-chip" x="490" y="197">Human Review &#8594; Merging &#8594; Done</text>
+          <text class="n-chip" x="490" y="219" fill="var(--violet)">&#8634; Rework (human sends back)</text>
+          <text class="n-chip" x="490" y="248" fill="var(--amber)">## Workpad — the live plan</text>
+          <rect x="430" y="580" width="362" height="166" rx="14" fill="none" stroke="var(--line-2)" stroke-width="1.4" stroke-dasharray="3 5"/>
+          <text class="zone-sub" x="450" y="606" fill="var(--faint)">~/symphony-workspaces/ENG-142/</text>
+          <rect x="450" y="620" width="160" height="102" rx="10" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.4"/>
+          <text class="n-title" x="468" y="646" font-size="13">project code</text>
+          <text class="n-sub" x="468" y="666">git clone of</text>
+          <text class="n-sub" x="468" y="684">the target</text>
+          <text class="n-chip" x="468" y="708" fill="var(--faint)">incl. aidlc-docs</text>
+          <rect x="626" y="620" width="146" height="102" rx="10" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.4"/>
+          <text class="n-title" x="644" y="646" font-size="13">mcp.json</text>
+          <text class="n-sub" x="644" y="666">linear_graphql</text>
+          <text class="n-sub" x="644" y="684">MCP server</text>
+          <rect x="890" y="500" width="310" height="266" rx="15" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="2" filter="url(#glow-amber)"/>
+          <text class="zone-title" x="910" y="532" fill="var(--amber)">&#10216;/&#10217; Claude Code</text>
+          <text class="n-sub" x="910" y="551">the coding agent</text>
+          <line x1="910" y1="565" x2="1180" y2="565" stroke="rgba(235,162,62,.3)" stroke-width="1"/>
+          <text class="n-chip" x="910" y="590" fill="var(--ink)">reads: ticket + WORKFLOW manual</text>
+          <text class="n-chip" x="910" y="612" fill="var(--ink)">+ cloned repo (incl. aidlc-docs)</text>
+          <text class="n-chip" x="910" y="634" fill="var(--ink)">+ skills · linear_graphql (MCP)</text>
+          <line x1="910" y1="650" x2="1180" y2="650" stroke="rgba(235,162,62,.2)" stroke-width="1"/>
+          <text class="n-chip" x="910" y="675" fill="var(--amber)">derives ## Workpad</text>
+          <text class="n-chip" x="910" y="697" fill="var(--ink)">implements · proves via CI</text>
+          <text class="n-chip" x="910" y="734" fill="var(--faint)" font-size="10">runs inside the workspace</text>
+          <rect x="468" y="788" width="264" height="70" rx="12" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1.6"/>
+          <text class="zone-title" x="490" y="818" fill="var(--green)" font-size="14">GitHub — pull request</text>
+          <text class="n-sub" x="490" y="838">the proof of work · CI must pass</text>
+        </svg>
+      </div>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>2 / 9</span></div>
+  </section>
+
+  <!-- ============ 3 · THE CAST ============ -->
+  <section class="slide" aria-label="The cast">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">The cast</p>
+      <h2>Two repos, a board, and a runtime</h2>
+      <p class="sec-intro">Every part has one home. The <span style="color:var(--teal)">engine</span> runs the loop, the <span style="color:var(--cyan)">target</span> holds the code and its design, and <span style="color:var(--cyan)">Linear</span> is where the work is tracked.</p>
+      <div class="zones">
+        <div class="zone eng">
+          <div class="zt">symphony-claude/</div>
+          <div class="zk">The Engine · Node.js / TS</div>
+          <div class="part"><div class="pn">Orchestrator</div><div class="pd">poll · concurrency · retries</div></div>
+          <div class="part"><div class="pn">Agent Runtime</div><div class="pd">spawns <code>claude -p</code> (stream-json)</div></div>
+          <div class="part"><div class="pn">State Reconciler</div><div class="pd">external state · recovery</div></div>
+          <div class="znote">+ Loader · Tracker · Workspace<br>no DB — state rebuilt from Linear</div>
+        </div>
+        <div class="zone tgt">
+          <div class="zt">your-project-repo/</div>
+          <div class="zk">The Target</div>
+          <div class="part"><div class="pn">WORKFLOW.md</div><div class="pd">config + agent manual</div></div>
+          <div class="part"><div class="pn">aidlc-docs/</div><div class="pd">inception · construction · aidlc-state · audit — the design source of truth</div></div>
+          <div class="part"><div class="pn">src/ · package.json</div><div class="pd">the actual project code</div></div>
+          <div class="znote">design lives in git</div>
+        </div>
+        <div class="zone brd">
+          <div class="zt">Linear — the board</div>
+          <div class="zk">Execution lives here</div>
+          <div class="flow-line"><span class="st">Ready &#8594;</span> In Progress &#8594;<br>Human Review &#8594; Merging &#8594;<br><span style="color:var(--green)">Done</span></div>
+          <div class="flow-line rw" style="margin-top:12px">&#8634; Rework (human sends back)</div>
+          <div class="wp">## Workpad — the live plan</div>
+          <div class="znote">a ticket is the unit of work</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>3 / 9</span></div>
+  </section>
+
+  <!-- ============ 4 · EIGHT STEPS ============ -->
+  <section class="slide" aria-label="Eight steps">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">The narrative</p>
+      <h2>End to end, in eight steps</h2>
+      <div class="phase-tag">
+        <span class="pill setup">01–02 · setup &amp; planning</span>
+        <span class="pill loop">03–08 · the autonomous loop, per ticket</span>
+      </div>
+      <ol class="steps cols4">
+        <li class="setup"><h3>Boot</h3><p><code>npm start -- WORKFLOW.md</code> points the engine at the target's config + agent manual.</p></li>
+        <li class="setup"><h3>Plan</h3><p>During inception/construction, you + Claude Code write <code>aidlc-docs/</code> and author Linear tickets in Todo.</p></li>
+        <li class="loop"><h3>Poll</h3><p>The Orchestrator polls Linear for tickets in the configured active states.</p></li>
+        <li class="loop"><h3>Isolate</h3><p>Agent Runtime creates <code>~/symphony-workspaces/ENG-142/</code>, git-clones the target, writes <code>mcp.json</code>.</p></li>
+        <li class="loop"><h3>Spawn</h3><p>Launches <code>claude -p --output-format stream-json --mcp-config</code> inside the workspace.</p></li>
+        <li class="loop"><h3>Work</h3><p>Claude reads the ticket + repo (incl. aidlc-docs), derives the <code>## Workpad</code>, implements, moves the state.</p></li>
+        <li class="loop"><h3>Prove</h3><p>Opens a PR — CI is the proof of work — attaches it to the ticket, moves it to Human Review.</p></li>
+        <li class="loop"><h3>Reconcile</h3><p>The State Reconciler watches Linear; the loop resumes or stops when the ticket reaches Done.</p></li>
+      </ol>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>4 / 9</span></div>
+  </section>
+
+  <!-- ============ 5 · ARCHITECTURE DIAGRAM ============ -->
+  <section class="slide diagram" aria-label="Architecture">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">The engine, up close</p>
+      <h2 style="margin-bottom:12px">Orchestrator &#8594; Worker &#8594; Claude Code CLI</h2>
+      <div class="legend">
+        <span class="legend-item"><span class="swatch node-ext"></span>External service</span>
+        <span class="legend-item"><span class="swatch node-orch"></span>Orchestrator · your machine</span>
+        <span class="legend-item"><span class="swatch node-agent"></span>Agent runtime (Claude Code)</span>
+        <span class="legend-item"><span class="lline solid"></span>happy-path call</span>
+        <span class="legend-item"><span class="lline dashed"></span>feedback / stream</span>
+        <span class="legend-item"><span class="lline ext"></span>external call</span>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1100 600" role="img" aria-label="Symphony with Claude Code architecture diagram.">
+          <defs>
+            <marker id="ar-amber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--amber)"/></marker>
+            <marker id="ar-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--faint)"/></marker>
+            <marker id="ar-cyan" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+          </defs>
+          <path class="flow-dash flow-anim" d="M974,170 C974,66 936,20 812,20 L214,20 C152,20 145,64 145,120" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#ar-amber)"/>
+          <text class="e-label" x="548" y="14" text-anchor="middle" fill="var(--amber)">&#9315; update workpad · move issue state — linear_graphql (MCP)</text>
+          <path d="M405,102 C412,128 436,132 448,150" fill="none" stroke="var(--faint)" stroke-width="1.6" marker-end="url(#ar-muted)"/>
+          <text class="e-label" x="470" y="128">config + prompt</text>
+          <path d="M250,214 L318,226" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#ar-amber)"/>
+          <text class="e-num" x="270" y="205">&#9312;</text>
+          <text class="e-label" x="284" y="205">poll · fetch</text>
+          <path d="M360,398 C286,428 206,382 152,356" fill="none" stroke="var(--faint)" stroke-width="1.6" marker-end="url(#ar-muted)"/>
+          <text class="e-label" x="232" y="404">live state</text>
+          <path d="M582,226 L648,226" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#ar-amber)"/>
+          <text class="e-num" x="592" y="216">&#9313;</text>
+          <text class="e-label" x="606" y="216">dispatch</text>
+          <path d="M812,206 L882,206" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#ar-amber)"/>
+          <text class="e-num" x="820" y="197">&#9314;</text>
+          <text class="e-label" x="834" y="197">spawn claude -p</text>
+          <path class="flow-dash" d="M882,252 L814,252" fill="none" stroke="var(--faint)" stroke-width="1.8" marker-end="url(#ar-muted)"/>
+          <text class="e-label" x="848" y="270" text-anchor="middle">stream-json</text>
+          <path d="M730,282 L730,308" fill="none" stroke="var(--faint)" stroke-width="1.6" marker-end="url(#ar-muted)"/>
+          <text class="e-label" x="738" y="300">clone</text>
+          <path d="M810,352 C844,346 864,340 882,332" fill="none" stroke="var(--line-2)" stroke-width="1.4" marker-end="url(#ar-muted)"/>
+          <text class="e-label" x="812" y="372" fill="var(--faint)">cwd · mcp</text>
+          <path d="M944,400 C918,438 826,452 770,468" fill="none" stroke="var(--cyan)" stroke-width="1.8" marker-end="url(#ar-cyan)"/>
+          <text class="e-label" x="852" y="446" fill="var(--cyan)">inference</text>
+          <path d="M1006,400 C1010,432 992,450 984,466" fill="none" stroke="var(--cyan)" stroke-width="1.8" marker-end="url(#ar-cyan)"/>
+          <text class="e-label" x="1012" y="446" fill="var(--cyan)" text-anchor="middle">PRs · land</text>
+          <rect x="628" y="140" width="452" height="300" rx="16" fill="none" stroke="var(--line-2)" stroke-width="1.3" stroke-dasharray="3 5"/>
+          <text class="zone-label" x="648" y="160">SPAWNED PER ISSUE</text>
+          <rect x="300" y="42" width="210" height="60" rx="10" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <text class="n-title" x="318" y="70" font-size="13">WORKFLOW.md</text>
+          <text class="n-sub" x="318" y="88">YAML config + prompt template</text>
+          <rect x="40" y="120" width="210" height="180" rx="12" fill="var(--cyan-soft)" stroke="var(--cyan)" stroke-width="1.6"/>
+          <text class="n-title" x="60" y="150" fill="var(--cyan)">Linear</text>
+          <text class="n-sub" x="60" y="170">issue tracker — source of work</text>
+          <line x1="60" y1="184" x2="230" y2="184" stroke="var(--line-2)" stroke-width="1"/>
+          <text class="n-chip" x="60" y="206">active: Todo · In Progress</text>
+          <text class="n-chip" x="60" y="226">· Merging · Rework</text>
+          <text class="n-chip" x="60" y="252">terminal: Done · Canceled</text>
+          <text class="n-chip" x="60" y="280" fill="var(--faint)">## Workpad = live progress</text>
+          <rect x="40" y="336" width="210" height="96" rx="12" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.4"/>
+          <text class="n-title" x="60" y="366" font-size="13">Dashboards</text>
+          <text class="n-sub" x="60" y="386">TUI (terminal)</text>
+          <text class="n-sub" x="60" y="406">web :3000 · REST /api/v1</text>
+          <rect x="320" y="150" width="262" height="252" rx="14" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="2"/>
+          <text class="n-title" x="342" y="182" font-size="15.5">Orchestrator</text>
+          <text class="n-sub" x="342" y="200">long-running poll loop</text>
+          <line x1="342" y1="214" x2="560" y2="214" stroke="var(--line)" stroke-width="1"/>
+          <text class="n-chip" x="342" y="240">• tick every 5s &#8594; reconcile</text>
+          <text class="n-chip" x="342" y="264">• fetch + sort candidates</text>
+          <text class="n-chip" x="342" y="288">• dispatch (max_concurrent)</text>
+          <text class="n-chip" x="342" y="312">• claim / running / completed</text>
+          <text class="n-chip" x="342" y="336">• retry + exp. backoff</text>
+          <text class="n-chip" x="342" y="360">• stall detection</text>
+          <text class="n-chip" x="342" y="384" fill="var(--faint)">hot-reloads WORKFLOW.md</text>
+          <rect x="650" y="172" width="162" height="110" rx="12" fill="var(--panel)" stroke="var(--line-2)" stroke-width="1.6"/>
+          <text class="n-title" x="668" y="200" font-size="13.5">Worker</text>
+          <text class="n-sub" x="668" y="219">per-issue lifecycle</text>
+          <text class="n-chip" x="668" y="243">workspace &#8594; turns</text>
+          <text class="n-chip" x="668" y="263">&#8594; cleanup</text>
+          <rect x="650" y="310" width="162" height="100" rx="12" fill="var(--panel)" stroke="var(--line)" stroke-width="1.4"/>
+          <text class="n-title" x="668" y="338" font-size="13">Workspace</text>
+          <text class="n-sub" x="668" y="357">~/…/&lt;ISSUE&gt;</text>
+          <text class="n-chip" x="668" y="379">git clone (after_create)</text>
+          <text class="n-chip" x="668" y="398">.claude/mcp-config.json</text>
+          <rect x="884" y="172" width="180" height="228" rx="13" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="2"/>
+          <text class="n-title" x="902" y="200" fill="var(--amber)">Claude Code CLI</text>
+          <text class="n-sub" x="902" y="219">claude -p · autonomous</text>
+          <line x1="902" y1="232" x2="1046" y2="232" stroke="rgba(235,162,62,.35)" stroke-width="1"/>
+          <text class="n-chip" x="902" y="256">Bash · Edit · Read · Grep</text>
+          <text class="n-chip" x="902" y="280">skills: commit / push /</text>
+          <text class="n-chip" x="902" y="298">pull / land / linear</text>
+          <text class="n-chip" x="902" y="326" fill="var(--amber)">linear_graphql — MCP tool</text>
+          <line x1="902" y1="340" x2="1046" y2="340" stroke="rgba(235,162,62,.2)" stroke-width="1"/>
+          <text class="n-chip" x="902" y="364">--output-format</text>
+          <text class="n-chip" x="902" y="382" fill="var(--faint)">stream-json · --resume</text>
+          <rect x="650" y="468" width="204" height="92" rx="12" fill="var(--cyan-soft)" stroke="var(--cyan)" stroke-width="1.6"/>
+          <text class="n-title" x="670" y="497" fill="var(--cyan)" font-size="13.5">Anthropic</text>
+          <text class="n-sub" x="670" y="516">Claude models</text>
+          <text class="n-chip" x="670" y="539">subscription / API / Bedrock</text>
+          <rect x="874" y="468" width="190" height="92" rx="12" fill="var(--cyan-soft)" stroke="var(--cyan)" stroke-width="1.6"/>
+          <text class="n-title" x="894" y="497" fill="var(--cyan)" font-size="13.5">GitHub</text>
+          <text class="n-sub" x="894" y="516">branches · pull requests</text>
+          <text class="n-chip" x="894" y="539">via gh CLI</text>
+        </svg>
+      </div>
+      <p class="caption">Happy path &#9312;&#8594;&#9315; in amber. The orchestrator never talks to Claude's model directly — it drives the <span class="mono">claude</span> subprocess and reads its <span class="mono">stream-json</span> events; the agent reaches Linear/GitHub/Anthropic on its own.</p>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>5 / 9</span></div>
+  </section>
+
+  <!-- ============ 6 · LIFECYCLE ============ -->
+  <section class="slide" aria-label="How a ticket moves">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">Status map</p>
+      <h2>How a ticket moves</h2>
+      <p class="sec-intro">The Linear state is the program counter. The agent reads it to decide what to do, and writes it to hand off — to itself on the next turn, or to a human for review.</p>
+      <div class="lifecycle">
+        <div class="state backlog"><span class="nm">Backlog</span><span class="ds">ignored — wait for a human</span></div>
+        <span class="arrowchar">&#8594;</span>
+        <div class="state todo"><span class="nm">Todo</span><span class="ds">claimed &#8594; auto-move to In Progress</span></div>
+        <span class="arrowchar">&#8594;</span>
+        <div class="state prog"><span class="nm">In Progress</span><span class="ds">plan, implement, test, push</span></div>
+        <span class="arrowchar">&#8594;</span>
+        <div class="state review"><span class="nm">In Review</span><span class="ds">PR attached, awaiting human</span></div>
+        <span class="arrowchar">&#8594;</span>
+        <div class="state merge"><span class="nm">Merging</span><span class="ds">approved &#8594; run <span class="mono">land</span></span></div>
+        <span class="arrowchar">&#8594;</span>
+        <div class="state done"><span class="nm">Done</span><span class="ds">terminal — shut down</span></div>
+      </div>
+      <p class="rework-note"><b>Rework</b> is a branch off In Review: a reviewer requests changes, so the agent closes the PR, wipes the workpad, cuts a fresh branch from <span class="mono">origin/main</span>, and starts the loop over — a full reset, not a patch.</p>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>6 / 9</span></div>
+  </section>
+
+  <!-- ============ 7 · BEARINGS DIAGRAM ============ -->
+  <section class="slide diagram" aria-label="How the worker gets its bearings">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">Grounding</p>
+      <h2 style="margin-bottom:12px">How the worker gets its bearings</h2>
+      <div class="legend">
+        <span class="legend-item"><span class="swatch spec"></span>The task (ticket description)</span>
+        <span class="legend-item"><span class="swatch harness"></span>Harness-supplied context</span>
+        <span class="legend-item"><span class="swatch work"></span>Agent + its workpad instance</span>
+        <span class="legend-item"><span class="swatch rec"></span>Recommended — add if missing</span>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1100 560" role="img" aria-label="Prompt builder interpolates the ticket description into WORKFLOW.md; Claude Code auto-loads memory, skills and MCP; all assemble into the session context, from which the worker maintains the Workpad.">
+          <defs>
+            <marker id="ar2-amber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--amber)"/></marker>
+            <marker id="ar2-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--faint)"/></marker>
+          </defs>
+          <path d="M292,112 C322,112 336,130 350,140" fill="none" stroke="var(--faint)" stroke-width="1.5" marker-end="url(#ar2-muted)"/>
+          <text class="e-label" x="300" y="104">template</text>
+          <path d="M292,222 C320,206 334,190 350,180" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#ar2-amber)"/>
+          <text class="e-num" x="300" y="248">&#9312;</text>
+          <text class="e-label" x="314" y="248">interpolate</text>
+          <path d="M528,152 L578,152" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#ar2-amber)"/>
+          <text class="e-label" x="534" y="144">rendered prompt</text>
+          <path class="flow-dash" d="M292,336 C430,336 480,320 578,305" fill="none" stroke="var(--faint)" stroke-width="1.6" marker-end="url(#ar2-muted)"/>
+          <text class="e-label" x="404" y="326">auto-discovered</text>
+          <path d="M292,458 C445,458 505,432 600,414" fill="none" stroke="var(--faint)" stroke-width="1.6" marker-end="url(#ar2-muted)"/>
+          <text class="e-label" x="430" y="452">.claude/skills · MCP</text>
+          <path d="M842,250 L890,250" fill="none" stroke="var(--amber)" stroke-width="2.2" marker-end="url(#ar2-amber)"/>
+          <text class="e-num" x="850" y="242">&#9313;</text>
+          <text class="e-label" x="864" y="242">derive &amp; maintain</text>
+          <path class="flow-dash flow-anim" d="M890,224 L846,224" fill="none" stroke="var(--amber)" stroke-width="1.8" marker-end="url(#ar2-amber)"/>
+          <text class="e-label" x="868" y="216" text-anchor="middle">re-read each turn</text>
+          <rect x="40" y="70" width="252" height="96" rx="11" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.5"/>
+          <text class="n-title" x="60" y="98" font-size="13.5">WORKFLOW.md</text>
+          <text class="n-chip" x="278" y="98" text-anchor="end" fill="var(--faint)" font-size="10">operating manual</text>
+          <text class="n-chip" x="60" y="120">posture · status map</text>
+          <text class="n-chip" x="60" y="140">steps · guardrails</text>
+          <text class="n-chip" x="60" y="159" fill="var(--faint)">+ workpad template</text>
+          <rect x="40" y="190" width="252" height="78" rx="10" fill="var(--cyan-soft)" stroke="var(--cyan)" stroke-width="1.6"/>
+          <text class="n-title" x="60" y="216" fill="var(--cyan)" font-size="13.5">Ticket — description</text>
+          <text class="n-chip" x="278" y="216" text-anchor="end" fill="var(--cyan)" font-size="10">the task</text>
+          <text class="n-chip" x="60" y="238" fill="var(--ink)">goal + acceptance / validation</text>
+          <text class="n-chip" x="60" y="257" fill="var(--faint)">the spec, verbatim</text>
+          <rect x="40" y="292" width="252" height="96" rx="11" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <text class="n-title" x="60" y="320" font-size="12.5">CLAUDE.md / AGENTS.md</text>
+          <text class="n-chip" x="278" y="320" text-anchor="end" fill="var(--faint)" font-size="10">grounding</text>
+          <text class="n-chip" x="60" y="342">architecture · conventions</text>
+          <text class="n-chip" x="60" y="361">commands · how we work</text>
+          <text class="n-chip" x="60" y="380" fill="var(--amber)" font-size="10">recommended — add to repo</text>
+          <rect x="40" y="412" width="252" height="100" rx="11" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.5"/>
+          <text class="n-title" x="60" y="440" font-size="13.5">Capabilities</text>
+          <text class="n-chip" x="278" y="440" text-anchor="end" fill="var(--faint)" font-size="10">harness-supplied</text>
+          <text class="n-chip" x="60" y="462">skills: commit/push/pull/land</text>
+          <text class="n-chip" x="60" y="481" fill="var(--amber)">linear_graphql (MCP)</text>
+          <text class="n-chip" x="60" y="500">Bash · Edit · Read · Grep</text>
+          <rect x="352" y="112" width="176" height="100" rx="11" fill="var(--panel-2)" stroke="var(--line-2)" stroke-width="1.6"/>
+          <text class="n-title" x="370" y="140" font-size="13">Prompt builder</text>
+          <text class="n-sub" x="370" y="159">Liquid render · per turn</text>
+          <text class="n-chip" x="370" y="185" fill="var(--amber)">interpolate {{ issue.* }}</text>
+          <rect x="580" y="88" width="262" height="326" rx="13" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="2"/>
+          <text class="n-title" x="600" y="118" fill="var(--amber)">Claude Code session</text>
+          <text class="n-sub" x="600" y="137">assembled context window</text>
+          <line x1="600" y1="151" x2="822" y2="151" stroke="rgba(235,162,62,.3)" stroke-width="1"/>
+          <text class="n-chip" x="600" y="177" fill="var(--ink)">&#9656; system prompt</text>
+          <text class="n-chip" x="618" y="195" fill="var(--faint)" font-size="10">= manual + task</text>
+          <text class="n-chip" x="600" y="221" fill="var(--ink)">&#9656; project memory</text>
+          <text class="n-chip" x="618" y="239" fill="var(--faint)" font-size="10">= CLAUDE.md / AGENTS.md</text>
+          <text class="n-chip" x="600" y="265" fill="var(--ink)">&#9656; skills (/commit /push /land)</text>
+          <text class="n-chip" x="600" y="289" fill="var(--ink)">&#9656; tools: Bash/Edit/Read + MCP</text>
+          <line x1="600" y1="309" x2="822" y2="309" stroke="rgba(235,162,62,.3)" stroke-width="1"/>
+          <text class="n-chip" x="600" y="335" fill="var(--amber)">understands what it's doing:</text>
+          <text class="n-chip" x="600" y="354" fill="var(--faint)">the rules · the task · the project</text>
+          <text class="n-chip" x="600" y="392" fill="var(--faint)" font-size="10">(inside the cloned workspace)</text>
+          <rect x="892" y="150" width="190" height="214" rx="12" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.8"/>
+          <text class="n-title" x="912" y="178" fill="var(--amber)">## Workpad</text>
+          <text class="n-chip" x="1064" y="178" text-anchor="end" fill="var(--amber)" font-size="10">instance</text>
+          <text class="n-chip" x="912" y="199" fill="var(--ink)">the worker's plan / map</text>
+          <line x1="912" y1="213" x2="1062" y2="213" stroke="rgba(235,162,62,.28)" stroke-width="1"/>
+          <text class="n-chip" x="912" y="237">Plan (checklist)</text>
+          <text class="n-chip" x="912" y="259" fill="var(--green)">Acceptance · Validation</text>
+          <text class="n-chip" x="912" y="281">Notes · Confusions</text>
+          <text class="n-chip" x="912" y="322" fill="var(--faint)" font-size="10">kept current every turn</text>
+        </svg>
+      </div>
+      <p class="caption"><span style="color:var(--amber)">&#9312;</span> The prompt builder interpolates the ticket <span style="color:var(--cyan)">description</span> into the WORKFLOW.md template. Claude Code then auto-loads <span style="color:var(--ink)">project memory</span> (CLAUDE.md / AGENTS.md), skills, and linear_graphql from the cloned workspace. <span style="color:var(--amber)">&#9313;</span> From that assembled context the worker maintains the <span style="color:var(--amber)">## Workpad</span> — re-read and reconciled every turn.</p>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>7 / 9</span></div>
+  </section>
+
+  <!-- ============ 8 · THE MAPPING ============ -->
+  <section class="slide" aria-label="The mapping">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">The mapping</p>
+      <h2>How a spec becomes a ticket becomes execution</h2>
+      <p class="sec-intro">Each part of the spec lands in a specific ticket location, then gets projected into a specific workpad section — with a gate where one applies. This is the spec-driven contract the worker follows.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Spec element</th><th>Where on the ticket</th><th>Workpad section</th><th>Gate</th></tr></thead>
+          <tbody>
+            <tr><td>Intent / goal</td><td><span class="m spec-t">Description</span> body</td><td><span class="m work-t">Plan</span></td><td>—</td></tr>
+            <tr><td>Acceptance criteria</td><td><span class="m spec-t">Description</span> / derived</td><td><span class="m work-t">Acceptance Criteria</span></td><td><span class="gate-t">all checked</span></td></tr>
+            <tr><td>Test plan / validation</td><td><span class="m spec-t">Description</span> <code>Validation · Test Plan · Testing</code></td><td><span class="m work-t">Validation</span></td><td><span class="gate-t">green + no downgrade</span></td></tr>
+            <tr><td>Scope (one unit)</td><td>one <span class="m meta-t">ticket</span></td><td>whole workpad</td><td><span class="gate-t">one PR</span></td></tr>
+            <tr><td>Dependencies</td><td><span class="m meta-t">blockers / blockedBy</span></td><td>Plan notes</td><td>—</td></tr>
+            <tr><td>Stage / status</td><td><span class="m meta-t">state</span> field</td><td>(drives routing)</td><td><span class="gate-t">quality bar per state</span></td></tr>
+            <tr><td>Progress / handoff</td><td>—</td><td><span class="m work-t">Notes</span> + checklist</td><td>single workpad only</td></tr>
+            <tr><td>Result link</td><td><span class="m meta-t">PR attachment</span></td><td>—</td><td><span class="gate-t"><code>symphony</code> label</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>8 / 9</span></div>
+  </section>
+
+  <!-- ============ 9 · THE SPEC IS THE MAP ============ -->
+  <section class="slide diagram" aria-label="The spec is the map">
+    <span class="brand">Globant<span class="chev">&rsaquo;</span></span>
+    <div class="body">
+      <p class="sec-label">The one rule that anchors it all</p>
+      <h2 style="margin-bottom:10px">The spec is the <span style="color:var(--cyan)">map</span>; the ticket is a <span style="color:var(--red)">pin</span>. &mdash; <span style="color:var(--teal)">Design in git, execution in Linear.</span></h2>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1200 640" role="img" aria-label="A stylized map: the whole map is the specification, place-names are areas of the codebase, a compass is WORKFLOW.md, an amber route is the Workpad, green flags are acceptance and validation, the start marker is Claude Code, and a pin at the destination is the Linear ticket.">
+          <defs>
+            <marker id="route-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--route)"/></marker>
+            <pattern id="grid" width="46" height="46" patternUnits="userSpaceOnUse"><path d="M46,0 H0 V46" fill="none" stroke="#5BC5DE" stroke-opacity="0.05" stroke-width="1"/></pattern>
+            <clipPath id="mapclip"><rect x="16" y="16" width="1168" height="608" rx="18"/></clipPath>
+            <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#5BC5DE" flood-opacity="0.20"/></filter>
+          </defs>
+          <rect x="16" y="16" width="1168" height="608" rx="18" fill="var(--map)" stroke="var(--spec)" stroke-width="1.7" filter="url(#soft)"/>
+          <g clip-path="url(#mapclip)">
+            <rect x="16" y="16" width="1168" height="608" fill="url(#grid)"/>
+            <g fill="none" stroke="var(--spec)" stroke-opacity="0.16" stroke-width="1.1">
+              <ellipse cx="330" cy="360" rx="168" ry="120" transform="rotate(-14 330 360)"/>
+              <ellipse cx="330" cy="360" rx="120" ry="84" transform="rotate(-14 330 360)"/>
+              <ellipse cx="330" cy="360" rx="74" ry="50" transform="rotate(-14 330 360)"/>
+              <ellipse cx="878" cy="250" rx="178" ry="128" transform="rotate(18 878 250)"/>
+              <ellipse cx="878" cy="250" rx="126" ry="90" transform="rotate(18 878 250)"/>
+              <ellipse cx="878" cy="250" rx="76" ry="54" transform="rotate(18 878 250)"/>
+            </g>
+            <g>
+              <circle cx="288" cy="238" r="3" fill="var(--spec)" opacity="0.7"/><text class="place" x="300" y="242">AUTH</text>
+              <circle cx="270" cy="486" r="3" fill="var(--spec)" opacity="0.7"/><text class="place" x="282" y="490">CHECKOUT</text>
+              <circle cx="812" cy="196" r="3" fill="var(--spec)" opacity="0.7"/><text class="place" x="824" y="200">DATA LAYER</text>
+              <circle cx="656" cy="470" r="3" fill="var(--spec)" opacity="0.7"/><text class="place" x="668" y="474">API · SERVICES</text>
+              <circle cx="1000" cy="430" r="3" fill="var(--spec)" opacity="0.7"/><text class="place" x="1012" y="434">UI</text>
+            </g>
+            <text class="m-title" x="600" y="60" text-anchor="middle">THE PROJECT TERRITORY</text>
+            <text class="m-sub" x="600" y="80" text-anchor="middle">CHARTED BY THE SPECIFICATION · AI-DLC / OPENSPEC / AIDLC-DOCS</text>
+            <path class="route-line route-anim" marker-end="url(#route-arrow)" d="M182,516 C300,486 352,384 312,332 C282,292 360,262 470,286 C580,310 566,394 690,394 C808,394 822,288 900,256 C948,237 978,226 998,210"/>
+            <g>
+              <line x1="312" y1="332" x2="312" y2="306" stroke="var(--flag)" stroke-width="1.6"/>
+              <path d="M312,307 L332,313 L312,319 Z" fill="var(--flag)"/>
+              <text class="anno-sub" x="322" y="300" fill="var(--flag)">landmark · acceptance</text>
+              <line x1="690" y1="394" x2="690" y2="368" stroke="var(--flag)" stroke-width="1.6"/>
+              <path d="M690,369 L710,375 L690,381 Z" fill="var(--flag)"/>
+              <text class="anno-sub" x="700" y="362" fill="var(--flag)">landmark · validation (CI)</text>
+            </g>
+            <g>
+              <circle cx="182" cy="516" r="16" fill="none" stroke="var(--route)" stroke-width="1.4" opacity="0.5"/>
+              <circle cx="182" cy="516" r="7" fill="var(--route)"/>
+              <circle cx="182" cy="516" r="3" fill="var(--map)"/>
+              <text class="anno" x="150" y="556" fill="var(--route)">&#10216;/&#10217; Claude Code</text>
+              <text class="anno-sub" x="150" y="573">the traveler — starts here</text>
+            </g>
+            <g>
+              <circle cx="150" cy="150" r="36" fill="var(--map)" stroke="var(--compass)" stroke-width="1.5"/>
+              <circle cx="150" cy="150" r="26" fill="none" stroke="var(--compass)" stroke-width="0.8" opacity="0.5"/>
+              <path d="M150,120 L143,150 L157,150 Z" fill="var(--compass)"/>
+              <path d="M150,180 L143,150 L157,150 Z" fill="var(--compass)" opacity="0.35"/>
+              <text x="150" y="112" text-anchor="middle" font-size="10" fill="var(--compass)" font-weight="700">N</text>
+              <text class="anno" x="150" y="208" text-anchor="middle" fill="var(--compass)">WORKFLOW.md</text>
+              <text class="anno-sub" x="150" y="225" text-anchor="middle">compass · rules of travel</text>
+            </g>
+            <g>
+              <ellipse class="pulse" cx="998" cy="212" rx="10" ry="4" fill="var(--pin)"/>
+              <path d="M998,150 C1013,150 1024,161 1024,176 C1024,194 998,214 998,214 C998,214 972,194 972,176 C972,161 983,150 998,150 Z" fill="var(--pin)" stroke="#060607" stroke-width="1"/>
+              <circle cx="998" cy="175" r="6" fill="var(--map)"/>
+              <line x1="1024" y1="168" x2="1058" y2="150" stroke="var(--pin)" stroke-width="1" opacity="0.6"/>
+              <text class="anno" x="1170" y="150" text-anchor="end" fill="var(--pin)">THE TICKET</text>
+              <text class="anno-sub" x="1170" y="167" text-anchor="end">a hint: "it's over there"</text>
+              <text class="anno-sub" x="1170" y="184" text-anchor="end" fill="var(--flag)">arrive = PR + CI green</text>
+            </g>
+            <g>
+              <rect x="854" y="470" width="316" height="146" rx="11" fill="rgba(6,6,7,0.80)" stroke="var(--line-2)" stroke-width="1"/>
+              <text class="lg-title" x="872" y="494">THE MAP = THE SPEC (aidlc-docs)</text>
+              <text class="lg" x="872" y="518"><tspan fill="var(--spec)">&#9677;</tspan>  terrain — areas of the codebase</text>
+              <text class="lg" x="872" y="538"><tspan fill="var(--pin)">&#10005;</tspan>  pin — a Linear ticket (a hint)</text>
+              <text class="lg" x="872" y="558"><tspan fill="var(--route)">&#10239;</tspan>  route — the ## Workpad</text>
+              <text class="lg" x="872" y="578"><tspan fill="var(--flag)">&#9873;</tspan>  flag — acceptance / validation</text>
+              <text class="lg" x="872" y="598"><tspan fill="var(--compass)">&#10022;</tspan>  compass — WORKFLOW.md (rules)</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="caption">The whole frame is the <span style="color:var(--cyan)">map — the spec</span>, which lives in <b style="color:var(--ink)">git</b> (design: <span class="mono">aidlc-docs/</span>). The <span style="color:var(--red)">ticket</span> is the smallest thing on it: a pin, tracked in <b style="color:var(--ink)">Linear</b> (execution). The worker (<span style="color:var(--amber)">Claude Code</span>) reads the map, orients by the <span style="color:var(--violet)">compass (WORKFLOW.md)</span>, and traces a <span style="color:var(--amber)">route (the ## Workpad)</span> to the pin — confirming <span style="color:var(--green)">acceptance &amp; validation</span> landmarks. Never invert it: <b style="color:var(--ink)">design in git, state in Linear</b>.</p>
+    </div>
+    <div class="foot"><span>OpenAI Symphony · Harness Engineering</span><span>9 / 9</span></div>
+  </section>
+
+</div>
+</body></html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Slide Deck"
+  short_description: "Browser-editable HTML slide decks"
+  default_prompt: "Use $create-slide-deck to create a browser-editable HTML slide deck that can be saved with browser Save Page As and exported to PDF."
