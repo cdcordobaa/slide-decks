@@ -223,7 +223,11 @@ function equation(v) {
   return `<div class="bp-eq">${terms.map((t, i) => box(t) + (i < terms.length - 1 ? `<div class="bp-eq__op">${ops[i] ?? "+"}</div>` : "")).join("")}</div>`;
 }
 
-const transfer = (v) => `<div class="bp-xfer"><div class="bp-xfer__col"><h4>${esc(v.from?.label)}</h4><ul>${asList(v.from?.items).map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div><div class="bp-xfer__arw">→</div><div class="bp-xfer__col is-to"><h4>${esc(v.to?.label)}</h4><ul>${asList(v.to?.items).map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div></div>`;
+const xferCol = (node, cls = "") => node ? `<div class="bp-xfer__col ${cls}"><h4>${esc(node.label)}</h4><ul>${asList(node.items).map((i) => `<li>${esc(i)}</li>`).join("")}</ul>${node.tag ? `<div class="bp-xfer__tag">${esc(node.tag)}</div>` : ""}</div>` : "";
+const xferArw = `<div class="bp-xfer__arw">→</div>`;
+// transfer — from → [via] → to. The optional middle `via` node makes it a
+// three-stage flow (e.g. responsibilities landing in an engineered harness).
+const transfer = (v) => `<div class="bp-xfer${v.via ? " is-triple" : ""}">${xferCol(v.from, "is-from")}${xferArw}${v.via ? xferCol(v.via, "is-via") + xferArw : ""}${xferCol(v.to, "is-to")}</div>`;
 
 const fanout = (v) => `<div class="bp-fan"><div class="bp-fan__src">${esc(v.center)}</div><div class="bp-fan__arw">→</div><div class="bp-fan__tgts">${asList(v.items).map((i) => `<div class="bp-fan__t">${esc(i)}</div>`).join("")}</div></div>`;
 
@@ -546,7 +550,7 @@ function main() {
   const total = makers.length;
   let n = 0;
   const slides = makers.map((f) => f((n += 1), total));
-  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(deck.title ?? "Deck")} — Globant</title>
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(deck.title ?? "Deck")} · Globant</title>
 <style>${css}</style></head><body><main class="deck">
 ${slides.join("\n")}
 </main></body></html>`;

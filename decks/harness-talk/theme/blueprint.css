@@ -110,7 +110,7 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-stk__row { display: flex; align-items: center; gap: 14px; padding: 13px 18px; border: 1.5px solid var(--steel-line); border-radius: 8px; background: var(--panel); }
 .bp-stk__label { font-size: 21px; font-weight: 700; }
 .bp-stk__cap { font-size: 15px; color: var(--muted-2); }
-.bp-stk__cap::before { content: "— "; }
+.bp-stk__cap::before { content: "· "; }
 .bp-stk__tag { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--ink); border: 1px dashed var(--ink); border-radius: 999px; padding: 3px 10px; }
 .bp-stk__row.is-missing { border-style: dashed; border-color: var(--ink); background: repeating-linear-gradient(45deg, var(--panel), var(--panel) 9px, var(--hatch) 9px, var(--hatch) 18px); }
 
@@ -128,13 +128,26 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 .bp-eq__op { font-size: 34px; font-weight: 800; color: var(--green-deep); }
 
 /* transfer */
-.bp-xfer { display: grid; grid-template-columns: 1fr auto 1fr; gap: 22px; align-items: center; width: 100%; max-width: 1020px; }
-.bp-xfer__col { border: 1.5px solid var(--steel-line); border-radius: 14px; background: var(--panel); padding: 18px 22px; }
+.bp-xfer { display: grid; grid-template-columns: 1fr auto 1fr; gap: 22px; align-items: stretch; width: 100%; max-width: 1020px; }
+.bp-xfer.is-triple { grid-template-columns: 1fr auto 1fr auto 1fr; gap: 16px; max-width: 1180px; }
+.bp-xfer__col { border: 1.5px solid var(--steel-line); border-radius: 14px; background: var(--panel); padding: 18px 22px; display: flex; flex-direction: column; }
 .bp-xfer__col.is-to { border-color: var(--green-deep); background: rgba(191, 215, 50, 0.18); }
+/* reactive / uncertain — the human still doing the runtime by hand */
+.bp-xfer__col.is-from { border-style: dashed; border-color: var(--steel-line); background: rgba(0, 41, 46, 0.03); }
+/* engineered — responsibilities now live inside the harness */
+.bp-xfer__col.is-via { border-color: var(--green); background: var(--ink); align-self: center; }
+.bp-xfer__col.is-via h4 { color: #fff; }
+.bp-xfer__col.is-via li { color: rgba(255, 255, 255, 0.82); }
 .bp-xfer__col h4 { margin: 0 0 10px; font-size: 19px; }
+.bp-xfer.is-triple .bp-xfer__col h4 { font-size: 17px; }
 .bp-xfer__col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
 .bp-xfer__col li { font-size: 16px; color: var(--muted); font-family: var(--mono); }
-.bp-xfer__arw { font-size: 40px; color: var(--green-mid); }
+.bp-xfer.is-triple .bp-xfer__col li { font-size: 14px; }
+.bp-xfer__tag { margin-top: auto; padding-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.bp-xfer__col.is-to .bp-xfer__tag { color: var(--green-deep); }
+.bp-xfer__col.is-via .bp-xfer__tag { color: var(--green); }
+.bp-xfer__arw { font-size: 40px; color: var(--green-mid); align-self: center; }
+.bp-xfer.is-triple .bp-xfer__arw { font-size: 30px; }
 
 /* fanout */
 .bp-fan { display: grid; grid-template-columns: auto auto 1fr; gap: 20px; align-items: center; max-width: 980px; }
@@ -344,7 +357,7 @@ body { margin: 0; background: #cdd4c8; color: var(--ink); font-family: var(--mon
 /* keep band-card media within the reduced content area (no bleed over footer/frame) */
 .has-band .bp-split { padding: 2px 0; }
 .has-band .bp-half__img { max-height: 424px; }
-.has-band .bp-hero__media img { max-height: 356px; }
+.has-band .bp-hero__media img { max-height: 430px; }
 .has-band .bp-fig { max-height: 424px; }
 .has-band .bp-stage { padding: 8px 0; }
 .has-band .bp-take { margin-top: 8px; }
