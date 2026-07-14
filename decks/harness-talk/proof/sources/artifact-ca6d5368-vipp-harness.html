@@ -1,0 +1,1073 @@
+<!doctype html><html><head><!-- frame-runtime --><script>window.__FRAME_PREAMBLE={"capabilities":{"mcp":"mcp.BQqQVVN_.js","self":"self.DqF_PxOe.js"},"transforms":"_transforms.DYk1Ltlh.js"}</script><script>(function(){"use strict";const X="modulepreload",Y=function(e){return"/"+e},Z={},U=function(t,n,u){let o=Promise.resolve();function i(f){const a=new Event("vite:preloadError",{cancelable:!0});if(a.payload=f,window.dispatchEvent(a),!a.defaultPrevented)throw f}return o.then(f=>{for(const a of f||[])a.status==="rejected"&&i(a.reason);return t().catch(i)})},D=["light","dark","system"];function $(e){if(e==null||typeof e!="object")return!1;const t=e.__frame_init;return t!=null&&typeof t=="object"}function q(e){if(e==null||typeof e!="object")return!1;const t=e.__frame_theme;if(t==null||typeof t!="object")return!1;const n=t.theme;return typeof n=="string"&&D.includes(n)}function M(e){if(window===top||e.type==="auxclick"&&e.button!==1)return;const t=e.composedPath?e.composedPath():[e.target];let n=null;for(let f=0;f<t.length;f++){const a=t[f];if(a&&a.matches&&a.matches("a[href],area[href]")){n=a;break}}if(!n&&e.target&&e.target.closest&&(n=e.target.closest("a[href],area[href]")),!n)return;const u=n.getAttribute("href");if(!u)return;let o,i;try{o=new URL(u,document.baseURI),i=new URL(document.baseURI).origin}catch{return}(o.protocol==="http:"||o.protocol==="https:")&&o.origin!==i&&(e.preventDefault(),parent.postMessage({__frame_nav:!0,url:o.href},"*"))}const L={};function y(e){if(window===top)return;const t=Date.now();t-(L[e]||0)<500||(L[e]=t,parent.postMessage({__frame_engaged:!0,kind:e},"*"))}const F=2e3,T=["wheel","touchstart","touchmove","keydown","pointerdown"];let k=0;function B(e){e.isTrusted&&(k=Date.now())}function z(){addEventListener("click",M,!0),addEventListener("auxclick",M,!0)}function W(){for(let e=0;e<T.length;e++)addEventListener(T[e],B,{capture:!0,passive:!0});addEventListener("scroll",e=>{e.isTrusted&&Date.now()-k<F&&y("scroll")},{capture:!0,passive:!0}),addEventListener("pointermove",e=>{e.isTrusted&&y("pointer")},{capture:!0,passive:!0}),addEventListener("click",e=>{e.isTrusted&&y("click")},{capture:!0,passive:!0})}function x(e,t,n){const u=[...t.values()].filter(o=>o.targets.some(i=>i.startsWith(e+".")));return{wrap(o,i){const f=`${e}.${o}`,a=u.filter(s=>s.targets.includes(f));return a.length===0?(...s)=>{try{return i(...s)}catch(d){return Promise.reject(d)}}:(...s)=>{let d=s;for(const c of a){const l=c.module.parameters;if(l)try{d=l(d)}catch{return Promise.reject({code:"transform_error",id:c.id,scope:e,message:"parameters transform failed"})}}let m;try{m=i(...d)}catch(c){m=Promise.reject(c)}return m.then(c=>{for(let l=a.length-1;l>=0;l--){const h=a[l],p=h.module.returns;if(p)try{c=p(c)}catch{return n({id:h.id,scope:e,leg:"returns"}),c}}return c},c=>{for(let l=a.length-1;l>=0;l--){const h=a[l],p=h.module.throws;if(p)try{c=p(c)}catch{return n({id:h.id,scope:e,leg:"throws"}),Promise.reject(c)}}return Promise.reject(c)})}}}}function H(e,t,n,u=()=>{}){const o=new Set(e.changes??[]),i=new Map;for(const f of o){const a=t[f];a&&i.set(f,a)}return{contract:e.contract,changes:o,flags:new Set(e.flags??[]),capabilities:e.capabilities??{},transforms:i,shellOrigin:n.shellOrigin,mount:n.mount,pipe:f=>x(f,i,u)}}(function(){const e=Object.defineProperty,t=globalThis,n=["RTCPeerConnection","webkitRTCPeerConnection","RTCDataChannel","RTCIceCandidate","RTCSessionDescription","RTCRtpSender","RTCRtpReceiver"];let u=0;for(let o=0;o<n.length;o++){const i=n[o];try{e(t,i,{value:void 0,writable:!1,configurable:!1})}catch{try{delete t[i]}catch{}try{e(t,i,{value:void 0,writable:!1,configurable:!0})}catch{}}typeof t[i]=="function"&&u++}if(u&&window!==top)try{parent.postMessage({__frame_rtc_lockdown_failed:u},"*")}catch{}})();const K=1e4,G=Object.freeze([...window.__FRAME_PREAMBLE?.origins??["https://claude.ai","https://preview.claude.ai"]]);function J(e){for(const t of G)if(t.endsWith(":*"))try{const n=new URL(e);if(`${n.protocol}//${n.hostname}:*`===t)return!0}catch{}else if(e===t)return!0;return!1}const w=Object.freeze({...window.__FRAME_PREAMBLE?.capabilities??{}}),E=window.__FRAME_PREAMBLE?.transforms,C=/^[\w.-]+\.js$/,V=/^[a-z][a-z0-9_-]{0,63}$/;let A=null,g=null;function P(e,t,n){try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!1,enumerable:!0})}catch{try{Object.defineProperty(e,t,{value:n,writable:!1,configurable:!0,enumerable:!0})}catch{}}}let R=!1;function N(e){const t=document.documentElement;e==="light"||e==="dark"?(t.dataset.theme=e,t.style.colorScheme=e,R=!0):R&&(delete t.dataset.theme,t.style.colorScheme="",R=!1)}const _=new Map;function Q(e,t){const n=_.get(e);if(!n)return;Object.assign(n.impl,t),n.impl.__settled=()=>Promise.reject({code:"capability_removed",message:`${e}: method not in this runtime`});const u=n.queue;n.queue=[];for(const o of u){const i=t[o.method];i?i(...o.args).then(o.resolve,o.reject):o.reject({code:"capability_removed",message:`${e}.${o.method} is not in this runtime`})}}function O(e,t){const n=_.get(e);if(!n)return;n.impl.__settled=()=>Promise.reject(t);const u=n.queue;n.queue=[];for(const o of u)o.reject(t)}const j=Object.getOwnPropertyDescriptor(window,"claude");if(window!==top&&!(j&&j.writable===!1)){z(),W();const e=j?.value??{};P(window,"claude",e);const t=s=>{const d={impl:Object.create(null),queue:[]};_.set(s,d);const m=new Proxy(d.impl,{get:(c,l)=>{if(typeof l=="string"&&!(l==="then"||l==="toJSON"||l==="valueOf"))return l==="toString"?Object.prototype.toString:(...h)=>{const p=c[l]??c.__settled;return p?p(...h):new Promise((b,S)=>{d.queue.push({method:l,args:h,resolve:b,reject:S})})}},set:()=>!1});P(e,s,m)};for(const s of Object.keys(w)){if(e[s]!==void 0){P(e,s,e[s]);continue}t(s)}let n=null,u=null,o=0;const i=s=>{s.source!==parent||!J(s.origin)||$(s.data)&&(n=s.data.__frame_init,g=s.origin,removeEventListener("message",i),clearTimeout(o),u?.())};addEventListener("message",i),parent.postMessage({__frame_connect:!0},"*");const f=new Promise(s=>{u=s,o=setTimeout(()=>{removeEventListener("message",i),s()},K)}),a=document.readyState==="loading"?new Promise(s=>document.addEventListener("DOMContentLoaded",()=>s(),{once:!0})):Promise.resolve();f.then(async()=>{if(!n||!g){for(const r of _.keys())O(r,{code:"not_granted",message:"frame initialization did not arrive - capability unavailable"});return}N(n.theme);const s=g;addEventListener("message",r=>{r.source!==parent||r.origin!==s||q(r.data)&&N(r.data.__frame_theme.theme)});const d=r=>U(()=>import("/_runtime/"+r),void 0),m=Object.keys(n.capabilities??{});for(const r of m)Object.hasOwn(w,r)||V.test(r)&&e[r]===void 0&&(t(r),O(r,{code:"capability_disabled",message:"capability not in this runtime generation"}));const c=m.filter(r=>Object.hasOwn(w,r)).map(r=>[r,w[r]]).filter(r=>typeof r[1]=="string"&&C.test(r[1])),[l,...h]=await Promise.allSettled([E&&C.test(E)?d(E):Promise.resolve({}),...c.map(([,r])=>d(r))]),p=g;A=H(n,l.status==="fulfilled"&&l.value?.TRANSFORMS||{},{shellOrigin:p,mount:Q},r=>parent.postMessage({__frame_cap_telemetry:r},p));const b=r=>parent.postMessage({__frame_cap_telemetry:{kind:"cap-load-error",cap:r}},p),S=A;h.forEach((r,v)=>{const I=c[v][0];if(r.status!=="fulfilled"){b(I);return}try{r.value?.install?.(S)}catch{b(I)}});for(const[r,v]of _)v.queue.length===0&&Object.keys(v.impl).length>0||O(r,{code:m.includes(r)?"capability_disabled":"not_granted",message:"capability not available in this session"});await a,parent.postMessage({__frame_ready:!0},g)})}})();</script><!-- /frame-runtime --><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>VIPP Search Harness — An Agentic Harness for Retrieval</title>
+<style>
+  :root {
+    --signal: #0d8a9c;
+    --signal-ink: #0a6f7f;
+    --ground: #f6f7f9;
+    --surface: #ffffff;
+    --surface-2: #eef1f4;
+    --ink: #10161c;
+    --muted: #5a6672;
+    --faint: #8a97a3;
+    --hair: #dde3e8;
+    --hair-strong: #c4ccd4;
+    --ev-control: #6b7784;
+    --ev-thought: #7d74c9;
+    --ev-call: #0d8a9c;
+    --ev-result: #3fa96a;
+    --ev-error: #d15b5b;
+    --ev-final: #bd8a2c;
+    --code-bg: #eef1f4;
+    --shadow: 0 1px 2px rgba(16,22,28,.05), 0 8px 24px -16px rgba(16,22,28,.25);
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", Consolas, monospace;
+    --measure: 66ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --signal: #2ab5c9;
+      --signal-ink: #4fcbde;
+      --ground: #0c1116;
+      --surface: #131a21;
+      --surface-2: #1a232c;
+      --ink: #e6edf2;
+      --muted: #98a4b0;
+      --faint: #6a7682;
+      --hair: #232d36;
+      --hair-strong: #33404b;
+      --ev-control: #8895a2;
+      --ev-thought: #9b90e6;
+      --ev-call: #2ab5c9;
+      --ev-result: #57c088;
+      --ev-error: #e57373;
+      --ev-final: #d6a63f;
+      --code-bg: #0a0f14;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -18px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="light"] {
+    --signal: #0d8a9c; --signal-ink: #0a6f7f;
+    --ground: #f6f7f9; --surface: #ffffff; --surface-2: #eef1f4;
+    --ink: #10161c; --muted: #5a6672; --faint: #8a97a3;
+    --hair: #dde3e8; --hair-strong: #c4ccd4; --code-bg: #eef1f4;
+    --ev-control:#6b7784; --ev-thought:#7d74c9; --ev-call:#0d8a9c;
+    --ev-result:#3fa96a; --ev-error:#d15b5b; --ev-final:#bd8a2c;
+    --shadow: 0 1px 2px rgba(16,22,28,.05), 0 8px 24px -16px rgba(16,22,28,.25);
+  }
+  :root[data-theme="dark"] {
+    --signal: #2ab5c9; --signal-ink: #4fcbde;
+    --ground: #0c1116; --surface: #131a21; --surface-2: #1a232c;
+    --ink: #e6edf2; --muted: #98a4b0; --faint: #6a7682;
+    --hair: #232d36; --hair-strong: #33404b; --code-bg: #0a0f14;
+    --ev-control:#8895a2; --ev-thought:#9b90e6; --ev-call:#2ab5c9;
+    --ev-result:#57c088; --ev-error:#e57373; --ev-final:#d6a63f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -18px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 17px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  .col { max-width: var(--measure); }
+
+  /* ---- rhythm ---- */
+  section { padding: 60px 0; border-top: 1px solid var(--hair); }
+  section:first-of-type { border-top: 0; }
+  h1, h2, h3 { text-wrap: balance; letter-spacing: -.02em; line-height: 1.12; }
+  h2 { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2rem); font-weight: 800; margin: 0 0 .2em; }
+  h3 { font-size: 1.12rem; font-weight: 700; margin: 2.2em 0 .5em; letter-spacing: -.01em; }
+  p { margin: 0 0 1.05em; color: var(--ink); }
+  p.lede { font-size: 1.14rem; color: var(--muted); }
+  strong { font-weight: 650; }
+  a { color: var(--signal-ink); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--signal) 35%, transparent); }
+  a:hover { border-bottom-color: var(--signal); }
+  :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; border-radius: 3px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: .72rem; font-weight: 600;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--signal-ink);
+    margin: 0 0 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--signal); opacity: .8; }
+  code, .mono { font-family: var(--mono); font-size: .88em; }
+  p code, li code {
+    background: var(--code-bg); padding: .08em .38em; border-radius: 4px;
+    font-size: .82em; border: 1px solid var(--hair);
+  }
+
+  /* ---- header ---- */
+  header.top { padding: 68px 0 8px; }
+  .kicker { font-family: var(--mono); font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: var(--faint); margin-bottom: 20px; }
+  h1 { font-size: clamp(2.1rem, 1.4rem + 3.2vw, 3.35rem); font-weight: 820; margin: 0 0 .35em; }
+  h1 .hl { color: var(--signal-ink); }
+  .sub { font-size: 1.24rem; line-height: 1.5; color: var(--muted); max-width: 42ch; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 30px;
+    font-family: var(--mono); font-size: .76rem;
+  }
+  .chip {
+    border: 1px solid var(--hair-strong); border-radius: 999px;
+    padding: 5px 12px; color: var(--muted); background: var(--surface);
+  }
+  .chip b { color: var(--ink); font-weight: 650; }
+
+  /* ---- callout ---- */
+  .thesis {
+    margin: 34px 0 0; padding: 24px 26px; background: var(--surface);
+    border: 1px solid var(--hair); border-left: 3px solid var(--signal);
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .thesis p { margin: 0; font-size: 1.06rem; }
+  .thesis p + p { margin-top: .7em; }
+
+  /* ---- generic diagram band ---- */
+  .band { margin: 26px 0 8px; }
+  .scroll { overflow-x: auto; padding-bottom: 6px; }
+  .figcap {
+    font-family: var(--mono); font-size: .74rem; color: var(--faint);
+    letter-spacing: .04em; margin-top: 14px; display: flex; gap: 8px; align-items: baseline;
+  }
+  .figcap b { color: var(--muted); font-weight: 600; }
+
+  /* node card primitive */
+  .node {
+    background: var(--surface); border: 1px solid var(--hair-strong);
+    border-radius: 9px; padding: 13px 15px; box-shadow: var(--shadow);
+  }
+  .node .nlabel { font-family: var(--mono); font-size: .74rem; font-weight: 650; letter-spacing: .02em; }
+  .node .ndesc { font-size: .82rem; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+  .node.sig { border-color: color-mix(in srgb, var(--signal) 55%, var(--hair-strong)); }
+  .node.sig .nlabel { color: var(--signal-ink); }
+  .tier-tag {
+    font-family: var(--mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--faint); writing-mode: vertical-rl; transform: rotate(180deg);
+    align-self: center; padding: 4px 0;
+  }
+
+  /* ---- STACK diagram ---- */
+  .stack { display: grid; gap: 14px; min-width: 640px; }
+  .layer {
+    display: grid; grid-template-columns: 26px 1fr; gap: 14px; align-items: stretch;
+  }
+  .layer .body {
+    background: var(--surface); border: 1px solid var(--hair); border-radius: 11px;
+    padding: 15px 17px; box-shadow: var(--shadow);
+  }
+  .layer .body.client { border-top: 3px solid var(--ev-thought); }
+  .layer .body.server { border-top: 3px solid var(--signal); }
+  .layer .body.data { border-top: 3px solid var(--ev-final); }
+  .layer h4 { margin: 0 0 4px; font-family: var(--mono); font-size: .8rem; font-weight: 650; letter-spacing: .02em; }
+  .layer .who { font-size: .78rem; color: var(--faint); font-family: var(--mono); }
+  .parts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+  .part {
+    font-family: var(--mono); font-size: .74rem; color: var(--muted);
+    background: var(--surface-2); border: 1px solid var(--hair); border-radius: 6px; padding: 4px 9px;
+  }
+  .conn {
+    text-align: center; font-family: var(--mono); font-size: .72rem; color: var(--muted);
+    padding: 2px 0; display: flex; align-items: center; gap: 10px; justify-content: center;
+  }
+  .conn::before, .conn::after { content: ""; height: 1px; flex: 1; max-width: 120px; background: var(--hair-strong); }
+  .conn .dir { color: var(--signal-ink); }
+  .boundary {
+    display: flex; align-items: center; gap: 12px; margin: 4px 0; padding: 0 6px;
+    font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--faint);
+  }
+  .boundary::before, .boundary::after { content: ""; flex: 1; border-top: 1px dashed var(--hair-strong); }
+
+  /* ---- LOOP diagram (hero) ---- */
+  .loop-figure {
+    background: var(--surface); border: 1px solid var(--hair); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 30px 24px 24px; position: relative; overflow: hidden;
+  }
+  .loop-figure::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 60% at 50% -8%, color-mix(in srgb, var(--signal) 8%, transparent), transparent 60%);
+    pointer-events: none;
+  }
+  .loop-grid {
+    position: relative; display: grid; gap: 0; justify-items: center; min-width: 560px;
+  }
+  .lnode {
+    position: relative; z-index: 2; background: var(--surface);
+    border: 1px solid var(--hair-strong); border-radius: 10px; padding: 12px 18px;
+    text-align: center; box-shadow: var(--shadow); min-width: 250px;
+  }
+  .lnode .k { font-family: var(--mono); font-size: .8rem; font-weight: 650; }
+  .lnode .d { font-size: .8rem; color: var(--muted); margin-top: 3px; }
+  .lnode.entry { border-color: var(--ev-control); }
+  .lnode.entry .k { color: var(--ev-control); }
+  .lnode.brain { border-color: var(--signal); background: color-mix(in srgb, var(--signal) 6%, var(--surface)); }
+  .lnode.brain .k { color: var(--signal-ink); }
+  .larrow {
+    z-index: 2; width: 1px; height: 26px; background: var(--hair-strong); position: relative;
+  }
+  .larrow::after {
+    content: ""; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
+    border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 6px solid var(--hair-strong);
+  }
+  .larrow .tag {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    font-family: var(--mono); font-size: .68rem; color: var(--faint); white-space: nowrap;
+  }
+  .branch {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 22px; width: 100%; max-width: 560px;
+    margin-top: 4px;
+  }
+  .branch .col-b { display: grid; justify-items: center; gap: 0; }
+  .blabel {
+    font-family: var(--mono); font-size: .72rem; font-weight: 650; padding: 4px 10px; border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .blabel.a { color: var(--ev-call); background: color-mix(in srgb, var(--ev-call) 12%, transparent); border: 1px solid color-mix(in srgb, var(--ev-call) 40%, transparent); }
+  .blabel.b { color: var(--ev-final); background: color-mix(in srgb, var(--ev-final) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ev-final) 45%, transparent); }
+  .toolseq { display: grid; gap: 8px; width: 100%; }
+  .seqrow {
+    display: flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: .74rem;
+    background: var(--surface-2); border: 1px solid var(--hair); border-radius: 7px; padding: 8px 11px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+  .return-note {
+    margin-top: 16px; text-align: center; font-family: var(--mono); font-size: .72rem; color: var(--muted);
+    border-top: 1px dashed var(--hair-strong); padding-top: 14px;
+  }
+  .return-note .loopback { color: var(--signal-ink); }
+  .bounded {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
+    font-family: var(--mono); font-size: .72rem; color: var(--muted);
+    background: var(--surface-2); border: 1px solid var(--hair); border-radius: 999px; padding: 5px 13px;
+  }
+
+  /* ---- explicit flowchart ---- */
+  .flow { min-width: 500px; max-width: 560px; margin: 0 auto; position: relative; display: flex; flex-direction: column; align-items: center; }
+  .fnode {
+    position: relative; z-index: 2; width: 100%; background: var(--surface);
+    border: 1px solid var(--hair-strong); border-radius: 9px; padding: 11px 15px;
+    box-shadow: var(--shadow);
+  }
+  .fnode .head { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+  .fnode .op { font-family: var(--mono); font-size: .8rem; font-weight: 650; color: var(--ink); }
+  .fnode .does { font-size: .78rem; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+  .fnode .emits {
+    font-family: var(--mono); font-size: .64rem; letter-spacing: .04em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 5px; white-space: nowrap; font-weight: 600;
+  }
+  .em-ctrl { color: var(--ev-control); background: color-mix(in srgb, var(--ev-control) 14%, transparent); }
+  .em-thought { color: var(--ev-thought); background: color-mix(in srgb, var(--ev-thought) 14%, transparent); }
+  .em-call { color: var(--ev-call); background: color-mix(in srgb, var(--ev-call) 14%, transparent); }
+  .em-result { color: var(--ev-result); background: color-mix(in srgb, var(--ev-result) 16%, transparent); }
+  .em-error { color: var(--ev-error); background: color-mix(in srgb, var(--ev-error) 15%, transparent); }
+  .em-final { color: var(--ev-final); background: color-mix(in srgb, var(--ev-final) 17%, transparent); }
+  .fnode.brainy { border-color: var(--signal); background: color-mix(in srgb, var(--signal) 6%, var(--surface)); }
+  .fnode.brainy .op { color: var(--signal-ink); }
+  .fterm {
+    z-index: 2; background: var(--surface-2); border: 1px solid var(--hair-strong);
+    border-radius: 999px; padding: 9px 20px; font-family: var(--mono); font-size: .78rem; font-weight: 650;
+    text-align: center; box-shadow: var(--shadow);
+  }
+  .fterm.start { color: var(--ev-control); }
+  .fterm.end { border-color: var(--ev-final); color: var(--ev-final); background: color-mix(in srgb, var(--ev-final) 8%, var(--surface)); }
+  .fdia { z-index: 2; width: 300px; height: 96px; display: grid; place-items: center; position: relative; }
+  .fdia::before { content: ""; position: absolute; inset: 0; background: var(--hair-strong); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+  .fdia::after { content: ""; position: absolute; inset: 1.5px; background: var(--surface-2); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+  .fdia .q { position: relative; z-index: 2; font-family: var(--mono); font-size: .8rem; font-weight: 650; text-align: center; padding: 0 34px; }
+  .fdia.wide { width: 330px; }
+  .farw { z-index: 2; width: 1px; height: 22px; background: var(--hair-strong); position: relative; }
+  .farw::after { content: ""; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid var(--hair-strong); }
+  .farw.short { height: 14px; }
+  .farw .lbl { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: .66rem; color: var(--faint); background: var(--ground); padding: 0 4px; white-space: nowrap; }
+  /* branch exits (peel to the right) */
+  .fexit { display: flex; align-items: center; gap: 0; align-self: stretch; z-index: 2; }
+  .fexit .hbar { height: 1px; background: var(--hair-strong); flex: 1; position: relative; }
+  .fexit .hbar::after { content: ""; position: absolute; right: -1px; top: 50%; transform: translateY(-50%); border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid var(--hair-strong); }
+  .fexit .elbl { font-family: var(--mono); font-size: .66rem; color: var(--faint); padding: 0 8px; white-space: nowrap; }
+  .fexit .etarget {
+    font-family: var(--mono); font-size: .72rem; font-weight: 650; padding: 8px 12px; border-radius: 8px;
+    box-shadow: var(--shadow); white-space: nowrap;
+  }
+  .etarget.final { color: var(--ev-final); background: color-mix(in srgb, var(--ev-final) 12%, var(--surface)); border: 1px solid color-mix(in srgb, var(--ev-final) 45%, transparent); }
+  .etarget.ctrl { color: var(--ev-control); background: var(--surface); border: 1px solid var(--ev-control); }
+  /* iteration sub-box */
+  .fiter {
+    align-self: stretch; z-index: 2; border: 1.5px dashed color-mix(in srgb, var(--ev-call) 50%, var(--hair-strong));
+    border-radius: 12px; padding: 12px 16px 16px; margin-top: 4px; position: relative;
+    background: color-mix(in srgb, var(--ev-call) 3%, transparent);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .fiter .itlabel {
+    position: absolute; top: -10px; left: 16px; font-family: var(--mono); font-size: .66rem; font-weight: 650;
+    letter-spacing: .04em; text-transform: uppercase; color: var(--ev-call);
+    background: var(--ground); padding: 0 8px;
+  }
+  .fsplit { display: flex; gap: 14px; align-self: stretch; }
+  .fsplit .half { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .fsplit .yn { font-family: var(--mono); font-size: .66rem; font-weight: 650; margin-bottom: 8px; padding: 2px 9px; border-radius: 999px; }
+  .yn.yes { color: var(--ev-result); background: color-mix(in srgb, var(--ev-result) 14%, transparent); }
+  .yn.no { color: var(--ev-error); background: color-mix(in srgb, var(--ev-error) 14%, transparent); }
+  .fmerge { align-self: stretch; height: 1px; background: var(--hair-strong); margin: 12px 0 0; }
+  .freturn {
+    align-self: stretch; z-index: 2; margin-top: 6px; display: flex; align-items: center; gap: 10px;
+    justify-content: center; font-family: var(--mono); font-size: .74rem; color: var(--signal-ink);
+    background: color-mix(in srgb, var(--signal) 8%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--signal) 40%, transparent); border-radius: 8px; padding: 9px 14px;
+  }
+  .freturn .rk { font-size: 1.05rem; }
+  /* loop bracket rail */
+  .floopwrap { position: relative; align-self: stretch; display: flex; flex-direction: column; align-items: center; padding-left: 20px; }
+  .floopwrap::before {
+    content: ""; position: absolute; left: 0; top: 46px; bottom: 62px; width: 12px;
+    border: 1.5px solid color-mix(in srgb, var(--signal) 38%, var(--hair-strong)); border-right: 0;
+    border-radius: 8px 0 0 8px;
+  }
+  .floop-tag {
+    position: absolute; left: -6px; top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl;
+    font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--signal-ink); background: var(--ground); padding: 6px 0;
+  }
+  @media (max-width: 640px) {
+    .flow, .fdia, .fdia.wide { min-width: 0; max-width: 100%; width: 100%; }
+    .fdia { height: auto; aspect-ratio: auto; clip-path: none; border-radius: 9px; padding: 12px; }
+    .fdia::before { display: none; }
+    .fdia { border: 1px dashed var(--hair-strong); }
+    .fsplit { flex-direction: column; }
+    .floopwrap { padding-left: 12px; }
+  }
+
+  /* ---- event vocabulary legend ---- */
+  .events { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 9px; margin: 18px 0 0; }
+  .ev { display: flex; gap: 11px; align-items: flex-start; padding: 11px 13px; background: var(--surface); border: 1px solid var(--hair); border-radius: 9px; }
+  .ev .swatch { width: 9px; height: 9px; border-radius: 2px; margin-top: 6px; flex: none; }
+  .ev .name { font-family: var(--mono); font-size: .8rem; font-weight: 650; }
+  .ev .role { font-size: .78rem; color: var(--muted); line-height: 1.4; }
+
+  /* ---- parallel comparison ---- */
+  .parallel { width: 100%; border-collapse: collapse; min-width: 620px; font-size: .92rem; }
+  .parallel caption { text-align: left; }
+  .parallel th, .parallel td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+  .parallel thead th { font-family: var(--mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); font-weight: 600; border-bottom: 1px solid var(--hair-strong); }
+  .parallel thead th.mine { color: var(--signal-ink); }
+  .parallel td.dim { color: var(--muted); }
+  .parallel td.mine { color: var(--ink); }
+  .parallel td .mono, .parallel td code { font-size: .8rem; }
+  .parallel tbody tr:hover { background: color-mix(in srgb, var(--signal) 4%, transparent); }
+  .rowhead { font-weight: 650; font-size: .82rem; color: var(--ink); }
+
+  /* ---- harness vs workflow ---- */
+  .defs { display: grid; gap: 12px; margin: 24px 0 8px; }
+  .def { background: var(--surface); border: 1px solid var(--hair); border-radius: 10px; padding: 15px 17px; box-shadow: var(--shadow); }
+  .def .term { font-family: var(--mono); font-size: .82rem; font-weight: 700; letter-spacing: .02em; }
+  .def.workflow { border-left: 3px solid var(--ev-control); }
+  .def.workflow .term { color: var(--ev-control); }
+  .def.agent { border-left: 3px solid var(--signal); }
+  .def.agent .term { color: var(--signal-ink); }
+  .def.harness { border-left: 3px solid var(--ev-final); }
+  .def.harness .term { color: var(--ev-final); }
+  .def .body { font-size: .9rem; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+  .def .body .quote { color: var(--ink); font-style: italic; }
+  .def cite { display: block; font-family: var(--mono); font-size: .66rem; color: var(--faint); margin-top: 7px; font-style: normal; letter-spacing: .02em; }
+
+  .eqn { display: flex; align-items: stretch; gap: 12px; flex-wrap: wrap; margin: 22px 0 8px; min-width: 0; }
+  .eqn .ebox { flex: 1 1 210px; background: var(--surface); border: 1px solid var(--hair-strong); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .eqn .op { align-self: center; font-family: var(--mono); font-size: 1.4rem; font-weight: 700; color: var(--faint); }
+  .eqn .ebox .lab { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); }
+  .eqn .ebox.model { border-top: 3px solid var(--ev-thought); }
+  .eqn .ebox.harnessb { border-top: 3px solid var(--signal); flex: 1.6 1 260px; }
+  .eqn .ebox.agentb { border-top: 3px solid var(--ev-final); background: color-mix(in srgb, var(--ev-final) 5%, var(--surface)); }
+  .eqn .ebox .val { font-weight: 650; margin-top: 4px; font-size: .96rem; }
+  .eqn .ebox .esub { font-size: .8rem; color: var(--muted); margin-top: 5px; line-height: 1.45; }
+  .eqn .chips2 { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+  .eqn .c2 { font-family: var(--mono); font-size: .68rem; color: var(--muted); background: var(--surface-2); border: 1px solid var(--hair); border-radius: 5px; padding: 3px 7px; }
+
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0 8px; }
+  .vs .panel { background: var(--surface); border: 1px solid var(--hair); border-radius: 12px; padding: 16px 17px; box-shadow: var(--shadow); }
+  .vs .panel.fixed { border-top: 3px solid var(--ev-control); }
+  .vs .panel.dyn { border-top: 3px solid var(--signal); }
+  .vs .ph { font-family: var(--mono); font-size: .76rem; font-weight: 650; letter-spacing: .02em; margin-bottom: 3px; }
+  .vs .panel.fixed .ph { color: var(--ev-control); }
+  .vs .panel.dyn .ph { color: var(--signal-ink); }
+  .vs .psub { font-size: .78rem; color: var(--muted); margin-bottom: 15px; }
+  .vs .fixedflow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .vs .fb { font-family: var(--mono); font-size: .72rem; background: var(--surface-2); border: 1px solid var(--hair); border-radius: 6px; padding: 6px 9px; }
+  .vs .fx { color: var(--faint); font-family: var(--mono); }
+  .vs .hub { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+  .vs .hubnode { font-family: var(--mono); font-size: .74rem; font-weight: 650; color: var(--signal-ink); background: color-mix(in srgb, var(--signal) 8%, var(--surface)); border: 1px solid var(--signal); border-radius: 8px; padding: 8px 13px; }
+  .vs .fan { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .vs .fan .sk { font-family: var(--mono); font-size: .66rem; color: var(--muted); background: var(--surface-2); border: 1px solid var(--hair); border-radius: 5px; padding: 3px 7px; }
+  .vs .loopnote { font-family: var(--mono); font-size: .68rem; color: var(--signal-ink); margin-top: 3px; text-align: center; }
+  @media (max-width: 640px) { .vs { grid-template-columns: 1fr; } }
+
+  .grounding { margin-top: 22px; font-size: .84rem; color: var(--muted); line-height: 1.55; }
+  .grounding a { font-family: var(--mono); font-size: .8rem; }
+
+  /* ---- skills grid ---- */
+  .skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 12px; margin-top: 20px; }
+  .skill { background: var(--surface); border: 1px solid var(--hair); border-radius: 11px; padding: 15px 16px; box-shadow: var(--shadow); }
+  .skill .sid { font-family: var(--mono); font-size: .82rem; font-weight: 650; color: var(--signal-ink); word-break: break-word; }
+  .skill .schan { font-family: var(--mono); font-size: .68rem; color: var(--faint); letter-spacing: .04em; margin: 5px 0 8px; text-transform: uppercase; }
+  .skill .sdesc { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+  .skill.util { border-left: 3px solid var(--ev-final); }
+  .skill.vec { border-left: 3px solid var(--signal); }
+  .skill.txt { border-left: 3px solid var(--ev-thought); }
+
+  /* ---- two senses of skill ---- */
+  .roadmap-tag { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: .7rem; font-weight: 600; color: var(--ev-final); background: color-mix(in srgb, var(--ev-final) 12%, transparent); border: 1px solid color-mix(in srgb, var(--ev-final) 40%, transparent); border-radius: 999px; padding: 4px 11px; margin-bottom: 16px; }
+  .senses { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 8px; }
+  .sense { background: var(--surface); border: 1px solid var(--hair); border-radius: 11px; padding: 16px 17px; box-shadow: var(--shadow); }
+  .sense.tools { border-top: 3px solid var(--signal); }
+  .sense.know { border-top: 3px solid var(--ev-final); }
+  .sense .sh { font-family: var(--mono); font-size: .78rem; font-weight: 650; }
+  .sense.tools .sh { color: var(--signal-ink); }
+  .sense.know .sh { color: var(--ev-final); }
+  .sense .sb { font-size: .87rem; color: var(--muted); margin-top: 8px; line-height: 1.52; }
+  .sense .sb em { color: var(--ink); font-style: normal; font-weight: 600; }
+  @media (max-width: 640px) { .senses { grid-template-columns: 1fr; } }
+
+  .fanout { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; min-width: 580px; }
+  .fanout .source { background: color-mix(in srgb, var(--ev-final) 6%, var(--surface)); border: 1px solid color-mix(in srgb, var(--ev-final) 45%, var(--hair-strong)); border-radius: 11px; padding: 15px 17px; box-shadow: var(--shadow); max-width: 216px; }
+  .fanout .slab { font-family: var(--mono); font-size: .64rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ev-final); }
+  .fanout .sval { font-family: var(--mono); font-size: .84rem; font-weight: 650; margin-top: 3px; }
+  .fanout .snote { font-size: .76rem; color: var(--muted); margin-top: 6px; line-height: 1.42; }
+  .fspokes { display: grid; gap: 8px; position: relative; }
+  .fspokes::before { content: ""; position: absolute; left: -10px; top: 10px; bottom: 10px; width: 1px; background: var(--hair-strong); }
+  .spoke { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--hair); border-radius: 8px; padding: 9px 12px; box-shadow: var(--shadow); font-size: .82rem; position: relative; }
+  .spoke::before { content: ""; position: absolute; left: -10px; top: 50%; width: 10px; height: 1px; background: var(--hair-strong); }
+  .stag { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 650; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .spoke.live .stag { color: var(--signal-ink); background: color-mix(in srgb, var(--signal) 12%, transparent); border: 1px solid color-mix(in srgb, var(--signal) 40%, transparent); }
+  .spoke.copy .stag { color: var(--ev-final); background: color-mix(in srgb, var(--ev-final) 13%, transparent); border: 1px solid color-mix(in srgb, var(--ev-final) 45%, transparent); }
+  .spoke .stext { font-family: var(--mono); font-size: .78rem; color: var(--ink); }
+  .smeta { font-size: .74rem; color: var(--faint); width: 100%; }
+  @media (max-width: 640px) { .fanout { grid-template-columns: 1fr; } .fanout .source { max-width: none; } .fspokes::before, .spoke::before { display: none; } }
+
+  /* ---- trace / swimlane ---- */
+  .trace { display: grid; gap: 0; min-width: 640px; }
+  .tstep { display: grid; grid-template-columns: 128px 1fr; gap: 16px; align-items: start; padding: 9px 0; }
+  .tstep .lane { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); text-align: right; padding-top: 6px; }
+  .tstep .card { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--hair); border-radius: 8px; padding: 9px 13px; box-shadow: var(--shadow); }
+  .tstep .card .evn { font-family: var(--mono); font-size: .76rem; font-weight: 650; }
+  .tstep .card .note { font-size: .8rem; color: var(--muted); }
+  .tstep .bar { width: 3px; align-self: stretch; border-radius: 2px; }
+  .connbar { grid-column: 2; height: 8px; border-left: 1px dashed var(--hair-strong); margin-left: 1px; }
+
+  /* ---- footer map ---- */
+  .map { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 10px; margin-top: 18px; }
+  .maprow { font-family: var(--mono); font-size: .78rem; background: var(--surface); border: 1px solid var(--hair); border-radius: 8px; padding: 11px 13px; }
+  .maprow .path { color: var(--signal-ink); font-weight: 650; word-break: break-all; }
+  .maprow .what { color: var(--muted); font-size: .74rem; margin-top: 3px; font-family: var(--sans); }
+  footer.end { padding: 40px 0 70px; border-top: 1px solid var(--hair); color: var(--faint); font-family: var(--mono); font-size: .76rem; }
+
+  ul.tight { margin: 0 0 1.05em; padding-left: 1.15em; }
+  ul.tight li { margin: .3em 0; }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 18px; }
+    .tstep { grid-template-columns: 84px 1fr; gap: 10px; }
+    .branch { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lnode, .skill, .ev { transition: transform .15s ease; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="kicker">VIPP Search Harness · Architecture Note</div>
+    <h1>You don't write the search. You <span class="hl">orchestrate the agent</span> that runs it.</h1>
+    <p class="sub">A <em>harness</em> turns the archive into skills an agent commands — and turns the team from search operators into agent orchestrators.</p>
+    <div class="meta">
+      <span class="chip">Agent = <b>Model + Harness</b></span>
+      <span class="chip"><b>6</b> retrieval skills</span>
+      <span class="chip"><b>8</b> event types</span>
+      <span class="chip">MCP over <b>stdio</b></span>
+      <span class="chip">Gemini <b>2.5 Flash</b> · pluggable</span>
+      <span class="chip">≤ <b>12</b> turns / run</span>
+    </div>
+
+    <div class="thesis">
+      <p><strong>Agent = Model + Harness.</strong> The model (Gemini) supplies the reasoning and is a <em>pluggable</em> component; everything else — the loop, tool dispatch over MCP, the result pool, sessions, verification, the snapshot trail — is the <em>harness</em>: the infrastructure that manages everything except the reasoning. This is not a search box with an LLM bolted on, and it is <em>not a workflow</em>. It is an agent runtime whose skills happen to be retrieval.</p>
+      <p>That reframes the team's job. You don't run queries — you compose the <strong>capabilities</strong> and set the <strong>guardrails</strong>; the agent composes the <strong>moves</strong>. And it was built the way it runs — by teams of orchestrated agents. Orchestration isn't a feature here; it is the operating model, top to bottom.</p>
+    </div>
+  </header>
+
+  <!-- ============ THE PARALLEL ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">The parallel</div>
+      <h2>Same machine, different world</h2>
+      <p class="lede">Every part of a general agentic harness has a one-to-one counterpart here. That is the point: nothing about the design is search-specific except the skills.</p>
+    </div>
+    <div class="band scroll">
+      <table class="parallel">
+        <thead>
+          <tr>
+            <th style="width:20%">Concept</th>
+            <th class="dim" style="width:40%">A generic agentic harness</th>
+            <th class="mine" style="width:40%">This search harness</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rowhead">The loop</td>
+            <td class="dim">LLM reads context, calls a tool, reads the result, decides again — until it answers.</td>
+            <td class="mine"><code>agentLoop()</code> — an async generator; Gemini plans searches, reads candidates, refines, then answers.</td>
+          </tr>
+          <tr>
+            <td class="rowhead">Tool transport</td>
+            <td class="dim">Tools exposed over <span class="mono">MCP</span> (Claude Desktop, Code, IDEs).</td>
+            <td class="mine">Identical: a <span class="mono">stdio</span> MCP server, spawned as a child, <code>tools/list</code> + <code>tools/call</code>.</td>
+          </tr>
+          <tr>
+            <td class="rowhead">What tools do</td>
+            <td class="dim">Read files, run bash, query APIs.</td>
+            <td class="mine">Vector / text / hybrid search, transcription &amp; multimodal search, scene lookup.</td>
+          </tr>
+          <tr>
+            <td class="rowhead">Skills</td>
+            <td class="dim">Two kinds: tools it calls, and `SKILL.md` know-how it reads (progressively disclosed).</td>
+            <td class="mine">Same two: 6 retrieval skills (tools) live today; an Agent-Skills playbook (know-how) designed — see below.</td>
+          </tr>
+          <tr>
+            <td class="rowhead">Memory</td>
+            <td class="dim">Conversation history; scratchpad.</td>
+            <td class="mine">Session carryover + a cumulative, deduped <em>result pool</em> across probes.</td>
+          </tr>
+          <tr>
+            <td class="rowhead">Transcript</td>
+            <td class="dim">The chat log.</td>
+            <td class="mine">A <code>Run</code> snapshot — <span class="mono">runs/&lt;ulid&gt;.json</span> — every event, replayable.</td>
+          </tr>
+          <tr>
+            <td class="rowhead">Bounded</td>
+            <td class="dim">Step / token budgets.</td>
+            <td class="mine"><code>maxTurns = 12</code>, then a <span class="mono">max_turns</span> event ends the run.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="figcap"><b>Fig 1</b> · the correspondence, concept by concept</div>
+  </section>
+
+  <!-- ============ HARNESS NOT WORKFLOW ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">Harness, not workflow</div>
+      <h2>Why this is a harness — not a workflow</h2>
+      <p class="lede">The distinction isn't branding. It's the established line between two kinds of LLM system, and it decides exactly one thing: <strong>who owns the control flow — the code, or the model.</strong></p>
+    </div>
+
+    <div class="defs">
+      <div class="def workflow">
+        <div class="term">Workflow</div>
+        <div class="body"><span class="quote">"Systems where LLMs and tools are orchestrated through predefined code paths."</span> The route is authored in code. Same input, same path, every time.<cite>Anthropic · Building Effective Agents</cite></div>
+      </div>
+      <div class="def agent">
+        <div class="term">Agent</div>
+        <div class="body"><span class="quote">"Systems where LLMs dynamically direct their own processes and tool usage."</span> An LLM using tools on environmental feedback, in a loop — choosing its own moves.<cite>Anthropic · Building Effective Agents</cite></div>
+      </div>
+      <div class="def harness">
+        <div class="term">Harness</div>
+        <div class="body"><span class="quote">"The software infrastructure surrounding an AI model that manages everything except the model's actual reasoning."</span> Agent = Model + Harness — the model is a pluggable part.<cite>agent-harness engineering · 2026</cite></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <p>An <strong>agentic workflow</strong> sits between the first two — prompt-chaining, routing, orchestrator-workers — but the control flow is <em>still authored in code</em>: the LLM fills the steps, it doesn't choose them. This harness is the third thing. It lets the <em>model</em> own the path while the harness owns everything around the reasoning.</p>
+    </div>
+
+    <div class="band scroll">
+      <table class="parallel">
+        <thead>
+          <tr>
+            <th style="width:22%"></th>
+            <th style="width:26%">Workflow</th>
+            <th style="width:26%">Agentic workflow</th>
+            <th class="mine" style="width:26%">Agent harness · this</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rowhead">Who picks the next step</td><td class="dim">the code</td><td class="dim">the code (LLM fills it)</td><td class="mine">the model</td></tr>
+          <tr><td class="rowhead">Control flow</td><td class="dim">fixed DAG / pipeline</td><td class="dim">fixed graph, LLM nodes</td><td class="mine">a loop the model steers</td></tr>
+          <tr><td class="rowhead">Same probe, twice</td><td class="dim">identical path</td><td class="dim">identical path</td><td class="mine">may take different tool sequences</td></tr>
+          <tr><td class="rowhead">On a weak result</td><td class="dim">whatever the branch says</td><td class="dim">a coded retry / branch</td><td class="mine">the model reformulates or switches channel</td></tr>
+          <tr><td class="rowhead">Best when</td><td class="dim">the steps are known</td><td class="dim">mostly known, some routing</td><td class="mine">the path can't be known in advance</td></tr>
+          <tr><td class="rowhead">In this repo</td><td class="dim">the old <span class="mono">retrieval-fusion</span> scripts</td><td class="dim">the one-shot query planner</td><td class="mine"><span class="mono">agentLoop()</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="figcap"><b>Fig 2</b> · three systems, one difference — where the control flow lives</div>
+
+    <div class="col">
+      <h3>The tell: run the same probe twice</h3>
+      <p>A workflow can't vary its path — that's its whole virtue. This harness varies constantly, because the model reads what it found and decides what's next. In the eval, one probe drove <strong>seven</strong> searches across six phrasings; another answered in <strong>two</strong>. Same system, model-chosen depth. A pipeline has no dial for that — a harness is nothing but that dial.</p>
+    </div>
+
+    <div class="vs">
+      <div class="panel fixed">
+        <div class="ph">Workflow — fixed path</div>
+        <div class="psub">the code decides the route</div>
+        <div class="fixedflow">
+          <span class="fb">embed</span><span class="fx">→</span><span class="fb">vector search</span><span class="fx">→</span><span class="fb">rerank</span><span class="fx">→</span><span class="fb">fuse</span><span class="fx">→</span><span class="fb">answer</span>
+        </div>
+      </div>
+      <div class="panel dyn">
+        <div class="ph">Harness — dynamic loop</div>
+        <div class="psub">the model decides the route</div>
+        <div class="hub">
+          <div class="hubnode">model chooses ↻</div>
+          <div class="fan">
+            <span class="sk">vector</span><span class="sk">text</span><span class="sk">hybrid</span><span class="sk">transcription</span><span class="sk">multimodal</span><span class="sk">lookup</span>
+          </div>
+          <div class="loopnote">↑ observe results · decide again · until it answers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>Agent = Model + Harness, mapped to this repo</h3>
+      <p>The formal definition lands cleanly on the code. The model supplies reasoning; the harness supplies everything else — and because the model is pluggable, a better model <em>expands</em> what the harness can do, it doesn't replace it.</p>
+    </div>
+
+    <div class="band scroll">
+      <div class="eqn">
+        <div class="ebox model">
+          <div class="lab">Model</div>
+          <div class="val">Gemini 2.5 Flash</div>
+          <div class="esub">stateless reasoning · pluggable via <span class="mono">LLM_PROVIDER</span></div>
+        </div>
+        <div class="op">+</div>
+        <div class="ebox harnessb">
+          <div class="lab">Harness</div>
+          <div class="val">everything except the reasoning</div>
+          <div class="chips2">
+            <span class="c2">loop · agent-loop.ts</span>
+            <span class="c2">tool dispatch · MCP</span>
+            <span class="c2">memory · pool + sessions</span>
+            <span class="c2">context · carryover</span>
+            <span class="c2">guardrails · verify + bounds</span>
+            <span class="c2">state · snapshots</span>
+          </div>
+        </div>
+        <div class="op">=</div>
+        <div class="ebox agentb">
+          <div class="lab">Agent</div>
+          <div class="val">the investigator</div>
+          <div class="esub">a model that searches, refines, verifies, and cites — on its own path</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>We used workflows to build the harness</h3>
+      <p>The clean recursion: this harness was assembled by <em>agentic workflows</em> — deterministic scripts that orchestrated fleets of coding agents through fixed phases (scaffold → build → gate → adversarial review). That is the right tool for <strong>construction</strong>, where you want the same result every run. A harness is the right substrate for <strong>investigation</strong>, where you want the model to find a path you couldn't script. The team practised both — <strong>orchestrating agents to build the thing that orchestrates agents.</strong></p>
+      <div class="grounding">
+        Grounded in the current literature: Anthropic, <a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective Agents</a> (workflow vs agent); and the 2026 <a href="https://www.firecrawl.dev/blog/what-is-an-agent-harness">agent-harness</a> engineering definition (Agent = Model + Harness).
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE LOOP (HERO) ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">The agentic loop</div>
+      <h2>Observe · decide · act · repeat</h2>
+      <p class="lede">One probe drives many turns. Each turn, the model looks at everything found so far and chooses its next move — search again, search a different channel, look up a scene, or answer. This is the ReAct → Search-R1 → Critic-R lineage: cumulative, observe-and-refine retrieval.</p>
+    </div>
+
+    <div class="band">
+      <div class="loop-figure">
+        <div class="loop-grid">
+          <div class="lnode entry">
+            <div class="k">turn.start</div>
+            <div class="d">turn n of ≤ 12 — the run's heartbeat</div>
+          </div>
+          <div class="larrow"></div>
+          <div class="lnode brain">
+            <div class="k">llm.chat( messages, tools )</div>
+            <div class="d">Gemini sees the pool so far + the tool list, and decides</div>
+          </div>
+          <div class="larrow"><span class="tag">stopReason?</span></div>
+
+          <div class="branch">
+            <div class="col-b">
+              <div class="blabel a">tool_use →</div>
+              <div class="toolseq">
+                <div class="seqrow"><span class="dot" style="background:var(--ev-call)"></span> tool.call → MCP</div>
+                <div class="seqrow"><span class="dot" style="background:var(--ev-result)"></span> tool.result <span style="color:var(--faint)">(or</span></div>
+                <div class="seqrow"><span class="dot" style="background:var(--ev-error)"></span> tool.error <span style="color:var(--faint)">)</span></div>
+                <div class="seqrow" style="background:transparent;border-style:dashed"><span class="dot" style="background:var(--ev-control)"></span> append to messages</div>
+              </div>
+            </div>
+            <div class="col-b">
+              <div class="blabel b">end_turn →</div>
+              <div class="lnode" style="border-color:var(--ev-final);min-width:0;width:100%">
+                <div class="k" style="color:var(--ev-final)">final</div>
+                <div class="d">the answer, citing sceneIds</div>
+              </div>
+              <div class="larrow" style="height:20px"></div>
+              <div class="seqrow" style="width:100%;justify-content:center"><span class="dot" style="background:var(--ev-final)"></span> write Run snapshot</div>
+            </div>
+          </div>
+
+          <div class="return-note">
+            after every tool result the loop returns to <span class="loopback">↑ turn.start</span> — all calls in one response run in order before the next decision
+            <div><span class="bounded">⏱ bounded · no answer by turn 12 → <span style="color:var(--ev-control)">max_turns</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="figcap"><b>Fig 3</b> · <span class="mono">agent-front/lib/agent-loop.ts</span> — the generator yields one event per step</div>
+
+    <div class="col">
+      <h3 style="margin-top:2.6em">Step by step — the mechanics</h3>
+      <p>The same loop, unrolled. Every box is a real operation in <span class="mono">agent-loop.ts</span>; the coloured tag is the event that step emits to the stream. The teal rail marks the region that repeats each turn — and note that <strong>four different endings converge on one snapshot</strong>: a clean answer, the turn budget running out, or an error/abort.</p>
+    </div>
+
+    <div class="band scroll">
+      <div class="flow">
+        <div class="fterm start">probe arrives · POST /api/agent</div>
+        <div class="farw"></div>
+        <div class="fnode">
+          <div class="head"><span class="op">mcp.listTools()</span><span class="emits em-ctrl">tools.loaded</span></div>
+          <div class="does">discover the 6 skills the server exposes; hand their schemas to the model as callable tools</div>
+        </div>
+        <div class="farw"></div>
+        <div class="fnode">
+          <div class="head"><span class="op">messages = [ system, carryover?, user ]</span></div>
+          <div class="does">seed the thread — the playbook, any prior-session carryover, then this probe</div>
+        </div>
+        <div class="farw"></div>
+
+        <div class="floopwrap">
+          <span class="floop-tag">repeats each turn</span>
+
+          <div class="fdia"><div class="q">turn &lt; maxTurns?</div></div>
+          <div class="fexit">
+            <span class="elbl">no · budget spent</span>
+            <span class="hbar"></span>
+            <span class="etarget ctrl">max_turns → snapshot</span>
+          </div>
+          <div class="farw"><span class="lbl">yes</span></div>
+
+          <div class="fnode">
+            <div class="head"><span class="op">turn.start</span><span class="emits em-ctrl">turn.start</span></div>
+            <div class="does">increment the counter; a fresh decision cycle begins</div>
+          </div>
+          <div class="farw"></div>
+
+          <div class="fnode brainy">
+            <div class="head"><span class="op">response = llm.chat( messages, tools )</span></div>
+            <div class="does">Gemini reads the whole thread — every candidate found so far — and chooses the next move</div>
+          </div>
+          <div class="farw"></div>
+
+          <div class="fnode">
+            <div class="head"><span class="op">if response.text</span><span class="emits em-thought">thought</span></div>
+            <div class="does">surface the model's reasoning to the live trace, when it narrates</div>
+          </div>
+          <div class="farw"></div>
+
+          <div class="fdia wide"><div class="q">response.stopReason?</div></div>
+          <div class="fexit">
+            <span class="elbl">end_turn · error · max_tokens</span>
+            <span class="hbar"></span>
+            <span class="etarget final">final → snapshot</span>
+          </div>
+          <div class="farw"><span class="lbl">tool_use</span></div>
+
+          <div class="fnode">
+            <div class="head"><span class="op">messages.push( assistant, toolCalls )</span></div>
+            <div class="does">record the chosen calls onto the thread before executing them</div>
+          </div>
+          <div class="farw short"></div>
+
+          <div class="fiter">
+            <span class="itlabel">for each tool call · in order</span>
+            <div class="fnode">
+              <div class="head"><span class="op">mcp.callTool( name, args )</span><span class="emits em-call">tool.call</span></div>
+              <div class="does">invoke the skill over stdio — a real search or lookup against Vector Search V2</div>
+            </div>
+            <div class="farw short"></div>
+            <div class="fdia"><div class="q">call ok?</div></div>
+            <div class="fsplit">
+              <div class="half">
+                <span class="yn yes">resolves</span>
+                <div class="fnode">
+                  <div class="head"><span class="emits em-result">tool.result</span></div>
+                  <div class="does">candidates + timing; folded into the pool</div>
+                </div>
+              </div>
+              <div class="half">
+                <span class="yn no">throws</span>
+                <div class="fnode">
+                  <div class="head"><span class="emits em-error">tool.error</span></div>
+                  <div class="does">error text back — the run never aborts</div>
+                </div>
+              </div>
+            </div>
+            <div class="fmerge"></div>
+            <div class="does" style="text-align:center;margin-top:9px;font-family:var(--mono);font-size:.72rem">append the result — or the error — to <span style="color:var(--ink)">messages</span></div>
+          </div>
+
+          <div class="farw short"></div>
+          <div class="freturn"><span class="rk">↺</span> back to <span class="mono">turn &lt; maxTurns?</span> — now with the new results in <span class="mono">messages</span></div>
+        </div>
+
+        <div class="farw"></div>
+        <div class="fterm end">finally · writeRunSnapshot() → runs/&lt;ulid&gt;.json</div>
+      </div>
+    </div>
+    <div class="figcap"><b>Fig 3 · detail</b> · every box a real op · the tag is the event it emits · <span style="color:var(--signal-ink)">teal rail</span> = the repeating region</div>
+
+    <div class="col">
+      <h3>The event vocabulary is closed</h3>
+      <p>The loop yields exactly eight event types — nothing else is emittable. The UI renders them live over SSE; the snapshot stores them verbatim; a test asserts the set can never silently grow. Colour groups them by role.</p>
+    </div>
+    <div class="events">
+      <div class="ev"><span class="swatch" style="background:var(--ev-control)"></span><div><div class="name">tools.loaded</div><div class="role">the 6 skills, listed once at start</div></div></div>
+      <div class="ev"><span class="swatch" style="background:var(--ev-control)"></span><div><div class="name">turn.start</div><div class="role">a new decision cycle begins</div></div></div>
+      <div class="ev"><span class="swatch" style="background:var(--ev-thought)"></span><div><div class="name">thought</div><div class="role">the model's reasoning, if any</div></div></div>
+      <div class="ev"><span class="swatch" style="background:var(--ev-call)"></span><div><div class="name">tool.call</div><div class="role">a skill invoked, with its args</div></div></div>
+      <div class="ev"><span class="swatch" style="background:var(--ev-result)"></span><div><div class="name">tool.result</div><div class="role">candidates back, with timing</div></div></div>
+      <div class="ev"><span class="swatch" style="background:var(--ev-error)"></span><div><div class="name">tool.error</div><div class="role">a failure — never aborts the run</div></div></div>
+      <div class="ev"><span class="swatch" style="background:var(--ev-final)"></span><div><div class="name">final</div><div class="role">the cited answer; run ends</div></div></div>
+      <div class="ev"><span class="swatch" style="background:var(--ev-control)"></span><div><div class="name">max_turns</div><div class="role">the budget backstop</div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ ARCHITECTURE STACK ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">System architecture</div>
+      <h2>Client, transport, server, data</h2>
+      <p class="lede">A browser drives a Next.js agent loop; the loop is an <em>MCP client</em> that spawns the harness as an <em>MCP server</em> over stdio; the server's skills reach Vertex embeddings and Vector Search V2. The dashed line is a real process boundary — the same one that lets Claude Code (or the MCP Inspector) drive these exact skills.</p>
+    </div>
+
+    <div class="band scroll">
+      <div class="stack">
+        <div class="layer">
+          <div class="tier-tag">browser</div>
+          <div class="body client">
+            <h4>/investigate <span class="who">· React 19 · SSE</span></h4>
+            <div class="parts">
+              <span class="part">ProbeInput</span><span class="part">AgentTrace</span>
+              <span class="part">ResultPool</span><span class="part">FinalAnswer</span>
+              <span class="part">useAgentStream → Zustand</span>
+            </div>
+          </div>
+        </div>
+        <div class="conn"><span>POST /api/agent · {probe, sessionId?}</span> <span class="dir">↓</span> &nbsp;·&nbsp; <span class="dir">↑</span> <span>SSE stream of AgentEvents</span></div>
+
+        <div class="layer">
+          <div class="tier-tag">next.js</div>
+          <div class="body client">
+            <h4>route.ts → agentLoop() <span class="who">· the MCP client</span></h4>
+            <div class="parts">
+              <span class="part">lib/llm · gemini | anthropic | stub</span>
+              <span class="part">lib/pool · reducePool</span>
+              <span class="part">lib/session · carryover</span>
+              <span class="part">lib/snapshot · runs/*.json</span>
+              <span class="part">lib/mcp-client</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="boundary">spawn · JSON-RPC over stdio · stdout is protocol, stderr is logs</div>
+
+        <div class="layer">
+          <div class="tier-tag">harness</div>
+          <div class="body server">
+            <h4>mcp/server.js <span class="who">· the MCP server</span></h4>
+            <div class="parts">
+              <span class="part">tools/list · tools/call</span>
+              <span class="part">resource · vipp://runs/{'{'}runId{'}'}</span>
+              <span class="part">registry → 6 skills</span>
+              <span class="part">ctx · live | fixture</span>
+            </div>
+          </div>
+        </div>
+        <div class="conn"><span>getEmbedding · executeChannel · restGetDataObject</span> <span class="dir">↓</span></div>
+
+        <div class="layer">
+          <div class="tier-tag">gcp</div>
+          <div class="body data">
+            <h4>Vertex AI · Vector Search V2 <span class="who">· gcp-cpse-prodassist-prod</span></h4>
+            <div class="parts">
+              <span class="part">gemini-embedding-001 · 1536d</span>
+              <span class="part">multimodalembedding · 1408d</span>
+              <span class="part">collection · vipp-scenes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="figcap"><b>Fig 4</b> · <span class="mono">·client</span> violet · <span class="mono">·server</span> teal · <span class="mono">·data</span> amber</div>
+  </section>
+
+  <!-- ============ MCP + SKILLS ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">MCP &amp; skills</div>
+      <h2>Capabilities in a registry, spoken over a protocol</h2>
+      <p class="lede">Each skill is a small object — an id, a description, a frozen JSON schema, and a <code>run()</code> that does all its I/O through an injected context. The registry hands them to the MCP server as tools; the same registry, the same skills, would serve any MCP client.</p>
+      <p>Because I/O is injected, the whole harness runs offline against recorded fixtures (<code>HARNESS_FIXTURES=1</code>) — no credentials, no live traffic — which is how every test and gate verifies behaviour without touching prod.</p>
+    </div>
+
+    <div class="skills">
+      <div class="skill vec">
+        <div class="sid">scene_desc_vector_search</div>
+        <div class="schan">SC-VEC-D · scene_embedding 1536d</div>
+        <div class="sdesc">Semantic search over scene descriptions. Embeds the query inline, finds nearest neighbours. Best for conceptual / paraphrastic probes.</div>
+      </div>
+      <div class="skill txt">
+        <div class="sid">scene_desc_text_search</div>
+        <div class="schan">SC-DESC · full_description</div>
+        <div class="sdesc">Keyword search over the description field. Best when exact wording matters and the phrase is likely present verbatim.</div>
+      </div>
+      <div class="skill vec">
+        <div class="sid">scene_hybrid_search</div>
+        <div class="schan">SC-HYB · RRF, desc + transcription</div>
+        <div class="sdesc">Server-side reciprocal-rank fusion over what was shown and what was said. Best when evidence is split across both.</div>
+      </div>
+      <div class="skill vec">
+        <div class="sid">scene_transcription_vector_search</div>
+        <div class="schan">SC-VEC-T · transcription_embedding</div>
+        <div class="sdesc">Semantic search over spoken transcription. Best for finding who said what — reporters, officials, quotes.</div>
+      </div>
+      <div class="skill vec">
+        <div class="sid">multimodal_vector_search</div>
+        <div class="schan">MM-VEC · multimodal_embedding 1408d</div>
+        <div class="sdesc">Search the multimodal index over video/frame assets. Reaches visual similarity the text channels can't.</div>
+      </div>
+      <div class="skill util">
+        <div class="sid">lookup_scene_metadata</div>
+        <div class="schan">restGetDataObject · the verifier</div>
+        <div class="sdesc">Fetches the full scene document for a sceneId. The agent calls it on its strongest hit before answering — verify, then cite.</div>
+      </div>
+    </div>
+    <div class="figcap" style="margin-top:16px"><b>Fig 5</b> · five finders + one verifier · <span class="mono">backend/harness/skills/</span></div>
+  </section>
+
+  <!-- ============ AGENT SKILLS LAYER ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">Agent skills · the know-how layer</div>
+      <h2>Two senses of "skill": what it can do, and how it knows to do it well</h2>
+      <span class="roadmap-tag">◆ designed &amp; approved · the 6 tools are live today, the playbook layer is next</span>
+      <p class="lede">The six retrieval skills above are <em>tools</em> — they extend what the agent <em>can do</em>. There is a second, industry-standard sense the harness is gaining: <strong>Agent Skills</strong> — progressively-disclosed markdown know-how that extends how <em>well</em> it does it. MCP gives the agent tools; a skill file gives it methodology.</p>
+    </div>
+
+    <div class="senses">
+      <div class="sense tools">
+        <div class="sh">Capabilities — the tools it calls</div>
+        <div class="sb">The 6 retrieval skills, over MCP: vector, text, hybrid, transcription, multimodal search, and scene lookup. Frozen schemas, always available. <em>What the agent can reach.</em></div>
+      </div>
+      <div class="sense know">
+        <div class="sh">Agent Skills — the know-how it reads</div>
+        <div class="sb">Markdown playbooks: when to prefer hybrid over vector, the distinct-phrasing discipline, filter recipes, worked examples from the eval. Loaded when relevant, free until then. <em>How the agent uses the tools well.</em></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>Why the method is load-bearing</h3>
+      <p>The eval proved it. A1 failed at <strong>3/10</strong> for one missing instruction — the agent searched both channels, but with the <em>same</em> query string. A single line of method ("word every search distinctly") took it to <strong>10/10</strong>. Today that method is compiled into <span class="mono">system-prompt.ts</span>, so changing a sentence meant a spec change and a redeploy. The skills layer moves the method into an <strong>editable playbook</strong> — and makes the same know-how available to <em>any</em> client driving these tools, not just this UI.</p>
+    </div>
+
+    <div class="col">
+      <h3>One source of truth, delivered over every surface</h3>
+      <p>A single canonical playbook — <span class="mono">backend/harness/skills-doc/investigation.md</span> — is the only hand-edited file. Everything else either <em>reads it live</em> or is a <em>generated, hash-verified copy</em>. Sameness across clients isn't a protocol guarantee; it's a build guarantee.</p>
+    </div>
+
+    <div class="band scroll">
+      <div class="fanout">
+        <div class="source">
+          <div class="slab">canonical</div>
+          <div class="sval">investigation.md</div>
+          <div class="snote">the only hand-edited file — the playbook + worked examples</div>
+        </div>
+        <div class="fspokes">
+          <div class="spoke live"><span class="stag">live read</span> <span class="stext">harness system prompt</span> <span class="smeta">Layer 2 · loaded at boot · a playbookHash is stamped into every run snapshot</span></div>
+          <div class="spoke live"><span class="stag">live read</span> <span class="stext">MCP instructions</span> <span class="smeta">~10-line summary · auto-injected into any client at connect</span></div>
+          <div class="spoke live"><span class="stag">live read</span> <span class="stext">vipp://skills/{name} + investigate prompt</span> <span class="smeta">any MCP client can pull the current playbook, or run it as a slash command</span></div>
+          <div class="spoke copy"><span class="stag">generated</span> <span class="stext">.claude/skills/…/SKILL.md</span> <span class="smeta">Claude Code · a copy, drift-checked against the source</span></div>
+          <div class="spoke copy"><span class="stag">generated</span> <span class="stext">.cursor/skills/…</span> <span class="smeta">Cursor · same content, hash-verified</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="figcap"><b>Fig 6</b> · one playbook → every surface · <span style="color:var(--signal-ink)">live reads</span> where we control the process, <span style="color:var(--ev-final)">generated copies</span> (drift-checked) elsewhere</div>
+
+    <div class="col">
+      <p><strong>The layering is deliberate.</strong> A few invariants stay baked in code (cite sceneIds, natural-language queries). The method lives in the startup-loaded playbook — edit the file, restart, behaviour changes, no rebuild. MCP's own <span class="mono">instructions</span> field carries a short summary to every connecting client. And the full skill ships as <span class="mono">SKILL.md</span> where a client will reliably trigger it. Discipline that must <em>always</em> hold is never left to a resource the model might forget to read — that is the lesson A1 taught, encoded into the architecture.</p>
+    </div>
+  </section>
+
+  <!-- ============ A REAL TRACE ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">A real run</div>
+      <h2>What one investigation looks like</h2>
+      <p class="lede">A live probe — <em>"scenes where a reporter talks about evacuation orders during a wildfire."</em> The model tries a vector search, reformulates for the text channel, verifies its best hit, then answers. Every step below is a real event from a snapshot on disk.</p>
+    </div>
+
+    <div class="band scroll">
+      <div class="trace">
+        <div class="tstep"><div class="lane">loop</div><div class="card"><div class="bar" style="background:var(--ev-control)"></div><span class="evn">tools.loaded</span><span class="note">6 skills offered to the model</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">llm</div><div class="card"><div class="bar" style="background:var(--ev-thought)"></div><span class="evn">thought</span><span class="note">"I'll start semantic, then confirm by keyword."</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">→ mcp</div><div class="card"><div class="bar" style="background:var(--ev-call)"></div><span class="evn">tool.call</span><span class="note mono">scene_desc_vector_search("reporter … wildfire")</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">skill</div><div class="card"><div class="bar" style="background:var(--ev-result)"></div><span class="evn">tool.result</span><span class="note">10 candidates · 3873 ms</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">→ mcp</div><div class="card"><div class="bar" style="background:var(--ev-call)"></div><span class="evn">tool.call</span><span class="note mono">scene_desc_text_search("reporter evacuation orders wildfire")</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">skill</div><div class="card"><div class="bar" style="background:var(--ev-result)"></div><span class="evn">tool.result</span><span class="note">10 candidates · 601 ms · pool now deduped to 19</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">→ mcp</div><div class="card"><div class="bar" style="background:var(--ev-call)"></div><span class="evn">tool.call</span><span class="note mono">lookup_scene_metadata("16366763…_scene24")</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">skill</div><div class="card"><div class="bar" style="background:var(--ev-result)"></div><span class="evn">tool.result</span><span class="note">full scene doc · verified</span></div></div>
+        <div class="connbar"></div>
+        <div class="tstep"><div class="lane">llm</div><div class="card"><div class="bar" style="background:var(--ev-final)"></div><span class="evn">final</span><span class="note">"…a reporter in a charred field discussing Level 3 evacuation orders… (scene24)"</span></div></div>
+      </div>
+    </div>
+    <div class="figcap"><b>Fig 7</b> · two channels, one verification, a cited answer — the ReAct pattern, realized</div>
+
+    <div class="col">
+      <h3>The pool and the snapshot</h3>
+      <p>As results stream in, a pure reducer folds them into a <strong>result pool</strong>: deduped by <code>sceneId</code>, keeping the best score, recording <em>which queries surfaced each scene</em> and whether it was looked up. In a session, that pool is seeded into the next probe — so "narrow those to under 30 seconds" refines what's already found instead of starting over.</p>
+      <p>At the end, exactly one <code>Run</code> snapshot is written to <span class="mono">runs/&lt;ulid&gt;.json</span> — the full event log, the pool, the answer, embedding vectors stripped. Any MCP client can read it back through the <span class="mono">vipp://runs/{'{'}runId{'}'}</span> resource. The transcript <em>is</em> the audit trail.</p>
+    </div>
+  </section>
+
+  <!-- ============ MAP TO CODE ============ -->
+  <section>
+    <div class="col">
+      <div class="eyebrow">Where it lives</div>
+      <h2>The map to the code</h2>
+      <p class="lede">Two subprojects: the CommonJS harness (skills, MCP server) inside <span class="mono">backend/</span>, and the TypeScript agent front as its own Next.js app.</p>
+    </div>
+    <div class="map">
+      <div class="maprow"><div class="path">agent-front/lib/agent-loop.ts</div><div class="what">the bounded generator loop</div></div>
+      <div class="maprow"><div class="path">agent-front/lib/llm/</div><div class="what">pluggable providers, one shape</div></div>
+      <div class="maprow"><div class="path">agent-front/lib/mcp-client.ts</div><div class="what">spawns + speaks to the server</div></div>
+      <div class="maprow"><div class="path">agent-front/lib/{pool,session}.ts</div><div class="what">result pool + cross-probe memory</div></div>
+      <div class="maprow"><div class="path">agent-front/app/api/agent/route.ts</div><div class="what">the SSE endpoint</div></div>
+      <div class="maprow"><div class="path">backend/harness/mcp/server.js</div><div class="what">stdio MCP server</div></div>
+      <div class="maprow"><div class="path">backend/harness/skills/</div><div class="what">the 6 skill definitions</div></div>
+      <div class="maprow"><div class="path">backend/harness/core/</div><div class="what">registry · ctx · normalize · snapshot</div></div>
+    </div>
+  </section>
+
+  <footer class="end">
+    VIPP Search Harness · agentic retrieval over the CNN scene archive · Gemini-primary · MCP over stdio · every run replayable.
+  </footer>
+
+</div>
+
+</body></html>
