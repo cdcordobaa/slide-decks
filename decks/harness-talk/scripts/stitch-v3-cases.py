@@ -152,12 +152,12 @@ scoped += """
 .bp-thanks .bp-thx-star b { color: var(--green); font-weight: 700; }
 
 /* speaker slide */
-.bpm-grid { display: grid; grid-template-columns: 290px 1fr; gap: 44px; align-items: center; margin-top: 26px; min-height: 430px; }
-.bpm-mono { height: 290px; border: 1.4px solid var(--line-strong); border-radius: 14px; background: var(--panel); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 84px; font-weight: 800; color: var(--ink); letter-spacing: -2px; }
+.bpm-grid { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: center; margin-top: 20px; min-height: 384px; }
+.bpm-mono { height: 272px; border: 1.4px solid var(--line-strong); border-radius: 14px; background: var(--panel); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 80px; font-weight: 800; color: var(--ink); letter-spacing: -2px; }
 .bpm-mono span { font-size: 12px; font-weight: 400; color: var(--muted-2); margin-top: 10px; letter-spacing: .08em; }
-.bpm-facts { display: flex; flex-direction: column; gap: 17px; }
-.bpm-fact b { display: block; font-size: 18px; color: var(--ink); }
-.bpm-fact span { font-size: 14px; color: var(--muted); line-height: 1.4; }
+.bpm-facts { display: flex; flex-direction: column; gap: 14px; }
+.bpm-fact b { display: block; font-size: 17px; color: var(--ink); }
+.bpm-fact span { font-size: 13.5px; color: var(--muted); line-height: 1.38; }
 """
 
 # ---------- assemble ----------
@@ -313,17 +313,17 @@ loop_slides = [darken(slideA), darken(slideB)]
 # speaker slide, inserted right after the cover (light blueprint style)
 about = f'''<section class="slide bp bp-card" aria-label="0.0 About the speaker">
     {frame}{logo}
-    <div class="bp-eyebrow">§0 &#183; WHO IS TALKING</div><h1 class="bp-h">Cristian C&oacute;rdoba</h1><p class="bp-sub">AI engineering at Globant. I build and operate the systems this talk is about.</p>
+    <div class="bp-eyebrow">§0 &#183; WHO IS TALKING</div><h1 class="bp-h">Cristian C&oacute;rdoba</h1><p class="bp-sub">Software architect focused on agentic AI systems, RAG/GraphRAG, and production-ready LLM architectures.</p>
     <div class="bpm-grid">
       <div class="bpm-mono">CC<span>swap me for a photo</span></div>
       <div class="bpm-facts">
-        <div class="bpm-fact"><b>Operator, not author</b><span>specified the MIP evaluation harness into existence: spec-driven, zero hand-written harness code</span></div>
-        <div class="bpm-fact"><b>Harness builder</b><span>VIPP agentic search harness: six retrieval skills commanded over MCP, model pluggable</span></div>
-        <div class="bpm-fact"><b>Fleet operator</b><span>Symphony &#215; Claude Code in production: specs in, reviewed PRs out</span></div>
-        <div class="bpm-fact"><b>Find me</b><span>github.com/cdcordobaa &#183; Arkatechie</span></div>
+        <div class="bpm-fact"><b>Building &#183; Globant</b><span>AI systems in production: agentic architectures, retrieval, the harnesses this talk walks through</span></div>
+        <div class="bpm-fact"><b>Community &#183; Tribu IA</b><span>helping lead the Agentic AI community: 50+ sessions moving engineers from prompt experiments to real AI system design</span></div>
+        <div class="bpm-fact"><b>Research &#183; M.Sc. thesis</b><span>a Neuro-Symbolic Architectural Firewall: validating AI-generated code against formal architectural rules, so AI systems are not only powerful but governable</span></div>
+        <div class="bpm-fact"><b>The thread</b><span>architecture, hands-on engineering, research, and teaching: AI as more than models, as distributed, observable, evolving software systems</span></div>
       </div>
     </div>
-    <div class="bp-take"><span>&#9656;</span> Everything in this talk shipped in client work. Nothing here is hypothetical.</div><div class="bp-credit">HARNESS ENGINEERING // 0.0</div><div class="bp-pageno"><b>02</b> / 30</div>
+    <div class="bp-take"><span>&#9656;</span> Current obsession: designing systems where humans, agents, and specifications work together to produce reliable software.</div><div class="bp-credit">HARNESS ENGINEERING // 0.0</div><div class="bp-pageno"><b>02</b> / 30</div>
   </section>'''
 main_slides.insert(1, about)
 
