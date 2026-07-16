@@ -138,6 +138,15 @@ scoped += """
 .bp-dark .bp-frame rect, .bp-dark .bp-frame path { stroke:#3f453a; }
 .bp-dark .bp-take { border-color: rgba(191,215,50,.35); }
 
+/* merged loop-engineering triptych */
+.bp-loopmerge .bpx-grid { display: grid; grid-template-columns: 1fr 0.9fr 1.16fr; gap: 28px; align-items: start; margin-top: 18px; }
+.bp-loopmerge .bpx-col { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.bp-loopmerge .bpx-cap { font-size: 11.5px; letter-spacing: .13em; font-weight: 700; color: var(--green); text-align: center; }
+.bp-loopmerge .bpx-vis { height: 368px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+.bp-loopmerge .bpx-vis svg.bp-dia { width: 100%; height: auto; max-height: 356px; }
+.bp-loopmerge .bpx-media img { max-width: 100%; max-height: 300px; border-radius: 10px; }
+.bp-loopmerge .bpx-chips { font-size: 10.5px; color: var(--muted); text-align: center; white-space: nowrap; }
+
 /* the star CTA on the thanks slide */
 .bp-thanks .bp-thx-star { margin-top: 20px; font-size: 21px; color: #9fb8a5; }
 .bp-thanks .bp-thx-star b { color: var(--green); font-weight: 700; }
@@ -168,7 +177,27 @@ def darken(s):
         svg = base64.b64decode(m.group(2)).decode().replace("#00292e", "#f1f2ec")
         s = s.replace(m.group(2), base64.b64encode(svg.encode()).decode())
     return s
-loop_slides = [darken(s) for s in loop_slides]
+# fuse L1+L2+L3 into ONE dark chapter slide: a triptych of their three visuals
+l1, l2, l3 = loop_slides
+frame = re.search(r'<svg class="bp-frame".*?</svg>', l1, re.S).group(0)
+logo = re.search(r'<img class="bp-logo"[^>]*>', l1).group(0)
+hloop = re.search(r'<svg class="bp-dia bp-hloop".*?</svg>', l1, re.S).group(0)
+aloop = re.search(r'<svg class="bp-dia bp-aloop".*?</svg>', l3, re.S).group(0)
+l2img = re.search(r'<div class="bp-hero__media">(.*?)</div>', l2, re.S).group(1)
+chips = " &rarr; ".join(re.findall(r"<span>([^<]+)</span>",
+        re.search(r'<div class="bp-hero__cap">(.*?)</div>', l2, re.S).group(1)))
+
+merged = f'''<section class="slide bp bp-card bp-loopmerge" aria-label="L1 Loop Engineering (merged L1+L2+L3)">
+    {frame}{logo}
+    <div class="bp-eyebrow">§4b · HARNESS AND LOOP</div><h1 class="bp-h">Harness engineering vs. loop engineering</h1><p class="bp-sub">The harness defines what the agent can do; the loop defines how it keeps doing it. A loop is a control system, and the spec is its control surface.</p>
+    <div class="bpx-grid">
+      <div class="bpx-col"><div class="bpx-cap">01 · THE BODY IN MOTION</div><div class="bpx-vis">{hloop}</div></div>
+      <div class="bpx-col"><div class="bpx-cap">02 · A CONTROL SYSTEM, NOT A PROMPT</div><div class="bpx-vis"><div class="bpx-media">{l2img}</div><div class="bpx-chips">{chips}</div></div></div>
+      <div class="bpx-col"><div class="bpx-cap">03 · THE SPEC IS THE CONTROL SURFACE</div><div class="bpx-vis">{aloop}</div></div>
+    </div>
+    <div class="bp-take"><span>▸</span> The harness is the body. The loop is the body in motion. The spec is its control surface.</div><div class="bp-credit">HARNESS ENGINEERING // LOOP</div><div class="bp-pageno"><b>22</b> / 30</div>
+  </section>'''
+loop_slides = [darken(merged)]
 
 # the star CTA on the thanks slide
 main_slides = [
