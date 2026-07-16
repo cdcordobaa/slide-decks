@@ -323,7 +323,7 @@ about = f'''<section class="slide bp bp-card" aria-label="0.0 About the speaker"
         <div class="bpm-fact"><b>Tutor &#183; Hardcore AI by 30X</b><span>mentoring students through the immersive journey from engineer to AI Orchestrator</span></div>
       </div>
     </div>
-    <div class="bp-take"><span>&#9656;</span> Current obsession: designing systems where humans, agents, and specifications work together to produce reliable software.</div><div class="bp-credit">HARNESS ENGINEERING // 0.0</div><div class="bp-pageno"><b>02</b> / 30</div>
+    <div class="bp-take"><span>&#9656;</span> Current obsession: designing systems where humans and agents work cohesively to produce reliable software.</div><div class="bp-credit">HARNESS ENGINEERING // 0.0</div><div class="bp-pageno"><b>02</b> / 30</div>
   </section>'''
 main_slides.insert(1, about)
 
