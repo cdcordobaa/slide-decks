@@ -313,14 +313,14 @@ loop_slides = [darken(slideA), darken(slideB)]
 # speaker slide, inserted right after the cover (light blueprint style)
 about = f'''<section class="slide bp bp-card" aria-label="0.0 About the speaker">
     {frame}{logo}
-    <div class="bp-eyebrow">§0 &#183; WHO IS TALKING</div><h1 class="bp-h">Cristian C&oacute;rdoba</h1><p class="bp-sub">Software architect focused on agentic AI systems, RAG/GraphRAG, and production-ready LLM architectures.</p>
+    <div class="bp-eyebrow">§0 &#183; WHO IS TALKING</div><h1 class="bp-h">Cristian C&oacute;rdoba</h1><p class="bp-sub">Software Engineer / AI Operator. Focused on agentic AI systems, RAG/GraphRAG, and production-ready LLM architectures.</p>
     <div class="bpm-grid">
       <div class="bpm-photo"><img src="assets/speaker.jpg" alt="Cristian C&oacute;rdoba"></div>
       <div class="bpm-facts">
         <div class="bpm-fact"><b>Building &#183; Globant</b><span>AI systems in production: agentic architectures, retrieval, the harnesses this talk walks through</span></div>
         <div class="bpm-fact"><b>Community &#183; Tribu IA</b><span>helping lead the Agentic AI community: 50+ sessions moving engineers from prompt experiments to real AI system design</span></div>
         <div class="bpm-fact"><b>Research &#183; M.Sc. thesis</b><span>a Neuro-Symbolic Architectural Firewall: validating AI-generated code against formal architectural rules, so AI systems are not only powerful but governable</span></div>
-        <div class="bpm-fact"><b>The thread</b><span>architecture, hands-on engineering, research, and teaching: AI as more than models, as distributed, observable, evolving software systems</span></div>
+        <div class="bpm-fact"><b>Tutor &#183; Hardcore AI by TrentaX</b><span>supporting students through the immersive experience of the program, forming AI Orchestrators</span></div>
       </div>
     </div>
     <div class="bp-take"><span>&#9656;</span> Current obsession: designing systems where humans, agents, and specifications work together to produce reliable software.</div><div class="bp-credit">HARNESS ENGINEERING // 0.0</div><div class="bp-pageno"><b>02</b> / 30</div>
