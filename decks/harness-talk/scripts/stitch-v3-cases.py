@@ -138,14 +138,9 @@ scoped += """
 .bp-dark .bp-frame rect, .bp-dark .bp-frame path { stroke:#3f453a; }
 .bp-dark .bp-take { border-color: rgba(191,215,50,.35); }
 
-/* merged loop-engineering triptych */
-.bp-loopmerge .bpx-grid { display: grid; grid-template-columns: 1fr 0.9fr 1.16fr; gap: 28px; align-items: start; margin-top: 18px; }
-.bp-loopmerge .bpx-col { display: flex; flex-direction: column; gap: 6px; align-items: center; }
-.bp-loopmerge .bpx-cap { font-size: 11.5px; letter-spacing: .13em; font-weight: 700; color: var(--green); text-align: center; }
-.bp-loopmerge .bpx-vis { height: 368px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
-.bp-loopmerge .bpx-vis svg.bp-dia { width: 100%; height: auto; max-height: 356px; }
-.bp-loopmerge .bpx-media img { max-width: 100%; max-height: 300px; border-radius: 10px; }
-.bp-loopmerge .bpx-chips { font-size: 10.5px; color: var(--muted); text-align: center; white-space: nowrap; }
+/* from-scratch loop-engineering diagram slides */
+.bpx-slide .bpx-stage { display: flex; justify-content: center; margin-top: 10px; }
+.bpx-slide .bpx-stage svg { width: 100%; max-width: 1150px; height: auto; }
 
 /* the star CTA on the thanks slide */
 .bp-thanks .bp-thx-star { margin-top: 20px; font-size: 21px; color: #9fb8a5; }
@@ -177,27 +172,130 @@ def darken(s):
         svg = base64.b64decode(m.group(2)).decode().replace("#00292e", "#f1f2ec")
         s = s.replace(m.group(2), base64.b64encode(svg.encode()).decode())
     return s
-# fuse L1+L2+L3 into ONE dark chapter slide: a triptych of their three visuals
-l1, l2, l3 = loop_slides
+# replace L1+L2+L3 with two from-scratch dark slides drawn as one big diagram
+# each: (A) the agentic loop as a classical control-system block diagram
+# (setpoint -> comparator -> controller -> plant -> sensor -> feedback), and
+# (B) the spec as the control surface feeding one loop iteration.
+l1 = loop_slides[0]
 frame = re.search(r'<svg class="bp-frame".*?</svg>', l1, re.S).group(0)
 logo = re.search(r'<img class="bp-logo"[^>]*>', l1).group(0)
-hloop = re.search(r'<svg class="bp-dia bp-hloop".*?</svg>', l1, re.S).group(0)
-aloop = re.search(r'<svg class="bp-dia bp-aloop".*?</svg>', l3, re.S).group(0)
-l2img = re.search(r'<div class="bp-hero__media">(.*?)</div>', l2, re.S).group(1)
-chips = " &rarr; ".join(re.findall(r"<span>([^<]+)</span>",
-        re.search(r'<div class="bp-hero__cap">(.*?)</div>', l2, re.S).group(1)))
 
-merged = f'''<section class="slide bp bp-card bp-loopmerge" aria-label="L1 Loop Engineering (merged L1+L2+L3)">
+INK, MUT, GRN, SFT, AMB, CYA = "#f1f2ec", "#9a9c93", "#bfd732", "#8fd460", "#eba23e", "#5bc5de"
+PNL, PST = "#121216", "#3a3b35"
+
+def zone(x, y, w, h, title, sub, stroke, extra=""):
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="{PNL}" stroke="{stroke}" stroke-width="1.4"/>'
+            f'<text x="{x+16}" y="{y+27}" font-size="15" font-weight="700" fill="{stroke}">{title}</text>'
+            f'<text x="{x+16}" y="{y+46}" font-size="11.5" fill="{MUT}">{sub}</text>' + extra)
+
+def chip(x, y, w, label, color=INK):
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="26" rx="6" fill="#1a1a1f" stroke="{PST}"/>'
+            f'<text x="{x+w/2}" y="{y+17}" font-size="11.5" fill="{color}" text-anchor="middle">{label}</text>')
+
+def num(x, y, n):
+    return (f'<circle cx="{x}" cy="{y}" r="11" fill="#060607" stroke="{AMB}" stroke-width="1.3"/>'
+            f'<text x="{x}" y="{y+4}" font-size="11" font-weight="700" fill="{AMB}" text-anchor="middle">{n}</text>')
+
+def arrow(d, color=GRN, dash="", marker="arG"):
+    return f'<path d="{d}" fill="none" stroke="{color}" stroke-width="1.6" {dash} marker-end="url(#{marker})"/>'
+
+DEFS = (f'<defs><marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
+        f'<path d="M 0 0 L 10 5 L 0 10 z" fill="{GRN}"/></marker>'
+        f'<marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
+        f'<path d="M 0 0 L 10 5 L 0 10 z" fill="{AMB}"/></marker></defs>')
+
+svgA = f'''<svg class="bp-dia bpx-ctrl" viewBox="0 0 1160 452" style="font-family: var(--mono)">{DEFS}
+  <text x="1140" y="24" font-size="11.5" fill="{MUT}" text-anchor="end"><tspan fill="{INK}">boxes = the harness</tspan>&#160;&#160;&#160;<tspan fill="{GRN}">arrows = the loop</tspan></text>
+  {zone(14, 130, 186, 170, "SPEC", "the setpoint", GRN,
+        chip(30, 188, 154, "intent &amp; scope fence") + chip(30, 222, 154, "acceptance criteria") + chip(30, 256, 154, "test plan"))}
+  <circle cx="266" cy="215" r="24" fill="{PNL}" stroke="{INK}" stroke-width="1.4"/>
+  <text x="266" y="222" font-size="18" fill="{INK}" text-anchor="middle">&#931;</text>
+  <text x="266" y="146" font-size="11" fill="{MUT}" text-anchor="middle">the gap:</text>
+  <text x="266" y="160" font-size="11" fill="{MUT}" text-anchor="middle">spec minus reality</text>
+  {zone(330, 108, 290, 214, "HARNESS &#183; the controller", "decides the next step", CYA,
+        f'<polygon points="508,156 535,171 535,201 508,216 481,201 481,171" fill="#060607" stroke="{GRN}" stroke-width="1.5"/>'
+        f'<text x="508" y="191" font-size="11.5" font-weight="700" fill="{GRN}" text-anchor="middle">MODEL</text>'
+        + chip(348, 226, 122, "context &amp; memory") + chip(482, 226, 122, "tools &amp; skills")
+        + chip(348, 260, 122, "permissions") + chip(482, 260, 122, "retries &amp; routing"))}
+  {zone(680, 130, 210, 170, "AGENT RUN &#183; the plant", "acts on the workspace", INK,
+        chip(698, 196, 174, "edits &#183; commands &#183; diffs") + chip(698, 232, 174, "isolated workspace"))}
+  {zone(950, 148, 196, 134, "CHANGE", "the output", SFT,
+        chip(966, 206, 164, "PR + evidence"))}
+  {zone(560, 366, 330, 72, "VERIFICATION &#183; the sensor", "tests &#183; evals &#183; CI &#183; human review", AMB)}
+  {arrow("M 200 215 L 236 215")}{num(218, 197, "1")}
+  {arrow("M 290 215 L 324 215")}{num(307, 197, "2")}
+  {arrow("M 620 215 L 674 215")}{num(647, 197, "3")}
+  {arrow("M 890 215 L 944 215")}{num(917, 197, "4")}
+  {arrow("M 1048 282 C 1048 350, 990 402, 896 402", AMB, "", "arA")}{num(1006, 372, "5")}
+  {arrow("M 560 402 C 380 402, 266 330, 266 245", AMB, 'stroke-dasharray="7 5"', "arA")}{num(370, 390, "6")}
+  <text x="392" y="352" font-size="11.5" fill="{AMB}" text-anchor="middle">state update: the result changes what the next step sees</text>
+</svg>'''
+
+slideA = f'''<section class="slide bp bp-card bpx-slide" aria-label="L1 A Loop Is a Control System">
     {frame}{logo}
-    <div class="bp-eyebrow">§4b · HARNESS AND LOOP</div><h1 class="bp-h">Harness engineering vs. loop engineering</h1><p class="bp-sub">The harness defines what the agent can do; the loop defines how it keeps doing it. A loop is a control system, and the spec is its control surface.</p>
-    <div class="bpx-grid">
-      <div class="bpx-col"><div class="bpx-cap">01 · THE BODY IN MOTION</div><div class="bpx-vis">{hloop}</div></div>
-      <div class="bpx-col"><div class="bpx-cap">02 · A CONTROL SYSTEM, NOT A PROMPT</div><div class="bpx-vis"><div class="bpx-media">{l2img}</div><div class="bpx-chips">{chips}</div></div></div>
-      <div class="bpx-col"><div class="bpx-cap">03 · THE SPEC IS THE CONTROL SURFACE</div><div class="bpx-vis">{aloop}</div></div>
-    </div>
-    <div class="bp-take"><span>▸</span> The harness is the body. The loop is the body in motion. The spec is its control surface.</div><div class="bp-credit">HARNESS ENGINEERING // LOOP</div><div class="bp-pageno"><b>22</b> / 30</div>
+    <div class="bp-eyebrow">§4b &#183; LOOP ENGINEERING</div><h1 class="bp-h">A loop is a control system, not a prompt</h1><p class="bp-sub">Measure, compare, correct: the same closed loop that runs a thermostat runs an agent. The harness is the boxes; the loop is the arrows between them.</p>
+    <div class="bpx-stage">{svgA}</div>
+    <div class="bp-take"><span>&#9656;</span> Do not prompt each step. Design the system that generates, checks, and routes the next step.</div><div class="bp-credit">HARNESS ENGINEERING // LOOP</div><div class="bp-pageno"><b>22</b> / 30</div>
   </section>'''
-loop_slides = [darken(merged)]
+
+spec_rows = [("INTENT", "what done means, in one paragraph", GRN),
+             ("ACCEPTANCE CRITERIA", "each one testable, each one a gate", GRN),
+             ("TEST PLAN / VALIDATION", "how the loop proves the work", GRN),
+             ("CONSTRAINTS &amp; NON-GOALS", "the fence the agent cannot cross", GRN),
+             ("STATUS LOG", "written back by the loop itself", AMB)]
+rows_svg = "".join(
+    f'<rect x="52" y="{118+i*56}" width="286" height="46" rx="7" fill="#1a1a1f" stroke="{PST}"/>'
+    f'<text x="68" y="{137+i*56}" font-size="12" font-weight="700" fill="{c}">{t}</text>'
+    f'<text x="68" y="{154+i*56}" font-size="11" fill="{MUT}">{s}</text>'
+    for i, (t, s, c) in enumerate(spec_rows))
+
+LOOPN = [("read the spec", 0), ("plan the step", 1), ("act", 2), ("verify against the spec", 3), ("route: pass / fail", 4)]
+import math
+def loop_nodes(cx, cy, r):
+    out, widths = "", []
+    for label, i in LOOPN:
+        a = -90 + i * 72
+        x, y = cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))
+        w = 9.2 * len(label) + 22
+        widths.append(w)
+        out += (f'<rect x="{x-w/2:.0f}" y="{y-16:.0f}" width="{w:.0f}" height="32" rx="8" fill="{PNL}" stroke="{GRN if i==3 else PST}" stroke-width="1.4"/>'
+                f'<text x="{x:.0f}" y="{y+4:.0f}" font-size="12" fill="{INK}" text-anchor="middle">{label}</text>')
+    # directed edge-to-edge arrows between consecutive nodes: the LOOP itself
+    cent = [(cx + r * math.cos(math.radians(-90 + i * 72)),
+             cy + r * math.sin(math.radians(-90 + i * 72))) for _, i in LOOPN]
+    for i in range(5):
+        (x1, y1), (x2, y2) = cent[i], cent[(i + 1) % 5]
+        dx, dy = x2 - x1, y2 - y1
+        L = math.hypot(dx, dy); ux, uy = dx / L, dy / L
+        c1 = math.hypot(widths[i] / 2 * ux, 19 * uy) + 10
+        c2 = math.hypot(widths[(i + 1) % 5] / 2 * ux, 19 * uy) + 10
+        out += arrow(f"M {x1+ux*c1:.0f} {y1+uy*c1:.0f} L {x2-ux*c2:.0f} {y2-uy*c2:.0f}")
+    return out
+
+nodes_svg = loop_nodes(790, 210, 148)
+svgB = f'''<svg class="bp-dia bpx-spec" viewBox="0 0 1160 420" style="font-family: var(--mono)">{DEFS}
+  <rect x="34" y="52" width="322" height="332" rx="12" fill="{PNL}" stroke="{GRN}" stroke-width="1.4"/>
+  <text x="52" y="84" font-size="14" font-weight="700" fill="{GRN}">spec.md</text>
+  <text x="122" y="84" font-size="11.5" fill="{MUT}">&#183; versioned in git</text>
+  <text x="52" y="102" font-size="11" fill="{MUT}">THE CONTROL SURFACE</text>
+  {rows_svg}
+  <text x="790" y="206" font-size="11.5" fill="{MUT}" text-anchor="middle">one iteration,</text>
+  <text x="790" y="222" font-size="11.5" fill="{MUT}" text-anchor="middle">as many as it takes</text>
+  {nodes_svg}
+  {arrow("M 360 128 C 480 96, 560 78, 706 60")}
+  <text x="520" y="66" font-size="11.5" fill="{GRN}" text-anchor="middle">the loop reads it, every step</text>
+  {arrow("M 652 330 C 540 384, 460 372, 364 348", AMB, 'stroke-dasharray="7 5"', "arA")}
+  <text x="440" y="392" font-size="11.5" fill="{AMB}">results are written back into it</text>
+</svg>'''
+
+slideB = f'''<section class="slide bp bp-card bpx-slide" aria-label="L3 The Spec Is the Control Surface">
+    {frame}{logo}
+    <div class="bp-eyebrow">§4b &#183; LOOP ENGINEERING</div><h1 class="bp-h">The spec is the control surface</h1><p class="bp-sub">In an agentic workflow the spec is not just input. It is the setpoint the loop steers toward, and the log it reports back to.</p>
+    <div class="bpx-stage">{svgB}</div>
+    <div class="bp-take"><span>&#9656;</span> You steer by editing the artifact, not by prompting the run. The spec is the new keyboard.</div><div class="bp-credit">HARNESS ENGINEERING // LOOP</div><div class="bp-pageno"><b>23</b> / 30</div>
+  </section>'''
+
+loop_slides = [darken(slideA), darken(slideB)]
 
 # the star CTA on the thanks slide
 main_slides = [
