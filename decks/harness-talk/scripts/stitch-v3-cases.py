@@ -33,8 +33,11 @@ ROOT = os.path.normpath(os.path.join(HERE, ".."))
 P = lambda *p: os.path.join(ROOT, *p)
 
 DROP = ("5.1 Client Project", "5.2 Client Project", "7.2 ", "7.3 ", "7.4 ")
-STAR_NOTE = ('<div class="bp-thx-star">If you liked this presentation, remember to '
-             'give a star at <b>StartMeUp</b>.</div>')
+STAR_NOTE = (
+    '<div class="bp-thx-quote">&ldquo;We shape our tools, and thereafter our tools shape us.&rdquo;'
+    '<span>MARSHALL McLUHAN</span></div>'
+    '<div class="bp-thx-star">Feedback is a control signal: close the loop with a '
+    '<b>&#11088; on StarMeUp</b>.</div>')
 
 v3 = open(P("build", "harness-v3.html")).read()
 proof = open(P("proof", "harness-proof-slides.html")).read()
@@ -140,11 +143,21 @@ scoped += """
 
 /* from-scratch loop-engineering diagram slides */
 .bpx-slide .bpx-stage { display: flex; justify-content: center; margin-top: 10px; }
-.bpx-slide .bpx-stage svg { width: 100%; max-width: 1150px; height: auto; }
+.bpx-slide .bpx-stage svg { width: 100%; max-width: 1096px; height: auto; }
 
-/* the star CTA on the thanks slide */
-.bp-thanks .bp-thx-star { margin-top: 20px; font-size: 21px; color: #9fb8a5; }
+/* quote + star CTA on the thanks slide */
+.bp-thanks .bp-thx-quote { margin-top: 30px; font-size: 24px; font-weight: 300; color: #d9e4da; max-width: 880px; line-height: 1.45; }
+.bp-thanks .bp-thx-quote span { display: block; margin-top: 10px; font-size: 13px; letter-spacing: .16em; color: #7f9a86; }
+.bp-thanks .bp-thx-star { margin-top: 26px; font-size: 20px; color: #9fb8a5; }
 .bp-thanks .bp-thx-star b { color: var(--green); font-weight: 700; }
+
+/* speaker slide */
+.bpm-grid { display: grid; grid-template-columns: 290px 1fr; gap: 44px; align-items: center; margin-top: 26px; min-height: 430px; }
+.bpm-mono { height: 290px; border: 1.4px solid var(--line-strong); border-radius: 14px; background: var(--panel); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 84px; font-weight: 800; color: var(--ink); letter-spacing: -2px; }
+.bpm-mono span { font-size: 12px; font-weight: 400; color: var(--muted-2); margin-top: 10px; letter-spacing: .08em; }
+.bpm-facts { display: flex; flex-direction: column; gap: 17px; }
+.bpm-fact b { display: block; font-size: 18px; color: var(--ink); }
+.bpm-fact span { font-size: 14px; color: var(--muted); line-height: 1.4; }
 """
 
 # ---------- assemble ----------
@@ -296,6 +309,23 @@ slideB = f'''<section class="slide bp bp-card bpx-slide" aria-label="L3 The Spec
   </section>'''
 
 loop_slides = [darken(slideA), darken(slideB)]
+
+# speaker slide, inserted right after the cover (light blueprint style)
+about = f'''<section class="slide bp bp-card" aria-label="0.0 About the speaker">
+    {frame}{logo}
+    <div class="bp-eyebrow">§0 &#183; WHO IS TALKING</div><h1 class="bp-h">Cristian C&oacute;rdoba</h1><p class="bp-sub">AI engineering at Globant. I build and operate the systems this talk is about.</p>
+    <div class="bpm-grid">
+      <div class="bpm-mono">CC<span>swap me for a photo</span></div>
+      <div class="bpm-facts">
+        <div class="bpm-fact"><b>Operator, not author</b><span>specified the MIP evaluation harness into existence: spec-driven, zero hand-written harness code</span></div>
+        <div class="bpm-fact"><b>Harness builder</b><span>VIPP agentic search harness: six retrieval skills commanded over MCP, model pluggable</span></div>
+        <div class="bpm-fact"><b>Fleet operator</b><span>Symphony &#215; Claude Code in production: specs in, reviewed PRs out</span></div>
+        <div class="bpm-fact"><b>Find me</b><span>github.com/cdcordobaa &#183; Arkatechie</span></div>
+      </div>
+    </div>
+    <div class="bp-take"><span>&#9656;</span> Everything in this talk shipped in client work. Nothing here is hypothetical.</div><div class="bp-credit">HARNESS ENGINEERING // 0.0</div><div class="bp-pageno"><b>02</b> / 30</div>
+  </section>'''
+main_slides.insert(1, about)
 
 # the star CTA on the thanks slide
 main_slides = [
