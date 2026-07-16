@@ -153,8 +153,8 @@ scoped += """
 
 /* speaker slide */
 .bpm-grid { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: center; margin-top: 20px; min-height: 384px; }
-.bpm-mono { height: 272px; border: 1.4px solid var(--line-strong); border-radius: 14px; background: var(--panel); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 80px; font-weight: 800; color: var(--ink); letter-spacing: -2px; }
-.bpm-mono span { font-size: 12px; font-weight: 400; color: var(--muted-2); margin-top: 10px; letter-spacing: .08em; }
+.bpm-photo { height: 384px; }
+.bpm-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; border: 1.4px solid var(--line-strong); }
 .bpm-facts { display: flex; flex-direction: column; gap: 14px; }
 .bpm-fact b { display: block; font-size: 17px; color: var(--ink); }
 .bpm-fact span { font-size: 13.5px; color: var(--muted); line-height: 1.38; }
@@ -315,7 +315,7 @@ about = f'''<section class="slide bp bp-card" aria-label="0.0 About the speaker"
     {frame}{logo}
     <div class="bp-eyebrow">§0 &#183; WHO IS TALKING</div><h1 class="bp-h">Cristian C&oacute;rdoba</h1><p class="bp-sub">Software architect focused on agentic AI systems, RAG/GraphRAG, and production-ready LLM architectures.</p>
     <div class="bpm-grid">
-      <div class="bpm-mono">CC<span>swap me for a photo</span></div>
+      <div class="bpm-photo"><img src="assets/speaker.jpg" alt="Cristian C&oacute;rdoba"></div>
       <div class="bpm-facts">
         <div class="bpm-fact"><b>Building &#183; Globant</b><span>AI systems in production: agentic architectures, retrieval, the harnesses this talk walks through</span></div>
         <div class="bpm-fact"><b>Community &#183; Tribu IA</b><span>helping lead the Agentic AI community: 50+ sessions moving engineers from prompt experiments to real AI system design</span></div>
@@ -375,6 +375,10 @@ doc = head.replace("</style>", scoped + "</style>") + "".join(body_parts) + tail
 body_out = doc[doc.index("</style>"):]
 assert "—" not in body_out and "&mdash;" not in body_out
 assert "—" not in doc[: doc.index("<style>")]
+
+import shutil
+os.makedirs(P("build", "assets"), exist_ok=True)
+shutil.copyfile(P("cards-v3", "assets", "speaker.jpg"), P("build", "assets", "speaker.jpg"))
 
 out = P("build", "harness-v3-stitched.html")
 open(out, "w").write(doc)
