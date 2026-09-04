@@ -28,15 +28,12 @@ ln -s "$(pwd)/skill" ~/.claude/skills/create-slide-deck
 
 ## decks/harness-talk
 
-The main talk deck plus its proof decks. Everything is generated from sources
-committed in this repo; nothing depends on files outside it.
+The main talk deck. Everything is generated from sources committed in this
+repo; nothing depends on files outside it.
 
 - `cards-v3/` - YAML slide sources for the current v3 talk (v1/v2 kept as
   `cards/`, `cards-v2/`; `legacy/` is the oldest generation)
 - `scripts/` + `theme/` - the YAML -> HTML blueprint renderer
-- `proof/` - the artifact-ported decks (`harness-proof-slides.html`,
-  `caseb-slides.html`) with their own reproducible pipeline in `proof/build/`
-  and original claude.ai sources in `proof/sources/` (see `proof/build/README.md`)
 - `build/` - rendered output, gitignored
 - `.env` - local only (GEMINI_API_KEY for infographic generation), gitignored
 
@@ -47,10 +44,6 @@ git clone git@github.com:cdcordobaa/slide-decks.git
 cd slide-decks/decks/harness-talk
 npm install                          # playwright etc.
 npx playwright install chromium
-
-# rebuild + verify the proof decks (byte-identical to the committed HTML)
-python3 proof/build/recolor.py && python3 proof/build/slices.py && python3 proof/build/caseb.py
-node proof/build/check.mjs proof/caseb-slides.html
 
 # render the v3 talk deck
 node scripts/build-blueprint-deck.mjs cards-v3 --out build/harness-v3.html

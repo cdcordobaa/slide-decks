@@ -71,7 +71,3 @@ Never eyeball fit. For every built deck assert:
   session caches and temp dirs get wiped.
 - The built HTML is committed as the deliverable, but the scripts are the
   source of truth: a rebuild must be byte-identical before you trust them.
-
-A worked example of this whole pipeline: `decks/harness-talk/proof/build/` in
-the slide-decks monorepo (artifact -> recolor.py -> slices.py -> caseb.py, with
-check.mjs as the gate).
