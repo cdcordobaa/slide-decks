@@ -8,6 +8,7 @@ Fuente de la estructura: Notion, "Estructura charla" dentro de Charla Atarraya.
 
 - `atarraya-deck.html` es el deck. Es la fuente de verdad, no hay build step.
 - `build/atarraya-deck.pdf` es el render.
+- `assets/` tiene los logos de Globant y el arte generado.
 - `build/shots/` son capturas de QA, no se versionan.
 
 ## Que hay aqui y que falta
@@ -52,32 +53,73 @@ Dos dispositivos que se repiten en todas las laminas:
 
 | Lam | Hora  | Bloque                      | Quien              |
 |-----|-------|-----------------------------|--------------------|
-| 01  | 9:30  | Apertura en frio            | Cristian           |
+| 01  | 9:30  | Apertura en frio (imagen)   | Cristian           |
 | 02  | 9:32  | La pregunta del hilo        | Cristian           |
 | 03  | 9:36  | Presentacion cruzada        | Los dos            |
 | 04  | 9:38  | Acto 1                      | Cristian           |
-| 05  | 9:40  | Globant en cuatro golpes    | Cristian           |
-| 06  | 9:46  | Que hacemos, traducido      | Cristian           |
-| 07  | 9:50  | Dinamica: grita tu app      | La sala            |
-| 08  | 9:52  | Cristian, el camino torcido | Cristian           |
-| 09  | 10:08 | Traspaso                    | Cristian           |
-| 10  | 10:10 | Dinamica: cierra los ojos   | La sala            |
-| 11  | 10:12 | Juliana                     | Juliana            |
-| 12  | 10:28 | Acto 2                      | Cristian           |
-| 13  | 10:30 | Montaje de la red neuronal  | 6 voluntarios      |
-| 14  | 10:34 | Las cuatro rondas           | Cristian y la sala |
-| 15  | 10:43 | El sesgo, y puente a datos  | Cristian           |
-| 16  | 10:45 | Respiro y armado de grupos  | Los dos            |
-| 17  | 10:50 | Tus datos valen oro         | Juliana            |
-| 18  | 10:56 | Tres cosas para hoy         | Juliana            |
-| 19  | 10:58 | Acto 3                      | Los dos            |
-| 20  | 10:58 | Brief del taller            | Los dos            |
-| 21  | 11:00 | La plantilla de 5 casillas  | Grupos             |
-| 22  | 11:14 | Pitch de 45 segundos        | Grupos             |
-| 23  | 11:20 | La carrera que cambio       | Cristian           |
-| 24  | 11:24 | Tres pasos                  | Cristian           |
-| 25  | 11:27 | La pregunta, respondida     | Los dos            |
-| 26  | 11:29 | Foto grupal                 | Todos              |
+| 05  | 9:39  | El garaje (imagen)          | Cristian           |
+| 06  | 9:40  | Globant en cuatro golpes    | Cristian           |
+| 07  | 9:46  | Que hacemos, traducido      | Cristian           |
+| 08  | 9:50  | Dinamica: grita tu app      | La sala            |
+| 09  | 9:52  | Cristian, el camino torcido | Cristian           |
+| 10  | 10:08 | Traspaso                    | Cristian           |
+| 11  | 10:10 | Dinamica: cierra los ojos   | La sala            |
+| 12  | 10:12 | Juliana                     | Juliana            |
+| 13  | 10:28 | Acto 2                      | Cristian           |
+| 14  | 10:30 | Montaje de la red neuronal  | 6 voluntarios      |
+| 15  | 10:34 | Las cuatro rondas           | Cristian y la sala |
+| 16  | 10:36 | Los cinco casos (imagenes)  | La sala            |
+| 17  | 10:43 | El sesgo, y puente a datos  | Cristian           |
+| 18  | 10:45 | Respiro y armado de grupos  | Los dos            |
+| 19  | 10:50 | Tus datos valen oro (imagen)| Juliana            |
+| 20  | 10:56 | Tres cosas para hoy         | Juliana            |
+| 21  | 10:58 | Acto 3                      | Los dos            |
+| 22  | 10:58 | Brief del taller            | Los dos            |
+| 23  | 11:00 | La plantilla de 5 casillas  | Grupos             |
+| 24  | 11:14 | Pitch de 45 segundos (imagen)| Grupos            |
+| 25  | 11:20 | La carrera que cambio       | Cristian           |
+| 26  | 11:24 | Tres pasos                  | Cristian           |
+| 27  | 11:27 | La pregunta, respondida     | Los dos            |
+| 28  | 11:29 | Foto grupal (imagen)        | Todos              |
+
+## Logo
+
+`assets/globant-ink.svg` (monocromo, para fondos claros y de color) y
+`assets/globant-white.png` (para las laminas oscuras y las de imagen a sangre).
+Van en la esquina superior derecha de las 28 laminas, a 25 px de alto.
+Origen: `decks/harness-talk/cards-v3/assets/`.
+
+## Arte generado con Gemini
+
+Seis ilustraciones tipo cartel serigrafico con la misma paleta del deck, mas
+cinco fotos de los casos ambiguos del clasificador. Van en `assets/art/` y no
+se versionan hasta que esten aprobadas.
+
+| Archivo        | Donde        | Que es                                        |
+|----------------|--------------|-----------------------------------------------|
+| `apertura.png` | Lamina 01    | Salon lleno de manos levantadas               |
+| `garaje.png`   | Lamina 05    | Cuatro amigos, garaje, ano 2000               |
+| `zoo-1..5.png` | Lamina 16    | Los cinco casos ambiguos perro / gato         |
+| `datos.png`    | Lamina 19    | Anzuelo que pesca datos personales            |
+| `taller.png`   | Lamina 24    | Grupos presentando su asistente               |
+| `futuro.png`   | Lamina 28    | Adolescente sobre Bogota al amanecer          |
+
+Las cinco fotos del clasificador no son decorativas: son el material del
+ejercicio y reemplazan las cinco impresiones del kit. Cada una rompe a proposito
+alguna de las seis preguntas de las neuronas (el gato en caja, el chihuahua de
+orejas puntudas, el perro con la lengua afuera, el gato con collar).
+
+Para generarlas hace falta una llave de Gemini:
+
+```bash
+echo 'GEMINI_API_KEY=tu_llave' > .env    # el archivo esta en .gitignore
+./scripts/gen-art.sh                     # genera lo que falte
+./scripts/gen-art.sh --force             # regenera todo
+./scripts/gen-art.sh apertura            # solo una
+```
+
+Mientras no exista el arte, las laminas de imagen renderizan con una trama
+diagonal en el lugar de la foto y el resto del deck funciona igual.
 
 ## Materiales que hay que llevar impresos
 

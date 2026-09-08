@@ -127,7 +127,6 @@ html, body {
   font-size: 12px; letter-spacing: .12em;
 }
 .mode {
-  margin-left: auto;
   display: inline-flex; align-items: center; gap: 7px;
   padding: 5px 12px; border: 3px solid var(--ink); background: var(--white);
   font-size: 12px; letter-spacing: .1em;
@@ -391,6 +390,89 @@ html, body {
 .end__h em { font-style: normal; color: var(--amarillo); }
 .end .sub { color: rgba(246,242,232,.72); }
 
+/* ---------- logo Globant ---------- */
+.brand {
+  position: absolute; top: 32px; right: 40px;
+  height: 25px; width: auto; z-index: 7;
+  display: block;
+}
+.divider .brand, .gift .brand { opacity: .82; }
+
+/* ---------- arte generado ---------- */
+.art { display: block; width: 100%; height: 100%; object-fit: cover; }
+.art-slot {
+  position: relative;
+  background:
+    repeating-linear-gradient(135deg, var(--paper-2) 0 14px, rgba(20,19,26,.06) 14px 28px);
+  overflow: hidden;
+}
+
+/* portada y laminas de imagen a sangre */
+.hero { padding: 0; flex-direction: column; justify-content: flex-end; background: var(--ink); }
+.hero__art { position: absolute; inset: 0; z-index: 1; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background:
+    linear-gradient(0deg, rgba(20,19,26,.82) 0%, rgba(20,19,26,0) 22%),
+    linear-gradient(96deg,
+      rgba(20,19,26,.94) 0%, rgba(20,19,26,.88) 34%,
+      rgba(20,19,26,.42) 68%, rgba(20,19,26,.05) 100%);
+}
+.hero__body {
+  position: relative; z-index: 3;
+  padding: var(--pad) var(--pad) 78px;
+  color: var(--paper);
+}
+.hero .foot { color: rgba(246,242,232,.75); z-index: 6; }
+.hero .rail { background: rgba(246,242,232,.18); border-bottom-color: rgba(246,242,232,.28); }
+.hero__word {
+  margin: 0; font-family: var(--display);
+  font-size: 108px; line-height: .9; font-weight: 900; letter-spacing: -.045em;
+  text-transform: uppercase; max-width: 13ch;
+}
+.hero__word--sm { font-size: 74px; max-width: 17ch; }
+.hero__hint {
+  margin: 24px 0 0; font-size: 17px; letter-spacing: .16em; text-transform: uppercase;
+  font-weight: 800; color: var(--amarillo); max-width: 46ch; line-height: 1.5;
+}
+.hero .eyebrow { color: rgba(246,242,232,.7); }
+
+/* imagen a media lamina */
+.split { padding: 0; flex-direction: row; }
+.split__art { width: 44%; flex: 0 0 44%; position: relative; border-right: var(--bd) solid var(--ink); }
+.split__body {
+  flex: 1; min-width: 0;
+  padding: var(--pad) var(--pad) 78px;
+  display: flex; flex-direction: column;
+}
+.split .foot { left: calc(44% + var(--pad)); width: auto; }
+
+/* rejilla de casos ambiguos */
+.zoo {
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr;
+  gap: 16px; width: 100%; height: 100%;
+}
+.zoo figure {
+  position: relative; margin: 0; overflow: hidden;
+  border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+}
+.zoo figcaption {
+  position: absolute; left: 0; bottom: 0; z-index: 2;
+  background: var(--ink); color: var(--paper);
+  font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  padding: 6px 12px;
+}
+.zoo__ask {
+  border: var(--bd) solid var(--ink); background: var(--acc);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 20px; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+}
+.zoo__ask b {
+  font-family: var(--display); font-size: 30px; line-height: 1; font-weight: 900;
+  letter-spacing: -.02em; text-transform: uppercase;
+}
+.zoo__ask span { font-size: 15px; line-height: 1.4; font-weight: 600; }
+
 /* ---------- barra de edicion ---------- */
 .edit-note {
   width: var(--slide-w);
@@ -417,23 +499,29 @@ html, body {
 
 <!-- ============ BLOQUE 0 . APERTURA EN FRIO . 9:30 a 9:38 ============ -->
 
-<section class="slide cold" data-block="0" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Apertura en frio">
+<section class="slide hero" data-block="0" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Apertura en frio">
   <div class="rail"><span></span></div>
-  <p class="cold__word">Levanta<br>la mano</p>
-  <p class="cold__hint">Tres preguntas · nadie se ha presentado todavía</p>
-  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:30 · 01/26</b></div>
+  <div class="hero__art art-slot"><img class="art" src="assets/art/apertura.png" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word">Levanta<br>la mano</p>
+    <p class="hero__hint">Tres preguntas · nadie se ha presentado todavía</p>
+  </div>
+  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:30 · 01/28</b></div>
 </section>
 
 <section class="slide spine" data-block="0" data-act="sala" contenteditable="true" spellcheck="true" aria-label="La pregunta">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">La pregunta</span> Vuelve en el minuto 118 <span class="mode mode--room">Habla la sala</span></p>
   <h1 class="spine__q">¿Quién decide <span class="mk">cómo funciona</span> la tecnología que usas todos los días?</h1>
   <p class="spine__note">No la respondemos hoy. La respondemos en dos horas.</p>
-  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:32 · 02/26</b></div>
+  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:32 · 02/28</b></div>
 </section>
 
 <section class="slide" data-block="0" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Quienes somos">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Minuto 6</span> Presentación cruzada <span class="mode">Hablamos</span></p>
   <h1 class="h h--sm">Ahora sí:<br>quiénes somos</h1>
   <div class="stage">
@@ -448,22 +536,35 @@ html, body {
       </div>
     </div>
   </div>
-  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:36 · 03/26</b></div>
+  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:36 · 03/28</b></div>
 </section>
 
 <!-- ============ ACTO 1 . DE DONDE SALE LA TECNOLOGIA ============ -->
 
 <section class="slide divider" data-block="1" data-act="1" contenteditable="true" spellcheck="true" aria-label="Acto 1">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <div class="divider__bg"><p class="divider__n">01</p></div>
   <p class="divider__kicker">Primera respuesta, y está mal</p>
   <h1 class="divider__wrong">La deciden otros, lejos de aquí</h1>
   <p class="divider__right">Globant nació de cuatro amigos que pensaban lo contrario. Y los dos que estamos aquí salimos de colegios como este.</p>
-  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:38 · 04/26</b></div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:38 · 04/28</b></div>
+</section>
+
+<section class="slide hero" data-block="1" data-act="1" contenteditable="true" spellcheck="true" aria-label="El garaje">
+  <div class="rail"><span></span></div>
+  <div class="hero__art art-slot"><img class="art" src="assets/art/garaje.png" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word hero__word--sm">Nadie creía que se podía hacer desde acá</p>
+    <p class="hero__hint">Buenos Aires, año 2000 · un garaje y cuatro amigos</p>
+  </div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:39 · 05/28</b></div>
 </section>
 
 <section class="slide" data-block="1" data-act="1" contenteditable="true" spellcheck="true" aria-label="Globant en cuatro golpes">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Acto 1</span> Globant contado como historia <span class="mode">Hablamos</span></p>
   <h1 class="h h--sm">Cuatro amigos, un garaje, un país que no creía</h1>
   <div class="stage">
@@ -474,11 +575,12 @@ html, body {
       <article class="card card--acc"><span class="card__n">04</span><h3>El espejo</h3><p>Los que estamos parados aquí no venimos de Silicon Valley.</p></article>
     </div>
   </div>
-  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:40 · 05/26</b></div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:40 · 06/28</b></div>
 </section>
 
 <section class="slide" data-block="1" data-act="1" contenteditable="true" spellcheck="true" aria-label="Que hacemos">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Acto 1</span> Traducido a su mundo <span class="mode">Hablamos</span></p>
   <h1 class="h h--sm">Cuando la app del banco funciona, detrás hay un equipo</h1>
   <div class="stage">
@@ -490,21 +592,23 @@ html, body {
       </div>
     </div>
   </div>
-  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:46 · 06/26</b></div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:46 · 07/28</b></div>
 </section>
 
 <section class="slide" data-block="1" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Dinamica de apps">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Micro dinámica</span> 2 minutos <span class="mode mode--room">Habla la sala</span></p>
   <div class="stage" style="flex-direction:column;justify-content:center;align-items:flex-start;gap:24px">
     <div class="order"><span class="order__k">Orden</span><p>¿Qué app usas más? Grítala.</p></div>
     <div class="ph" style="width:100%"><span class="ph__tag">Pendiente</span><p>Tomamos dos o tres y explicamos <strong>en una frase</strong> qué trabajo de ingeniería hay detrás. Con esto Globant deja de ser abstracto.</p></div>
   </div>
-  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:50 · 07/26</b></div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:50 · 08/28</b></div>
 </section>
 
 <section class="slide" data-block="2" data-act="1" contenteditable="true" spellcheck="true" aria-label="Historia de Cristian">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Acto 1</span> Cristian <span class="mode">Hablamos</span></p>
   <h1 class="h h--sm">El camino torcido</h1>
   <div class="stage stage--top">
@@ -519,32 +623,35 @@ html, body {
       <figure class="shot"><span class="shot__tag">Foto</span><figcaption>Cristian adolescente. Sin bullets, solo imagen.</figcaption></figure>
     </div>
   </div>
-  <div class="foot"><b>02 · Storytelling Cristian</b><b class="foot__min">9:52 · 08/26</b></div>
+  <div class="foot"><b>02 · Storytelling Cristian</b><b class="foot__min">9:52 · 09/28</b></div>
 </section>
 
 <section class="slide" data-block="2" data-act="1" contenteditable="true" spellcheck="true" aria-label="Transicion a Juliana">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Transición</span> Con tensión, no con aplauso <span class="mode">Hablamos</span></p>
   <h1 class="h">Yo tuve suerte en algo que ella no tuvo</h1>
   <p class="sub">Cristian pasa la pelota sin cerrar su acto. Juliana entra con el tema abierto.</p>
   <div class="stage">
     <div class="ph" style="width:100%"><span class="ph__tag">Pendiente</span><p>Escribir la frase exacta de traspaso. Se ensaya tres veces junto con la presentación cruzada del minuto 6.</p></div>
   </div>
-  <div class="foot"><b>02 · Storytelling Cristian</b><b class="foot__min">10:08 · 09/26</b></div>
+  <div class="foot"><b>02 · Storytelling Cristian</b><b class="foot__min">10:08 · 10/28</b></div>
 </section>
 
 <section class="slide" data-block="3" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Dinamica de entrada de Juliana">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Dinámica de entrada</span> 2 minutos <span class="mode mode--room">Habla la sala</span></p>
   <div class="stage" style="flex-direction:column;justify-content:center;align-items:flex-start;gap:24px">
     <div class="order"><span class="order__k">Orden</span><p>Cierra los ojos. Imagina a alguien programando. Ábrelos.</p></div>
     <p class="sub" style="max-width:52ch"><strong>¿Cuántos imaginaron a un hombre?</strong> Manos arriba. Ese es el punto de partida. Sin regaño y con humor.</p>
   </div>
-  <div class="foot"><b>03 · Storytelling Juliana</b><b class="foot__min">10:10 · 10/26</b></div>
+  <div class="foot"><b>03 · Storytelling Juliana</b><b class="foot__min">10:10 · 11/28</b></div>
 </section>
 
 <section class="slide" data-block="3" data-act="1" contenteditable="true" spellcheck="true" aria-label="Historia de Juliana">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Acto 1</span> Juliana <span class="mode">Hablamos</span></p>
   <h1 class="h h--sm">Entrar, quedarse, liderar</h1>
   <div class="stage stage--top">
@@ -561,22 +668,24 @@ html, body {
       </div>
     </div>
   </div>
-  <div class="foot"><b>03 · Storytelling Juliana</b><b class="foot__min">10:12 · 11/26</b></div>
+  <div class="foot"><b>03 · Storytelling Juliana</b><b class="foot__min">10:12 · 12/28</b></div>
 </section>
 
 <!-- ============ ACTO 2 . COMO APRENDE UNA MAQUINA ============ -->
 
 <section class="slide divider" data-block="4" data-act="2" contenteditable="true" spellcheck="true" aria-label="Acto 2">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <div class="divider__bg"><p class="divider__n">02</p></div>
   <p class="divider__kicker">Segunda respuesta, y también está mal</p>
   <h1 class="divider__wrong">La deciden los que saben mucho</h1>
   <p class="divider__right">Vamos a entrenar una red neuronal aquí, con seis voluntarios y sin un solo computador.</p>
-  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:28 · 12/26</b></div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:28 · 13/28</b></div>
 </section>
 
 <section class="slide" data-block="4" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Montaje de la red neuronal">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Didáctica 1</span> 17 minutos, sin computadores <span class="mode mode--hands">Manos a la obra</span></p>
   <h1 class="h h--sm">Seis voluntarios, seis preguntas: ¿perro o gato?</h1>
   <div class="stage" style="flex-direction:column;gap:20px;align-items:stretch;justify-content:center">
@@ -596,11 +705,12 @@ html, body {
       <li>5 fotos ambiguas impresas</li>
     </ul>
   </div>
-  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:30 · 13/26</b></div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:30 · 14/28</b></div>
 </section>
 
 <section class="slide" data-block="4" data-act="2" contenteditable="true" spellcheck="true" aria-label="Las cuatro rondas">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Didáctica 1</span> El corazón de la dinámica <span class="mode mode--hands">Manos a la obra</span></p>
   <h1 class="h h--sm">La máquina aprende equivocándose</h1>
   <div class="stage">
@@ -611,46 +721,65 @@ html, body {
       <article class="card card--acc"><span class="card__n">04</span><h3>Repite</h3><p>Tres o cuatro fotos más. Al final acierta. Miles de millones de veces en una máquina real.</p></article>
     </div>
   </div>
-  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:34 · 14/26</b></div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:34 · 15/28</b></div>
+</section>
+
+<section class="slide" data-block="4" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Los cinco casos">
+  <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <div class="stage" style="margin-top:14px">
+    <div class="zoo">
+      <figure class="art-slot"><img class="art" src="assets/art/zoo-1.png" alt=""><figcaption>Caso 1</figcaption></figure>
+      <figure class="art-slot"><img class="art" src="assets/art/zoo-2.png" alt=""><figcaption>Caso 2</figcaption></figure>
+      <figure class="art-slot"><img class="art" src="assets/art/zoo-3.png" alt=""><figcaption>Caso 3</figcaption></figure>
+      <figure class="art-slot"><img class="art" src="assets/art/zoo-4.png" alt=""><figcaption>Caso 4</figcaption></figure>
+      <figure class="art-slot"><img class="art" src="assets/art/zoo-5.png" alt=""><figcaption>Caso 5</figcaption></figure>
+      <div class="zoo__ask"><b>¿Perro o gato?</b><span>Uno por uno. Las seis neuronas votan, la sala suma, y después vemos quién tenía razón.</span></div>
+    </div>
+  </div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:36 · 16/28</b></div>
 </section>
 
 <section class="slide" data-block="4" data-act="2" contenteditable="true" spellcheck="true" aria-label="El sesgo">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Cola de 2 minutos</span> El sesgo, sin moraleja <span class="mode mode--room">Habla la sala</span></p>
   <h1 class="h">Un modelo solo sabe <span class="mk">lo que le mostraron</span></h1>
   <p class="sub">Nosotros elegimos las cinco fotos. Si solo le hubiéramos mostrado gatos negros, ¿qué haría con un gato blanco?</p>
   <div class="stage">
     <div class="ph" style="width:100%"><span class="ph__tag">Puente a Juliana</span><p>Si todo esto funciona con datos, la pregunta obvia es: <strong>¿de quién son esos datos?</strong> Ahí entra ella, y les va a robar algo.</p></div>
   </div>
-  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:43 · 15/26</b></div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:43 · 17/28</b></div>
 </section>
 
 <section class="slide cold" data-block="r" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Respiro">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
   <p class="cold__word">Respiro</p>
   <p class="cold__hint">5 minutos · estirarse y armar los 8 grupos de 5</p>
-  <div class="foot"><b>Respiro</b><b class="foot__min">10:45 · 16/26</b></div>
+  <div class="foot"><b>Respiro</b><b class="foot__min">10:45 · 18/28</b></div>
 </section>
 
-<section class="slide" data-block="5" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Tus datos valen oro">
+<section class="slide split" data-block="5" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Tus datos valen oro">
   <div class="rail"><span></span></div>
-  <p class="eyebrow"><span class="tag">Didáctica 2</span> Juliana, 8 minutos <span class="mode mode--room">Habla la sala</span></p>
-  <h1 class="h h--sm">Los acabo de hackear y ustedes me ayudaron</h1>
-  <div class="stage">
-    <div class="two two--wide">
-      <div class="cards cards--3" style="align-content:start">
-        <article class="card"><span class="card__n">01</span><h3>La mascota</h3><p>¿Cómo se llama? Anota tres nombres en el tablero.</p></article>
-        <article class="card"><span class="card__n">02</span><h3>El cumpleaños</h3><p>¿Quién cumple este mes? Anota tres fechas.</p></article>
-        <article class="card"><span class="card__n">03</span><h3>El colegio</h3><p>¿Cuál fue el primero? Anota dos respuestas.</p></article>
-      </div>
-      <div class="ph"><span class="ph__tag">El golpe</span><p>Pausa. Señala el tablero. <strong>Esas son las preguntas de seguridad de media internet.</strong> Nadie hackeó nada: se lo dieron en 60 segundos a alguien simpático. Con humor, no con susto.</p></div>
+  <div class="split__art art-slot"><img class="art" src="assets/art/datos.png" alt=""></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <div class="split__body">
+    <p class="eyebrow"><span class="tag">Didáctica 2</span> <span class="mode mode--room">Habla la sala</span></p>
+    <h1 class="h h--sm" style="font-size:40px">Los acabo de hackear y ustedes me ayudaron</h1>
+    <div class="stage" style="flex-direction:column;gap:12px;align-items:stretch;justify-content:center;margin-top:20px">
+      <div class="beat"><span class="beat__n">1</span><div><h3>La mascota</h3><p>¿Cómo se llama? Anota tres nombres en el tablero.</p></div></div>
+      <div class="beat"><span class="beat__n">2</span><div><h3>El cumpleaños</h3><p>¿Quién cumple este mes? Anota tres fechas.</p></div></div>
+      <div class="beat"><span class="beat__n">3</span><div><h3>El primer colegio</h3><p>¿Cuál fue? Anota dos respuestas.</p></div></div>
+      <div class="ph"><span class="ph__tag">El golpe</span><p>Pausa. Señala el tablero. <strong>Esas son las preguntas de seguridad de media internet.</strong> Nadie hackeó nada: se lo dieron en 60 segundos a alguien simpático.</p></div>
     </div>
   </div>
-  <div class="foot"><b>05 · Tus datos valen oro</b><b class="foot__min">10:50 · 17/26</b></div>
+  <div class="foot"><b>05 · Tus datos valen oro</b><b class="foot__min">10:50 · 19/28</b></div>
 </section>
 
 <section class="slide gift" data-block="5" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Tres cosas para hoy">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <h1 class="gift__h">Tres cosas que puedes hacer hoy</h1>
   <ol class="gift__list">
     <li><b>01</b><span>Nunca respondas la pregunta de seguridad con la verdad. Miente, y anota la mentira.</span></li>
@@ -658,22 +787,24 @@ html, body {
     <li><b>03</b><span>Antes de dar un dato: ¿por qué esta persona o esta app necesita saber esto?</span></li>
   </ol>
   <p class="gift__shoot">Esta diapositiva es para que la fotografíen</p>
-  <div class="foot"><b>05 · Tus datos valen oro</b><b class="foot__min">10:56 · 18/26</b></div>
+  <div class="foot"><b>05 · Tus datos valen oro</b><b class="foot__min">10:56 · 20/28</b></div>
 </section>
 
 <!-- ============ ACTO 3 . LA DECIDE QUIEN LA CONSTRUYE ============ -->
 
 <section class="slide divider divider--win" data-block="6" data-act="3" contenteditable="true" spellcheck="true" aria-label="Acto 3">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <div class="divider__bg"><p class="divider__n">03</p></div>
   <p class="divider__kicker">Tercera respuesta, y esta sí</p>
   <h1 class="divider__wrong">La decide quien la construye</h1>
   <p class="divider__right">Si ustedes mandaran, ¿qué construirían con esos datos? Veintidós minutos para averiguarlo.</p>
-  <div class="foot"><b>06 · Taller</b><b class="foot__min">10:58 · 19/26</b></div>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">10:58 · 21/28</b></div>
 </section>
 
 <section class="slide" data-block="6" data-act="sala" contenteditable="true" spellcheck="true" aria-label="El brief del taller">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Taller</span> 8 grupos de 5 <span class="mode mode--hands">Manos a la obra</span></p>
   <div class="stage" style="flex-direction:column;justify-content:center;align-items:stretch;gap:22px">
     <div class="order"><span class="order__k">Brief</span><p>Diseña un asistente de IA que resuelva un problema real de tu colegio, tu casa o tu barrio.</p></div>
@@ -686,11 +817,12 @@ html, body {
       <li>8 stickers para el grupo ganador</li>
     </ul>
   </div>
-  <div class="foot"><b>06 · Taller</b><b class="foot__min">10:58 · 20/26</b></div>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">10:58 · 22/28</b></div>
 </section>
 
 <section class="slide" data-block="6" data-act="3" contenteditable="true" spellcheck="true" aria-label="La plantilla">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Taller</span> La hoja que se llevan <span class="mode mode--hands">Manos a la obra</span></p>
   <h1 class="h h--sm">Cinco casillas y ya tienes un producto</h1>
   <div class="stage">
@@ -703,18 +835,23 @@ html, body {
       <div class="ph"><span class="ph__tag">Pendiente</span><p>Un ejemplo hecho por ustedes, en 2 minutos. Por ejemplo: la ruta más segura de salida del colegio.</p></div>
     </div>
   </div>
-  <div class="foot"><b>06 · Taller</b><b class="foot__min">11:00 · 21/26</b></div>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">11:00 · 23/28</b></div>
 </section>
 
-<section class="slide cold" data-block="6" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Pitch">
+<section class="slide hero" data-block="6" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Pitch">
   <div class="rail"><span></span></div>
-  <p class="cold__word">45<br>segundos</p>
-  <p class="cold__hint">Seis grupos presentan · cronómetro a la vista · voto a mano alzada</p>
-  <div class="foot"><b>06 · Taller</b><b class="foot__min">11:14 · 22/26</b></div>
+  <div class="hero__art art-slot"><img class="art" src="assets/art/taller.png" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word">45<br>segundos</p>
+    <p class="hero__hint">Seis grupos presentan · cronómetro a la vista · voto a mano alzada</p>
+  </div>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">11:14 · 24/28</b></div>
 </section>
 
 <section class="slide" data-block="7" data-act="3" contenteditable="true" spellcheck="true" aria-label="La carrera que cambio">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="eyebrow"><span class="tag">Cierre</span> Cristian, 6 minutos <span class="mode">Hablamos</span></p>
   <h1 class="h h--sm">La carrera cambió, y eso los favorece</h1>
   <div class="stage">
@@ -725,11 +862,12 @@ html, body {
       <article class="card"><span class="card__n">04</span><h3>Y por eso hacen falta</h3><p>Los modelos se entrenaron lejos, con datos que no son de aquí. Alguien tiene que construir la versión que sí nos entienda.</p></article>
     </div>
   </div>
-  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:20 · 23/26</b></div>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:20 · 25/28</b></div>
 </section>
 
 <section class="slide gift" data-block="7" data-act="3" contenteditable="true" spellcheck="true" aria-label="Tres pasos">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <h1 class="gift__h">Tres pasos, y empiezan esta semana</h1>
   <ol class="gift__list">
     <li><b>Hoy</b><span>Usa una IA para aprender algo, no para que te haga la tarea. Pídele lo mismo tres veces, más simple cada vez.</span></li>
@@ -737,22 +875,27 @@ html, body {
     <li><b>Año</b><span>Busca una comunidad. Nadie llega solo a esto.</span></li>
   </ol>
   <p class="gift__shoot">Esta diapositiva es para que la fotografíen</p>
-  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:24 · 24/26</b></div>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:24 · 26/28</b></div>
 </section>
 
 <section class="slide end" data-block="7" data-act="3" contenteditable="true" spellcheck="true" aria-label="La pregunta respondida">
   <div class="rail"><span></span></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
   <p class="eyebrow" style="color:rgba(246,242,232,.6)"><span class="tag">Minuto 118</span> La pregunta del minuto 2</p>
   <h1 class="end__h">La decide <em>quien se atreve</em> a diseñarla</h1>
   <p class="sub">Y ustedes acaban de hacerlo en una hoja de papel.</p>
-  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:27 · 25/26</b></div>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:27 · 27/28</b></div>
 </section>
 
-<section class="slide cold" data-block="7" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Foto grupal">
+<section class="slide hero" data-block="7" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Foto grupal">
   <div class="rail"><span></span></div>
-  <p class="cold__word">Foto,<br>hojas<br>en alto</p>
-  <p class="cold__hint">Sin preguntas al final · nos quedamos 5 minutos para el que se acerque</p>
-  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:29 · 26/26</b></div>
+  <div class="hero__art art-slot"><img class="art" src="assets/art/futuro.png" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word hero__word--sm">Foto, hojas en alto</p>
+    <p class="hero__hint">Sin preguntas al final · nos quedamos 5 minutos para el que se acerque</p>
+  </div>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:29 · 28/28</b></div>
 </section>
 
 </main>
