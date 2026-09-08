@@ -4,29 +4,26 @@ Charla del 11 de septiembre, 9:30 a 11:30, para 40 adolescentes de noveno grado
 de un colegio publico de Bogota. Dos voces, una sola historia: Cristian y
 Juliana.
 
-Fuente de la estructura: Notion, "Estructura charla" dentro de Charla Atarraya.
+## Dos piezas, dos casas
 
-## Dos piezas, dos publicos
+| Pieza | Donde vive | Quien la ve |
+|-------|------------|-------------|
+| **El deck** | Este repo, `charla.html` | La sala. 28 laminas de proyeccion |
+| **La escaleta** | [Notion](https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b) | Ustedes dos. Horas, reparto, guiones, materiales, pendientes |
 
-| Archivo | Quien lo ve | Que tiene |
-|---------|-------------|-----------|
-| `charla.html` | **La sala** | 28 laminas de proyeccion. Sin horas, sin reparto, sin vocabulario de produccion. |
-| `escaleta.html` | **Ustedes dos** | La misma charla con horas, quien habla, materiales, guiones y pendientes. |
-| `GUIA-VERSION-FINAL.md` / `.html` | **Ustedes dos** | Las reglas para pasar de una a otra, y como presentar. |
+La escaleta es un documento de trabajo, no algo que se proyecta, y por eso vive
+en Notion y no aca. Este repo guarda **solo lo que se proyecta.**
 
-Esa separacion es la regla del proyecto: **nada se borra, se muda.** Todo lo que
-en la escaleta dice "10:43", "Habla la sala" o "Pendiente" existe porque ustedes
-lo necesitan, y por eso mismo no puede estar proyectado.
-
-El flujo de trabajo es en una sola direccion:
+El flujo es en una sola direccion:
 
 ```
-escaleta.html  (ustedes iteran aqui)  ->  charla.html  (se regenera desde ella)
+Escaleta (Notion)   ->   charla.html (este repo)
+ustedes iteran ahi       se regenera desde ella
 ```
 
-Editen la escaleta con libertad. La version final se reconstruye a partir de
-ella aplicando las reglas de `GUIA-VERSION-FINAL.md`. Al reves no: los cambios
-hechos directamente en `charla.html` se pierden en la siguiente regeneracion.
+Los cambios hechos directamente en `charla.html` se pierden en la siguiente
+regeneracion. Las reglas de esa traduccion estan en `GUIA-VERSION-FINAL.md`
+(y en `guia-version-final.html`, para leer o imprimir).
 
 ## Estructura
 
@@ -50,15 +47,14 @@ tipo sticker. Un color por respuesta, mas amarillo cuando participa la sala.
 | Magenta  | Respuesta 3, la decide quien la construye    |
 | Amarillo | Apertura y momentos en que habla la sala     |
 
-En `charla.html` el riel superior es un **mapa de tres tramos**: muestra en cual
-de las tres respuestas va la charla, sin decir la hora. En `escaleta.html` ese
-mismo riel avanza con el reloj, porque ahi si hace falta.
+El riel superior es un **mapa de tres tramos**: muestra en cual de las tres
+respuestas va la charla, sin decir la hora. El reloj es asunto de la escaleta.
 
 ## Logo
 
 `assets/globant-ink.svg` (monocromo, fondos claros y de color) y
 `assets/globant-white.png` (laminas oscuras y de imagen). Esquina superior
-derecha de todas las laminas, 25 px de alto. Origen:
+derecha de las 28 laminas, 25 px de alto. Origen:
 `decks/harness-talk/cards-v3/assets/`.
 
 ## Arte
@@ -93,7 +89,7 @@ deck completo pesa 3,5 MB en vez de 18. Si `sips` no existe se queda el PNG.
 
 ## Fotos reales que faltan
 
-Van en `assets/fotos/` y son lo unico que bloquea la version final. Mientras no
+Van en `assets/fotos/` y son lo unico de diseno que bloquea el deck. Mientras no
 esten, esas laminas muestran un panel oscuro con el nombre, que se ve
 intencional pero no es lo que queremos.
 
@@ -101,14 +97,14 @@ intencional pero no es lo que queremos.
 - `cristian-15.jpg`, foto de adolescente
 - `juliana-equipo.jpg`, en su equipo hoy
 
-No se generan con IA: son personas reales.
+No se generan con IA: son personas reales. El resto de pendientes (los de
+contenido) esta en la escaleta.
 
 ## Renderizar
 
 ```bash
 export NODE_PATH=../product-eng-colombia/node_modules
-node ../../skill/scripts/render-pdf.mjs charla.html   build/charla.pdf   --screenshots build/shots-final
-node ../../skill/scripts/render-pdf.mjs escaleta.html build/escaleta.pdf --screenshots build/shots
+node ../../skill/scripts/render-pdf.mjs charla.html build/charla.pdf --screenshots build/shots
 ```
 
 Si `node` viene de nvm es una funcion de shell, no un binario: `env VAR=... node`
@@ -118,10 +114,3 @@ antes, o usen la ruta absoluta del binario.
 El chequeo de overflow reporta los separadores de respuesta y las laminas de
 imagen: el numero gigante de fondo y el arte sangran a proposito y quedan
 recortados por el marco.
-
-## Materiales para llevar impresos
-
-- 6 cartulinas, 6 post-its, marcadores gruesos
-- 10 plantillas del taller, cronometro grande, stickers para el grupo ganador
-- Tablero o papelografo libre para la demo de las tres preguntas
-- Plan B sin proyector: definir cuales tres laminas se imprimen en pliego

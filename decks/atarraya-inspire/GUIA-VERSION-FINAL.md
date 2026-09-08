@@ -14,10 +14,14 @@ sentia interno era guion que se estaba proyectando.
 
 Por eso ahora hay dos archivos:
 
-| Archivo | Quien lo ve | Que tiene |
-|---------|-------------|-----------|
-| `escaleta.html` | Ustedes dos | Horas, reparto, materiales, guiones, pendientes |
-| `charla.html` | La sala | Solo lo que se proyecta |
+| Pieza | Donde vive | Quien la ve |
+|-------|------------|-------------|
+| La escaleta | [Notion](https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b) | Ustedes dos. Horas, reparto, materiales, guiones, pendientes |
+| El deck | Este repo, `charla.html` | La sala. Solo lo que se proyecta |
+
+La escaleta es un documento de trabajo, no un deck. Por eso vive en Notion: ahi
+se escribe en prosa, se comenta y se edita a cuatro manos. El repo guarda solo
+lo que se proyecta.
 
 Ninguna informacion se perdio. Cambio de casa.
 
@@ -81,8 +85,8 @@ tiene un parrafo, sobra.
 El flujo es en una sola direccion:
 
 ```
-escaleta.html   ->   charla.html
-(ustedes)            (se regenera desde ella)
+Escaleta (Notion)   ->   charla.html (repo)
+ustedes iteran ahi       se regenera desde ella
 ```
 
 Editen la escaleta con toda libertad: es de ustedes y para ustedes. La version
@@ -129,9 +133,8 @@ entrada de la escaleta. Sin que nadie tenga que decidir nada.
 
 ### Que pasarme y como
 
-- **Cambio de texto o de orden:** editen `escaleta.html` en el navegador, guarden
-  con Archivo, Guardar como, Pagina web completa, y me pasan el archivo. O
-  diganmelo en palabras, que para eso sirve tener la escaleta versionada.
+- **Cambio de texto o de orden:** editen la pagina de Notion y avisen. No hace
+  falta pasar nada: la escaleta se lee directamente desde ahi.
 - **Contenido nuevo:** el bloque de cuatro campos de arriba.
 - **Arte nuevo:** describanme la escena y yo escribo el brief y lo genero.
 - **Fotos reales:** ponganlas en `assets/fotos/` con los nombres que espera el
@@ -141,7 +144,8 @@ entrada de la escaleta. Sin que nadie tenga que decidir nada.
 
 ## 5. Lo que todavia bloquea la version final
 
-Ninguno es de diseno. Todos son de contenido, y ninguno lo puedo resolver yo.
+La lista viva esta en la escaleta, en Notion, con casillas para ir marcando.
+Ninguno es de diseno. Todos son de contenido.
 
 1. Las cuatro respuestas de Cristian: el objeto que lo engancho, que creia que
    iba a ser, el peor fracaso tecnico, que sorprenderia de su trabajo.
@@ -161,8 +165,8 @@ Ninguno es de diseno. Todos son de contenido, y ninguno lo puedo resolver yo.
 - **Un solo computador, un solo control, y lo maneja el que no esta hablando.**
   Doble funcion: obliga a escuchar de verdad al otro y controla el tiempo sin
   que haya un reloj en pantalla. Es lo que reemplaza al riel de minutos.
-- **La escaleta impresa en papel**, una hoja cada uno. No en el celular: mirar
-  el celular frente a 40 adolescentes cuesta la sala.
+- **La escaleta impresa en papel**, una hoja cada uno. Notion exporta a PDF.
+  No en el celular: mirar el celular frente a 40 adolescentes cuesta la sala.
 - **Nunca leer la lamina.** Prueba simple: si se puede leer en voz alta, sobra.
 - **La sala armada antes de que entren.** Ocho mesas de cinco ya puestas. Mover
   sillas en el minuto 75 cuesta cinco minutos y toda la energia del respiro.

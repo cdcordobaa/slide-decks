@@ -43,6 +43,8 @@ ol li{counter-increment:n}
 ol li::before{content:counter(n);position:absolute;left:0;top:.05em;font-family:var(--display);font-size:14px;color:var(--magenta)}
 
 /* tabla */
+a{color:var(--ink);text-decoration:none;background:linear-gradient(transparent 62%,var(--amarillo) 62%);padding:0 2px;font-weight:700}
+a:hover{background:var(--amarillo)}
 table{width:100%;border-collapse:collapse;margin:22px 0;font-size:15px;border:4px solid var(--ink)}
 th{background:var(--ink);color:var(--paper);text-align:left;padding:11px 14px;font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
 td{padding:12px 14px;border-top:2px solid var(--paper-2);vertical-align:top;line-height:1.45;color:var(--ink-2)}
@@ -101,12 +103,13 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 <p>El deck original no tenía una lista de detalles internos sueltos. Tenía un problema estructural: <strong>estaba tratando de ser dos documentos a la vez.</strong> Era el guion de producción y la superficie proyectada al mismo tiempo. Todo lo que se sentía interno era guion que se estaba proyectando.</p>
 <p>Por eso ahora hay dos archivos, y ninguna información se perdió: cambió de casa.</p>
 <table>
-  <thead><tr><th>Archivo</th><th>Quién lo ve</th><th>Qué tiene</th></tr></thead>
+  <thead><tr><th>Pieza</th><th>Dónde vive</th><th>Quién la ve</th></tr></thead>
   <tbody>
-    <tr><td>escaleta.html</td><td>Nosotros dos</td><td>Horas, reparto, materiales, guiones, pendientes</td></tr>
-    <tr><td>charla.html</td><td>La sala</td><td>Solo lo que se proyecta</td></tr>
+    <tr><td>La escaleta</td><td><a href="https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b">Notion</a></td><td>Nosotros dos. Horas, reparto, materiales, guiones, pendientes</td></tr>
+    <tr><td>El deck</td><td>El repo, <code>charla.html</code></td><td>La sala. Solo lo que se proyecta</td></tr>
   </tbody>
 </table>
+<p>La escaleta es un documento de trabajo, no un deck. Por eso vive en Notion: ahí se escribe en prosa, se comenta y se edita a cuatro manos. El repo guarda solo lo que se proyecta.</p>
 
 <h2 data-n="2">Qué sale de la proyección</h2>
 <table>
@@ -147,8 +150,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 
 <h2 data-n="4">Cómo seguir iterando</h2>
 <p class="lead">La escaleta es la fuente. La charla se regenera desde ella.</p>
-<pre>escaleta.html   <b>→</b>   charla.html
-(iteramos aquí)     (se regenera desde ella)</pre>
+<pre>Escaleta (Notion)   <b>→</b>   charla.html (repo)
+iteramos aquí            se regenera desde ella</pre>
 <p>Editen la escaleta con toda libertad: es de ustedes y para ustedes. <strong>Al revés no:</strong> los cambios hechos directamente en la charla se pierden en la siguiente regeneración.</p>
 
 <h3>El formato que hace la traducción automática</h3>
@@ -178,14 +181,14 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 
 <h3>Qué pasar y cómo</h3>
 <ul>
-  <li><strong>Cambio de texto o de orden:</strong> editen <code>escaleta.html</code> en el navegador, guarden con Archivo, Guardar como, Página web completa, y pasen el archivo. O simplemente díganlo en palabras.</li>
+  <li><strong>Cambio de texto o de orden:</strong> editen la página de Notion y avisen. No hace falta pasar nada: la escaleta se lee directamente desde ahí.</li>
   <li><strong>Contenido nuevo:</strong> el bloque de cuatro campos de arriba.</li>
   <li><strong>Arte nuevo:</strong> describan la escena y de ahí sale el brief y la imagen.</li>
   <li><strong>Fotos reales:</strong> van en <code>assets/fotos/</code> con los nombres que espera el deck: <code>cristian.jpg</code>, <code>juliana.jpg</code>, <code>cristian-15.jpg</code>, <code>juliana-equipo.jpg</code>.</li>
 </ul>
 
 <h2 data-n="5">Lo que todavía bloquea</h2>
-<p>Ninguno es de diseño. Todos son de contenido.</p>
+<p>La lista viva está en <a href="https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b">la escaleta</a>, con casillas para ir marcando. Ninguno es de diseño. Todos son de contenido.</p>
 <ol>
   <li>Las cuatro respuestas de Cristian: el objeto que lo enganchó, qué creía que iba a ser, el peor fracaso técnico, qué sorprendería de su trabajo.</li>
   <li>La frase ancla de Juliana para las niñas, en sus palabras.</li>
@@ -199,7 +202,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 <h2 data-n="6">Cómo presentarla</h2>
 <ul>
   <li><strong>Un solo computador, un solo control, y lo maneja el que no está hablando.</strong> Doble función: obliga a escuchar de verdad al otro y controla el tiempo sin que haya un reloj en pantalla. Es lo que reemplaza al riel de minutos.</li>
-  <li><strong>La escaleta impresa en papel</strong>, una hoja cada uno. No en el celular: mirar el celular frente a 40 adolescentes cuesta la sala.</li>
+  <li><strong>La escaleta impresa en papel</strong>, una hoja cada uno. Notion exporta a PDF. No en el celular: mirar el celular frente a 40 adolescentes cuesta la sala.</li>
   <li><strong>Nunca leer la lámina.</strong> Prueba simple: si se puede leer en voz alta, sobra.</li>
   <li><strong>La sala armada antes de que entren.</strong> Ocho mesas de cinco ya puestas. Mover sillas en el minuto 75 cuesta cinco minutos y toda la energía del respiro.</li>
   <li><strong>Ensayen solo tres momentos:</strong> la presentación cruzada, el traspaso entre ustedes y el cierre a dos voces. El resto sale mejor sin ensayar.</li>
