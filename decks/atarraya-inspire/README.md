@@ -106,12 +106,14 @@ No se generan con IA: son personas reales.
 ## Renderizar
 
 ```bash
-NODE_PATH=../product-eng-colombia/node_modules \
-  node ../../skill/scripts/render-pdf.mjs charla.html build/charla.pdf --screenshots build/shots-final
-
-NODE_PATH=../product-eng-colombia/node_modules \
-  node ../../skill/scripts/render-pdf.mjs escaleta.html build/escaleta.pdf --screenshots build/shots
+export NODE_PATH=../product-eng-colombia/node_modules
+node ../../skill/scripts/render-pdf.mjs charla.html   build/charla.pdf   --screenshots build/shots-final
+node ../../skill/scripts/render-pdf.mjs escaleta.html build/escaleta.pdf --screenshots build/shots
 ```
+
+Si `node` viene de nvm es una funcion de shell, no un binario: `env VAR=... node`
+falla con "No such file or directory" y el render no corre. Exporten la variable
+antes, o usen la ruta absoluta del binario.
 
 El chequeo de overflow reporta los separadores de respuesta y las laminas de
 imagen: el numero gigante de fondo y el arte sangran a proposito y quedan

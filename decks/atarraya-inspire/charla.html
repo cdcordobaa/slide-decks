@@ -216,7 +216,9 @@ html, body {
   font-family: var(--display); font-size: 400px; line-height: .74; font-weight: 900; letter-spacing: -.07em;
   color: var(--ink); opacity: .13; user-select: none;
 }
-.divider > *:not(.divider__bg):not(.map) { position: relative; z-index: 2; }
+/* Solo el contenido de texto se apila sobre el numero de fondo. El logo y el
+ * mapa conservan su posicion absoluta. */
+.divider > *:not(.divider__bg):not(.map):not(.brand) { position: relative; z-index: 2; }
 .divider .map i { background: rgba(20,19,26,.18); }
 .divider[data-act="1"] .map i:nth-child(1),
 .divider[data-act="2"] .map i:nth-child(2),
