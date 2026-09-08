@@ -1,0 +1,579 @@
+<!doctype html><html lang="es" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Quién decide? · Globant en Atarraya</title>
+<script type="application/json" id="deck-metadata">
+{
+  "title": "Quien decide como funciona la tecnologia que usas",
+  "event": "Inspire on Site, Atarraya",
+  "audience": "40 adolescentes de noveno grado, colegio publico de Bogota",
+  "speakers": ["Cristian Cordoba", "Juliana"],
+  "status": "VERSION FINAL. Deck de proyeccion, sin marcas de produccion.",
+  "companion": "escaleta.html contiene tiempos, guiones, materiales y quien habla",
+  "visual_system": "Cartel serigrafico: papel calido, tinta negra, bloques saturados, arte generado con Gemini",
+  "logo": "assets/globant-ink.svg, assets/globant-white.png",
+  "slides": 28
+}
+</script>
+<style>
+/* =========================================================================
+ * ¿Quien decide? . Deck de proyeccion para Atarraya.
+ *
+ * Esta es la version que ve la sala. Todo lo de produccion (horas, quien
+ * habla, materiales, guiones, pendientes) vive en escaleta.html y nunca
+ * aparece aqui. Si una lamina se puede leer en voz alta, sobra.
+ *
+ * Sistema visual: cartel de calle. Papel calido, tinta casi negra, bordes
+ * gruesos, sombras duras. Un color por cada una de las tres respuestas.
+ * Fijado a data-theme="light" para que un SO oscuro no lo invierta.
+ * ========================================================================= */
+
+:root {
+  --ink: #14131a;
+  --ink-2: #3d3a49;
+  --ink-soft: #6c6879;
+  --paper: #f6f2e8;
+  --paper-2: #ece6d6;
+  --white: #ffffff;
+
+  --lima: #c2f000;      --lima-ink: #566d00;
+  --cyan: #12d3ff;      --cyan-ink: #00708f;
+  --magenta: #ff2e6d;   --magenta-ink: #c2003f;
+  --amarillo: #ffc400;  --amarillo-ink: #7d5f00;
+
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  --pad: 64px;
+  --bd: 5px;
+
+  --display: "Archivo Black", "Inter", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --sans: "Inter", "Helvetica Neue", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; background: #d9d3c4; color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+
+.deck { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 36px 0 64px; }
+
+/* ---------- caparazon ---------- */
+.slide {
+  position: relative;
+  width: var(--slide-w); height: var(--slide-h);
+  background: var(--paper); color: var(--ink);
+  overflow: hidden;
+  padding: calc(var(--pad) + 8px) var(--pad) var(--pad);
+  display: flex; flex-direction: column;
+  border: var(--bd) solid var(--ink);
+  box-shadow: 14px 14px 0 rgba(20,19,26,.16);
+  --acc: var(--ink); --acc-ink: var(--ink);
+}
+.slide[data-act="1"] { --acc: var(--lima);    --acc-ink: var(--lima-ink); }
+.slide[data-act="2"] { --acc: var(--cyan);    --acc-ink: var(--cyan-ink); }
+.slide[data-act="3"] { --acc: var(--magenta); --acc-ink: var(--magenta-ink); }
+.slide[data-act="0"] { --acc: var(--amarillo); --acc-ink: var(--amarillo-ink); }
+.slide[contenteditable] :focus { outline: 3px solid var(--acc); outline-offset: 3px; }
+
+/* ---------- mapa de las tres respuestas ----------
+ * Reemplaza al reloj de la escaleta. La sala ve en que tramo va, no que hora es. */
+.map {
+  position: absolute; left: 0; top: 0; right: 0; height: 15px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: var(--bd) solid var(--ink);
+  z-index: 6;
+}
+.map i { display: block; background: var(--paper-2); border-right: 3px solid var(--ink); }
+.map i:last-child { border-right: 0; }
+.slide[data-act="1"] .map i:nth-child(1) { background: var(--lima); }
+.slide[data-act="2"] .map i:nth-child(1) { background: var(--ink); }
+.slide[data-act="2"] .map i:nth-child(2) { background: var(--cyan); }
+.slide[data-act="3"] .map i:nth-child(1),
+.slide[data-act="3"] .map i:nth-child(2) { background: var(--ink); }
+.slide[data-act="3"] .map i:nth-child(3) { background: var(--magenta); }
+
+/* ---------- logo ---------- */
+.brand { position: absolute; top: 34px; right: 42px; height: 25px; width: auto; z-index: 7; display: block; }
+
+/* ---------- titulos ---------- */
+.h {
+  margin: 0; font-family: var(--display);
+  font-size: 62px; line-height: .99; font-weight: 900; letter-spacing: -.025em;
+  text-transform: uppercase; max-width: 19ch;
+}
+.h--sm { font-size: 46px; max-width: 25ch; }
+.sub { margin: 18px 0 0; font-size: 21px; line-height: 1.4; font-weight: 500; color: var(--ink-2); max-width: 60ch; }
+.mk {
+  background: linear-gradient(transparent 6%, var(--acc) 6%, var(--acc) 94%, transparent 94%);
+  padding: 0 .1em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.stage { flex: 1; min-height: 0; display: flex; align-items: center; margin-top: 30px; }
+
+/* ---------- tarjetas ---------- */
+.cards { display: grid; gap: 18px; width: 100%; }
+.cards--4 { grid-template-columns: repeat(4, 1fr); }
+.cards--3 { grid-template-columns: repeat(3, 1fr); }
+.cards--2 { grid-template-columns: repeat(2, 1fr); }
+.card {
+  background: var(--white); border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+  padding: 22px; display: flex; flex-direction: column; gap: 10px;
+}
+.card--acc { background: var(--acc); }
+.card__n { font-family: var(--display); font-size: 34px; line-height: 1; font-weight: 900; color: var(--acc-ink); }
+.card--acc .card__n { color: var(--ink); }
+.card h3 { margin: 0; font-size: 19px; line-height: 1.15; font-weight: 800; text-transform: uppercase; }
+.card p { margin: 0; font-size: 16px; line-height: 1.42; color: var(--ink-2); }
+.card--acc p { color: var(--ink); }
+
+/* ---------- momentos de una historia ---------- */
+.beats { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+.beat {
+  display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 20px;
+  background: var(--white); border: 4px solid var(--ink); padding: 15px 20px;
+}
+.beat__n {
+  font-family: var(--display); font-size: 24px; font-weight: 900; color: var(--ink);
+  background: var(--acc); border: 3px solid var(--ink);
+  width: 44px; height: 44px; display: grid; place-items: center;
+}
+.beat h3 { margin: 0; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: -.01em; }
+
+/* ---------- retratos ---------- */
+.portrait {
+  position: relative; margin: 0; overflow: hidden;
+  background: var(--ink); border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+  display: grid; place-items: end start;
+}
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.portrait figcaption {
+  position: relative; z-index: 2; margin: 0; padding: 14px 18px;
+  font-family: var(--display); font-size: 26px; font-weight: 900; letter-spacing: -.02em;
+  text-transform: uppercase; color: var(--paper);
+  text-shadow: 0 2px 14px rgba(20,19,26,.9);
+}
+
+/* ---------- orden a la sala ---------- */
+.order {
+  background: var(--ink); color: var(--paper);
+  padding: 34px 38px; width: 100%;
+}
+.order p {
+  margin: 0; font-family: var(--display);
+  font-size: 52px; line-height: 1.04; font-weight: 900; letter-spacing: -.03em; text-transform: uppercase;
+}
+.order p em { font-style: normal; color: var(--amarillo); }
+
+/* ---------- laminas a sangre ---------- */
+.hero { padding: 0; justify-content: flex-end; background: var(--ink); }
+.hero__art { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: var(--ink); }
+.hero__art img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.22); }
+/* Velo minimo: solo el pie de la lamina se oscurece, para que la ilustracion
+ * conserve su color. El titulo va en blanco sobre esa franja. */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(0deg,
+    rgba(20,19,26,.94) 0%, rgba(20,19,26,.86) 22%,
+    rgba(20,19,26,.55) 38%, rgba(20,19,26,.12) 54%, rgba(20,19,26,0) 66%);
+}
+.hero__body { position: relative; z-index: 3; padding: var(--pad); color: var(--paper); }
+.hero .map { background: var(--ink); border-bottom-color: var(--ink); }
+.hero .map i { background: rgba(246,242,232,.22); border-right-color: rgba(246,242,232,.4); }
+.hero__word {
+  margin: 0; font-family: var(--display);
+  font-size: 96px; line-height: .9; font-weight: 900; letter-spacing: -.045em;
+  text-transform: uppercase; max-width: 13ch;
+}
+.hero__word--sm { font-size: 64px; max-width: 19ch; }
+.hero__hint {
+  margin: 18px 0 0; font-size: 18px; letter-spacing: .15em; text-transform: uppercase;
+  font-weight: 800; color: var(--amarillo); max-width: 44ch; line-height: 1.5;
+}
+
+/* ---------- media lamina con imagen ---------- */
+.split { padding: 0; flex-direction: row; }
+.split__art { width: 44%; flex: 0 0 44%; position: relative; overflow: hidden; border-right: var(--bd) solid var(--ink); background: var(--paper-2); }
+.split__art img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transform: scale(1.10); }
+.split__body { flex: 1; min-width: 0; padding: calc(var(--pad) + 8px) var(--pad) var(--pad); display: flex; flex-direction: column; }
+
+/* ---------- rejilla de casos ---------- */
+.zoo { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 16px; width: 100%; height: 100%; }
+.zoo figure { position: relative; margin: 0; overflow: hidden; border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink); background: var(--paper-2); }
+.zoo figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.zoo__ask {
+  border: var(--bd) solid var(--ink); background: var(--acc); box-shadow: 8px 8px 0 var(--ink);
+  padding: 24px; display: flex; flex-direction: column; justify-content: center; gap: 10px;
+}
+.zoo__ask b { font-family: var(--display); font-size: 34px; line-height: 1; font-weight: 900; letter-spacing: -.02em; text-transform: uppercase; }
+.zoo__ask span { font-size: 16px; line-height: 1.4; font-weight: 600; }
+
+/* ---------- separador de respuesta ---------- */
+.divider { background: var(--acc); justify-content: center; padding-left: 80px; padding-right: 80px; }
+.divider__bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.divider__n {
+  position: absolute; right: -22px; bottom: -66px; margin: 0;
+  font-family: var(--display); font-size: 400px; line-height: .74; font-weight: 900; letter-spacing: -.07em;
+  color: var(--ink); opacity: .13; user-select: none;
+}
+.divider > *:not(.divider__bg):not(.map) { position: relative; z-index: 2; }
+.divider .map i { background: rgba(20,19,26,.18); }
+.divider[data-act="1"] .map i:nth-child(1),
+.divider[data-act="2"] .map i:nth-child(2),
+.divider[data-act="3"] .map i:nth-child(3) { background: var(--white); }
+.divider[data-act="2"] .map i:nth-child(1),
+.divider[data-act="3"] .map i:nth-child(1),
+.divider[data-act="3"] .map i:nth-child(2) { background: var(--ink); }
+.divider__kicker { font-size: 15px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; margin: 0 0 14px; }
+.divider__wrong {
+  margin: 0; font-family: var(--display);
+  font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -.025em;
+  text-transform: uppercase; max-width: 20ch;
+  text-decoration: line-through; text-decoration-thickness: 8px; opacity: .5;
+}
+.divider--win .divider__wrong { text-decoration: none; opacity: 1; }
+.divider__right { margin: 22px 0 0; font-size: 23px; line-height: 1.35; font-weight: 700; max-width: 40ch; }
+
+/* ---------- lamina para fotografiar ---------- */
+.gift { background: var(--acc); justify-content: center; }
+.gift .map i { background: rgba(20,19,26,.18); }
+.gift__h { margin: 0 0 32px; font-family: var(--display); font-size: 52px; line-height: 1; font-weight: 900; letter-spacing: -.03em; text-transform: uppercase; }
+.gift__list { margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; }
+.gift__list li {
+  list-style: none; background: var(--white); border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+  padding: 17px 24px; display: grid; grid-template-columns: minmax(52px, auto) 1fr; align-items: center; gap: 24px;
+}
+.gift__list b { font-family: var(--display); font-size: 30px; font-weight: 900; color: var(--acc-ink); white-space: nowrap; text-transform: uppercase; }
+.gift__list span { font-size: 19px; line-height: 1.35; font-weight: 600; }
+.shoot {
+  position: absolute; left: var(--pad); bottom: 30px; z-index: 5;
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--ink); color: var(--paper);
+  font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+  padding: 8px 14px;
+}
+.shoot::before { content: ""; width: 11px; height: 11px; border: 3px solid var(--amarillo); border-radius: 50%; }
+
+/* ---------- laminas oscuras ---------- */
+.dark { background: var(--ink); color: var(--paper); justify-content: center; }
+.dark .map { border-bottom-color: rgba(246,242,232,.3); }
+.dark .map i { background: rgba(246,242,232,.2); border-right-color: rgba(246,242,232,.35); }
+.dark .h em, .dark .order p em { font-style: normal; color: var(--amarillo); }
+.dark .sub { color: rgba(246,242,232,.72); }
+.dark .order { padding: 0; background: none; }
+
+.edit-note { width: var(--slide-w); font-size: 12.5px; color: #4a4638; letter-spacing: .04em; border-left: 5px solid var(--ink); padding: 6px 0 6px 12px; }
+
+@media print {
+  html, body { background: #fff; }
+  .deck { display: block; padding: 0; gap: 0; }
+  .edit-note { display: none; }
+  .slide { width: 13.333in; height: 7.5in; box-shadow: none; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; }
+}
+@page { size: 13.333in 7.5in; margin: 0; }
+</style></head>
+<body>
+<p class="edit-note" contenteditable="false">Version final de proyeccion. Los tiempos, los guiones y el reparto estan en escaleta.html.</p>
+<main class="deck">
+
+<section class="slide hero" data-act="0" contenteditable="true" spellcheck="true" aria-label="Levanta la mano">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="hero__art"><img src="assets/art/apertura.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word">Levanta<br>la mano</p>
+  </div>
+</section>
+
+<section class="slide dark" data-act="0" contenteditable="true" spellcheck="true" aria-label="La pregunta">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:78px;max-width:20ch">¿Quién decide <em>cómo funciona</em> la tecnología que usas todos los días?</h1>
+</section>
+
+<section class="slide" data-act="0" contenteditable="true" spellcheck="true" aria-label="Quienes somos">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Nosotros dos</h1>
+  <div class="stage">
+    <div class="cards cards--2" style="height:100%">
+      <figure class="portrait"><img src="assets/fotos/cristian.jpg" alt=""><figcaption>Cristian</figcaption></figure>
+      <figure class="portrait"><img src="assets/fotos/juliana.jpg" alt=""><figcaption>Juliana</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="slide divider" data-act="1" contenteditable="true" spellcheck="true" aria-label="Respuesta uno">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="divider__bg"><p class="divider__n">01</p></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <p class="divider__kicker">Primera respuesta, y está mal</p>
+  <h1 class="divider__wrong">La deciden otros, lejos de aquí</h1>
+  <p class="divider__right">Los dos que estamos parados acá salimos de colegios como este.</p>
+</section>
+
+<section class="slide hero" data-act="1" contenteditable="true" spellcheck="true" aria-label="El garaje">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="hero__art"><img src="assets/art/garaje.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word hero__word--sm">Nadie creía que se podía hacer desde acá</p>
+    <p class="hero__hint">Un garaje, cuatro amigos, año 2000</p>
+  </div>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="La historia de Globant">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Cuatro amigos y una idea que sonaba absurda</h1>
+  <div class="stage">
+    <div class="cards cards--4">
+      <article class="card"><span class="card__n">01</span><p>Querían hacer software de clase mundial desde Latinoamérica, para el mundo entero.</p></article>
+      <article class="card"><span class="card__n">02</span><p>Nadie afuera creía que el talento estuviera acá.</p></article>
+      <article class="card"><span class="card__n">03</span><p>El talento sí estaba. Nadie lo había venido a buscar.</p></article>
+      <article class="card card--acc"><span class="card__n">04</span><p>Hoy somos miles de personas en decenas de países. Detrás de la app que abres hay equipos como el nuestro.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Grita tu app">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="order"><p>¿Cuál es la app que más usas?<br><em>Grítala.</em></p></div>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Cristian</h1>
+  <div class="stage">
+    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
+      <div class="beats">
+        <div class="beat"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
+        <div class="beat"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
+        <div class="beat"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
+        <div class="beat"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
+        <div class="beat"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
+      </div>
+      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>A los 15</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cierra los ojos">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="order"><p>Cierra los ojos.<br>Imagina a alguien<br><em>programando.</em></p></div>
+</section>
+
+<section class="slide gift" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cuantos imaginaron un hombre">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h" style="font-size:82px;max-width:16ch">¿Cuántos imaginaron a un hombre?</h1>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Juliana">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Juliana</h1>
+  <div class="stage">
+    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
+      <div class="beats">
+        <div class="beat"><span class="beat__n">1</span><h3>La vez que fui la única</h3></div>
+        <div class="beat"><span class="beat__n">2</span><h3>Lo que me costó</h3></div>
+        <div class="beat"><span class="beat__n">3</span><h3>A quién le abrí la puerta</h3></div>
+        <div class="beat"><span class="beat__n">4</span><h3>Lo que hago hoy</h3></div>
+      </div>
+      <figure class="portrait"><img src="assets/fotos/juliana-equipo.jpg" alt=""><figcaption>Hoy</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="slide divider" data-act="2" contenteditable="true" spellcheck="true" aria-label="Respuesta dos">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="divider__bg"><p class="divider__n">02</p></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <p class="divider__kicker">Segunda respuesta, y también está mal</p>
+  <h1 class="divider__wrong">La deciden los que saben mucho</h1>
+  <p class="divider__right">Vamos a entrenar una inteligencia artificial acá mismo, sin un solo computador.</p>
+</section>
+
+<section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Seis neuronas">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Seis voluntarios. Una pregunta cada uno.</h1>
+  <div class="stage">
+    <div class="cards cards--3">
+      <article class="card"><h3>¿Orejas puntudas?</h3></article>
+      <article class="card"><h3>¿Bigotes largos?</h3></article>
+      <article class="card"><h3>¿Lengua afuera?</h3></article>
+      <article class="card"><h3>¿Está en una caja?</h3></article>
+      <article class="card"><h3>¿Tiene collar?</h3></article>
+      <article class="card card--acc"><h3>¿La cola está arriba?</h3></article>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Las cuatro rondas">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Una máquina aprende equivocándose</h1>
+  <div class="stage">
+    <div class="cards cards--4">
+      <article class="card"><span class="card__n">01</span><h3>Predice</h3><p>Cada neurona responde y grita su número. La sala suma.</p></article>
+      <article class="card"><span class="card__n">02</span><h3>Falla</h3><p>Nos equivocamos. Por mucho o por poquito: eso es el error.</p></article>
+      <article class="card"><span class="card__n">03</span><h3>Corrige</h3><p>La neurona que falló baja su número. La que acertó lo sube.</p></article>
+      <article class="card card--acc"><span class="card__n">04</span><h3>Repite</h3><p>Otra vez. Y otra. Una máquina real hace esto miles de millones de veces.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Perro o gato">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <div class="stage" style="margin-top:16px">
+    <div class="zoo">
+      <figure><img src="assets/art/zoo-1.jpg" alt=""></figure>
+      <figure><img src="assets/art/zoo-2.jpg" alt=""></figure>
+      <figure><img src="assets/art/zoo-3.jpg" alt=""></figure>
+      <figure><img src="assets/art/zoo-4.jpg" alt=""></figure>
+      <figure><img src="assets/art/zoo-5.jpg" alt=""></figure>
+      <div class="zoo__ask"><b>¿Perro o gato?</b><span>Uno por uno. Las seis neuronas votan, la sala suma, y después vemos quién tenía razón.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-act="2" contenteditable="true" spellcheck="true" aria-label="Solo sabe lo que le mostraron">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:70px;max-width:19ch">Una máquina no sabe nada del mundo. <em>Solo sabe lo que le mostraron.</em></h1>
+  <p class="sub">Nosotros elegimos estas cinco fotos. Si solo le hubiéramos mostrado gatos negros, ¿qué haría con un gato blanco?</p>
+</section>
+
+<section class="slide dark" data-act="2" contenteditable="true" spellcheck="true" aria-label="Respiro">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="order"><p>Respiro.<br><em>Grupos de cinco.</em></p></div>
+</section>
+
+<section class="slide split" data-act="2" contenteditable="true" spellcheck="true" aria-label="Tres preguntas">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="split__art"><img src="assets/art/datos.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <div class="split__body">
+    <h1 class="h h--sm" style="font-size:42px">Tres preguntas rápidas</h1>
+    <div class="stage" style="flex-direction:column;gap:16px;align-items:stretch;justify-content:center">
+      <div class="beat"><span class="beat__n">1</span><h3>¿Cómo se llama tu mascota?</h3></div>
+      <div class="beat"><span class="beat__n">2</span><h3>¿Quién cumple años este mes?</h3></div>
+      <div class="beat"><span class="beat__n">3</span><h3>¿Cuál fue tu primer colegio?</h3></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-act="2" contenteditable="true" spellcheck="true" aria-label="El golpe">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:64px;max-width:20ch">Esas tres son <em>las preguntas de seguridad</em> de media internet</h1>
+  <p class="sub">Nadie hackeó nada. Se lo dieron en 60 segundos a alguien que les cayó bien.</p>
+</section>
+
+<section class="slide gift" data-act="2" contenteditable="true" spellcheck="true" aria-label="Tres cosas para hoy">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="gift__h">Tres cosas que puedes hacer hoy</h1>
+  <ol class="gift__list">
+    <li><b>01</b><span>Nunca respondas la pregunta de seguridad con la verdad. Miente, y anota la mentira.</span></li>
+    <li><b>02</b><span>Verificación en dos pasos en tu cuenta principal. Hoy, en dos minutos.</span></li>
+    <li><b>03</b><span>Antes de dar un dato: ¿por qué esta persona o esta app necesita saber esto?</span></li>
+  </ol>
+  <span class="shoot">Fotografía esto</span>
+</section>
+
+<section class="slide divider divider--win" data-act="3" contenteditable="true" spellcheck="true" aria-label="Respuesta tres">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="divider__bg"><p class="divider__n">03</p></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <p class="divider__kicker">Tercera respuesta, y esta sí</p>
+  <h1 class="divider__wrong">La decide quien la construye</h1>
+  <p class="divider__right">Si ustedes mandaran, ¿qué construirían?</p>
+</section>
+
+<section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="El reto">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="order"><p>Diseña una inteligencia artificial que resuelva un problema real de tu colegio, tu casa o tu barrio.</p></div>
+  <p class="sub" style="margin-top:28px">No tienes que saber programar. Tienes que saber pensarlo.</p>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="La plantilla">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Cinco casillas y ya tienes un producto</h1>
+  <div class="stage">
+    <div class="cards cards--3">
+      <article class="card"><span class="card__n">01</span><h3>El problema</h3><p>¿Qué cosa aburrida, injusta o difícil pasa todos los días?</p></article>
+      <article class="card"><span class="card__n">02</span><h3>El trabajo</h3><p>¿Qué hace exactamente? Una frase que empiece con un verbo.</p></article>
+      <article class="card"><span class="card__n">03</span><h3>Los datos</h3><p>¿Qué ejemplos habría que mostrarle? ¿Quién los tiene?</p></article>
+      <article class="card card--acc"><span class="card__n">04</span><h3>El daño</h3><p>¿A quién perjudica si se equivoca?</p></article>
+      <article class="card"><span class="card__n">05</span><h3>El nombre</h3><p>Y una frase para venderlo.</p></article>
+      <article class="card" style="background:var(--ink);color:var(--paper);justify-content:center"><h3 style="font-size:22px">Esta hoja se la llevan. Es su primer documento de diseño.</h3></article>
+    </div>
+  </div>
+</section>
+
+<section class="slide hero" data-act="3" contenteditable="true" spellcheck="true" aria-label="45 segundos">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="hero__art"><img src="assets/art/taller.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word">45<br>segundos</p>
+    <p class="hero__hint">Un grupo, una idea, el cronómetro a la vista</p>
+  </div>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="La carrera cambio">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">La carrera cambió, y eso los favorece</h1>
+  <div class="stage">
+    <div class="cards cards--2">
+      <article class="card"><span class="card__n">01</span><h3>De escribir a decidir</h3><p>Hace diez años ser ingeniero era escribir línea por línea. Hoy la máquina escribe muchas de esas líneas.</p></article>
+      <article class="card card--acc"><span class="card__n">02</span><h3>Subió de valor lo que acaban de hacer</h3><p>Definir el problema, elegir los datos, prever el daño.</p></article>
+      <article class="card"><span class="card__n">03</span><h3>Lo que no reemplaza</h3><p>Criterio, gusto, ética y saber trabajar con gente. No sabe qué vale la pena resolver en su barrio.</p></article>
+      <article class="card"><span class="card__n">04</span><h3>Por eso hacen falta</h3><p>Estas máquinas se entrenaron lejos, con datos que no son de acá. Alguien tiene que construir la versión que sí nos entienda.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="slide gift" data-act="3" contenteditable="true" spellcheck="true" aria-label="Tres pasos">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="gift__h">Tres pasos, y empiezan esta semana</h1>
+  <ol class="gift__list">
+    <li><b>Hoy</b><span>Usa una IA para aprender algo, no para que te haga la tarea. Pídele lo mismo tres veces, más simple cada vez.</span></li>
+    <li><b>Este mes</b><span>Termina una cosa pequeña y muéstrasela a alguien. Terminar vale más que perfeccionar.</span></li>
+    <li><b>Este año</b><span>Busca una comunidad. Nadie llega solo a esto.</span></li>
+  </ol>
+  <span class="shoot">Fotografía esto</span>
+</section>
+
+<section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="La pregunta respondida">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:74px;max-width:19ch">La decide <em>quien se atreve</em> a diseñarla</h1>
+  <p class="sub">Y ustedes acaban de hacerlo en una hoja de papel.</p>
+</section>
+
+<section class="slide hero" data-act="3" contenteditable="true" spellcheck="true" aria-label="Cierre">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="hero__art"><img src="assets/art/futuro.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word hero__word--sm">Hojas en alto</p>
+    <p class="hero__hint">Nos quedamos un rato más, por si quieren preguntar algo</p>
+  </div>
+</section>
+
+</main>
+</body></html>

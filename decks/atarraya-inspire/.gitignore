@@ -1,2 +1,3 @@
-build/shots/
+build/shots*/
 .env
+assets/art/*.png
