@@ -1,0 +1,213 @@
+<!doctype html><html lang="es" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De escaleta a versión final</title>
+<style>
+/* Guia de produccion de la charla de Atarraya. Documento, no deck: columna
+ * unica, pensado para leerse en pantalla y para imprimirse en dos hojas.
+ * Mismo lenguaje visual que charla.html. */
+:root{
+  --ink:#14131a; --ink-2:#3d3a49; --ink-soft:#6c6879;
+  --paper:#f6f2e8; --paper-2:#ece6d6; --white:#fff;
+  --lima:#c2f000; --cyan:#12d3ff; --magenta:#ff2e6d; --amarillo:#ffc400;
+  --display:"Archivo Black","Inter","Helvetica Neue",system-ui,sans-serif;
+  --sans:"Inter","Helvetica Neue",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper-2);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:880px;margin:0 auto;background:var(--paper);border-left:5px solid var(--ink);border-right:5px solid var(--ink);padding:0 64px 90px}
+
+/* cabecera */
+.head{margin:0 -64px 0;padding:52px 64px 44px;background:var(--ink);color:var(--paper);position:relative}
+.head__kicker{margin:0 0 16px;font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--amarillo)}
+.head h1{margin:0;font-family:var(--display);font-size:56px;line-height:.98;font-weight:900;letter-spacing:-.03em;text-transform:uppercase;max-width:16ch}
+.head p{margin:22px 0 0;font-size:18px;line-height:1.5;color:rgba(246,242,232,.75);max-width:58ch}
+.head img{position:absolute;top:46px;right:64px;height:24px}
+.bar{display:grid;grid-template-columns:repeat(3,1fr);height:12px;margin:0 -64px 54px}
+.bar i{display:block;border-right:3px solid var(--ink)}
+.bar i:nth-child(1){background:var(--lima)}
+.bar i:nth-child(2){background:var(--cyan)}
+.bar i:nth-child(3){background:var(--magenta);border-right:0}
+
+/* estructura */
+h2{margin:56px 0 18px;font-family:var(--display);font-size:15px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:14px}
+h2::before{content:attr(data-n);display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;background:var(--amarillo);border:3px solid var(--ink);font-size:16px;letter-spacing:0}
+h2+p.lead{margin-top:0;font-size:24px;line-height:1.3;font-weight:800;letter-spacing:-.015em;max-width:34ch}
+h3{margin:34px 0 12px;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+p{font-size:16.5px;line-height:1.62;color:var(--ink-2);max-width:66ch}
+p strong,li strong{color:var(--ink);font-weight:800}
+ul,ol{padding-left:0;list-style:none;margin:18px 0}
+ul li,ol li{position:relative;font-size:16.5px;line-height:1.55;color:var(--ink-2);margin:0 0 13px;padding-left:26px;max-width:64ch}
+ul li::before{content:"";position:absolute;left:0;top:.55em;width:11px;height:11px;background:var(--ink)}
+ol{counter-reset:n}
+ol li{counter-increment:n}
+ol li::before{content:counter(n);position:absolute;left:0;top:.05em;font-family:var(--display);font-size:14px;color:var(--magenta)}
+
+/* tabla */
+table{width:100%;border-collapse:collapse;margin:22px 0;font-size:15px;border:4px solid var(--ink)}
+th{background:var(--ink);color:var(--paper);text-align:left;padding:11px 14px;font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+td{padding:12px 14px;border-top:2px solid var(--paper-2);vertical-align:top;line-height:1.45;color:var(--ink-2)}
+tr td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+tbody tr:nth-child(even) td{background:rgba(20,19,26,.025)}
+
+/* bloques destacados */
+.rule{margin:26px 0;border:5px solid var(--ink);background:var(--amarillo);padding:22px 26px;box-shadow:8px 8px 0 var(--ink)}
+.rule p{margin:0;color:var(--ink);font-size:19px;line-height:1.4;font-weight:700;max-width:none}
+.note{margin:26px 0;border-left:8px solid var(--cyan);background:var(--white);padding:18px 24px;border-top:3px solid var(--ink);border-right:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.note p{margin:0 0 10px}
+.note p:last-child{margin:0}
+
+pre{margin:22px 0;background:var(--ink);color:var(--paper);padding:22px 26px;overflow-x:auto;font-size:14px;line-height:1.65;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;border:4px solid var(--ink)}
+pre b{color:var(--amarillo);font-weight:700}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:var(--paper-2);padding:2px 6px;border:1px solid rgba(20,19,26,.15)}
+
+/* antes y despues */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0}
+.ba__col{border:4px solid var(--ink);background:var(--white);padding:20px}
+.ba__col h4{margin:0 0 14px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.ba__col--after{background:var(--ink);color:var(--paper)}
+.ba__col--after h4{color:var(--amarillo)}
+.ba__col p{font-size:14.5px;line-height:1.5;margin:0 0 9px;max-width:none}
+.ba__col--after p{color:rgba(246,242,232,.8)}
+.ba__col p.ba__slide{font-family:var(--display);font-size:25px;line-height:1.05;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;color:var(--paper);margin:0 0 12px}
+.ba__col p.ba__slide:last-child{margin:0}
+
+.foot{margin:70px -64px -90px;padding:30px 64px;background:var(--ink);color:rgba(246,242,232,.6);font-size:13px;letter-spacing:.04em}
+
+@media print{
+  html,body{background:#fff}
+  .page{max-width:none;border:0;padding:0 14mm 14mm}
+  .head{margin:0 -14mm 0;padding:14mm}
+  .bar{margin:0 -14mm 12mm}
+  .bar{margin:0 -14mm}
+  .foot{margin:14mm -14mm -14mm;padding:8mm 14mm}
+  h2{break-after:avoid} .rule,.note,pre,table,.ba{break-inside:avoid}
+  p,li{font-size:11pt}
+}
+@page{margin:14mm}
+</style></head>
+<body>
+<article class="page">
+
+<header class="head">
+  <img src="assets/globant-white.png" alt="Globant">
+  <p class="head__kicker">Inspire on Site · Atarraya</p>
+  <h1>De escaleta a versión final</h1>
+  <p>Cómo se pasa del guion interno con el que trabajamos a la charla que ve la sala, y cómo seguir iterando sin romper nada.</p>
+</header>
+<div class="bar"><i></i><i></i><i></i></div>
+
+<h2 data-n="1">El principio</h2>
+<p class="lead">Nada se borra. Se muda.</p>
+<p>El deck original no tenía una lista de detalles internos sueltos. Tenía un problema estructural: <strong>estaba tratando de ser dos documentos a la vez.</strong> Era el guion de producción y la superficie proyectada al mismo tiempo. Todo lo que se sentía interno era guion que se estaba proyectando.</p>
+<p>Por eso ahora hay dos archivos, y ninguna información se perdió: cambió de casa.</p>
+<table>
+  <thead><tr><th>Archivo</th><th>Quién lo ve</th><th>Qué tiene</th></tr></thead>
+  <tbody>
+    <tr><td>escaleta.html</td><td>Nosotros dos</td><td>Horas, reparto, materiales, guiones, pendientes</td></tr>
+    <tr><td>charla.html</td><td>La sala</td><td>Solo lo que se proyecta</td></tr>
+  </tbody>
+</table>
+
+<h2 data-n="2">Qué sale de la proyección</h2>
+<table>
+  <thead><tr><th>Qué</th><th>Cómo se veía en la escaleta</th></tr></thead>
+  <tbody>
+    <tr><td>El reloj</td><td><code>10:43 · 17/28</code> en cada pie, y el riel que avanza con la hora</td></tr>
+    <tr><td>Acotaciones</td><td><code>Hablamos</code>, <code>Habla la sala</code>, <code>Manos a la obra</code>, "Cristian, 6 minutos"</td></tr>
+    <tr><td>Pendientes</td><td>Los recuadros punteados: <code>Pendiente</code>, <code>Foto</code>, <code>Frase ancla</code>, <code>El golpe</code></td></tr>
+    <tr><td>Instrucciones</td><td>"Un detalle concreto y algo vergonzoso", "Escena concreta", "Sin regaño y con humor"</td></tr>
+    <tr><td>Vocabulario</td><td>Acto, Storytelling, Didáctica 1 y 2, Brief, Kit, Micro dinámica, Bloque</td></tr>
+    <tr><td>Meta-narrativa</td><td>"Vuelve en el minuto 118", "La pregunta del minuto 2", "Transición: con tensión"</td></tr>
+    <tr><td>Logística</td><td>"8 grupos de 5", "10 plantillas impresas", "8 stickers para el ganador"</td></tr>
+  </tbody>
+</table>
+<div class="note">
+  <p><strong>El riel se queda, sin reloj.</strong> A un chico de 15 le sirve saber cuánto falta. En la versión final el riel dejó de marcar minutos y marca en cuál de las tres respuestas va la charla. Ubica sin cronometrar, y además es temático.</p>
+  <p><strong>"Fotografía esto" se queda.</strong> Es de las pocas acotaciones que sí le habla a la audiencia. Reducida a dos palabras y un ícono.</p>
+</div>
+
+<h2 data-n="3">La regla</h2>
+<div class="rule"><p>La instrucción se convierte en el contenido. No se traduce: se ejecuta.</p></div>
+<div class="ba">
+  <div class="ba__col">
+    <h4>En la escaleta</h4>
+    <p><em>Dinámica de entrada · 2 minutos · Habla la sala</em></p>
+    <p><strong>"Cierra los ojos. Imagina a alguien programando. Ábrelos."</strong></p>
+    <p>¿Cuántos imaginaron un hombre? Manos arriba. Ese es el punto de partida. Sin regaño y con humor.</p>
+  </div>
+  <div class="ba__col ba__col--after">
+    <h4>En la charla, dos láminas</h4>
+    <p class="ba__slide">Cierra los ojos</p>
+    <p class="ba__slide">¿Cuántos imaginaron a un hombre?</p>
+  </div>
+</div>
+<p>La etiqueta que decía "esto es una dinámica" era la parte interna. La dinámica en sí es la lámina.</p>
+<p>Lo mismo con las historias de vida: en la escaleta son cinco momentos con instrucciones sobre cómo contarlos. En la charla son cinco títulos de tres palabras y una foto. La lámina no explica la estructura de la historia; la estructura se vive cuando se cuenta.</p>
+<p><strong>El efecto secundario:</strong> desaparece la mitad del texto. Ahí es donde por fin se cumple lo que escribimos en el checklist original: si una lámina tiene un párrafo, sobra.</p>
+
+<h2 data-n="4">Cómo seguir iterando</h2>
+<p class="lead">La escaleta es la fuente. La charla se regenera desde ella.</p>
+<pre>escaleta.html   <b>→</b>   charla.html
+(iteramos aquí)     (se regenera desde ella)</pre>
+<p>Editen la escaleta con toda libertad: es de ustedes y para ustedes. <strong>Al revés no:</strong> los cambios hechos directamente en la charla se pierden en la siguiente regeneración.</p>
+
+<h3>El formato que hace la traducción automática</h3>
+<p>Para que la charla se pueda construir sin adivinar, escriban cada momento de la escaleta con estos cuatro campos. Con eso la traducción deja de ser interpretación y pasa a ser mecánica.</p>
+<pre>MOMENTO: el nombre interno, el que quieran
+
+<b>En pantalla:</b>     las palabras exactas que van proyectadas. Máximo una línea.
+                 Si son más de diez palabras, casi seguro pertenecen a
+                 "Lo que decimos".
+<b>Lo que decimos:</b>  lo hablado. Nunca se proyecta. Aquí va todo el detalle.
+<b>Hace la sala:</b>    qué hacen los 40. Levantar la mano, gritar, escribir, pararse.
+<b>Producción:</b>      minuto, quién habla, materiales, qué preparar antes.</pre>
+<div class="rule"><p>El contrato es simple: lo que no esté en "En pantalla" no se proyecta.</p></div>
+<p>Ejemplo real, el bloque de Juliana:</p>
+<pre>MOMENTO: la demo de ingeniería social
+
+<b>En pantalla:</b>     Tres preguntas rápidas
+                 1. ¿Cómo se llama tu mascota?
+                 2. ¿Quién cumple años este mes?
+                 3. ¿Cuál fue tu primer colegio?
+<b>Lo que decimos:</b>  Juliana arranca sin anunciar nada, en tono de conversación.
+                 Anota las respuestas en el tablero. Después pausa, señala el
+                 tablero y suelta el golpe.
+<b>Hace la sala:</b>    Responde en voz alta. Ocho o nueve chicos dan datos reales.
+<b>Producción:</b>      10:50, Juliana, 8 min. Necesita tablero libre y marcador.</pre>
+<p>De ahí salen dos láminas de la charla (las preguntas, y después el golpe) y una entrada de la escaleta. Sin que nadie tenga que decidir nada.</p>
+
+<h3>Qué pasar y cómo</h3>
+<ul>
+  <li><strong>Cambio de texto o de orden:</strong> editen <code>escaleta.html</code> en el navegador, guarden con Archivo, Guardar como, Página web completa, y pasen el archivo. O simplemente díganlo en palabras.</li>
+  <li><strong>Contenido nuevo:</strong> el bloque de cuatro campos de arriba.</li>
+  <li><strong>Arte nuevo:</strong> describan la escena y de ahí sale el brief y la imagen.</li>
+  <li><strong>Fotos reales:</strong> van en <code>assets/fotos/</code> con los nombres que espera el deck: <code>cristian.jpg</code>, <code>juliana.jpg</code>, <code>cristian-15.jpg</code>, <code>juliana-equipo.jpg</code>.</li>
+</ul>
+
+<h2 data-n="5">Lo que todavía bloquea</h2>
+<p>Ninguno es de diseño. Todos son de contenido.</p>
+<ol>
+  <li>Las cuatro respuestas de Cristian: el objeto que lo enganchó, qué creía que iba a ser, el peor fracaso técnico, qué sorprendería de su trabajo.</li>
+  <li>La frase ancla de Juliana para las niñas, en sus palabras.</li>
+  <li>Las cuatro fotos reales.</li>
+  <li>Qué dos o tres categorías de cliente se pueden decir en voz alta.</li>
+  <li>El ejemplo propio del taller, hecho por ustedes.</li>
+  <li>La frase de traspaso entre los dos actos.</li>
+  <li><strong>El nombre de la charla.</strong> El arranque en frío sin portada es una buena decisión de dirección, pero el colegio y Atarraya necesitan algo que anunciar. Hace falta un título aunque nunca se proyecte.</li>
+</ol>
+
+<h2 data-n="6">Cómo presentarla</h2>
+<ul>
+  <li><strong>Un solo computador, un solo control, y lo maneja el que no está hablando.</strong> Doble función: obliga a escuchar de verdad al otro y controla el tiempo sin que haya un reloj en pantalla. Es lo que reemplaza al riel de minutos.</li>
+  <li><strong>La escaleta impresa en papel</strong>, una hoja cada uno. No en el celular: mirar el celular frente a 40 adolescentes cuesta la sala.</li>
+  <li><strong>Nunca leer la lámina.</strong> Prueba simple: si se puede leer en voz alta, sobra.</li>
+  <li><strong>La sala armada antes de que entren.</strong> Ocho mesas de cinco ya puestas. Mover sillas en el minuto 75 cuesta cinco minutos y toda la energía del respiro.</li>
+  <li><strong>Ensayen solo tres momentos:</strong> la presentación cruzada, el traspaso entre ustedes y el cierre a dos voces. El resto sale mejor sin ensayar.</li>
+  <li><strong>Q&amp;A repartido durante la charla</strong>, no al final, y quédense cinco minutos después. Los que más ganan con esto casi nunca preguntan en público.</li>
+  <li><strong>Pregunten cuatro nombres en los primeros 15 minutos y úsenlos después.</strong> Es la técnica más barata y la que más rinde.</li>
+  <li><strong>Decidan el plan B ya:</strong> cuáles tres láminas son imprescindibles si no hay proyector, e impriman esas en pliego.</li>
+</ul>
+
+<div class="foot">Inspire on Site · Atarraya · 11 de septiembre · Cristian y Juliana</div>
+</article>
+</body></html>

@@ -12,6 +12,7 @@ Fuente de la estructura: Notion, "Estructura charla" dentro de Charla Atarraya.
 |---------|-------------|-----------|
 | `charla.html` | **La sala** | 28 laminas de proyeccion. Sin horas, sin reparto, sin vocabulario de produccion. |
 | `escaleta.html` | **Ustedes dos** | La misma charla con horas, quien habla, materiales, guiones y pendientes. |
+| `GUIA-VERSION-FINAL.md` / `.html` | **Ustedes dos** | Las reglas para pasar de una a otra, y como presentar. |
 
 Esa separacion es la regla del proyecto: **nada se borra, se muda.** Todo lo que
 en la escaleta dice "10:43", "Habla la sala" o "Pendiente" existe porque ustedes
