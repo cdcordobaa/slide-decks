@@ -1,0 +1,759 @@
+<!doctype html><html lang="es" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inspire on Site · Atarraya · Marco de la charla</title>
+<script type="application/json" id="deck-metadata">
+{
+  "title": "Inspire on Site · Atarraya",
+  "subtitle": "Quien decide como funciona la tecnologia que usas",
+  "date": "2026-09-11, 9:30 a 11:30",
+  "audience": "40 adolescentes de noveno grado, colegio publico de Bogota",
+  "speakers": ["Cristian Cordoba", "Juliana"],
+  "source": "Notion: Estructura charla (Charla Atarraya)",
+  "status": "MARCO. Estructura y sistema visual listos, contenido pendiente.",
+  "visual_system": "Cartel / zine: papel calido, tinta negra, bloques saturados, stickers con sombra dura, tipografia display pesada",
+  "slides": 26
+}
+</script>
+<style>
+/* =========================================================================
+ * Inspire on Site (Atarraya) . Marco de la charla.
+ * Sistema visual: cartel callejero limpio. Papel calido, tinta casi negra,
+ * cuatro acentos saturados, bordes gruesos y sombras duras tipo sticker.
+ * Un acento por acto, mas amarillo para todo momento en que habla la sala.
+ * Deck fijado a data-theme="light" para que un SO en modo oscuro no lo invierta.
+ * ========================================================================= */
+
+:root {
+  --ink: #14131a;
+  --ink-2: #3d3a49;
+  --ink-soft: #6c6879;
+  --paper: #f6f2e8;
+  --paper-2: #ece6d6;
+  --white: #ffffff;
+
+  /* acentos por acto */
+  --lima: #c2f000;      --lima-ink: #566d00;   /* acto 1 . de donde sale */
+  --cyan: #12d3ff;      --cyan-ink: #00708f;   /* acto 2 . como aprende */
+  --magenta: #ff2e6d;   --magenta-ink: #c2003f;/* acto 3 . quien la construye */
+  --amarillo: #ffc400;  --amarillo-ink: #7d5f00;/* la sala participa */
+
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  --pad: 62px;
+  --bd: 5px;
+
+  --display: "Archivo Black", "Inter", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --sans: "Inter", "Helvetica Neue", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: #d9d3c4;
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.deck {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 30px; padding: 36px 0 64px;
+}
+
+/* ---------- caparazon de diapositiva ---------- */
+.slide {
+  position: relative;
+  width: var(--slide-w); height: var(--slide-h);
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+  padding: var(--pad) var(--pad) 74px;
+  display: flex; flex-direction: column;
+  border: var(--bd) solid var(--ink);
+  box-shadow: 14px 14px 0 rgba(20,19,26,.16);
+
+  /* acento heredado por acto */
+  --acc: var(--ink);
+  --acc-ink: var(--ink);
+}
+.slide[data-act="1"] { --acc: var(--lima);     --acc-ink: var(--lima-ink); }
+.slide[data-act="2"] { --acc: var(--cyan);     --acc-ink: var(--cyan-ink); }
+.slide[data-act="3"] { --acc: var(--magenta);  --acc-ink: var(--magenta-ink); }
+.slide[data-act="sala"] { --acc: var(--amarillo); --acc-ink: var(--amarillo-ink); }
+
+.slide[contenteditable] :focus { outline: 3px solid var(--acc); outline-offset: 3px; }
+
+/* ---------- riel de tiempo: cuanto llevamos de las 2 horas ---------- */
+.rail {
+  position: absolute; left: 0; top: 0; right: 0; height: 15px;
+  background: var(--paper-2);
+  border-bottom: var(--bd) solid var(--ink);
+  z-index: 5;
+}
+.rail span { display: block; height: 100%; width: 0; background: var(--acc); }
+.slide[data-block="0"] .rail span { width: 6.7%; }
+.slide[data-block="1"] .rail span { width: 18.3%; }
+.slide[data-block="2"] .rail span { width: 33.3%; }
+.slide[data-block="3"] .rail span { width: 48.3%; }
+.slide[data-block="4"] .rail span { width: 62.5%; }
+.slide[data-block="r"] .rail span { width: 66.7%; }
+.slide[data-block="5"] .rail span { width: 73.3%; }
+.slide[data-block="6"] .rail span { width: 91.7%; }
+.slide[data-block="7"] .rail span { width: 100%; }
+
+/* ---------- pie: bloque y numero ---------- */
+.foot {
+  position: absolute; left: var(--pad); right: var(--pad); bottom: 26px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft);
+  z-index: 5;
+}
+.foot__min { color: var(--acc-ink); }
+
+/* ---------- cabecera ---------- */
+.eyebrow {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: 0 0 18px;
+  font-size: 13px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--ink-2);
+}
+.tag {
+  display: inline-block; padding: 5px 12px;
+  background: var(--acc); color: var(--ink);
+  border: 3px solid var(--ink);
+  font-size: 12px; letter-spacing: .12em;
+}
+.mode {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 12px; border: 3px solid var(--ink); background: var(--white);
+  font-size: 12px; letter-spacing: .1em;
+}
+.mode::before { content: ""; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; }
+.mode--room  { background: var(--amarillo); }
+.mode--room::before { background: var(--ink); }
+.mode--hands { background: var(--ink); color: var(--paper); }
+.mode--hands::before { background: var(--amarillo); }
+
+.h {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 60px; line-height: .98; font-weight: 900; letter-spacing: -.025em;
+  text-transform: uppercase;
+  max-width: 20ch;
+}
+.h--sm { font-size: 46px; max-width: 26ch; }
+.sub {
+  margin: 16px 0 0;
+  font-size: 20px; line-height: 1.42; font-weight: 500; color: var(--ink-2);
+  max-width: 62ch;
+}
+
+/* resaltador de marcador */
+.mk {
+  background: linear-gradient(transparent 6%, var(--acc) 6%, var(--acc) 94%, transparent 94%);
+  padding: 0 .1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ---------- escenario ---------- */
+.stage { flex: 1; min-height: 0; display: flex; align-items: center; margin-top: 26px; }
+.stage--top { align-items: flex-start; }
+
+/* ---------- tarjetas sticker ---------- */
+.cards { display: grid; gap: 18px; width: 100%; }
+.cards--4 { grid-template-columns: repeat(4, 1fr); }
+.cards--3 { grid-template-columns: repeat(3, 1fr); }
+.cards--2 { grid-template-columns: repeat(2, 1fr); }
+
+.card {
+  background: var(--white);
+  border: var(--bd) solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: 20px 20px 22px;
+  display: flex; flex-direction: column; gap: 9px;
+  min-height: 0;
+}
+.card--acc { background: var(--acc); }
+.card__n {
+  font-family: var(--display);
+  font-size: 34px; line-height: 1; font-weight: 900; letter-spacing: -.03em;
+  color: var(--acc-ink);
+}
+.card--acc .card__n { color: var(--ink); }
+.card h3 {
+  margin: 0;
+  font-size: 19px; line-height: 1.15; font-weight: 800; letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.card p { margin: 0; font-size: 15px; line-height: 1.42; color: var(--ink-2); }
+.card--acc p { color: var(--ink); }
+
+/* ---------- lista de beats (historias) ---------- */
+.beats { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.beat {
+  display: grid; grid-template-columns: 54px 1fr; align-items: center; gap: 18px;
+  background: var(--white); border: 4px solid var(--ink); padding: 12px 18px;
+}
+.beat__n {
+  font-family: var(--display); font-size: 26px; font-weight: 900;
+  color: var(--ink); background: var(--acc);
+  border: 3px solid var(--ink);
+  width: 46px; height: 46px; display: grid; place-items: center;
+}
+.beat h3 { margin: 0 0 3px; font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: -.01em; }
+.beat p { margin: 0; font-size: 14.5px; line-height: 1.4; color: var(--ink-soft); }
+
+/* ---------- marcador de contenido pendiente ---------- */
+.ph {
+  position: relative;
+  border: 4px dashed var(--ink-soft);
+  background: repeating-linear-gradient(135deg, transparent 0 12px, rgba(20,19,26,.035) 12px 24px);
+  padding: 22px 22px 20px;
+  display: flex; flex-direction: column; gap: 8px; justify-content: center;
+}
+.ph__tag {
+  position: absolute; top: -14px; left: 18px;
+  background: var(--ink); color: var(--paper);
+  font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+  padding: 4px 10px;
+}
+.ph p { margin: 0; font-size: 15.5px; line-height: 1.45; color: var(--ink-2); }
+.ph strong { color: var(--ink); }
+
+/* ---------- marco de foto pendiente ---------- */
+.shot {
+  position: relative; margin: 0;
+  border: 4px dashed var(--ink-soft);
+  background: var(--paper-2);
+  display: grid; place-items: center; align-content: center; gap: 6px;
+  text-align: center; padding: 20px;
+}
+.shot__tag {
+  font-family: var(--display); font-size: 13px; letter-spacing: .2em;
+  color: var(--ink-soft); text-transform: uppercase;
+}
+.shot figcaption { font-size: 14px; font-weight: 700; color: var(--ink-2); max-width: 22ch; }
+
+/* ---------- diapositiva fria (apertura) ---------- */
+.cold {
+  background: var(--ink); color: var(--paper);
+  border-color: var(--ink);
+  align-items: center; justify-content: center; text-align: center;
+}
+.cold .foot { color: rgba(246,242,232,.5); }
+.cold .rail { background: rgba(246,242,232,.18); border-bottom-color: rgba(246,242,232,.3); }
+.cold__word {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 132px; line-height: .9; font-weight: 900; letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+.cold__hint {
+  margin: 26px 0 0; font-size: 17px; letter-spacing: .18em; text-transform: uppercase;
+  font-weight: 700; color: var(--amarillo);
+}
+
+/* ---------- la pregunta espina ---------- */
+.spine { background: var(--paper); justify-content: center; }
+.spine__q {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 82px; line-height: 1.03; font-weight: 900; letter-spacing: -.03em;
+  max-width: 20ch;
+}
+.spine__note {
+  margin: 34px 0 0; font-size: 16px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+
+/* ---------- separador de acto ---------- */
+.divider {
+  background: var(--acc);
+  justify-content: center;
+  padding-left: 78px; padding-right: 78px;
+}
+.divider .foot { color: rgba(20,19,26,.55); }
+.divider .rail { background: rgba(20,19,26,.16); }
+.divider__n {
+  position: absolute; right: -22px; bottom: -66px; margin: 0;
+  font-family: var(--display);
+  font-size: 400px; line-height: .74; font-weight: 900; letter-spacing: -.07em;
+  color: var(--ink); opacity: .13;
+  pointer-events: none; user-select: none;
+}
+.divider__bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.divider > *:not(.divider__bg):not(.rail):not(.foot) { position: relative; z-index: 2; }
+.divider .rail span, .gift .rail span { background: var(--ink); }
+.divider__kicker {
+  font-size: 14px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+  margin: 0 0 12px; color: var(--ink);
+}
+.divider__wrong {
+  margin: 0; font-family: var(--display);
+  font-size: 54px; line-height: 1.02; font-weight: 900; letter-spacing: -.025em;
+  text-transform: uppercase; max-width: 20ch;
+  text-decoration: line-through; text-decoration-thickness: 8px;
+  opacity: .5;
+}
+.divider__right {
+  margin: 20px 0 0; font-size: 22px; line-height: 1.35; font-weight: 700; max-width: 40ch;
+  color: var(--ink);
+}
+.divider--win .divider__wrong { text-decoration: none; opacity: 1; }
+
+/* ---------- dinamica: instruccion grande ---------- */
+.order {
+  background: var(--ink); color: var(--paper);
+  border: var(--bd) solid var(--ink);
+  padding: 28px 32px;
+  display: flex; align-items: center; gap: 22px; width: 100%;
+}
+.order__k {
+  font-family: var(--display); font-size: 15px; letter-spacing: .2em;
+  color: var(--amarillo); text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg);
+}
+.order p {
+  margin: 0; font-family: var(--display);
+  font-size: 42px; line-height: 1.06; font-weight: 900; letter-spacing: -.025em;
+  text-transform: uppercase;
+}
+
+/* ---------- tira de materiales ---------- */
+.kit { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.kit li {
+  list-style: none;
+  border: 3px solid var(--ink); background: var(--white);
+  padding: 7px 13px; font-size: 13.5px; font-weight: 700;
+}
+.kit { padding: 0; }
+.kit li.kit__t {
+  list-style: none; padding: 7px 13px; font-size: 12px; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase; background: var(--ink); color: var(--paper);
+  border: 3px solid var(--ink);
+}
+
+/* ---------- diapositiva regalo (para fotografiar) ---------- */
+.gift { background: var(--acc); justify-content: center; }
+.gift .foot { color: rgba(20,19,26,.55); }
+.gift .rail { background: rgba(20,19,26,.16); }
+.gift__h {
+  margin: 0 0 30px; font-family: var(--display);
+  font-size: 50px; line-height: 1; font-weight: 900; letter-spacing: -.03em; text-transform: uppercase;
+}
+.gift__list { margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.gift__list li {
+  list-style: none;
+  background: var(--white); border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+  padding: 16px 22px;
+  display: grid; grid-template-columns: minmax(52px, auto) 1fr; align-items: center; gap: 22px;
+}
+.gift__list b {
+  font-family: var(--display); font-size: 30px; font-weight: 900; color: var(--acc-ink);
+  white-space: nowrap; text-transform: uppercase;
+}
+.gift__list span { font-size: 18px; line-height: 1.35; font-weight: 600; }
+.gift__shoot {
+  margin: 26px 0 0; font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase;
+}
+
+/* ---------- dos columnas ---------- */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; width: 100%; align-items: stretch; }
+.two--wide { grid-template-columns: 1.35fr 1fr; }
+.col { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+
+/* ---------- tabla de neuronas ---------- */
+.grid6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; }
+.neuron {
+  border: 4px solid var(--ink); background: var(--white);
+  padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.neuron span { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.neuron b {
+  font-family: var(--display); font-size: 22px;
+  background: var(--acc); border: 3px solid var(--ink);
+  width: 42px; height: 42px; display: grid; place-items: center; flex: 0 0 auto;
+}
+
+/* ---------- cierre ---------- */
+.end { background: var(--ink); color: var(--paper); justify-content: center; }
+.end .foot { color: rgba(246,242,232,.5); }
+.end .rail { background: rgba(246,242,232,.18); }
+.end__h {
+  margin: 0; font-family: var(--display);
+  font-size: 72px; line-height: 1.02; font-weight: 900; letter-spacing: -.03em; text-transform: uppercase;
+  max-width: 21ch;
+}
+.end__h em { font-style: normal; color: var(--amarillo); }
+.end .sub { color: rgba(246,242,232,.72); }
+
+/* ---------- barra de edicion ---------- */
+.edit-note {
+  width: var(--slide-w);
+  font-size: 12.5px; color: #4a4638; letter-spacing: .04em;
+  border-left: 5px solid var(--ink); padding: 6px 0 6px 12px;
+}
+
+@media print {
+  html, body { background: #fff; }
+  .deck { display: block; padding: 0; gap: 0; }
+  .edit-note { display: none; }
+  .slide {
+    width: 13.333in; height: 7.5in;
+    box-shadow: none;
+    break-after: page; page-break-after: always;
+  }
+  .slide:last-child { break-after: auto; }
+}
+@page { size: 13.333in 7.5in; margin: 0; }
+</style></head>
+<body>
+<p class="edit-note" contenteditable="false">Marco de la charla. Haz clic en cualquier texto para editarlo. Guarda con Archivo, Guardar como, Página web completa.</p>
+<main class="deck">
+
+<!-- ============ BLOQUE 0 . APERTURA EN FRIO . 9:30 a 9:38 ============ -->
+
+<section class="slide cold" data-block="0" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Apertura en frio">
+  <div class="rail"><span></span></div>
+  <p class="cold__word">Levanta<br>la mano</p>
+  <p class="cold__hint">Tres preguntas · nadie se ha presentado todavía</p>
+  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:30 · 01/26</b></div>
+</section>
+
+<section class="slide spine" data-block="0" data-act="sala" contenteditable="true" spellcheck="true" aria-label="La pregunta">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">La pregunta</span> Vuelve en el minuto 118 <span class="mode mode--room">Habla la sala</span></p>
+  <h1 class="spine__q">¿Quién decide <span class="mk">cómo funciona</span> la tecnología que usas todos los días?</h1>
+  <p class="spine__note">No la respondemos hoy. La respondemos en dos horas.</p>
+  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:32 · 02/26</b></div>
+</section>
+
+<section class="slide" data-block="0" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Quienes somos">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Minuto 6</span> Presentación cruzada <span class="mode">Hablamos</span></p>
+  <h1 class="h h--sm">Ahora sí:<br>quiénes somos</h1>
+  <div class="stage">
+    <div class="two">
+      <div class="col">
+        <figure class="shot" style="min-height:230px"><span class="shot__tag">Foto</span><figcaption>Cristian, algo no laboral</figcaption></figure>
+        <div class="ph"><span class="ph__tag">Pendiente</span><p><strong>Cristian:</strong> nombre, de dónde eres y un detalle nada profesional. Una frase.</p></div>
+      </div>
+      <div class="col">
+        <figure class="shot" style="min-height:230px"><span class="shot__tag">Foto</span><figcaption>Juliana, algo no laboral</figcaption></figure>
+        <div class="ph"><span class="ph__tag">Pendiente</span><p><strong>Juliana:</strong> entra desde la sala, corrige a Cristian en broma y siembra su acto. Sin decir el cargo todavía.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><b>00 · Apertura en frío</b><b class="foot__min">9:36 · 03/26</b></div>
+</section>
+
+<!-- ============ ACTO 1 . DE DONDE SALE LA TECNOLOGIA ============ -->
+
+<section class="slide divider" data-block="1" data-act="1" contenteditable="true" spellcheck="true" aria-label="Acto 1">
+  <div class="rail"><span></span></div>
+  <div class="divider__bg"><p class="divider__n">01</p></div>
+  <p class="divider__kicker">Primera respuesta, y está mal</p>
+  <h1 class="divider__wrong">La deciden otros, lejos de aquí</h1>
+  <p class="divider__right">Globant nació de cuatro amigos que pensaban lo contrario. Y los dos que estamos aquí salimos de colegios como este.</p>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:38 · 04/26</b></div>
+</section>
+
+<section class="slide" data-block="1" data-act="1" contenteditable="true" spellcheck="true" aria-label="Globant en cuatro golpes">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Acto 1</span> Globant contado como historia <span class="mode">Hablamos</span></p>
+  <h1 class="h h--sm">Cuatro amigos, un garaje, un país que no creía</h1>
+  <div class="stage">
+    <div class="cards cards--4">
+      <article class="card"><span class="card__n">01</span><h3>El deseo</h3><p>Hacer software de clase mundial desde Latinoamérica. En los 2000 sonaba absurdo.</p></article>
+      <article class="card"><span class="card__n">02</span><h3>El obstáculo</h3><p>Nadie afuera creía que el talento estuviera aquí.</p></article>
+      <article class="card"><span class="card__n">03</span><h3>El giro</h3><p>El talento sí estaba. Nadie lo había ido a buscar.</p></article>
+      <article class="card card--acc"><span class="card__n">04</span><h3>El espejo</h3><p>Los que estamos parados aquí no venimos de Silicon Valley.</p></article>
+    </div>
+  </div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:40 · 05/26</b></div>
+</section>
+
+<section class="slide" data-block="1" data-act="1" contenteditable="true" spellcheck="true" aria-label="Que hacemos">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Acto 1</span> Traducido a su mundo <span class="mode">Hablamos</span></p>
+  <h1 class="h h--sm">Cuando la app del banco funciona, detrás hay un equipo</h1>
+  <div class="stage">
+    <div class="two two--wide">
+      <figure class="shot"><span class="shot__tag">Foto real</span><figcaption>Un equipo o la oficina. Nada de logos de clientes.</figcaption></figure>
+      <div class="col">
+        <div class="ph"><span class="ph__tag">Pendiente</span><p>Dos o tres categorías reconocibles: <strong>streaming, bancos, tiendas</strong>. Qué rol cumple el equipo en cada una, en una frase.</p></div>
+        <div class="ph"><span class="ph__tag">Pendiente</span><p>Nada de transformación digital. Nada de siglas sin traducir.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:46 · 06/26</b></div>
+</section>
+
+<section class="slide" data-block="1" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Dinamica de apps">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Micro dinámica</span> 2 minutos <span class="mode mode--room">Habla la sala</span></p>
+  <div class="stage" style="flex-direction:column;justify-content:center;align-items:flex-start;gap:24px">
+    <div class="order"><span class="order__k">Orden</span><p>¿Qué app usas más? Grítala.</p></div>
+    <div class="ph" style="width:100%"><span class="ph__tag">Pendiente</span><p>Tomamos dos o tres y explicamos <strong>en una frase</strong> qué trabajo de ingeniería hay detrás. Con esto Globant deja de ser abstracto.</p></div>
+  </div>
+  <div class="foot"><b>01 · Globant como historia</b><b class="foot__min">9:50 · 07/26</b></div>
+</section>
+
+<section class="slide" data-block="2" data-act="1" contenteditable="true" spellcheck="true" aria-label="Historia de Cristian">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Acto 1</span> Cristian <span class="mode">Hablamos</span></p>
+  <h1 class="h h--sm">El camino torcido</h1>
+  <div class="stage stage--top">
+    <div class="two two--wide">
+      <div class="beats">
+        <div class="beat"><span class="beat__n">1</span><div><h3>Yo a los 15</h3><p>Un detalle concreto y algo vergonzoso. Aquí se identifican.</p></div></div>
+        <div class="beat"><span class="beat__n">2</span><div><h3>El primer clic</h3><p>La escena exacta: qué máquina, qué hice, qué se rompió.</p></div></div>
+        <div class="beat"><span class="beat__n">3</span><div><h3>La decisión difícil</h3><p>Nadie tiene el camino claro a los 15. La verdad incómoda.</p></div></div>
+        <div class="beat"><span class="beat__n">4</span><div><h3>Un martes mío</h3><p>Gente resolviendo problemas en equipo, no alguien solo frente a una pantalla.</p></div></div>
+        <div class="beat"><span class="beat__n">5</span><div><h3>Lo que no cambió</h3><p>La curiosidad. No aguantar no saber cómo funcionan las cosas.</p></div></div>
+      </div>
+      <figure class="shot"><span class="shot__tag">Foto</span><figcaption>Cristian adolescente. Sin bullets, solo imagen.</figcaption></figure>
+    </div>
+  </div>
+  <div class="foot"><b>02 · Storytelling Cristian</b><b class="foot__min">9:52 · 08/26</b></div>
+</section>
+
+<section class="slide" data-block="2" data-act="1" contenteditable="true" spellcheck="true" aria-label="Transicion a Juliana">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Transición</span> Con tensión, no con aplauso <span class="mode">Hablamos</span></p>
+  <h1 class="h">Yo tuve suerte en algo que ella no tuvo</h1>
+  <p class="sub">Cristian pasa la pelota sin cerrar su acto. Juliana entra con el tema abierto.</p>
+  <div class="stage">
+    <div class="ph" style="width:100%"><span class="ph__tag">Pendiente</span><p>Escribir la frase exacta de traspaso. Se ensaya tres veces junto con la presentación cruzada del minuto 6.</p></div>
+  </div>
+  <div class="foot"><b>02 · Storytelling Cristian</b><b class="foot__min">10:08 · 09/26</b></div>
+</section>
+
+<section class="slide" data-block="3" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Dinamica de entrada de Juliana">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Dinámica de entrada</span> 2 minutos <span class="mode mode--room">Habla la sala</span></p>
+  <div class="stage" style="flex-direction:column;justify-content:center;align-items:flex-start;gap:24px">
+    <div class="order"><span class="order__k">Orden</span><p>Cierra los ojos. Imagina a alguien programando. Ábrelos.</p></div>
+    <p class="sub" style="max-width:52ch"><strong>¿Cuántos imaginaron a un hombre?</strong> Manos arriba. Ese es el punto de partida. Sin regaño y con humor.</p>
+  </div>
+  <div class="foot"><b>03 · Storytelling Juliana</b><b class="foot__min">10:10 · 10/26</b></div>
+</section>
+
+<section class="slide" data-block="3" data-act="1" contenteditable="true" spellcheck="true" aria-label="Historia de Juliana">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Acto 1</span> Juliana <span class="mode">Hablamos</span></p>
+  <h1 class="h h--sm">Entrar, quedarse, liderar</h1>
+  <div class="stage stage--top">
+    <div class="two two--wide">
+      <div class="beats">
+        <div class="beat"><span class="beat__n">1</span><div><h3>La vez que fui la única</h3><p>Primera clase, primera reunión. Escena concreta.</p></div></div>
+        <div class="beat"><span class="beat__n">2</span><div><h3>Lo que costó</h3><p>Probar dos veces, la voz que se interrumpe, las estrategias reales.</p></div></div>
+        <div class="beat"><span class="beat__n">3</span><div><h3>A quién le abrí la puerta</h3><p>Mentorías. Cómo cambió el equipo cuando dejó de ser la única.</p></div></div>
+        <div class="beat"><span class="beat__n">4</span><div><h3>Para ellos también</h3><p>Cuando alguien interrumpe a una compañera, ustedes ya saben qué hacer.</p></div></div>
+      </div>
+      <div class="col">
+        <figure class="shot" style="flex:1"><span class="shot__tag">Foto</span><figcaption>Juliana en su equipo</figcaption></figure>
+        <div class="ph"><span class="ph__tag">Frase ancla</span><p>Una frase suya, mirando a las niñas. En sus palabras.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><b>03 · Storytelling Juliana</b><b class="foot__min">10:12 · 11/26</b></div>
+</section>
+
+<!-- ============ ACTO 2 . COMO APRENDE UNA MAQUINA ============ -->
+
+<section class="slide divider" data-block="4" data-act="2" contenteditable="true" spellcheck="true" aria-label="Acto 2">
+  <div class="rail"><span></span></div>
+  <div class="divider__bg"><p class="divider__n">02</p></div>
+  <p class="divider__kicker">Segunda respuesta, y también está mal</p>
+  <h1 class="divider__wrong">La deciden los que saben mucho</h1>
+  <p class="divider__right">Vamos a entrenar una red neuronal aquí, con seis voluntarios y sin un solo computador.</p>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:28 · 12/26</b></div>
+</section>
+
+<section class="slide" data-block="4" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Montaje de la red neuronal">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Didáctica 1</span> 17 minutos, sin computadores <span class="mode mode--hands">Manos a la obra</span></p>
+  <h1 class="h h--sm">Seis voluntarios, seis preguntas: ¿perro o gato?</h1>
+  <div class="stage" style="flex-direction:column;gap:20px;align-items:stretch;justify-content:center">
+    <div class="grid6">
+      <div class="neuron"><span>¿Orejas puntudas?</span><b>3</b></div>
+      <div class="neuron"><span>¿Bigotes largos?</span><b>3</b></div>
+      <div class="neuron"><span>¿Lengua afuera?</span><b>3</b></div>
+      <div class="neuron"><span>¿Está en una caja?</span><b>3</b></div>
+      <div class="neuron"><span>¿Tiene collar?</span><b>3</b></div>
+      <div class="neuron"><span>¿La cola está arriba?</span><b>3</b></div>
+    </div>
+    <ul class="kit">
+      <li class="kit__t">Kit</li>
+      <li>6 cartulinas</li>
+      <li>6 post-its con el peso</li>
+      <li>Marcador grueso</li>
+      <li>5 fotos ambiguas impresas</li>
+    </ul>
+  </div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:30 · 13/26</b></div>
+</section>
+
+<section class="slide" data-block="4" data-act="2" contenteditable="true" spellcheck="true" aria-label="Las cuatro rondas">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Didáctica 1</span> El corazón de la dinámica <span class="mode mode--hands">Manos a la obra</span></p>
+  <h1 class="h h--sm">La máquina aprende equivocándose</h1>
+  <div class="stage">
+    <div class="cards cards--4">
+      <article class="card"><span class="card__n">01</span><h3>Predice</h3><p>Cada neurona grita sí o no y su peso. La sala suma. La primera vez fallamos.</p></article>
+      <article class="card"><span class="card__n">02</span><h3>Falla</h3><p>¿Nos equivocamos por mucho o por poquito? Eso es el error.</p></article>
+      <article class="card"><span class="card__n">03</span><h3>Corrige</h3><p>¿Qué neurona nos hizo fallar? Tacha su número y bájalo. Esa es toda la magia.</p></article>
+      <article class="card card--acc"><span class="card__n">04</span><h3>Repite</h3><p>Tres o cuatro fotos más. Al final acierta. Miles de millones de veces en una máquina real.</p></article>
+    </div>
+  </div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:34 · 14/26</b></div>
+</section>
+
+<section class="slide" data-block="4" data-act="2" contenteditable="true" spellcheck="true" aria-label="El sesgo">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Cola de 2 minutos</span> El sesgo, sin moraleja <span class="mode mode--room">Habla la sala</span></p>
+  <h1 class="h">Un modelo solo sabe <span class="mk">lo que le mostraron</span></h1>
+  <p class="sub">Nosotros elegimos las cinco fotos. Si solo le hubiéramos mostrado gatos negros, ¿qué haría con un gato blanco?</p>
+  <div class="stage">
+    <div class="ph" style="width:100%"><span class="ph__tag">Puente a Juliana</span><p>Si todo esto funciona con datos, la pregunta obvia es: <strong>¿de quién son esos datos?</strong> Ahí entra ella, y les va a robar algo.</p></div>
+  </div>
+  <div class="foot"><b>04 · Red neuronal en vivo</b><b class="foot__min">10:43 · 15/26</b></div>
+</section>
+
+<section class="slide cold" data-block="r" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Respiro">
+  <div class="rail"><span></span></div>
+  <p class="cold__word">Respiro</p>
+  <p class="cold__hint">5 minutos · estirarse y armar los 8 grupos de 5</p>
+  <div class="foot"><b>Respiro</b><b class="foot__min">10:45 · 16/26</b></div>
+</section>
+
+<section class="slide" data-block="5" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Tus datos valen oro">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Didáctica 2</span> Juliana, 8 minutos <span class="mode mode--room">Habla la sala</span></p>
+  <h1 class="h h--sm">Los acabo de hackear y ustedes me ayudaron</h1>
+  <div class="stage">
+    <div class="two two--wide">
+      <div class="cards cards--3" style="align-content:start">
+        <article class="card"><span class="card__n">01</span><h3>La mascota</h3><p>¿Cómo se llama? Anota tres nombres en el tablero.</p></article>
+        <article class="card"><span class="card__n">02</span><h3>El cumpleaños</h3><p>¿Quién cumple este mes? Anota tres fechas.</p></article>
+        <article class="card"><span class="card__n">03</span><h3>El colegio</h3><p>¿Cuál fue el primero? Anota dos respuestas.</p></article>
+      </div>
+      <div class="ph"><span class="ph__tag">El golpe</span><p>Pausa. Señala el tablero. <strong>Esas son las preguntas de seguridad de media internet.</strong> Nadie hackeó nada: se lo dieron en 60 segundos a alguien simpático. Con humor, no con susto.</p></div>
+    </div>
+  </div>
+  <div class="foot"><b>05 · Tus datos valen oro</b><b class="foot__min">10:50 · 17/26</b></div>
+</section>
+
+<section class="slide gift" data-block="5" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Tres cosas para hoy">
+  <div class="rail"><span></span></div>
+  <h1 class="gift__h">Tres cosas que puedes hacer hoy</h1>
+  <ol class="gift__list">
+    <li><b>01</b><span>Nunca respondas la pregunta de seguridad con la verdad. Miente, y anota la mentira.</span></li>
+    <li><b>02</b><span>Verificación en dos pasos en tu cuenta principal. Hoy, en dos minutos.</span></li>
+    <li><b>03</b><span>Antes de dar un dato: ¿por qué esta persona o esta app necesita saber esto?</span></li>
+  </ol>
+  <p class="gift__shoot">Esta diapositiva es para que la fotografíen</p>
+  <div class="foot"><b>05 · Tus datos valen oro</b><b class="foot__min">10:56 · 18/26</b></div>
+</section>
+
+<!-- ============ ACTO 3 . LA DECIDE QUIEN LA CONSTRUYE ============ -->
+
+<section class="slide divider divider--win" data-block="6" data-act="3" contenteditable="true" spellcheck="true" aria-label="Acto 3">
+  <div class="rail"><span></span></div>
+  <div class="divider__bg"><p class="divider__n">03</p></div>
+  <p class="divider__kicker">Tercera respuesta, y esta sí</p>
+  <h1 class="divider__wrong">La decide quien la construye</h1>
+  <p class="divider__right">Si ustedes mandaran, ¿qué construirían con esos datos? Veintidós minutos para averiguarlo.</p>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">10:58 · 19/26</b></div>
+</section>
+
+<section class="slide" data-block="6" data-act="sala" contenteditable="true" spellcheck="true" aria-label="El brief del taller">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Taller</span> 8 grupos de 5 <span class="mode mode--hands">Manos a la obra</span></p>
+  <div class="stage" style="flex-direction:column;justify-content:center;align-items:stretch;gap:22px">
+    <div class="order"><span class="order__k">Brief</span><p>Diseña un asistente de IA que resuelva un problema real de tu colegio, tu casa o tu barrio.</p></div>
+    <p class="sub" style="max-width:70ch">No tienen que saber programar. Tienen que saber pensarlo. Nosotros rotamos cuatro mesas cada uno y hacemos <strong>una sola pregunta</strong> por mesa: ¿y con qué datos aprende?</p>
+    <ul class="kit">
+      <li class="kit__t">Kit</li>
+      <li>10 plantillas impresas</li>
+      <li>Marcadores</li>
+      <li>Cronómetro grande</li>
+      <li>8 stickers para el grupo ganador</li>
+    </ul>
+  </div>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">10:58 · 20/26</b></div>
+</section>
+
+<section class="slide" data-block="6" data-act="3" contenteditable="true" spellcheck="true" aria-label="La plantilla">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Taller</span> La hoja que se llevan <span class="mode mode--hands">Manos a la obra</span></p>
+  <h1 class="h h--sm">Cinco casillas y ya tienes un producto</h1>
+  <div class="stage">
+    <div class="cards cards--3" style="grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr">
+      <article class="card"><span class="card__n">01</span><h3>El problema</h3><p>¿Qué cosa aburrida, injusta o difícil pasa todos los días?</p></article>
+      <article class="card"><span class="card__n">02</span><h3>El trabajo</h3><p>¿Qué hace exactamente? Una frase que empiece con un verbo.</p></article>
+      <article class="card"><span class="card__n">03</span><h3>Los datos</h3><p>¿Qué ejemplos habría que mostrarle? ¿Quién los tiene?</p></article>
+      <article class="card card--acc"><span class="card__n">04</span><h3>El daño</h3><p>¿A quién perjudica si se equivoca? Casilla obligatoria.</p></article>
+      <article class="card"><span class="card__n">05</span><h3>El nombre</h3><p>Y una frase de venta. Cuarenta y cinco segundos para defenderla.</p></article>
+      <div class="ph"><span class="ph__tag">Pendiente</span><p>Un ejemplo hecho por ustedes, en 2 minutos. Por ejemplo: la ruta más segura de salida del colegio.</p></div>
+    </div>
+  </div>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">11:00 · 21/26</b></div>
+</section>
+
+<section class="slide cold" data-block="6" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Pitch">
+  <div class="rail"><span></span></div>
+  <p class="cold__word">45<br>segundos</p>
+  <p class="cold__hint">Seis grupos presentan · cronómetro a la vista · voto a mano alzada</p>
+  <div class="foot"><b>06 · Taller</b><b class="foot__min">11:14 · 22/26</b></div>
+</section>
+
+<section class="slide" data-block="7" data-act="3" contenteditable="true" spellcheck="true" aria-label="La carrera que cambio">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow"><span class="tag">Cierre</span> Cristian, 6 minutos <span class="mode">Hablamos</span></p>
+  <h1 class="h h--sm">La carrera cambió, y eso los favorece</h1>
+  <div class="stage">
+    <div class="cards cards--2">
+      <article class="card"><span class="card__n">01</span><h3>De escribir a decidir</h3><p>Hace diez años ser ingeniero era escribir línea por línea. Hoy la máquina escribe muchas de esas líneas.</p></article>
+      <article class="card card--acc"><span class="card__n">02</span><h3>Subió de valor lo que acaban de hacer</h3><p>Definir el problema, elegir los datos, prever el daño. Exactamente el taller.</p></article>
+      <article class="card"><span class="card__n">03</span><h3>Lo que la IA no reemplaza</h3><p>Criterio, gusto, ética y saber trabajar con gente. No sabe qué vale la pena resolver en su barrio.</p></article>
+      <article class="card"><span class="card__n">04</span><h3>Y por eso hacen falta</h3><p>Los modelos se entrenaron lejos, con datos que no son de aquí. Alguien tiene que construir la versión que sí nos entienda.</p></article>
+    </div>
+  </div>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:20 · 23/26</b></div>
+</section>
+
+<section class="slide gift" data-block="7" data-act="3" contenteditable="true" spellcheck="true" aria-label="Tres pasos">
+  <div class="rail"><span></span></div>
+  <h1 class="gift__h">Tres pasos, y empiezan esta semana</h1>
+  <ol class="gift__list">
+    <li><b>Hoy</b><span>Usa una IA para aprender algo, no para que te haga la tarea. Pídele lo mismo tres veces, más simple cada vez.</span></li>
+    <li><b>Mes</b><span>Termina una cosa pequeña y muéstrasela a alguien. Terminar vale más que perfeccionar.</span></li>
+    <li><b>Año</b><span>Busca una comunidad. Nadie llega solo a esto.</span></li>
+  </ol>
+  <p class="gift__shoot">Esta diapositiva es para que la fotografíen</p>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:24 · 24/26</b></div>
+</section>
+
+<section class="slide end" data-block="7" data-act="3" contenteditable="true" spellcheck="true" aria-label="La pregunta respondida">
+  <div class="rail"><span></span></div>
+  <p class="eyebrow" style="color:rgba(246,242,232,.6)"><span class="tag">Minuto 118</span> La pregunta del minuto 2</p>
+  <h1 class="end__h">La decide <em>quien se atreve</em> a diseñarla</h1>
+  <p class="sub">Y ustedes acaban de hacerlo en una hoja de papel.</p>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:27 · 25/26</b></div>
+</section>
+
+<section class="slide cold" data-block="7" data-act="sala" contenteditable="true" spellcheck="true" aria-label="Foto grupal">
+  <div class="rail"><span></span></div>
+  <p class="cold__word">Foto,<br>hojas<br>en alto</p>
+  <p class="cold__hint">Sin preguntas al final · nos quedamos 5 minutos para el que se acerque</p>
+  <div class="foot"><b>07 · Cierre</b><b class="foot__min">11:29 · 26/26</b></div>
+</section>
+
+</main>
+</body></html>
