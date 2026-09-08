@@ -2,7 +2,7 @@
 
 Charla del 11 de septiembre, 9:30 a 11:30, para 40 adolescentes de noveno grado
 de un colegio publico de Bogota. Dos voces, una sola historia: Cristian y
-Juliana.
+Adriana.
 
 ## Dos piezas, dos casas
 
@@ -93,9 +93,9 @@ Van en `assets/fotos/` y son lo unico de diseno que bloquea el deck. Mientras no
 esten, esas laminas muestran un panel oscuro con el nombre, que se ve
 intencional pero no es lo que queremos.
 
-- `cristian.jpg` y `juliana.jpg`, algo no laboral
+- `cristian.jpg` y `adriana.jpg`, algo no laboral
 - `cristian-15.jpg`, foto de adolescente
-- `juliana-equipo.jpg`, en su equipo hoy
+- `adriana-equipo.jpg`, en su equipo hoy
 
 No se generan con IA: son personas reales. El resto de pendientes (los de
 contenido) esta en la escaleta.

@@ -33,7 +33,7 @@ Ninguna informacion se perdio. Cambio de casa.
 |-----|------------------------------|
 | El reloj | `10:43 · 17/28` en cada pie, y el riel que avanza con la hora |
 | Acotaciones de direccion | `Hablamos`, `Habla la sala`, `Manos a la obra`, "Cristian, 6 minutos" |
-| Recuadros punteados | `Pendiente`, `Foto`, `Frase ancla`, `El golpe`, `Puente a Juliana` |
+| Recuadros punteados | `Pendiente`, `Foto`, `Frase ancla`, `El golpe`, `Puente a Adriana` |
 | Instrucciones a ustedes mismos | "Un detalle concreto y algo vergonzoso", "Escena concreta", "Sin regano y con humor" |
 | Vocabulario de produccion | Acto, Storytelling, Didactica 1 y 2, Brief, Kit, Micro dinamica, Bloque |
 | Meta-narrativa | "Vuelve en el minuto 118", "La pregunta del minuto 2", "Transicion: con tension" |
@@ -112,7 +112,7 @@ Produccion:      minuto, quien habla, materiales, que hay que preparar antes.
 
 **El contrato es simple: lo que no este en "En pantalla" no se proyecta.**
 
-Ejemplo real, el bloque de Juliana:
+Ejemplo real, el bloque de Adriana:
 
 ```
 MOMENTO: la demo de ingenieria social
@@ -121,11 +121,11 @@ En pantalla:     Tres preguntas rapidas
                  1. ¿Como se llama tu mascota?
                  2. ¿Quien cumple anos este mes?
                  3. ¿Cual fue tu primer colegio?
-Lo que decimos:  Juliana arranca sin anunciar nada, en tono de conversacion.
+Lo que decimos:  Adriana arranca sin anunciar nada, en tono de conversacion.
                  Anota las respuestas en el tablero. Despues pausa, senala el
                  tablero y suelta el golpe.
 Hace la sala:    Responde en voz alta. Ocho o nueve chicos dan datos reales.
-Produccion:      10:50, Juliana, 8 min. Necesita tablero libre y marcador.
+Produccion:      10:50, Adriana, 8 min. Necesita tablero libre y marcador.
 ```
 
 De ahi salen dos laminas de la charla (las preguntas, y despues el golpe) y una
@@ -138,7 +138,7 @@ entrada de la escaleta. Sin que nadie tenga que decidir nada.
 - **Contenido nuevo:** el bloque de cuatro campos de arriba.
 - **Arte nuevo:** describanme la escena y yo escribo el brief y lo genero.
 - **Fotos reales:** ponganlas en `assets/fotos/` con los nombres que espera el
-  deck (`cristian.jpg`, `juliana.jpg`, `cristian-15.jpg`, `juliana-equipo.jpg`).
+  deck (`cristian.jpg`, `adriana.jpg`, `cristian-15.jpg`, `adriana-equipo.jpg`).
 
 ---
 
@@ -149,7 +149,7 @@ Ninguno es de diseno. Todos son de contenido.
 
 1. Las cuatro respuestas de Cristian: el objeto que lo engancho, que creia que
    iba a ser, el peor fracaso tecnico, que sorprenderia de su trabajo.
-2. La frase ancla de Juliana para las ninas, en sus palabras.
+2. La frase ancla de Adriana para las ninas, en sus palabras.
 3. Las cuatro fotos reales.
 4. Que dos o tres categorias de cliente se pueden decir en voz alta.
 5. El ejemplo propio del taller, hecho por ustedes.
