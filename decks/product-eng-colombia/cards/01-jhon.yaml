@@ -1,0 +1,63 @@
+section:
+  id: "1"
+  title: "Bloque 1 · Jhon Ortiz"
+  tag: "Maico"
+  accent: "coral"
+
+cards:
+  - id: "1.a"
+    name: "Quien soy"
+    step: "A · Quien soy"
+    title: "Jhon Ortiz"
+    visual:
+      kind: persona
+      name: "Jhon Ortiz"
+      role: "Lider Tribu IA"
+      photo: assets/jhon.png
+      lines:
+        - "En la comunidad desde los inicios de Tribu IA."
+        - "Construye producto propio y proyectos junto a la comunidad."
+    takeaway: "Abrimos con Jhon, que conecta su producto propio con el trabajo de la Tribu."
+
+  - id: "1.b"
+    name: "Que construi"
+    step: "B · Que construi"
+    title: "Maico, y proyectos de la comunidad"
+    subtitle: "Mi producto propio, Maico, mas los proyectos que construi con otros de la Tribu."
+    visual:
+      kind: product
+      badge: "en video"
+      items:
+        - label: "Maico (maico.bio)"
+          hero: true
+          caption: "La IA sugiere candidatos de taxon; el curador cientifico verifica y decide. Salida interoperable en Darwin Core."
+        - label: "Agente de Contenido"
+          caption: "Extrae fragmentos valiosos de contenido largo, con Cristian. Iniciativa de Tribu IA y comunicaciones."
+        - label: "Ecolegalia (hackaton)"
+          caption: "Funcionalidad construida en un hackaton, con Diego y Cristian."
+    takeaway: "Un producto propio y dos proyectos nacidos de construir con la comunidad."
+
+  - id: "1.c"
+    name: "El video"
+    step: "C · El video"
+    title: "Maico en accion"
+    visual:
+      kind: video
+      src: assets/media/demo-maico.mp4
+      poster: assets/media/maico-portada.png
+      caption: "Maico: de la observacion en campo al dato interoperable."
+    takeaway: "Mejor verlo funcionando que explicarlo."
+
+  - id: "1.d"
+    name: "Hilo con la comunidad"
+    step: "D · Hilo con la comunidad"
+    title: "Jhon en el ecosistema"
+    subtitle: "Maico es propio, pero varios proyectos los construi con otros de la Tribu."
+    visual:
+      kind: bullets
+      items:
+        - label: "Agente de Contenido"
+          caption: "con Cristian, desde el grupo de comunicaciones de Tribu IA."
+        - label: "Ecolegalia"
+          caption: "una funcionalidad en un hackaton, con Diego y Cristian."
+    takeaway: "Lo mejor no lo construi solo: salio de la comunidad."

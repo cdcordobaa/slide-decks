@@ -1,0 +1,68 @@
+section:
+  id: "3"
+  title: "Bloque 3 · Cristian Cordoba"
+  tag: "IA Agentica"
+  accent: "violet"
+
+cards:
+  - id: "3.a"
+    name: "Quien soy"
+    step: "A · Quien soy"
+    title: "Cristian Cordoba"
+    subtitle: "Mi recorrido pasa por los tres pilares: aprender, construir, crear valor."
+    visual:
+      kind: persona
+      name: "Cristian Cordoba"
+      role: "Lider en Agentes de AI"
+      photo: assets/cristian.png
+      lines:
+        - "50+ sesiones del track de IA Agentica, 40 a 50 ingenieros por sesion."
+        - "Dicte 8 a 10 yo mismo: RAG, GraphRAG, arquitecturas de agentes."
+        - "De ahi salieron los proyectos que siguen."
+    takeaway: "Del track de IA Agentica salieron los proyectos que muestro a continuacion."
+
+  - id: "3.b"
+    name: "Que construi"
+    step: "B · Que construi"
+    title: "Cuatro proyectos alrededor de la comunidad"
+    subtitle: "Muestro uno en vivo; los demas los cuento por encima."
+    visual:
+      kind: product
+      badge: "en demo"
+      items:
+        - label: "DaedalusArch (tesis de maestria)"
+          hero: true
+          caption: "Compila las reglas de arquitectura y verifica que el codigo, incluida la codificacion agentica, las respete."
+        - label: "PerciBot"
+          caption: "Agente de cobranzas por voz, con Rogert. Nace de IA Agentica."
+        - label: "Agente de Contenido"
+          caption: "Extrae fragmentos de contenido largo, con Jhon. De Tribu IA y comunicaciones."
+        - label: "Ecolegalia (hackaton)"
+          caption: "Funcionalidad construida en un hackaton, con Diego y Jhon."
+    takeaway: "Todo salio del track agentico y de construir con otros de la comunidad."
+
+  - id: "3.c"
+    name: "El video"
+    step: "C · El video"
+    title: "DaedalusArch, en video"
+    subtitle: "Arquitectura, compilada: las reglas del proyecto se vuelven verificables contra el codigo (grafo en Neo4j, consultas, critico LLM, veredicto)."
+    visual:
+      kind: video
+      src: assets/media/daedalus.mp4
+      poster: assets/media/daedalus-video-poster.jpg
+      caption: "DaedalusArch: de firewall.spec.yaml al veredicto."
+    takeaway: "La arquitectura, compilada y verificada contra el codigo."
+
+  - id: "3.d"
+    name: "Hilo con la comunidad"
+    step: "D · Hilo con la comunidad"
+    title: "La conexion cruzada"
+    subtitle: "Mi hilo pasa por IA Agentica y por construir con otros de la Tribu."
+    visual:
+      kind: bullets
+      items:
+        - label: "IA Agentica"
+          caption: "de ahi salio PerciBot, el agente de voz con Rogert."
+        - label: "Con Jhon y Diego"
+          caption: "el Agente de Contenido y la hackaton de Ecolegalia."
+    takeaway: "Aqui dejamos de ser islas: nos cruzamos con Rogert, Jhon y Diego."

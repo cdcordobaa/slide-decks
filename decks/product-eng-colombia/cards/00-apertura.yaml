@@ -1,0 +1,53 @@
+section:
+  id: "0"
+  title: "Apertura"
+  tag: "Tribu IA"
+  accent: "violet"
+
+cards:
+  - id: "0.1"
+    name: "La tesis"
+    title: "Nada de esto lo construimos solos"
+    subtitle: "Esta charla no es sobre Tribu IA. Es la comunidad mostrando lo que hace: cuatro personas con productos que salieron de ahi. Y todo lo que sigue se apoya en estas tres ideas."
+    visual:
+      kind: pillars
+      items:
+        - label: "Democratizacion del conocimiento"
+          caption: "Hacer accesible lo complejo sin quitarle profundidad."
+        - label: "Construccion e implementacion"
+          caption: "Aprender haciendo. Construir para entender."
+        - label: "Creacion de valor"
+          caption: "De la idea al prototipo, del prototipo al producto, del producto al impacto."
+    takeaway: "Mas que hablar de IA, en la comunidad la construimos. Hoy mostramos cuatro ejemplos."
+
+  - id: "0.2"
+    name: "El ciclo de valor"
+    title: "De la curiosidad al prototipo"
+    subtitle: "La comunidad corre un ciclo. Cada proyecto que nace aqui avanza por el a su ritmo."
+    visual:
+      kind: cycle
+      steps: ["Aprender", "Experimentar", "Construir", "Demostrar", "Lanzar", "Escalar"]
+    takeaway: "Cada proyecto pasa por uno o mas de estos pasos. Los que crecen se vuelven proyectos conocidos de la comunidad, como Ecolegalia."
+
+  - id: "0.4"
+    name: "Tribu IA en numeros"
+    title: "Donde Latinoamerica construye con IA"
+    subtitle: "El tamano de la comunidad detras de estos cuatro productos."
+    visual:
+      kind: stats
+      items:
+        - { value: "109", caption: "Eventos" }
+        - { value: "9.400+", caption: "Registros" }
+        - { value: "2.000+", caption: "Asistentes presenciales" }
+        - { value: "10+", caption: "Ciudades" }
+        - { value: "12", caption: "Programas activos" }
+        - { value: "40+", caption: "Meetups AI Tinkerers" }
+    takeaway: "Esta es la comunidad de la que salieron los productos de hoy."
+
+  - id: "0.5"
+    name: "Los programas de Tribu IA"
+    title: "El ecosistema de Tribu IA"
+    subtitle: "La comunidad no es una lista de eventos: es una red de programas para aprender, experimentar y construir con IA."
+    visual:
+      kind: programs_map
+    takeaway: "Tribu IA no es una lista de programas. Es un ecosistema vivo."

@@ -1,0 +1,62 @@
+section:
+  id: "2"
+  title: "Bloque 2 · Diego Olarte"
+  tag: "Ecolegalia"
+  accent: "teal"
+
+cards:
+  - id: "2.a"
+    name: "Quien soy"
+    step: "A · Quien soy"
+    title: "Diego Olarte"
+    visual:
+      kind: persona
+      name: "Diego Olarte"
+      role: "Community Builder"
+      photo: assets/diego.png
+      lines:
+        - "Construye proyectos de IA nacidos en la comunidad."
+        - "De Igniters a proyectos conectados con el ecosistema."
+    takeaway: "Diego muestra como la comunidad convierte energia en proyectos concretos."
+
+  - id: "2.b"
+    name: "Que construi"
+    step: "B · Que construi"
+    title: "Proyectos nacidos de Igniters"
+    subtitle: "Varios proyectos salieron de Igniters y se conectaron con programas de la CCB."
+    visual:
+      kind: product
+      items:
+        - label: "Ecolegalia"
+          hero: true
+          caption: "IA aplicada a educacion e impacto social. Nacio en Igniters y se conecto con programas de la CCB."
+        - label: "Genuine School"
+          caption: "salio de Igniters, junto a Rogert."
+        - label: "Inbest"
+          caption: "asociado a Igniters y a programas de la Camara de Comercio de Bogota."
+    takeaway: "De Igniters salieron varios proyectos que conectan con el ecosistema."
+
+  - id: "2.c"
+    name: "El video"
+    step: "C · El video"
+    title: "Diego, en accion"
+    visual:
+      kind: video
+      src: assets/media/diego-pe.mp4
+      poster: assets/media/diego-poster.jpg
+      caption: "Diego, product engineering en accion."
+    takeaway: "Un vistazo al trabajo de Diego en la comunidad."
+
+  - id: "2.d"
+    name: "Hilo con la comunidad"
+    step: "D · Hilo con la comunidad"
+    title: "De Igniters al ecosistema"
+    subtitle: "Igniters funciona como plataforma: de ahi nacen proyectos que se conectan con instituciones."
+    visual:
+      kind: bullets
+      items:
+        - label: "Igniters"
+          caption: "el programa del que nacieron Genuine School, Inbest y Ecolegalia."
+        - label: "Programas CCB"
+          caption: "Inbest y Ecolegalia se conectaron con la Camara de Comercio de Bogota."
+    takeaway: "Diego conecta la Tribu con proyectos y con el ecosistema institucional."

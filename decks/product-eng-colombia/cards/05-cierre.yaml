@@ -1,0 +1,43 @@
+section:
+  id: "5"
+  title: "Cierre"
+  tag: "Tribu IA"
+  accent: "violet"
+
+cards:
+  - id: "5.1"
+    name: "El mapa completo"
+    title: "El mapa: personas, proyectos, programas"
+    subtitle: "Nuestros proyectos no son casos aislados. Son brotes de una comunidad que aprende construyendo, cada uno conectando personas con los programas de Tribu IA."
+    visual:
+      kind: map
+      stage: 0
+    takeaway: "Apenas una muestra. El aprendizaje y la construccion estan en el ADN de Tribu IA."
+
+  - id: "5.2"
+    name: "Frases que quedan"
+    title: "La idea que queda"
+    subtitle: "La comunidad fue clave para aprender, construir y crear valor."
+    visual:
+      kind: quotes
+      items:
+        - "Donde Latinoamerica construye con IA."
+        - "No solo aprendemos sobre el futuro: lo construimos."
+        - "De la curiosidad al prototipo. Del prototipo al producto. Del producto al impacto."
+        - "No somos audiencia de la revolucion de IA. Somos builders de esa revolucion."
+    takeaway: "Nada de esto lo construimos solos. Y ese es justo el punto."
+
+  - id: "5.3"
+    name: "Llamado a la accion"
+    title: "Suma tu nodo al mapa"
+    subtitle: "Tribu IA es una comunidad que construye. El siguiente nodo puede ser el tuyo."
+    visual:
+      kind: bullets
+      items:
+        - label: "Sumate a Tribu IA"
+          caption: "y a sus programas: Igniters, Track de IA Agentica, AI Tinkerers, AI Product Engineer x Habi."
+        - label: "Trae un problema o un prototipo."
+          caption: "En la comunidad hay espacio para pasar de la idea al prototipo."
+        - label: "Construye con otros."
+          caption: "Buena parte de lo que mostramos hoy salio de construir con otros."
+    takeaway: "De la idea al prototipo, en comunidad. Te esperamos."

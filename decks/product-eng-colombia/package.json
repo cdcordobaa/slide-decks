@@ -1,0 +1,18 @@
+{
+  "name": "product-eng-colombia-deck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Tribu IA talk 'Product Engineering Made in Colombia' — YAML cards compiled to an editable HTML deck, rendered to PDF via the create-slide-deck skill.",
+  "scripts": {
+    "build": "node scripts/build-deck.mjs cards --out build/deck.html",
+    "all": "node scripts/build-deck.mjs cards --all --out build/deck-all.html",
+    "render": "node ../../skill/scripts/render-pdf.mjs build/deck.html build/deck.pdf --screenshots build/shots"
+  },
+  "dependencies": {
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}

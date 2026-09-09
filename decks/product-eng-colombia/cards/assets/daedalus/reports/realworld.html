@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architectonic Firewall — Report</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/cytoscape@3.30.4/dist/cytoscape.min.js"></script>
+  <script src="https://unpkg.com/dagre@0.8.5/dist/dagre.min.js"></script>
+  <script src="https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+  <style>
+    #cy { width: 100%; height: 500px; border: 1px solid #e5e7eb; border-radius: 0.5rem; }
+    .gauge-ring { transition: stroke-dashoffset 1s ease-in-out; }
+    .verdict-pass { color: #10b981; }
+    .verdict-warning { color: #f59e0b; }
+    .verdict-soft-block { color: #f97316; }
+    .verdict-hard-block { color: #ef4444; }
+    .severity-critical { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+    .severity-major { background: #fff7ed; color: #9a3412; border-color: #fed7aa; }
+    .severity-minor { background: #fefce8; color: #854d0e; border-color: #fef08a; }
+    .severity-advisory { background: #f0f9ff; color: #075985; border-color: #bae6fd; }
+    .baseline-tag { background: #e5e7eb; color: #4b5563; }
+    .new-tag { background: #fee2e2; color: #991b1b; }
+    table th { cursor: pointer; user-select: none; }
+    table th:hover { background: #f3f4f6; }
+    .sort-asc::after { content: ' \u25B2'; font-size: 0.65rem; }
+    .sort-desc::after { content: ' \u25BC'; font-size: 0.65rem; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="bg-white border-b border-gray-200 shadow-sm" data-testid="report-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900" data-testid="header-product-name"></h1>
+          <p class="mt-1 text-sm text-gray-500">
+            Project: <span class="font-medium text-gray-700" data-testid="header-project-name"></span>
+          </p>
+        </div>
+        <div class="text-right text-sm text-gray-500">
+          <p>Evaluated: <span data-testid="header-timestamp"></span></p>
+          <p>Spec: <span class="font-mono" data-testid="header-spec-version"></span></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- ═══ AHS SCORE ═══ -->
+    <section data-testid="ahs-section" class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-semibold mb-4">Architectural Health Score</h2>
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <!-- Gauge -->
+        <div class="flex-shrink-0 relative" data-testid="ahs-gauge">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="80" fill="none" stroke="#e5e7eb" stroke-width="12" />
+            <circle cx="90" cy="90" r="80" fill="none" stroke="#6366f1" stroke-width="12"
+              stroke-dasharray="502.65" stroke-dashoffset="502.65"
+              stroke-linecap="round" transform="rotate(-90 90 90)"
+              class="gauge-ring" data-testid="ahs-gauge-ring" />
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span class="text-3xl font-bold" data-testid="ahs-score-value"></span>
+            <span class="text-sm font-medium uppercase" data-testid="ahs-verdict"></span>
+          </div>
+        </div>
+        <!-- Score Details -->
+        <div class="flex-1 w-full">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" data-testid="ahs-scores-detail">
+            <div class="text-sm"><span class="text-gray-500">Deterministic:</span> <span class="font-mono font-medium" data-testid="ahs-deterministic"></span></div>
+            <div class="text-sm" data-testid="ahs-combined-row"><span class="text-gray-500">Combined:</span> <span class="font-mono font-medium" data-testid="ahs-combined"></span></div>
+          </div>
+          <!-- Dimension Breakdown -->
+          <div class="mt-4 space-y-2" data-testid="dimension-breakdown"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ARCHITECTURE MAP ═══ -->
+    <section data-testid="graph-section" class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold">Architecture Map</h2>
+        <div class="flex gap-2 text-xs" data-testid="graph-legend"></div>
+      </div>
+      <div id="cy" data-testid="cytoscape-container"></div>
+      <div class="mt-3 p-3 bg-gray-50 rounded text-sm hidden" data-testid="node-detail-panel">
+        <h3 class="font-medium" data-testid="node-detail-title"></h3>
+        <p class="text-gray-600 text-xs mt-1" data-testid="node-detail-info"></p>
+      </div>
+    </section>
+
+    <!-- ═══ FITNESS FUNCTION CARDS ═══ -->
+    <section data-testid="fitness-section" class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-semibold mb-4">Fitness Functions</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" data-testid="fitness-cards-grid"></div>
+    </section>
+
+    <!-- ═══ VIOLATIONS EXPLORER ═══ -->
+    <section data-testid="violations-section" class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-semibold mb-4">Violations Explorer</h2>
+      <!-- Filters -->
+      <div class="flex flex-wrap gap-3 mb-4" data-testid="violations-filters">
+        <select data-testid="filter-severity" class="text-sm border border-gray-300 rounded px-2 py-1">
+          <option value="">All Severities</option>
+          <option value="critical">Critical</option>
+          <option value="major">Major</option>
+          <option value="minor">Minor</option>
+          <option value="advisory">Advisory</option>
+        </select>
+        <select data-testid="filter-dimension" class="text-sm border border-gray-300 rounded px-2 py-1">
+          <option value="">All Dimensions</option>
+        </select>
+        <select data-testid="filter-baseline" class="text-sm border border-gray-300 rounded px-2 py-1">
+          <option value="">All Status</option>
+          <option value="new">New Only</option>
+          <option value="baseline">Baseline Only</option>
+        </select>
+        <input type="text" data-testid="filter-search" placeholder="Search file path..."
+          class="text-sm border border-gray-300 rounded px-2 py-1 w-48" />
+        <span class="text-sm text-gray-500 self-center" data-testid="violations-count"></span>
+      </div>
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm" data-testid="violations-table">
+          <thead class="bg-gray-50 text-left text-xs uppercase text-gray-500">
+            <tr>
+              <th class="px-3 py-2" data-sort="where">File</th>
+              <th class="px-3 py-2" data-sort="functionId">Rule ID</th>
+              <th class="px-3 py-2" data-sort="what">Rule</th>
+              <th class="px-3 py-2" data-sort="severity">Severity</th>
+              <th class="px-3 py-2" data-sort="dimension">Dimension</th>
+              <th class="px-3 py-2" data-sort="baselineStatus">Status</th>
+              <th class="px-3 py-2">Fix</th>
+            </tr>
+          </thead>
+          <tbody data-testid="violations-tbody" class="divide-y divide-gray-100"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══ BASELINE VS NEW ═══ -->
+    <section data-testid="baseline-section" class="bg-white rounded-lg shadow p-6 hidden">
+      <h2 class="text-lg font-semibold mb-4">Baseline vs New Violations</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="rounded-lg border border-gray-200 p-4 text-center" data-testid="baseline-inherited">
+          <p class="text-3xl font-bold text-gray-400" data-testid="baseline-count"></p>
+          <p class="text-sm text-gray-500 mt-1">Baseline (inherited)</p>
+        </div>
+        <div class="rounded-lg border border-red-200 bg-red-50 p-4 text-center" data-testid="baseline-new">
+          <p class="text-3xl font-bold text-red-600" data-testid="new-count"></p>
+          <p class="text-sm text-red-500 mt-1">New (blocks CI)</p>
+        </div>
+        <div class="rounded-lg border border-green-200 bg-green-50 p-4 text-center" data-testid="baseline-removed">
+          <p class="text-3xl font-bold text-green-600" data-testid="removed-count"></p>
+          <p class="text-sm text-green-500 mt-1">Removed from baseline</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SUMMARY STATS ═══ -->
+    <section data-testid="summary-section" class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-semibold mb-4">Summary</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" data-testid="summary-grid">
+        <div class="text-center">
+          <p class="text-2xl font-bold" data-testid="summary-files"></p>
+          <p class="text-xs text-gray-500">Files Analyzed</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-bold" data-testid="summary-components"></p>
+          <p class="text-xs text-gray-500">Components</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-bold" data-testid="summary-layers"></p>
+          <p class="text-xs text-gray-500">Layers</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-bold" data-testid="summary-compliance"></p>
+          <p class="text-xs text-gray-500">Compliance</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-bold" data-testid="summary-mode"></p>
+          <p class="text-xs text-gray-500">Eval Mode</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-bold" data-testid="summary-duration"></p>
+          <p class="text-xs text-gray-500">Duration</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-gray-200 mt-8 py-4 text-center text-xs text-gray-400">
+    Generated by Architectonic Firewall v1.1
+  </footer>
+
+  <!-- ═══ EMBEDDED DATA ═══ -->
+  <script>
+    const DASHBOARD_DATA = {"header":{"productName":"Architectonic Firewall","projectName":"realworld-test","evaluationTimestamp":"2026-04-16T10:20:18.145Z","specVersion":"1.0.0"},"ahsScore":{"deterministic":0.796,"verdict":"warning","dimensions":[{"dimension":"structural","avr":0.25,"score":0.75,"weight":0.35,"violationCount":1,"functionCount":17},{"dimension":"coupling","avr":0.5,"score":0.5,"weight":0.2,"violationCount":3,"functionCount":17},{"dimension":"pattern","avr":0,"score":1,"weight":0.3,"violationCount":0,"functionCount":17},{"dimension":"solid","avr":0,"score":1,"weight":0.1,"violationCount":0,"functionCount":17},{"dimension":"convention","avr":0.333,"score":0.667,"weight":0.05,"violationCount":1,"functionCount":17}]},"fitnessFunctions":[{"id":"FF-S01","name":"dependency-direction","dimension":"structural","passed":true,"score":1,"severity":"critical","violationCount":0},{"id":"FF-S02","name":"no-cyclic-deps","dimension":"structural","passed":false,"score":0.19999999999999996,"severity":"critical","violationCount":8},{"id":"FF-S03","name":"no-layer-skip","dimension":"structural","passed":true,"score":1,"severity":"critical","violationCount":0},{"id":"FF-S04","name":"no-domain-outward-dep","dimension":"structural","passed":true,"score":1,"severity":"major","violationCount":0},{"id":"FF-P01","name":"domain-purity","dimension":"pattern","passed":true,"score":1,"severity":"critical","violationCount":0},{"id":"FF-P02","name":"dependency-inversion","dimension":"pattern","passed":true,"score":1,"threshold":0.85,"severity":"critical","violationCount":0},{"id":"FF-P03","name":"repository-pattern","dimension":"pattern","passed":true,"score":1,"severity":"critical","violationCount":0},{"id":"FF-P04","name":"use-case-isolation","dimension":"pattern","passed":true,"score":1,"severity":"major","violationCount":0},{"id":"FF-P05","name":"controller-no-entity","dimension":"pattern","passed":true,"score":1,"severity":"major","violationCount":0},{"id":"FF-C01","name":"domain-stability","dimension":"coupling","passed":true,"score":1,"threshold":0.3,"severity":"major","violationCount":0},{"id":"FF-C02","name":"module-fan-out","dimension":"coupling","passed":true,"score":1,"threshold":12,"severity":"major","violationCount":0},{"id":"FF-C03","name":"component-instability","dimension":"coupling","passed":false,"score":0.6,"threshold":0.8,"severity":"major","violationCount":4},{"id":"FF-C04","name":"no-orphan-files","dimension":"coupling","passed":false,"score":0.6,"severity":"minor","violationCount":4},{"id":"FF-C05","name":"max-fan-in","dimension":"coupling","passed":true,"score":1,"threshold":20,"severity":"minor","violationCount":0},{"id":"FF-C06","name":"abstraction-ratio","dimension":"coupling","passed":false,"score":0.9,"threshold":0.3,"severity":"advisory","violationCount":1},{"id":"FF-SO01","name":"single-responsibility-proxy","dimension":"solid","passed":true,"score":1,"severity":"major","violationCount":0},{"id":"FF-SO02","name":"interface-segregation-proxy","dimension":"solid","passed":true,"score":1,"severity":"major","violationCount":0},{"id":"FF-SO03","name":"inheritance-depth","dimension":"solid","passed":true,"score":1,"severity":"minor","violationCount":0},{"id":"FF-CV01","name":"naming-conventions","dimension":"convention","passed":true,"score":1,"severity":"minor","violationCount":0},{"id":"FF-CV02","name":"naming-services","dimension":"convention","passed":true,"score":1,"severity":"minor","violationCount":0},{"id":"FF-CV03","name":"naming-repos","dimension":"convention","passed":true,"score":1,"severity":"minor","violationCount":0},{"id":"FF-CV04","name":"naming-controllers","dimension":"convention","passed":true,"score":1,"severity":"minor","violationCount":0},{"id":"FF-CV05","name":"test-file-pairing","dimension":"convention","passed":false,"score":0,"severity":"advisory","violationCount":20},{"id":"FF-CV06","name":"no-index-logic","dimension":"convention","passed":true,"score":1,"severity":"advisory","violationCount":0},{"id":"FF-N01","name":"srp-semantic","dimension":"solid","passed":true,"score":1,"severity":"major","violationCount":0},{"id":"FF-N02","name":"layering-intent","dimension":"intent","passed":true,"score":1,"severity":"major","violationCount":0}],"violations":[{"id":"v-FF-S02-1","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts","message":"Circular dependency: src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-S02-2","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts","message":"Circular dependency: src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-S02-3","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts","message":"Circular dependency: src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-S02-4","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts","message":"Circular dependency: src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-S02-5","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts","message":"Circular dependency: src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-S02-6","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/article/comment.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts","message":"Circular dependency: src/article/comment.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/article/comment.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-S02-7","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/user/user.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts","message":"Circular dependency: src/user/user.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/user/user.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-S02-8","type":"CYCLIC_DEPENDENCY","dimension":"structural","severity":"critical","functionId":"FF-S02","route":"symbolic","filePath":"src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts","message":"Circular dependency: src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts","deterministic":true,"what":"[critical] FF-S02 — no-cyclic-deps (structural)","where":"src/user/user.entity.ts,src/article/article.entity.ts,src/article/comment.entity.ts,src/article/article.entity.ts,src/user/user.entity.ts","why":"A circular dependency chain exists between modules, making the codebase harder to reason about.","fix":"Break the cycle by extracting a shared interface or moving shared logic to a common module.","baselineStatus":"none"},{"id":"v-FF-C03-9","type":"INSTABILITY_VIOLATION","dimension":"coupling","severity":"major","functionId":"FF-C03","route":"symbolic","filePath":"src/app.module.ts","message":"Violation in src/app.module.ts","deterministic":true,"what":"[major] FF-C03 — component-instability (coupling)","where":"src/app.module.ts","why":"The module instability metric is outside the expected range for its role.","fix":"Adjust the module boundaries or introduce abstractions to bring instability within range.","baselineStatus":"none"},{"id":"v-FF-C03-10","type":"INSTABILITY_VIOLATION","dimension":"coupling","severity":"major","functionId":"FF-C03","route":"symbolic","filePath":"src/article/article.module.ts","message":"Violation in src/article/article.module.ts","deterministic":true,"what":"[major] FF-C03 — component-instability (coupling)","where":"src/article/article.module.ts","why":"The module instability metric is outside the expected range for its role.","fix":"Adjust the module boundaries or introduce abstractions to bring instability within range.","baselineStatus":"none"},{"id":"v-FF-C03-11","type":"INSTABILITY_VIOLATION","dimension":"coupling","severity":"major","functionId":"FF-C03","route":"symbolic","filePath":"src/profile/profile.module.ts","message":"Violation in src/profile/profile.module.ts","deterministic":true,"what":"[major] FF-C03 — component-instability (coupling)","where":"src/profile/profile.module.ts","why":"The module instability metric is outside the expected range for its role.","fix":"Adjust the module boundaries or introduce abstractions to bring instability within range.","baselineStatus":"none"},{"id":"v-FF-C03-12","type":"INSTABILITY_VIOLATION","dimension":"coupling","severity":"major","functionId":"FF-C03","route":"symbolic","filePath":"src/user/user.controller.ts","message":"Violation in src/user/user.controller.ts","deterministic":true,"what":"[major] FF-C03 — component-instability (coupling)","where":"src/user/user.controller.ts","why":"The module instability metric is outside the expected range for its role.","fix":"Adjust the module boundaries or introduce abstractions to bring instability within range.","baselineStatus":"none"},{"id":"v-FF-C04-13","type":"ORPHAN_FILE","dimension":"coupling","severity":"minor","functionId":"FF-C04","route":"symbolic","filePath":"src/shared/base.controller.ts","message":"Violation in src/shared/base.controller.ts","deterministic":true,"what":"[minor] FF-C04 — no-orphan-files (coupling)","where":"src/shared/base.controller.ts","why":"This file is not imported by any other module and may be dead code.","fix":"Remove the file if unused, or add an import from the appropriate module.","baselineStatus":"none"},{"id":"v-FF-C04-14","type":"ORPHAN_FILE","dimension":"coupling","severity":"minor","functionId":"FF-C04","route":"symbolic","filePath":"src/article/dto/create-comment.ts","message":"Violation in src/article/dto/create-comment.ts","deterministic":true,"what":"[minor] FF-C04 — no-orphan-files (coupling)","where":"src/article/dto/create-comment.ts","why":"This file is not imported by any other module and may be dead code.","fix":"Remove the file if unused, or add an import from the appropriate module.","baselineStatus":"none"},{"id":"v-FF-C04-15","type":"ORPHAN_FILE","dimension":"coupling","severity":"minor","functionId":"FF-C04","route":"symbolic","filePath":"src/user/dto/login-user.dto.ts","message":"Violation in src/user/dto/login-user.dto.ts","deterministic":true,"what":"[minor] FF-C04 — no-orphan-files (coupling)","where":"src/user/dto/login-user.dto.ts","why":"This file is not imported by any other module and may be dead code.","fix":"Remove the file if unused, or add an import from the appropriate module.","baselineStatus":"none"},{"id":"v-FF-C04-16","type":"ORPHAN_FILE","dimension":"coupling","severity":"minor","functionId":"FF-C04","route":"symbolic","filePath":"src/user/dto/update-user.dto.ts","message":"Violation in src/user/dto/update-user.dto.ts","deterministic":true,"what":"[minor] FF-C04 — no-orphan-files (coupling)","where":"src/user/dto/update-user.dto.ts","why":"This file is not imported by any other module and may be dead code.","fix":"Remove the file if unused, or add an import from the appropriate module.","baselineStatus":"none"},{"id":"v-FF-C06-17","type":"LOW_ABSTRACTION_RATIO","dimension":"coupling","severity":"advisory","functionId":"FF-C06","route":"symbolic","filePath":"0.25","message":"Abstraction ratio 0.25 below threshold","deterministic":true,"what":"[advisory] FF-C06 — abstraction-ratio (coupling)","where":"0.25","why":"The codebase has too few abstractions (interfaces/abstract classes) relative to concrete implementations.","fix":"Introduce interfaces or abstract classes to define contracts between layers.","baselineStatus":"none"},{"id":"v-FF-CV05-18","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/app.controller.ts","message":"Violation in src/app.controller.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/app.controller.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-19","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/app.module.ts","message":"Violation in src/app.module.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/app.module.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-20","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/article/article.controller.ts","message":"Violation in src/article/article.controller.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/article/article.controller.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-21","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/article/article.module.ts","message":"Violation in src/article/article.module.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/article/article.module.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-22","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/article/article.service.ts","message":"Violation in src/article/article.service.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/article/article.service.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-23","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/profile/profile.controller.ts","message":"Violation in src/profile/profile.controller.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/profile/profile.controller.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-24","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/profile/profile.module.ts","message":"Violation in src/profile/profile.module.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/profile/profile.module.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-25","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/profile/profile.service.ts","message":"Violation in src/profile/profile.service.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/profile/profile.service.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-26","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/shared/base.controller.ts","message":"Violation in src/shared/base.controller.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/shared/base.controller.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-27","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/tag/tag.controller.ts","message":"Violation in src/tag/tag.controller.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/tag/tag.controller.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-28","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/tag/tag.module.ts","message":"Violation in src/tag/tag.module.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/tag/tag.module.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-29","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/tag/tag.service.ts","message":"Violation in src/tag/tag.service.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/tag/tag.service.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-30","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/user/user.controller.ts","message":"Violation in src/user/user.controller.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/user/user.controller.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-31","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/user/user.module.ts","message":"Violation in src/user/user.module.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/user/user.module.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-32","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/user/user.service.ts","message":"Violation in src/user/user.service.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/user/user.service.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-33","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/article/dto/create-article.dto.ts","message":"Violation in src/article/dto/create-article.dto.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/article/dto/create-article.dto.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-34","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/article/dto/create-comment.ts","message":"Violation in src/article/dto/create-comment.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/article/dto/create-comment.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-35","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/user/dto/create-user.dto.ts","message":"Violation in src/user/dto/create-user.dto.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/user/dto/create-user.dto.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-36","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/user/dto/login-user.dto.ts","message":"Violation in src/user/dto/login-user.dto.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/user/dto/login-user.dto.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"},{"id":"v-FF-CV05-37","type":"MISSING_TEST_FILE","dimension":"convention","severity":"advisory","functionId":"FF-CV05","route":"symbolic","filePath":"src/user/dto/update-user.dto.ts","message":"Violation in src/user/dto/update-user.dto.ts","deterministic":true,"what":"[advisory] FF-CV05 — test-file-pairing (convention)","where":"src/user/dto/update-user.dto.ts","why":"A source file has no corresponding test file.","fix":"Create a test file following the project test naming convention.","baselineStatus":"none"}],"baseline":null,"summary":{"totalFiles":34,"totalComponents":36,"layersDetected":0,"compliancePercentage":81,"evaluationMode":"symbolic-only","durationMs":12}};
+    const GRAPH_DATA = {"nodes":[{"data":{"id":"8534513599b5fda0","label":"app.controller.ts","layer":"unknown","type":"File","filePath":"src/app.controller.ts","violationCount":1}},{"data":{"id":"798f37576eeaac50","label":"app.module.ts","layer":"unknown","type":"File","filePath":"src/app.module.ts","violationCount":2}},{"data":{"id":"24bc16236e9b87b1","label":"main.ts","layer":"unknown","type":"File","filePath":"src/main.ts","violationCount":0}},{"data":{"id":"0aaba5bd41334fa5","label":"article.controller.ts","layer":"unknown","type":"File","filePath":"src/article/article.controller.ts","violationCount":1}},{"data":{"id":"c8bbf95b653ea26c","label":"article.entity.ts","layer":"unknown","type":"File","filePath":"src/article/article.entity.ts","violationCount":0}},{"data":{"id":"5fc666764f095c42","label":"article.interface.ts","layer":"unknown","type":"File","filePath":"src/article/article.interface.ts","violationCount":0}},{"data":{"id":"410450b3ea65d696","label":"article.module.ts","layer":"unknown","type":"File","filePath":"src/article/article.module.ts","violationCount":2}},{"data":{"id":"fe405f29aa02d296","label":"article.service.ts","layer":"unknown","type":"File","filePath":"src/article/article.service.ts","violationCount":1}},{"data":{"id":"e8c45e7f60a72b23","label":"comment.entity.ts","layer":"unknown","type":"File","filePath":"src/article/comment.entity.ts","violationCount":0}},{"data":{"id":"a07138ce572a4905","label":"follows.entity.ts","layer":"unknown","type":"File","filePath":"src/profile/follows.entity.ts","violationCount":0}},{"data":{"id":"369b9d13e6a18f9b","label":"profile.controller.ts","layer":"unknown","type":"File","filePath":"src/profile/profile.controller.ts","violationCount":1}},{"data":{"id":"a3b888620ff57afc","label":"profile.interface.ts","layer":"unknown","type":"File","filePath":"src/profile/profile.interface.ts","violationCount":0}},{"data":{"id":"2566c78144b53601","label":"profile.module.ts","layer":"unknown","type":"File","filePath":"src/profile/profile.module.ts","violationCount":2}},{"data":{"id":"598f7cb593f32962","label":"profile.service.ts","layer":"unknown","type":"File","filePath":"src/profile/profile.service.ts","violationCount":1}},{"data":{"id":"c2f88e7c52b85fdc","label":"base.controller.ts","layer":"unknown","type":"File","filePath":"src/shared/base.controller.ts","violationCount":2}},{"data":{"id":"c7ca189a088c1eb1","label":"tag.controller.ts","layer":"unknown","type":"File","filePath":"src/tag/tag.controller.ts","violationCount":1}},{"data":{"id":"41fc3ab0a0a53a7f","label":"tag.entity.ts","layer":"unknown","type":"File","filePath":"src/tag/tag.entity.ts","violationCount":0}},{"data":{"id":"763278304dbbab6e","label":"tag.module.ts","layer":"unknown","type":"File","filePath":"src/tag/tag.module.ts","violationCount":1}},{"data":{"id":"770e040293b21733","label":"tag.service.ts","layer":"unknown","type":"File","filePath":"src/tag/tag.service.ts","violationCount":1}},{"data":{"id":"ac2d6f00d1605511","label":"auth.middleware.ts","layer":"unknown","type":"File","filePath":"src/user/auth.middleware.ts","violationCount":0}},{"data":{"id":"1ae187d5d922174f","label":"user.controller.ts","layer":"unknown","type":"File","filePath":"src/user/user.controller.ts","violationCount":2}},{"data":{"id":"b551d39ab288dc37","label":"user.decorator.ts","layer":"unknown","type":"File","filePath":"src/user/user.decorator.ts","violationCount":0}},{"data":{"id":"919186b992cdb1a8","label":"user.entity.ts","layer":"unknown","type":"File","filePath":"src/user/user.entity.ts","violationCount":0}},{"data":{"id":"78103217e6b5911d","label":"user.interface.ts","layer":"unknown","type":"File","filePath":"src/user/user.interface.ts","violationCount":0}},{"data":{"id":"25abc3f4de21fcb9","label":"user.module.ts","layer":"unknown","type":"File","filePath":"src/user/user.module.ts","violationCount":1}},{"data":{"id":"901f4e471be92968","label":"user.service.ts","layer":"unknown","type":"File","filePath":"src/user/user.service.ts","violationCount":1}},{"data":{"id":"a33a109f5f4e66b5","label":"create-article.dto.ts","layer":"unknown","type":"File","filePath":"src/article/dto/create-article.dto.ts","violationCount":1}},{"data":{"id":"f7c852ecf0779d45","label":"create-comment.ts","layer":"unknown","type":"File","filePath":"src/article/dto/create-comment.ts","violationCount":2}},{"data":{"id":"928c52c44ed3dd19","label":"index.ts","layer":"unknown","type":"File","filePath":"src/article/dto/index.ts","violationCount":0}},{"data":{"id":"17bad9f56a3c4312","label":"validation.pipe.ts","layer":"unknown","type":"File","filePath":"src/shared/pipes/validation.pipe.ts","violationCount":0}},{"data":{"id":"17d8031efaeade72","label":"create-user.dto.ts","layer":"unknown","type":"File","filePath":"src/user/dto/create-user.dto.ts","violationCount":1}},{"data":{"id":"dd5a4491fb0fae7c","label":"index.ts","layer":"unknown","type":"File","filePath":"src/user/dto/index.ts","violationCount":0}},{"data":{"id":"877fc97b697e6ad8","label":"login-user.dto.ts","layer":"unknown","type":"File","filePath":"src/user/dto/login-user.dto.ts","violationCount":2}},{"data":{"id":"78325b7582a4d4f9","label":"update-user.dto.ts","layer":"unknown","type":"File","filePath":"src/user/dto/update-user.dto.ts","violationCount":2}}],"edges":[{"data":{"id":"8a8ba31022a94b34","source":"798f37576eeaac50","target":"8534513599b5fda0","type":"IMPORTS","isViolation":false}},{"data":{"id":"d80051a573cfa5e5","source":"798f37576eeaac50","target":"410450b3ea65d696","type":"IMPORTS","isViolation":false}},{"data":{"id":"611f4e4ecdd73360","source":"798f37576eeaac50","target":"25abc3f4de21fcb9","type":"IMPORTS","isViolation":false}},{"data":{"id":"6a772f2919f5d9f6","source":"798f37576eeaac50","target":"2566c78144b53601","type":"IMPORTS","isViolation":false}},{"data":{"id":"1caffa355225d08c","source":"798f37576eeaac50","target":"763278304dbbab6e","type":"IMPORTS","isViolation":false}},{"data":{"id":"926053996b0e0e8a","source":"24bc16236e9b87b1","target":"798f37576eeaac50","type":"IMPORTS","isViolation":false}},{"data":{"id":"2f117c2493d02d8c","source":"0aaba5bd41334fa5","target":"fe405f29aa02d296","type":"IMPORTS","isViolation":false}},{"data":{"id":"08c46b173a7d4e32","source":"0aaba5bd41334fa5","target":"a33a109f5f4e66b5","type":"IMPORTS","isViolation":false}},{"data":{"id":"6ec203b87b442c7a","source":"0aaba5bd41334fa5","target":"5fc666764f095c42","type":"IMPORTS","isViolation":false}},{"data":{"id":"f7df00a7243bf2d7","source":"0aaba5bd41334fa5","target":"b551d39ab288dc37","type":"IMPORTS","isViolation":false}},{"data":{"id":"4142378f04781c9d","source":"c8bbf95b653ea26c","target":"919186b992cdb1a8","type":"IMPORTS","isViolation":false}},{"data":{"id":"aed61e7daeb0445c","source":"c8bbf95b653ea26c","target":"e8c45e7f60a72b23","type":"IMPORTS","isViolation":false}},{"data":{"id":"c00b81164b43a88a","source":"5fc666764f095c42","target":"78103217e6b5911d","type":"IMPORTS","isViolation":false}},{"data":{"id":"a5fc2d763d6c138b","source":"5fc666764f095c42","target":"c8bbf95b653ea26c","type":"IMPORTS","isViolation":false}},{"data":{"id":"588bf8cecce243f3","source":"410450b3ea65d696","target":"0aaba5bd41334fa5","type":"IMPORTS","isViolation":false}},{"data":{"id":"abf821b2d4ad5630","source":"410450b3ea65d696","target":"c8bbf95b653ea26c","type":"IMPORTS","isViolation":false}},{"data":{"id":"aece90b914d318b2","source":"410450b3ea65d696","target":"e8c45e7f60a72b23","type":"IMPORTS","isViolation":false}},{"data":{"id":"0beb9bf775436f3b","source":"410450b3ea65d696","target":"919186b992cdb1a8","type":"IMPORTS","isViolation":false}},{"data":{"id":"eed18cb354a5a375","source":"410450b3ea65d696","target":"a07138ce572a4905","type":"IMPORTS","isViolation":false}},{"data":{"id":"990808791fa68018","source":"410450b3ea65d696","target":"fe405f29aa02d296","type":"IMPORTS","isViolation":false}},{"data":{"id":"3091cd36bcb3897b","source":"410450b3ea65d696","target":"ac2d6f00d1605511","type":"IMPORTS","isViolation":false}},{"data":{"id":"606835d6b7ea077d","source":"410450b3ea65d696","target":"25abc3f4de21fcb9","type":"IMPORTS","isViolation":false}},{"data":{"id":"27d3ceaa17b396b6","source":"fe405f29aa02d296","target":"c8bbf95b653ea26c","type":"IMPORTS","isViolation":false}},{"data":{"id":"3c4e0e308bea0cd4","source":"fe405f29aa02d296","target":"e8c45e7f60a72b23","type":"IMPORTS","isViolation":false}},{"data":{"id":"6f316bc3e089ab98","source":"fe405f29aa02d296","target":"919186b992cdb1a8","type":"IMPORTS","isViolation":false}},{"data":{"id":"4494b519e518dfd2","source":"fe405f29aa02d296","target":"a07138ce572a4905","type":"IMPORTS","isViolation":false}},{"data":{"id":"7fee8d5118014b61","source":"fe405f29aa02d296","target":"a33a109f5f4e66b5","type":"IMPORTS","isViolation":false}},{"data":{"id":"a165ce7d6be5752d","source":"fe405f29aa02d296","target":"5fc666764f095c42","type":"IMPORTS","isViolation":false}},{"data":{"id":"ec952d54c61bacc4","source":"e8c45e7f60a72b23","target":"c8bbf95b653ea26c","type":"IMPORTS","isViolation":false}},{"data":{"id":"5792aec22befe940","source":"369b9d13e6a18f9b","target":"598f7cb593f32962","type":"IMPORTS","isViolation":false}},{"data":{"id":"a51254c987810388","source":"369b9d13e6a18f9b","target":"a3b888620ff57afc","type":"IMPORTS","isViolation":false}},{"data":{"id":"2f3c847f5b956c20","source":"369b9d13e6a18f9b","target":"b551d39ab288dc37","type":"IMPORTS","isViolation":false}},{"data":{"id":"fc101e2ffa022eb9","source":"2566c78144b53601","target":"369b9d13e6a18f9b","type":"IMPORTS","isViolation":false}},{"data":{"id":"2ceb6f060da75df6","source":"2566c78144b53601","target":"598f7cb593f32962","type":"IMPORTS","isViolation":false}},{"data":{"id":"79da729c2cd0ac05","source":"2566c78144b53601","target":"25abc3f4de21fcb9","type":"IMPORTS","isViolation":false}},{"data":{"id":"3ed387ce8a1d8539","source":"2566c78144b53601","target":"919186b992cdb1a8","type":"IMPORTS","isViolation":false}},{"data":{"id":"d60464fa2b48a6aa","source":"2566c78144b53601","target":"a07138ce572a4905","type":"IMPORTS","isViolation":false}},{"data":{"id":"339f4e56d4bbcefb","source":"2566c78144b53601","target":"ac2d6f00d1605511","type":"IMPORTS","isViolation":false}},{"data":{"id":"e8fdc5e4b0389237","source":"598f7cb593f32962","target":"919186b992cdb1a8","type":"IMPORTS","isViolation":false}},{"data":{"id":"54b73bbcc4ea0664","source":"598f7cb593f32962","target":"a3b888620ff57afc","type":"IMPORTS","isViolation":false}},{"data":{"id":"63753ac20fce74d3","source":"598f7cb593f32962","target":"a07138ce572a4905","type":"IMPORTS","isViolation":false}},{"data":{"id":"d704e84ab1f5cd00","source":"c7ca189a088c1eb1","target":"41fc3ab0a0a53a7f","type":"IMPORTS","isViolation":false}},{"data":{"id":"60a8775800dbbbd6","source":"c7ca189a088c1eb1","target":"770e040293b21733","type":"IMPORTS","isViolation":false}},{"data":{"id":"9310e39e618e9dcc","source":"763278304dbbab6e","target":"25abc3f4de21fcb9","type":"IMPORTS","isViolation":false}},{"data":{"id":"b5f74493ab03c285","source":"763278304dbbab6e","target":"770e040293b21733","type":"IMPORTS","isViolation":false}},{"data":{"id":"73621b8152c70c87","source":"763278304dbbab6e","target":"41fc3ab0a0a53a7f","type":"IMPORTS","isViolation":false}},{"data":{"id":"515e7d86540d5853","source":"763278304dbbab6e","target":"c7ca189a088c1eb1","type":"IMPORTS","isViolation":false}},{"data":{"id":"735cf31507f63fe4","source":"770e040293b21733","target":"41fc3ab0a0a53a7f","type":"IMPORTS","isViolation":false}},{"data":{"id":"438399f354fdb7ef","source":"ac2d6f00d1605511","target":"901f4e471be92968","type":"IMPORTS","isViolation":false}},{"data":{"id":"67e8393f756b3462","source":"1ae187d5d922174f","target":"901f4e471be92968","type":"IMPORTS","isViolation":false}},{"data":{"id":"00cf66cc89f82005","source":"1ae187d5d922174f","target":"78103217e6b5911d","type":"IMPORTS","isViolation":false}},{"data":{"id":"be4a109362c2b6fe","source":"1ae187d5d922174f","target":"17d8031efaeade72","type":"IMPORTS","isViolation":false}},{"data":{"id":"dcadacd9d4f2388e","source":"1ae187d5d922174f","target":"b551d39ab288dc37","type":"IMPORTS","isViolation":false}},{"data":{"id":"d9772816368aa4fb","source":"1ae187d5d922174f","target":"17bad9f56a3c4312","type":"IMPORTS","isViolation":false}},{"data":{"id":"5755f6688a229d2e","source":"919186b992cdb1a8","target":"c8bbf95b653ea26c","type":"IMPORTS","isViolation":false}},{"data":{"id":"1875eed09ed1b499","source":"25abc3f4de21fcb9","target":"1ae187d5d922174f","type":"IMPORTS","isViolation":false}},{"data":{"id":"d67ebbcee56bda8b","source":"25abc3f4de21fcb9","target":"919186b992cdb1a8","type":"IMPORTS","isViolation":false}},{"data":{"id":"811e2fc2026022fd","source":"25abc3f4de21fcb9","target":"901f4e471be92968","type":"IMPORTS","isViolation":false}},{"data":{"id":"2e697903b11119e9","source":"25abc3f4de21fcb9","target":"ac2d6f00d1605511","type":"IMPORTS","isViolation":false}},{"data":{"id":"a9d7073dd10d31ac","source":"901f4e471be92968","target":"919186b992cdb1a8","type":"IMPORTS","isViolation":false}},{"data":{"id":"95852927c3470bed","source":"901f4e471be92968","target":"17d8031efaeade72","type":"IMPORTS","isViolation":false}},{"data":{"id":"72968cf08b8fbef0","source":"901f4e471be92968","target":"78103217e6b5911d","type":"IMPORTS","isViolation":false}}],"layerColors":{"domain":"#6366f1","infrastructure":"#f59e0b","application":"#8b5cf6","presentation":"#10b981"}};
+  </script>
+
+  <!-- ═══ APPLICATION LOGIC ═══ -->
+  <script>
+  (function() {
+    'use strict';
+
+    // ── Helpers ───────────────────────────────────────────────────────
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
+    const setText = (sel, text) => { const el = $(sel); if (el) el.textContent = String(text); };
+
+    // ── Header ───────────────────────────────────────────────────────
+    function renderHeader() {
+      const h = DASHBOARD_DATA.header;
+      setText('[data-testid="header-product-name"]', h.productName);
+      setText('[data-testid="header-project-name"]', h.projectName);
+      setText('[data-testid="header-timestamp"]', new Date(h.evaluationTimestamp).toLocaleString());
+      setText('[data-testid="header-spec-version"]', h.specVersion);
+    }
+
+    // ── AHS Score + Gauge ────────────────────────────────────────────
+    function renderAHS() {
+      const a = DASHBOARD_DATA.ahsScore;
+      const score = a.deterministic;
+      const pct = (score * 100).toFixed(1);
+
+      setText('[data-testid="ahs-score-value"]', pct + '%');
+      const verdictEl = $('[data-testid="ahs-verdict"]');
+      if (verdictEl) {
+        verdictEl.textContent = a.verdict.replace('-', ' ');
+        verdictEl.className = 'text-sm font-medium uppercase verdict-' + a.verdict;
+      }
+
+      // Animate gauge ring
+      const ring = $('[data-testid="ahs-gauge-ring"]');
+      if (ring) {
+        const circumference = 2 * Math.PI * 80;
+        const offset = circumference * (1 - score);
+        // Color based on verdict
+        const colors = { pass: '#10b981', warning: '#f59e0b', 'soft-block': '#f97316', 'hard-block': '#ef4444' };
+        ring.setAttribute('stroke', colors[a.verdict] || '#6366f1');
+        setTimeout(() => { ring.style.strokeDashoffset = String(offset); }, 100);
+      }
+
+      setText('[data-testid="ahs-deterministic"]', (a.deterministic * 100).toFixed(2) + '%');
+      const combinedRow = $('[data-testid="ahs-combined-row"]');
+      if (a.combined != null) {
+        setText('[data-testid="ahs-combined"]', (a.combined * 100).toFixed(2) + '%');
+      } else if (combinedRow) {
+        combinedRow.style.display = 'none';
+      }
+
+      // Dimension bars
+      const container = $('[data-testid="dimension-breakdown"]');
+      if (!container) return;
+      container.innerHTML = '';
+      for (const d of a.dimensions) {
+        const scorePct = (d.score * 100).toFixed(1);
+        const barColor = d.score >= 0.8 ? 'bg-green-500' : d.score >= 0.5 ? 'bg-yellow-500' : 'bg-red-500';
+        container.innerHTML += '<div class="flex items-center gap-2">' +
+          '<span class="w-24 text-xs text-gray-600 capitalize">' + d.dimension + '</span>' +
+          '<div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">' +
+            '<div class="h-full rounded-full ' + barColor + '" style="width:' + scorePct + '%"></div>' +
+          '</div>' +
+          '<span class="text-xs font-mono w-12 text-right">' + scorePct + '%</span>' +
+          '<span class="text-xs text-gray-400 w-20">' + d.violationCount + ' violations</span>' +
+        '</div>';
+      }
+    }
+
+    // ── Architecture Graph ───────────────────────────────────────────
+    function renderGraph() {
+      if (typeof cytoscape === 'undefined' || GRAPH_DATA.nodes.length === 0) {
+        const container = $('[data-testid="graph-section"]');
+        if (container && GRAPH_DATA.nodes.length === 0) {
+          $('#cy').innerHTML = '<p class="text-gray-400 text-center py-12">No graph data available</p>';
+        }
+        return;
+      }
+
+      // Legend
+      const legend = $('[data-testid="graph-legend"]');
+      if (legend) {
+        legend.innerHTML = '';
+        for (const [layer, color] of Object.entries(GRAPH_DATA.layerColors)) {
+          legend.innerHTML += '<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full" style="background:' +
+            color + '"></span>' + layer + '</span>';
+        }
+      }
+
+      const cy = cytoscape({
+        container: $('#cy'),
+        elements: [
+          ...GRAPH_DATA.nodes,
+          ...GRAPH_DATA.edges,
+        ],
+        layout: {
+          name: 'dagre',
+          rankDir: 'TB',
+          spacingFactor: 1.2,
+          nodeSep: 30,
+          rankSep: 60,
+        },
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'label': 'data(label)',
+              'background-color': function(ele) {
+                var layer = ele.data('layer');
+                return GRAPH_DATA.layerColors[layer] || '#94a3b8';
+              },
+              'color': '#374151',
+              'font-size': '8px',
+              'text-wrap': 'ellipsis',
+              'text-max-width': '80px',
+              'width': function(ele) { return 20 + ele.data('violationCount') * 4; },
+              'height': function(ele) { return 20 + ele.data('violationCount') * 4; },
+              'border-width': function(ele) { return ele.data('violationCount') > 0 ? 2 : 0; },
+              'border-color': '#ef4444',
+            },
+          },
+          {
+            selector: 'edge',
+            style: {
+              'width': 1,
+              'line-color': function(ele) { return ele.data('isViolation') ? '#ef4444' : '#d1d5db'; },
+              'target-arrow-color': function(ele) { return ele.data('isViolation') ? '#ef4444' : '#d1d5db'; },
+              'target-arrow-shape': 'triangle',
+              'curve-style': 'bezier',
+              'arrow-scale': 0.6,
+              'opacity': function(ele) { return ele.data('isViolation') ? 1 : 0.4; },
+            },
+          },
+        ],
+        minZoom: 0.3,
+        maxZoom: 3,
+      });
+
+      // Click handler for node details
+      cy.on('tap', 'node', function(evt) {
+        var node = evt.target;
+        var panel = $('[data-testid="node-detail-panel"]');
+        if (panel) {
+          panel.classList.remove('hidden');
+          setText('[data-testid="node-detail-title"]', node.data('label'));
+          setText('[data-testid="node-detail-info"]',
+            'Layer: ' + node.data('layer') + ' | Path: ' + node.data('filePath') +
+            ' | Violations: ' + node.data('violationCount'));
+        }
+      });
+
+      cy.on('tap', function(evt) {
+        if (evt.target === cy) {
+          var panel = $('[data-testid="node-detail-panel"]');
+          if (panel) panel.classList.add('hidden');
+        }
+      });
+    }
+
+    // ── Fitness Cards ────────────────────────────────────────────────
+    function renderFitnessCards() {
+      const grid = $('[data-testid="fitness-cards-grid"]');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      for (const ff of DASHBOARD_DATA.fitnessFunctions) {
+        const badge = ff.passed
+          ? '<span class="px-2 py-0.5 text-xs rounded-full bg-green-100 text-green-700">PASS</span>'
+          : '<span class="px-2 py-0.5 text-xs rounded-full bg-red-100 text-red-700">FAIL</span>';
+
+        const threshold = ff.threshold != null ? '<p class="text-xs text-gray-400 mt-1">Threshold: ' + ff.threshold + '</p>' : '';
+
+        grid.innerHTML += '<div class="border rounded-lg p-4 ' + (ff.passed ? 'border-green-200' : 'border-red-200') +
+          '" data-testid="fitness-card">' +
+          '<div class="flex items-center justify-between mb-2">' +
+            '<span class="text-xs font-mono text-gray-400">' + ff.id + '</span>' +
+            badge +
+          '</div>' +
+          '<h3 class="text-sm font-medium">' + ff.name + '</h3>' +
+          '<p class="text-xs text-gray-500 capitalize mt-1">' + ff.dimension + ' | ' + ff.severity + '</p>' +
+          threshold +
+          (ff.violationCount > 0 ? '<p class="text-xs text-red-500 mt-1">' + ff.violationCount + ' violation(s)</p>' : '') +
+        '</div>';
+      }
+    }
+
+    // ── Violations Explorer ──────────────────────────────────────────
+    var currentSort = { col: '', dir: 'asc' };
+    var filteredViolations = [];
+
+    function getNestedValue(obj, path) {
+      return path.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
+    }
+
+    function applyFilters() {
+      var severity = $('[data-testid="filter-severity"]').value;
+      var dimension = $('[data-testid="filter-dimension"]').value;
+      var baseline = $('[data-testid="filter-baseline"]').value;
+      var search = $('[data-testid="filter-search"]').value.toLowerCase();
+
+      filteredViolations = DASHBOARD_DATA.violations.filter(function(v) {
+        if (severity && v.severity !== severity) return false;
+        if (dimension && v.dimension !== dimension) return false;
+        if (baseline && v.baselineStatus !== baseline) return false;
+        if (search && v.where.toLowerCase().indexOf(search) === -1) return false;
+        return true;
+      });
+
+      if (currentSort.col) {
+        filteredViolations.sort(function(a, b) {
+          var av = getNestedValue(a, currentSort.col) || '';
+          var bv = getNestedValue(b, currentSort.col) || '';
+          var cmp = String(av).localeCompare(String(bv));
+          return currentSort.dir === 'asc' ? cmp : -cmp;
+        });
+      }
+
+      renderViolationsTable();
+    }
+
+    function renderViolationsTable() {
+      var tbody = $('[data-testid="violations-tbody"]');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      var countEl = $('[data-testid="violations-count"]');
+      if (countEl) countEl.textContent = filteredViolations.length + ' of ' + DASHBOARD_DATA.violations.length + ' violations';
+
+      for (var i = 0; i < filteredViolations.length; i++) {
+        var v = filteredViolations[i];
+        var statusClass = v.baselineStatus === 'baseline' ? 'baseline-tag' : v.baselineStatus === 'new' ? 'new-tag' : '';
+        var statusLabel = v.baselineStatus === 'none' ? '-' : v.baselineStatus;
+
+        tbody.innerHTML += '<tr class="hover:bg-gray-50">' +
+          '<td class="px-3 py-2 font-mono text-xs max-w-xs truncate" title="' + escapeHtml(v.where) + '">' + escapeHtml(v.where) + '</td>' +
+          '<td class="px-3 py-2 font-mono text-xs">' + escapeHtml(String(v.functionId)) + '</td>' +
+          '<td class="px-3 py-2 text-xs max-w-xs">' +
+            '<p class="font-medium">' + escapeHtml(v.what) + '</p>' +
+            '<p class="text-gray-500 mt-0.5">' + escapeHtml(v.why) + '</p>' +
+          '</td>' +
+          '<td class="px-3 py-2"><span class="px-2 py-0.5 text-xs rounded border severity-' + v.severity + '">' + v.severity + '</span></td>' +
+          '<td class="px-3 py-2 text-xs capitalize">' + v.dimension + '</td>' +
+          '<td class="px-3 py-2">' + (statusClass ? '<span class="px-2 py-0.5 text-xs rounded ' + statusClass + '">' + statusLabel + '</span>' : statusLabel) + '</td>' +
+          '<td class="px-3 py-2 text-xs text-gray-600 max-w-xs">' + escapeHtml(v.fix) + '</td>' +
+        '</tr>';
+      }
+    }
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function setupViolationsFilters() {
+      // Populate dimension filter from data
+      var dimSelect = $('[data-testid="filter-dimension"]');
+      if (dimSelect) {
+        var dims = new Set(DASHBOARD_DATA.violations.map(function(v) { return v.dimension; }));
+        dims.forEach(function(d) {
+          var opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d.charAt(0).toUpperCase() + d.slice(1);
+          dimSelect.appendChild(opt);
+        });
+      }
+
+      // Filter event listeners
+      $$('[data-testid="filter-severity"], [data-testid="filter-dimension"], [data-testid="filter-baseline"]')
+        .forEach(function(el) { el.addEventListener('change', applyFilters); });
+      var searchEl = $('[data-testid="filter-search"]');
+      if (searchEl) searchEl.addEventListener('input', applyFilters);
+
+      // Sort headers
+      $$('[data-testid="violations-table"] th[data-sort]').forEach(function(th) {
+        th.addEventListener('click', function() {
+          var col = th.getAttribute('data-sort');
+          if (currentSort.col === col) {
+            currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+          } else {
+            currentSort = { col: col, dir: 'asc' };
+          }
+          // Update sort indicators
+          $$('[data-testid="violations-table"] th').forEach(function(h) {
+            h.classList.remove('sort-asc', 'sort-desc');
+          });
+          th.classList.add(currentSort.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+          applyFilters();
+        });
+      });
+
+      // Initial render
+      filteredViolations = DASHBOARD_DATA.violations.slice();
+      renderViolationsTable();
+    }
+
+    // ── Baseline Section ─────────────────────────────────────────────
+    function renderBaseline() {
+      var b = DASHBOARD_DATA.baseline;
+      if (!b) return;
+
+      var section = $('[data-testid="baseline-section"]');
+      if (section) section.classList.remove('hidden');
+
+      setText('[data-testid="baseline-count"]', b.baselineCount);
+      setText('[data-testid="new-count"]', b.newCount);
+      setText('[data-testid="removed-count"]', b.removedCount);
+    }
+
+    // ── Summary Stats ────────────────────────────────────────────────
+    function renderSummary() {
+      var s = DASHBOARD_DATA.summary;
+      setText('[data-testid="summary-files"]', s.totalFiles);
+      setText('[data-testid="summary-components"]', s.totalComponents);
+      setText('[data-testid="summary-layers"]', s.layersDetected);
+      setText('[data-testid="summary-compliance"]', s.compliancePercentage + '%');
+      setText('[data-testid="summary-mode"]', s.evaluationMode);
+      setText('[data-testid="summary-duration"]', (s.durationMs / 1000).toFixed(1) + 's');
+    }
+
+    // ── Boot ─────────────────────────────────────────────────────────
+    function init() {
+      renderHeader();
+      renderAHS();
+      renderGraph();
+      renderFitnessCards();
+      setupViolationsFilters();
+      renderBaseline();
+      renderSummary();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+</body>
+</html>

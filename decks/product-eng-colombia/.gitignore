@@ -1,0 +1,10 @@
+node_modules/
+/build/
+.env
+.DS_Store
+
+# packaged exports: regenerate with `npm run build` + `npm run render`
+/product-eng-colombia-deck/
+/product-eng-colombia-deck */
+/product-eng-colombia-deck.zip
+/product-eng-colombia-deck.pdf

@@ -1,0 +1,75 @@
+section:
+  id: "4"
+  title: "Bloque 4 · Rogert Ovalle"
+  tag: "Victoriia"
+  accent: "gold"
+
+cards:
+  - id: "4.a"
+    name: "Quien soy"
+    step: "A · Quien soy"
+    title: "Rogert Ovalle"
+    visual:
+      kind: persona
+      name: "Rogert Ovalle"
+      role: "Community Builder"
+      photo: assets/rogert.jpg
+      lines:
+        - "Trabaja en IA aplicada, agentes y sistemas autonomos."
+        - "Construye producto propio y proyectos con la comunidad."
+    takeaway: "Rogert cierra mostrando en que estamos trabajando ahora."
+
+  - id: "4.b"
+    name: "Que construi"
+    step: "B · Que construi"
+    title: "Victoriia, y proyectos con la comunidad"
+    subtitle: "Mi proyecto propio, Victoriia, mas lo que construi con otros de la Tribu."
+    visual:
+      kind: product
+      badge: "en video"
+      items:
+        - label: "Victoriia (Victoria OS)"
+          hero: true
+          caption: "Una organizacion autonoma aumentada: agentes y un OS que coordinan un ecosistema de productos."
+        - label: "PerciBot"
+          caption: "Agente de cobranzas por voz, con Cristian. Nace de IA Agentica."
+        - label: "Genuine School"
+          caption: "salio de Igniters, con Diego."
+    takeaway: "Un proyecto propio y dos construidos con la comunidad."
+
+  - id: "4.c"
+    name: "El video"
+    step: "C · El video"
+    title: "Victoriia en accion"
+    visual:
+      kind: video
+      src: assets/media/victoriia-tma.mp4
+      poster: assets/media/victoriia-poster.jpg
+      caption: "Victoriia: el ecosistema funcionando."
+    takeaway: "El proyecto de Rogert, en funcionamiento."
+
+  - id: "4.c2"
+    name: "La presentacion"
+    step: "C · Victoriia OS"
+    title: "Victoriia, en detalle"
+    subtitle: "Del bienestar propio al del entorno: cuatro capitales (closercat, nyanza, umbrelia, sol-951) que se combinan en una capa de capacidades."
+    visual:
+      kind: embed
+      src: assets/victoriia-os/index.html
+      poster: assets/victoriia-pres-poster.png
+      caption: "Victoriia OS: el modelo, en vivo."
+    takeaway: "Recorré la presentacion de Victoriia en vivo."
+
+  - id: "4.d"
+    name: "Hilo con la comunidad"
+    step: "D · Hilo con la comunidad"
+    title: "Se cierra el cruce"
+    subtitle: "Genuine School con Diego, PerciBot con Cristian: Victoriia se apoya en la comunidad."
+    visual:
+      kind: bullets
+      items:
+        - label: "Genuine School"
+          caption: "nacido en Igniters, con Diego."
+        - label: "PerciBot"
+          caption: "el agente de voz, con Cristian, desde IA Agentica."
+    takeaway: "Cuatro nodos, un tejido. Nadie llego aqui solo."

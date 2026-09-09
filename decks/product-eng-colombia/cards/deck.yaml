@@ -1,0 +1,37 @@
+# Deck metadata + build order for the Tribu IA talk.
+deck:
+  eyebrow: "Tribu IA"
+  tagline: "Comunidad de IA de Latinoamerica"
+  title: "Product Engineering Made in Colombia"
+  subtitle: "Cuatro builders, una comunidad. Nada de esto lo construimos solos."
+  presenters: ["Jhon Ortiz", "Diego Olarte", "Cristian Cordoba", "Rogert Ovalle"]
+  contact: "Suma tu nodo al mapa. Tribu IA, donde Latinoamerica construye con IA."
+
+  # Full narrative order. Apertura (tesis, ciclo, mapa semilla, numeros) ->
+  # cuatro bloques de builder (A quien soy / B que construi / C video /
+  # D hilo con la comunidad) -> cierre (mapa completo, frases, llamado).
+  core:
+    - "0.1"   # la tesis + tres pilares
+    - "0.2"   # el ciclo de valor
+    - "0.4"   # Tribu IA en numeros
+    - "0.5"   # el ecosistema / programas de Tribu IA
+    - "1.a"   # Jhon: quien soy
+    - "1.b"   # Jhon: que construi
+    - "1.c"   # Jhon: video
+    - "1.d"   # Jhon: hilo con la comunidad
+    - "2.a"   # Diego: quien soy
+    - "2.b"   # Diego: que construi
+    - "2.c"   # Diego: video
+    - "2.d"   # Diego: hilo con la comunidad
+    - "3.a"   # Cristian: quien soy
+    - "3.b"   # Cristian: que construi
+    - "3.c"   # Cristian: video
+    - "3.d"   # Cristian: hilo con la comunidad
+    - "4.a"   # Rogert: quien soy
+    - "4.b"   # Rogert: que construi
+    - "4.c"   # Rogert: video
+    - "4.c2"  # Rogert: presentacion Victoriia (embed)
+    - "4.d"   # Rogert: hilo con la comunidad
+    - "5.1"   # el mapa completo
+    - "5.2"   # frases que quedan
+    - "5.3"   # llamado a la accion

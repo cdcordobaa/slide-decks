@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="SOL 951">
+  <defs>
+    <radialGradient id="abyss" cx="50%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#0e1320"/><stop offset="70%" stop-color="#0a0e1a"/><stop offset="100%" stop-color="#050810"/>
+    </radialGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e89673"/><stop offset="45%" stop-color="#c25a2c"/><stop offset="100%" stop-color="#8a3d1d"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" fill="#050810"/>
+  <circle cx="120" cy="120" r="118" fill="url(#abyss)"/>
+  <circle cx="120" cy="120" r="44" fill="none" stroke="#c25a2c" stroke-width="0.6" opacity="0.22"/>
+  <circle cx="120" cy="120" r="72" fill="none" stroke="#c25a2c" stroke-width="0.6" opacity="0.22"/>
+  <circle cx="120" cy="120" r="100" fill="none" stroke="#c25a2c" stroke-width="0.6" opacity="0.22"/>
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#c25a2c" stroke-width="0.6" opacity="0.22"/>
+  <line x1="120" y1="120" x2="120.00" y2="4.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="178.00" y2="19.54" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="220.46" y2="62.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="236.00" y2="120.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="220.46" y2="178.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="178.00" y2="220.46" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="120.00" y2="236.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="62.00" y2="220.46" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="19.54" y2="178.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="4.00" y2="120.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="19.54" y2="62.00" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <line x1="120" y1="120" x2="62.00" y2="19.54" stroke="#c25a2c" stroke-width="0.5" opacity="0.16"/>
+  <path d="M 120.00 17.00 L 133.26 27.75 L 149.02 21.17 L 158.72 35.22 L 175.69 33.35 L 181.03 49.56 L 197.84 52.55 L 198.40 69.61 L 213.69 77.21 L 209.42 93.74 L 221.95 105.34 L 213.20 120.00 L 221.95 134.66 L 209.42 146.26 L 213.69 162.79 L 198.40 170.39 L 197.84 187.45 L 181.03 190.44 L 175.69 206.65 L 158.72 204.78 L 149.02 218.83 L 133.26 212.25 L 120.00 223.00 L 106.74 212.25 L 90.98 218.83 L 81.28 204.78 L 64.31 206.65 L 58.97 190.44 L 42.16 187.45 L 41.60 170.39 L 26.31 162.79 L 30.58 146.26 L 18.05 134.66 L 26.80 120.00 L 18.05 105.34 L 30.58 93.74 L 26.31 77.21 L 41.60 69.61 L 42.16 52.55 L 58.97 49.56 L 64.31 33.35 L 81.28 35.22 L 90.98 21.17 L 106.74 27.75 Z" fill="url(#copper)"/>
+  <path d="M 184.00 120.00 A 64 64 0 1 0 56.00 120.00 A 64 64 0 1 0 184.00 120.00 Z" fill="url(#abyss)"/>
+  <circle cx="120" cy="120" r="64" fill="none" stroke="#5c2812" stroke-width="0.8" opacity="0.7"/>
+  <line x1="138.00" y1="98.55" x2="140.00" y2="154.64" stroke="#ede1c4" stroke-width="0.7" opacity="0.5"/>
+  <line x1="140.00" y1="154.64" x2="120.00" y2="134.00" stroke="#ede1c4" stroke-width="0.7" opacity="0.5"/>
+  <line x1="120.00" y1="134.00" x2="99.33" y2="127.52" stroke="#ede1c4" stroke-width="0.7" opacity="0.5"/>
+  <line x1="138.00" y1="98.55" x2="84.76" y2="90.43" stroke="#ede1c4" stroke-width="0.7" opacity="0.5"/>
+  <circle cx="138.00" cy="98.55" r="3.2" fill="#ede1c4" opacity="0.9"/>
+  <circle cx="140.00" cy="154.64" r="2.4" fill="#ede1c4" opacity="0.9"/>
+  <circle cx="99.33" cy="127.52" r="2.4" fill="#ede1c4" opacity="0.9"/>
+  <circle cx="84.76" cy="90.43" r="2.4" fill="#ede1c4" opacity="0.9"/>
+  <circle cx="120.00" cy="134.00" r="2.4" fill="#ede1c4" opacity="0.9"/>
+  <line x1="120" y1="120" x2="196.28" y2="35.28" stroke="#e89673" stroke-width="1.2"/>
+  <circle cx="196.28" cy="35.28" r="3.2" fill="#f0e8d0"/>
+</svg>
