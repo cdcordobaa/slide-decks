@@ -59,6 +59,11 @@ const ART = [
    `Groups of teenagers crowded around tables covered in hand-filled paper templates and fat
     markers, one of them standing mid-pitch with an arm raised, the others leaning in, laughing
     and arguing. A workshop at full boil.`],
+  ["escriba", "16:9", POSTER,
+   `A public letter writer at a small wooden desk in a colonial Latin American plaza, quill in
+    hand and inkpot beside him, writing a letter for the woman standing in front of him while a
+    line of ordinary people waits their turn behind her. Market stalls and church facade in the
+    background. Everyone is illiterate except him, and it shows in how they watch his hand.`],
   ["futuro", "16:9", POSTER,
    `A teenager standing on a rooftop above Bogota at sunrise, the Andes behind the city, holding a
     single sheet of paper up against the wind, the skyline dissolving upward into constellations
