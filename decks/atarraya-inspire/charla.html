@@ -258,6 +258,19 @@ html, body {
 }
 .gift__list b { font-family: var(--display); font-size: 30px; font-weight: 900; color: var(--acc-ink); white-space: nowrap; text-transform: uppercase; }
 .gift__list span { font-size: 19px; line-height: 1.35; font-weight: 600; }
+/* Cinco pasos en vez de tres: tarjetas mas bajas para que no pisen el badge. */
+.gift__list--5 { gap: 13px; }
+.gift__list--5 li { padding: 14px 22px; }
+.gift__list--5 b { font-size: 28px; }
+.gift__list--5 span { font-size: 18px; }
+/* Pasos a la izquierda, captura del producto a la derecha. */
+.gift__cols { display: grid; grid-template-columns: 1fr 400px; gap: 30px; align-items: center; }
+.shot {
+  margin: 0; position: relative; overflow: hidden; background: var(--paper-2);
+  border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+  aspect-ratio: 523 / 437;
+}
+.shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .shoot {
   position: absolute; left: var(--pad); bottom: 30px; z-index: 5;
   display: inline-flex; align-items: center; gap: 9px;
@@ -329,7 +342,7 @@ html, body {
 .deck { counter-reset: slide; }
 .slide { counter-increment: slide; }
 .slide::after {
-  content: counter(slide) " / 45";
+  content: counter(slide) " / 46";
   position: absolute; right: 18px; bottom: 16px; z-index: 8;
   background: var(--ink); color: var(--paper);
   font-size: 11px; font-weight: 800; letter-spacing: .14em;
@@ -609,16 +622,17 @@ html, body {
   <div class="order"><p>Respiro.<br><em>Grupos de cinco.</em></p></div>
 </section>
 
-<section class="slide split" data-act="2" contenteditable="true" spellcheck="true" aria-label="Tres preguntas">
+<section class="slide split" data-act="2" contenteditable="true" spellcheck="true" aria-label="Cuatro preguntas">
   <div class="map"><i></i><i></i><i></i></div>
   <div class="split__art"><img src="assets/art/datos.jpg" alt=""></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <div class="split__body">
-    <h1 class="h h--sm" style="font-size:42px">Tres preguntas rápidas</h1>
-    <div class="stage" style="flex-direction:column;gap:16px;align-items:stretch;justify-content:center">
+    <h1 class="h h--sm" style="font-size:42px">4 preguntas rápidas para un premio</h1>
+    <div class="stage" style="flex-direction:column;gap:13px;align-items:stretch;justify-content:center">
       <div class="beat"><span class="beat__n">1</span><h3>¿Cómo se llama tu mascota?</h3></div>
       <div class="beat"><span class="beat__n">2</span><h3>¿Quién cumple años este mes?</h3></div>
       <div class="beat"><span class="beat__n">3</span><h3>¿Cuál fue tu primer colegio?</h3></div>
+      <div class="beat"><span class="beat__n">4</span><h3>¿Cuál es tu correo?</h3></div>
     </div>
   </div>
 </section>
@@ -626,8 +640,8 @@ html, body {
 <section class="slide dark" data-act="2" contenteditable="true" spellcheck="true" aria-label="El golpe">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-white.png" alt="Globant">
-  <h1 class="h" style="font-size:64px;max-width:20ch">Esas tres son <em>las preguntas de seguridad</em> de media internet</h1>
-  <p class="sub">Nadie hackeó nada. Se lo diste en 60 segundos a alguien que te cayó bien.</p>
+  <h1 class="h" style="font-size:64px;max-width:21ch">Tres son <em>preguntas de seguridad</em>. La cuarta es tu usuario</h1>
+  <p class="sub">Nadie hackeó nada. Me diste la cuenta entera en 60 segundos, y encima por un premio.</p>
 </section>
 
 <section class="slide split" data-act="2" contenteditable="true" spellcheck="true" aria-label="Ingenieria social">
@@ -644,7 +658,7 @@ html, body {
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-white.png" alt="Globant">
   <h1 class="h" style="font-size:70px;max-width:17ch">Me pagan por ser <em>la desconfiada</em> del equipo</h1>
-  <p class="sub">Mi trabajo no es perseguir hackers de película. Es pensar como el que quiere entrar, antes de que entre.</p>
+  <p class="sub">Mi trabajo no es perseguir ciberdelincuentes de película. Es pensar como el que quiere entrar, antes de que entre.</p>
 </section>
 
 <section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Un sistema entrenado sin ti">
@@ -822,6 +836,25 @@ html, body {
   <img class="brand" src="assets/globant-white.png" alt="Globant">
   <h1 class="h" style="font-size:74px;max-width:19ch">La decide <em>quien se atreve</em> a diseñarla</h1>
   <p class="sub">Y acabas de hacerlo en una hoja de papel.</p>
+</section>
+
+<!-- Bonus track. Fuera del hilo: el regalo con el que se van. -->
+
+<section class="slide gift" data-act="3" contenteditable="true" spellcheck="true" aria-label="Bonus track NotebookLM">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="gift__h">Nada es gratis. Esto sí: NotebookLM</h1>
+  <div class="gift__cols">
+    <ol class="gift__list gift__list--5">
+      <li><b>01</b><span>Sube el PDF del profe o tus apuntes.</span></li>
+      <li><b>02</b><span>Responde solo con eso, y te dice de dónde.</span></li>
+      <li><b>03</b><span>Pídele resumen, guía de estudio o preguntas.</span></li>
+      <li><b>04</b><span>Audio Overview: te lo explican como pódcast.</span></li>
+      <li><b>05</b><span>No hace la tarea. Te la explica. Revisa siempre.</span></li>
+    </ol>
+    <figure class="shot"><img src="assets/Screenshot_1.jpg" alt="NotebookLM"></figure>
+  </div>
+  <span class="shoot">Fotografía esto</span>
 </section>
 
 <section class="slide hero" data-act="3" contenteditable="true" spellcheck="true" aria-label="Cierre">

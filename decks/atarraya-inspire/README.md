@@ -8,7 +8,7 @@ Adriana.
 
 | Pieza | Donde vive | Quien la ve |
 |-------|------------|-------------|
-| **El deck** | Este repo, `charla.html` | La sala. 45 laminas de proyeccion |
+| **El deck** | Este repo, `charla.html` | La sala. 46 laminas de proyeccion |
 | **La escaleta** | [Notion](https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b) | Ustedes dos. Horas, reparto, guiones, materiales, pendientes |
 
 La escaleta es un documento de trabajo, no algo que se proyecta, y por eso vive
@@ -37,7 +37,7 @@ desmonta en orden:
 
 ## Un momento de la escaleta no es una lamina
 
-La escaleta tiene 28 momentos y el deck tiene 45 laminas, y eso esta bien: un
+La escaleta tiene 28 momentos y el deck tiene 46 laminas, y eso esta bien: un
 momento de 16 minutos no puede ser una sola lamina. Donde la relacion no es
 uno a uno:
 
@@ -53,6 +53,10 @@ uno a uno:
 | 24 · 45 segundos | 3 | Ensayo, presentaciones, votacion |
 | 25 · La carrera cambio | 3 | El encuadre de pais y el antimito, cada uno solo |
 | 26 · Tres pasos | 2 | "Busca una comunidad" sin decir cual no sirve |
+
+Fuera de esa cuenta va **un bonus track**: una lamina sobre NotebookLM entre
+"la decide quien se atreve" y el cierre. No sale de ningun momento de la
+escaleta, es el regalo con el que se van.
 
 La regla que no cambia: **lo que no este en "En pantalla" no se proyecta.** Que
 un momento ocupe cinco laminas no autoriza a subir el guion a ninguna de ellas.
