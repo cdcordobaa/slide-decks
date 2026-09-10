@@ -8,7 +8,7 @@ Adriana.
 
 | Pieza | Donde vive | Quien la ve |
 |-------|------------|-------------|
-| **El deck** | Este repo, `charla.html` | La sala. 54 laminas de proyeccion |
+| **El deck** | Este repo, `charla.html` | La sala. 45 laminas de proyeccion |
 | **La escaleta** | [Notion](https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b) | Ustedes dos. Horas, reparto, guiones, materiales, pendientes |
 
 La escaleta es un documento de trabajo, no algo que se proyecta, y por eso vive
@@ -37,15 +37,15 @@ desmonta en orden:
 
 ## Un momento de la escaleta no es una lamina
 
-La escaleta tiene 28 momentos y el deck tiene 54 laminas, y eso esta bien: un
+La escaleta tiene 28 momentos y el deck tiene 45 laminas, y eso esta bien: un
 momento de 16 minutos no puede ser una sola lamina. Donde la relacion no es
 uno a uno:
 
 | Momento | Laminas | Por que |
 |---------|---------|---------|
 | 07 · Grita tu app | 2 | Despues de gritar hay que mostrar la respuesta |
-| 08 · Cristian | 5 | Indice progresivo: se ilumina el momento en curso |
-| 11 · Adriana | 5 | Igual, mas la frase dirigida a los hombres de la sala |
+| 08 · Cristian | 1 | El arco entero en una lamina: los cinco momentos a la vez |
+| 11 · Adriana | 1 | Igual, con la frase a los hombres de la sala en el titular |
 | 13 · Seis voluntarios | 2 | El peso de cada neurona tambien va proyectado |
 | 15 · Perro o gato | 6 | Un caso por lamina, y la rejilla solo al final |
 | 19 · El golpe | 4 | Reveal, ingenieria social, su oficio, y el sesgo |

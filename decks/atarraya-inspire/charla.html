@@ -141,6 +141,10 @@ html, body {
   width: 44px; height: 44px; display: grid; place-items: center;
 }
 .beat h3 { margin: 0; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: -.01em; }
+/* El arco completo en una sola lamina: mismos momentos, mas apretados. */
+.beats--all .beat { padding: 11px 20px; grid-template-columns: 46px 1fr; gap: 18px; }
+.beats--all .beat__n { width: 38px; height: 38px; font-size: 21px; }
+.beats--all .beat h3 { font-size: 19px; }
 
 /* ---------- retratos ---------- */
 .portrait {
@@ -325,7 +329,7 @@ html, body {
 .deck { counter-reset: slide; }
 .slide { counter-increment: slide; }
 .slide::after {
-  content: counter(slide) " / 54";
+  content: counter(slide) " / 45";
   position: absolute; right: 18px; bottom: 16px; z-index: 8;
   background: var(--ink); color: var(--paper);
   font-size: 11px; font-weight: 800; letter-spacing: .14em;
@@ -347,13 +351,12 @@ html, body {
 
 <!-- ======================= Apertura en frio ======================= -->
 
-<section class="slide hero" data-act="0" contenteditable="true" spellcheck="true" aria-label="Manos arriba">
+<section class="slide hero" data-act="0" contenteditable="true" spellcheck="true" aria-label="Ensenale a la maquina">
   <div class="map"><i></i><i></i><i></i></div>
   <div class="hero__art"><img src="assets/art/apertura.jpg" alt=""></div>
   <img class="brand" src="assets/globant-white.png" alt="Globant">
   <div class="hero__body">
-    <p class="hero__word">Manos<br>arriba</p>
-    <p class="hero__hint">Sin mentir</p>
+    <p class="hero__word">Enséñale<br>a la máquina</p>
   </div>
 </section>
 
@@ -375,26 +378,23 @@ html, body {
   <p class="divider__right">Los dos que estamos parados acá salimos de colegios como este.</p>
 </section>
 
-<section class="slide hero" data-act="1" contenteditable="true" spellcheck="true" aria-label="El garaje">
-  <div class="map"><i></i><i></i><i></i></div>
-  <div class="hero__art"><img src="assets/art/garaje.jpg" alt=""></div>
-  <img class="brand" src="assets/globant-white.png" alt="Globant">
-  <div class="hero__body">
-    <p class="hero__word hero__word--sm">Nadie creía que se podía hacer desde acá</p>
-    <p class="hero__hint">Un garaje, cuatro amigos, año 2000</p>
-  </div>
-</section>
+<!-- Cristian . 16 minutos. El arco completo en una lamina. -->
 
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="La historia de Globant">
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian, el arco completo">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Cuatro amigos y una idea que sonaba absurda</h1>
+  <p class="who">Cristian</p>
+  <h1 class="h h--sm">Nadie tiene el camino claro <em>a los 15</em></h1>
   <div class="stage">
-    <div class="cards cards--4">
-      <article class="card"><span class="card__n">01</span><p>Querían hacer software de clase mundial desde Latinoamérica, para el mundo entero.</p></article>
-      <article class="card"><span class="card__n">02</span><p>Nadie afuera creía que el talento estuviera acá.</p></article>
-      <article class="card"><span class="card__n">03</span><p>El talento sí estaba. Nadie lo había venido a buscar.</p></article>
-      <article class="card card--acc"><span class="card__n">04</span><p>Hoy somos miles de personas en decenas de países. Detrás de la app que abres hay equipos como el nuestro.</p></article>
+    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
+      <div class="beats beats--all">
+        <div class="beat"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
+        <div class="beat"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
+        <div class="beat"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
+        <div class="beat"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
+        <div class="beat"><span class="beat__n">5</span><h3>Lo único que no cambió: la curiosidad</h3></div>
+      </div>
+      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>Hoy</figcaption></figure>
     </div>
   </div>
 </section>
@@ -418,86 +418,6 @@ html, body {
   </div>
 </section>
 
-<!-- Cristian . 16 minutos. La misma lamina avanza con el relato. -->
-
-<section class="slide hero" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian a los 15">
-  <div class="map"><i></i><i></i><i></i></div>
-  <div class="hero__art hero__art--photo"><img src="assets/fotos/cristian-15.jpg" alt=""></div>
-  <img class="brand" src="assets/globant-white.png" alt="Globant">
-  <div class="hero__body">
-    <p class="hero__word">Yo a los 15</p>
-    <p class="hero__hint">Cristian</p>
-  </div>
-</section>
-
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian, el dia que algo hizo clic">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Cristian</h1>
-  <div class="stage">
-    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
-      <div class="beats">
-        <div class="beat beat--off"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
-        <div class="beat beat--on"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
-        <div class="beat beat--off"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
-        <div class="beat beat--off"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
-        <div class="beat beat--off"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
-      </div>
-      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>Hoy</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian, lo que estudie">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Cristian</h1>
-  <div class="stage">
-    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
-      <div class="beats">
-        <div class="beat beat--off"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
-        <div class="beat beat--off"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
-        <div class="beat beat--on"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
-        <div class="beat beat--off"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
-        <div class="beat beat--off"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
-      </div>
-      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>Hoy</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Nadie tiene el camino claro a los 15">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-white.png" alt="Globant">
-  <h1 class="h" style="font-size:76px;max-width:17ch">Nadie tiene el camino claro <em>a los 15</em></h1>
-  <p class="sub">Yo tampoco lo tenía. Y aquí estoy.</p>
-</section>
-
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian, un martes cualquiera">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Cristian</h1>
-  <div class="stage">
-    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
-      <div class="beats">
-        <div class="beat beat--off"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
-        <div class="beat beat--off"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
-        <div class="beat beat--off"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
-        <div class="beat beat--on"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
-        <div class="beat beat--off"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
-      </div>
-      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>Hoy</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Lo que no ha cambiado">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h" style="font-size:72px;max-width:16ch">Lo único que no ha cambiado es <span class="mk">la curiosidad</span></h1>
-  <p class="sub">Todo lo demás lo aprendí después, y sigo aprendiéndolo.</p>
-</section>
-
 <section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cierra los ojos">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-white.png" alt="Globant">
@@ -512,61 +432,45 @@ html, body {
 
 <!-- Adriana . 16 minutos, mismo mecanismo. -->
 
-<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="La vez que fui la unica">
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Adriana, el arco completo">
   <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <p class="who">Adriana</p>
-  <h1 class="h" style="font-size:82px;max-width:14ch">La vez que fui <em>la única</em></h1>
-</section>
-
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Adriana, lo que me costo">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Adriana</h1>
+  <h1 class="h h--sm">Cuando alguien interrumpe a una compañera, <em>ya sabes qué hacer</em></h1>
   <div class="stage">
     <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
-      <div class="beats">
-        <div class="beat beat--off"><span class="beat__n">1</span><h3>La vez que fui la única</h3></div>
-        <div class="beat beat--on"><span class="beat__n">2</span><h3>Lo que me costó</h3></div>
-        <div class="beat beat--off"><span class="beat__n">3</span><h3>A quién le abrí la puerta</h3></div>
-        <div class="beat beat--off"><span class="beat__n">4</span><h3>Lo que hago hoy</h3></div>
+      <div class="beats beats--all">
+        <div class="beat"><span class="beat__n">1</span><h3>La vez que fui la única</h3></div>
+        <div class="beat"><span class="beat__n">2</span><h3>Lo que me costó</h3></div>
+        <div class="beat"><span class="beat__n">3</span><h3>A quién le abrí la puerta</h3></div>
+        <div class="beat"><span class="beat__n">4</span><h3>Lo que hago hoy: ciberseguridad</h3></div>
       </div>
       <figure class="portrait"><img src="assets/fotos/adriana-equipo.jpg" alt=""><figcaption>Hoy</figcaption></figure>
     </div>
   </div>
 </section>
 
-<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cuando alguien interrumpe a una companera">
+<section class="slide hero" data-act="1" contenteditable="true" spellcheck="true" aria-label="El garaje">
   <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-white.png" alt="Globant">
-  <h1 class="h" style="font-size:64px;max-width:19ch">Cuando alguien interrumpe a una compañera, <em>ya sabes qué hacer</em></h1>
-  <p class="sub">Esto no es solo para las niñas de la sala. Es para todos.</p>
-</section>
-
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Adriana, a quien le abri la puerta">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Adriana</h1>
-  <div class="stage">
-    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
-      <div class="beats">
-        <div class="beat beat--off"><span class="beat__n">1</span><h3>La vez que fui la única</h3></div>
-        <div class="beat beat--off"><span class="beat__n">2</span><h3>Lo que me costó</h3></div>
-        <div class="beat beat--on"><span class="beat__n">3</span><h3>A quién le abrí la puerta</h3></div>
-        <div class="beat beat--off"><span class="beat__n">4</span><h3>Lo que hago hoy</h3></div>
-      </div>
-      <figure class="portrait"><img src="assets/fotos/adriana-equipo.jpg" alt=""><figcaption>Hoy</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section class="slide hero" data-act="1" contenteditable="true" spellcheck="true" aria-label="Lo que hago hoy">
-  <div class="map"><i></i><i></i><i></i></div>
-  <div class="hero__art hero__art--photo"><img src="assets/fotos/adriana-equipo.jpg" alt=""></div>
+  <div class="hero__art"><img src="assets/art/garaje.jpg" alt=""></div>
   <img class="brand" src="assets/globant-white.png" alt="Globant">
   <div class="hero__body">
-    <p class="hero__word hero__word--sm">Lo que hago hoy</p>
-    <p class="hero__hint">Ciberseguridad</p>
+    <p class="hero__word hero__word--sm">Nadie creía que se podía hacer desde acá</p>
+    <p class="hero__hint">Un garaje, cuatro amigos, año 2000</p>
+  </div>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="La historia de Globant">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Cuatro amigos y una idea que sonaba absurda</h1>
+  <div class="stage">
+    <div class="cards cards--4">
+      <article class="card"><span class="card__n">01</span><p>Querían hacer software de clase mundial desde Latinoamérica, para el mundo entero.</p></article>
+      <article class="card"><span class="card__n">02</span><p>Nadie afuera creía que el talento estuviera acá.</p></article>
+      <article class="card"><span class="card__n">03</span><p>El talento sí estaba. Nadie lo había venido a buscar.</p></article>
+      <article class="card card--acc"><span class="card__n">04</span><p>Hoy somos miles de personas en decenas de países. Detrás de la app que abres hay equipos como el nuestro.</p></article>
+    </div>
   </div>
 </section>
 
