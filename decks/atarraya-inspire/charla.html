@@ -321,6 +321,17 @@ html, body {
 .roles article:nth-child(4) { background: var(--acc); }
 .roles article:nth-child(4) p { color: var(--ink); }
 
+/* ---------- numeracion de lamina ---------- */
+.deck { counter-reset: slide; }
+.slide { counter-increment: slide; }
+.slide::after {
+  content: counter(slide) " / 54";
+  position: absolute; right: 18px; bottom: 16px; z-index: 8;
+  background: var(--ink); color: var(--paper);
+  font-size: 11px; font-weight: 800; letter-spacing: .14em;
+  padding: 5px 9px; pointer-events: none;
+}
+
 @media print {
   html, body { background: #fff; }
   .deck { display: block; padding: 0; gap: 0; }
