@@ -11,7 +11,7 @@
   "companion": "Escaleta en Notion: https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b",
   "visual_system": "Cartel serigrafico: papel calido, tinta negra, bloques saturados, arte generado con Gemini",
   "logo": "assets/globant-ink.svg, assets/globant-white.png",
-  "slides": 28
+  "slides": 55
 }
 </script>
 <style>
@@ -171,6 +171,9 @@ html, body {
 .hero { padding: 0; justify-content: flex-end; background: var(--ink); }
 .hero__art { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: var(--ink); }
 .hero__art img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.22); }
+/* El sobrebarrido existe para comerse el margen de papel que deja el arte
+ * generado. Una foto real no lo necesita y con el se recorta la cara. */
+.hero__art--photo img { transform: none; object-position: center 28%; }
 /* Velo minimo: solo el pie de la lamina se oscurece, para que la ilustracion
  * conserve su color. El titulo va en blanco sobre esa franja. */
 .hero::before {
@@ -232,9 +235,12 @@ html, body {
   margin: 0; font-family: var(--display);
   font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -.025em;
   text-transform: uppercase; max-width: 20ch;
-  text-decoration: line-through; text-decoration-thickness: 8px; opacity: .5;
+  /* Antes iba a opacity .5 y despues a la tinta del acento. Las dos se caen
+   * desde la ultima fila de un salon de colegio. El "esto esta descartado" lo
+   * carga el tachon, que mide 8 px: el texto va en tinta plena y se lee. */
+  text-decoration: line-through; text-decoration-thickness: 8px;
 }
-.divider--win .divider__wrong { text-decoration: none; opacity: 1; }
+.divider--win .divider__wrong { text-decoration: none; }
 .divider__right { margin: 22px 0 0; font-size: 23px; line-height: 1.35; font-weight: 700; max-width: 40ch; }
 
 /* ---------- lamina para fotografiar ---------- */
@@ -267,6 +273,54 @@ html, body {
 
 .edit-note { width: var(--slide-w); font-size: 12.5px; color: #4a4638; letter-spacing: .04em; border-left: 5px solid var(--ink); padding: 6px 0 6px 12px; }
 
+/* ---------- quien lleva este tramo ---------- */
+.who { margin: 0 0 20px; font-size: 14px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: var(--acc-ink); }
+.dark .who { color: var(--amarillo); }
+
+/* ---------- indice progresivo de una historia larga ----------
+ * Los bloques de Cristian y Adriana son 16 minutos cada uno. La misma lamina
+ * avanza con ellos: el momento en curso se ilumina, los demas se apagan. */
+.beat--off { opacity: .32; }
+.beat--off .beat__n { background: var(--paper-2); }
+.beat--on { box-shadow: 9px 9px 0 var(--ink); }
+
+/* ---------- frase que remata ---------- */
+.punch { margin: 32px 0 0; font-family: var(--display); font-size: 46px; line-height: 1; font-weight: 900; letter-spacing: -.03em; text-transform: uppercase; color: var(--amarillo); max-width: 24ch; }
+
+/* ---------- el peso de cada neurona ---------- */
+.postit { flex: 0 0 250px; width: 250px; height: 250px; background: var(--amarillo); border: var(--bd) solid var(--ink); box-shadow: 10px 10px 0 var(--ink); display: grid; place-items: center; transform: rotate(-3deg); }
+.postit b { font-family: var(--display); font-size: 148px; line-height: 1; font-weight: 900; letter-spacing: -.05em; }
+
+/* ---------- un caso a la vez ----------
+ * La rejilla de los cinco casos mostraba todo antes de la primera votacion.
+ * Cada caso ahora ocupa su propia lamina y la rejilla queda solo de resumen. */
+.case { padding: 0; flex-direction: row; }
+.case__art { flex: 1; min-width: 0; position: relative; overflow: hidden; background: var(--ink); }
+.case__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.case__side { flex: 0 0 360px; width: 360px; background: var(--acc); border-left: var(--bd) solid var(--ink); display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: var(--pad) 40px; }
+.case__n { font-size: 14px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+.case__q { margin: 0; font-family: var(--display); font-size: 58px; line-height: .95; font-weight: 900; letter-spacing: -.04em; text-transform: uppercase; }
+
+/* ---------- ejemplo resuelto y cronometro del taller ---------- */
+.filled { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; width: 100%; }
+.filled article { background: var(--white); border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.filled h3 { margin: 0; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--acc-ink); }
+.filled p { margin: 0; font-size: 15px; line-height: 1.36; font-weight: 600; }
+.filled article:nth-child(4) { background: var(--acc); }
+.filled article:nth-child(4) h3 { color: var(--ink); }
+.timer { margin: 0; font-family: var(--display); font-size: 188px; line-height: .82; font-weight: 900; letter-spacing: -.05em; text-transform: uppercase; }
+.chips { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 0; }
+.chips span { background: var(--white); border: 4px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 11px 18px; font-size: 17px; font-weight: 800; text-transform: uppercase; }
+.chips span:nth-child(4) { background: var(--acc); }
+
+/* ---------- los cinco roles del grupo ---------- */
+.roles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; width: 100%; }
+.roles article { background: var(--white); border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink); padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.roles h3 { margin: 0; font-family: var(--display); font-size: 20px; line-height: 1.05; font-weight: 900; letter-spacing: -.02em; text-transform: uppercase; }
+.roles p { margin: 0; font-size: 15px; line-height: 1.36; color: var(--ink-2); }
+.roles article:nth-child(4) { background: var(--acc); }
+.roles article:nth-child(4) p { color: var(--ink); }
+
 @media print {
   html, body { background: #fff; }
   .deck { display: block; padding: 0; gap: 0; }
@@ -279,6 +333,8 @@ html, body {
 <body>
 <p class="edit-note" contenteditable="false">Version final de proyeccion. Los tiempos, los guiones y el reparto viven en la escaleta, en Notion.</p>
 <main class="deck">
+
+<!-- ======================= Apertura en frio ======================= -->
 
 <section class="slide hero" data-act="0" contenteditable="true" spellcheck="true" aria-label="Manos arriba">
   <div class="map"><i></i><i></i><i></i></div>
@@ -296,17 +352,8 @@ html, body {
   <h1 class="h" style="font-size:78px;max-width:20ch">¿Quién decide <em>cómo funciona</em> la tecnología que usas todos los días?</h1>
 </section>
 
-<section class="slide" data-act="0" contenteditable="true" spellcheck="true" aria-label="Quienes somos">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Nosotros dos</h1>
-  <div class="stage">
-    <div class="cards cards--2" style="height:100%">
-      <figure class="portrait"><img src="assets/fotos/cristian.jpg" alt=""><figcaption>Cristian</figcaption></figure>
-      <figure class="portrait"><img src="assets/fotos/adriana.jpg" alt=""><figcaption>Adriana</figcaption></figure>
-    </div>
-  </div>
-</section>
+
+<!-- ============ Respuesta 1 . La deciden otros, lejos de aqui ============ -->
 
 <section class="slide divider" data-act="1" contenteditable="true" spellcheck="true" aria-label="Respuesta uno">
   <div class="map"><i></i><i></i><i></i></div>
@@ -347,22 +394,97 @@ html, body {
   <div class="order"><p>¿Cuál es la app que más usas?<br><em>Grítala.</em></p></div>
 </section>
 
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian">
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Que hay detras de esa app">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Detrás de esa que gritaste hay un equipo</h1>
+  <div class="stage">
+    <div class="cards cards--3">
+      <article class="card"><h3>Ves una serie y no se traba</h3><p>Alguien tuvo que hacer que ese video llegue a millones de personas al mismo tiempo.</p></article>
+      <article class="card"><h3>Pagas y la plata llega en dos segundos</h3><p>Alguien se asegura de que nadie se meta en el camino.</p></article>
+      <article class="card card--acc"><h3>Te recomienda algo y le atina</h3><p>Eso es un modelo que aprendió de lo que la gente compra.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- Cristian . 16 minutos. La misma lamina avanza con el relato. -->
+
+<section class="slide hero" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian a los 15">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="hero__art hero__art--photo"><img src="assets/fotos/cristian-15.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word">Yo a los 15</p>
+    <p class="hero__hint">Cristian</p>
+  </div>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian, el dia que algo hizo clic">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <h1 class="h h--sm">Cristian</h1>
   <div class="stage">
     <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
       <div class="beats">
-        <div class="beat"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
-        <div class="beat"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
-        <div class="beat"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
-        <div class="beat"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
-        <div class="beat"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
+        <div class="beat beat--off"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
+        <div class="beat beat--on"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
+        <div class="beat beat--off"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
+        <div class="beat beat--off"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
+        <div class="beat beat--off"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
       </div>
-      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>A los 15</figcaption></figure>
+      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>Hoy</figcaption></figure>
     </div>
   </div>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian, lo que estudie">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Cristian</h1>
+  <div class="stage">
+    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
+      <div class="beats">
+        <div class="beat beat--off"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
+        <div class="beat beat--off"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
+        <div class="beat beat--on"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
+        <div class="beat beat--off"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
+        <div class="beat beat--off"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
+      </div>
+      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>Hoy</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Nadie tiene el camino claro a los 15">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:76px;max-width:17ch">Nadie tiene el camino claro <em>a los 15</em></h1>
+  <p class="sub">Yo tampoco lo tenía. Y aquí estoy.</p>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cristian, un martes cualquiera">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Cristian</h1>
+  <div class="stage">
+    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
+      <div class="beats">
+        <div class="beat beat--off"><span class="beat__n">1</span><h3>Yo a los 15</h3></div>
+        <div class="beat beat--off"><span class="beat__n">2</span><h3>El día que algo hizo clic</h3></div>
+        <div class="beat beat--off"><span class="beat__n">3</span><h3>Lo que estudié</h3></div>
+        <div class="beat beat--on"><span class="beat__n">4</span><h3>Un martes cualquiera</h3></div>
+        <div class="beat beat--off"><span class="beat__n">5</span><h3>Lo que no ha cambiado</h3></div>
+      </div>
+      <figure class="portrait"><img src="assets/fotos/cristian-15.jpg" alt=""><figcaption>Hoy</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Lo que no ha cambiado">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h" style="font-size:72px;max-width:16ch">Lo único que no ha cambiado es <span class="mk">la curiosidad</span></h1>
+  <p class="sub">Todo lo demás lo aprendí después, y sigo aprendiéndolo.</p>
 </section>
 
 <section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cierra los ojos">
@@ -377,22 +499,67 @@ html, body {
   <h1 class="h" style="font-size:82px;max-width:16ch">¿Cuántos imaginaron a un hombre?</h1>
 </section>
 
-<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Adriana">
+<!-- Adriana . 16 minutos, mismo mecanismo. -->
+
+<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="La vez que fui la unica">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <p class="who">Adriana</p>
+  <h1 class="h" style="font-size:82px;max-width:14ch">La vez que fui <em>la única</em></h1>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Adriana, lo que me costo">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <h1 class="h h--sm">Adriana</h1>
   <div class="stage">
     <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
       <div class="beats">
-        <div class="beat"><span class="beat__n">1</span><h3>La vez que fui la única</h3></div>
-        <div class="beat"><span class="beat__n">2</span><h3>Lo que me costó</h3></div>
-        <div class="beat"><span class="beat__n">3</span><h3>A quién le abrí la puerta</h3></div>
-        <div class="beat"><span class="beat__n">4</span><h3>Lo que hago hoy</h3></div>
+        <div class="beat beat--off"><span class="beat__n">1</span><h3>La vez que fui la única</h3></div>
+        <div class="beat beat--on"><span class="beat__n">2</span><h3>Lo que me costó</h3></div>
+        <div class="beat beat--off"><span class="beat__n">3</span><h3>A quién le abrí la puerta</h3></div>
+        <div class="beat beat--off"><span class="beat__n">4</span><h3>Lo que hago hoy</h3></div>
       </div>
       <figure class="portrait"><img src="assets/fotos/adriana-equipo.jpg" alt=""><figcaption>Hoy</figcaption></figure>
     </div>
   </div>
 </section>
+
+<section class="slide dark" data-act="1" contenteditable="true" spellcheck="true" aria-label="Cuando alguien interrumpe a una companera">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:64px;max-width:19ch">Cuando alguien interrumpe a una compañera, <em>ya sabes qué hacer</em></h1>
+  <p class="sub">Esto no es solo para las niñas de la sala. Es para todos.</p>
+</section>
+
+<section class="slide" data-act="1" contenteditable="true" spellcheck="true" aria-label="Adriana, a quien le abri la puerta">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Adriana</h1>
+  <div class="stage">
+    <div class="cards cards--2" style="grid-template-columns:1.25fr 1fr">
+      <div class="beats">
+        <div class="beat beat--off"><span class="beat__n">1</span><h3>La vez que fui la única</h3></div>
+        <div class="beat beat--off"><span class="beat__n">2</span><h3>Lo que me costó</h3></div>
+        <div class="beat beat--on"><span class="beat__n">3</span><h3>A quién le abrí la puerta</h3></div>
+        <div class="beat beat--off"><span class="beat__n">4</span><h3>Lo que hago hoy</h3></div>
+      </div>
+      <figure class="portrait"><img src="assets/fotos/adriana-equipo.jpg" alt=""><figcaption>Hoy</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="slide hero" data-act="1" contenteditable="true" spellcheck="true" aria-label="Lo que hago hoy">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="hero__art hero__art--photo"><img src="assets/fotos/adriana-equipo.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="hero__body">
+    <p class="hero__word hero__word--sm">Lo que hago hoy</p>
+    <p class="hero__hint">Ciberseguridad</p>
+  </div>
+</section>
+
+<!-- ========== Respuesta 2 . La deciden los que saben mucho ========== -->
 
 <section class="slide divider" data-act="2" contenteditable="true" spellcheck="true" aria-label="Respuesta dos">
   <div class="map"><i></i><i></i><i></i></div>
@@ -419,6 +586,20 @@ html, body {
   </div>
 </section>
 
+<section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Tu pregunta pesa">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Tu pregunta pesa, y el peso cambia</h1>
+  <div class="stage" style="gap:52px">
+    <div class="postit"><b>3</b></div>
+    <div class="beats" style="flex:1">
+      <div class="beat"><span class="beat__n">1</span><h3>Tu número va del 1 al 5. Empiezas en 3</h3></div>
+      <div class="beat"><span class="beat__n">2</span><h3>Si tu pregunta hizo fallar, táchalo y bájalo</h3></div>
+      <div class="beat"><span class="beat__n">3</span><h3>Si acertaste, súbelo</h3></div>
+    </div>
+  </div>
+</section>
+
 <section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Las cuatro rondas">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
@@ -433,17 +614,69 @@ html, body {
   </div>
 </section>
 
-<section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Perro o gato">
+<!-- Los cinco casos, de a uno. La rejilla completa llega despues de votar. -->
+
+<section class="slide case" data-act="2" contenteditable="true" spellcheck="true" aria-label="Caso uno">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="case__art"><img src="assets/art/zoo-2.jpg" alt=""></div>
+  <div class="case__side">
+    <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+    <p class="case__n">Caso 1 de 5</p>
+    <h1 class="case__q">¿Perro o gato?</h1>
+  </div>
+</section>
+
+<section class="slide case" data-act="2" contenteditable="true" spellcheck="true" aria-label="Caso dos">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="case__art"><img src="assets/art/zoo-3.jpg" alt=""></div>
+  <div class="case__side">
+    <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+    <p class="case__n">Caso 2 de 5</p>
+    <h1 class="case__q">¿Perro o gato?</h1>
+  </div>
+</section>
+
+<section class="slide case" data-act="2" contenteditable="true" spellcheck="true" aria-label="Caso tres">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="case__art"><img src="assets/art/zoo-1.jpg" alt=""></div>
+  <div class="case__side">
+    <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+    <p class="case__n">Caso 3 de 5</p>
+    <h1 class="case__q">¿Perro o gato?</h1>
+  </div>
+</section>
+
+<section class="slide case" data-act="2" contenteditable="true" spellcheck="true" aria-label="Caso cuatro">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="case__art"><img src="assets/art/zoo-4.jpg" alt=""></div>
+  <div class="case__side">
+    <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+    <p class="case__n">Caso 4 de 5</p>
+    <h1 class="case__q">¿Perro o gato?</h1>
+  </div>
+</section>
+
+<section class="slide case" data-act="2" contenteditable="true" spellcheck="true" aria-label="Caso cinco">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="case__art"><img src="assets/art/zoo-5.jpg" alt=""></div>
+  <div class="case__side">
+    <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+    <p class="case__n">Caso 5 de 5</p>
+    <h1 class="case__q">¿Perro o gato?</h1>
+  </div>
+</section>
+
+<section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Estas cinco las elegimos nosotros">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
   <div class="stage" style="margin-top:16px">
     <div class="zoo">
-      <figure><img src="assets/art/zoo-1.jpg" alt=""></figure>
       <figure><img src="assets/art/zoo-2.jpg" alt=""></figure>
       <figure><img src="assets/art/zoo-3.jpg" alt=""></figure>
+      <figure><img src="assets/art/zoo-1.jpg" alt=""></figure>
       <figure><img src="assets/art/zoo-4.jpg" alt=""></figure>
       <figure><img src="assets/art/zoo-5.jpg" alt=""></figure>
-      <div class="zoo__ask"><b>¿Perro<br>o gato?</b></div>
+      <div class="zoo__ask"><b>Estas<br>cinco</b><p style="margin:0;font-size:17px;line-height:1.35;font-weight:700">Las elegimos nosotros. Nadie más.</p></div>
     </div>
   </div>
 </section>
@@ -452,7 +685,7 @@ html, body {
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-white.png" alt="Globant">
   <h1 class="h" style="font-size:70px;max-width:19ch">Una máquina no sabe nada del mundo. <em>Solo sabe lo que le mostraron.</em></h1>
-  <p class="sub">Nosotros elegimos estas cinco fotos. Si solo le hubiéramos mostrado gatos negros, ¿qué haría con un gato blanco?</p>
+  <p class="sub">Si solo le hubiéramos mostrado gatos negros, ¿qué haría con un gato blanco?</p>
 </section>
 
 <section class="slide dark" data-act="2" contenteditable="true" spellcheck="true" aria-label="Respiro">
@@ -482,6 +715,30 @@ html, body {
   <p class="sub">Nadie hackeó nada. Se lo diste en 60 segundos a alguien que te cayó bien.</p>
 </section>
 
+<section class="slide split" data-act="2" contenteditable="true" spellcheck="true" aria-label="Ingenieria social">
+  <div class="map"><i></i><i></i><i></i></div>
+  <div class="split__art"><img src="assets/art/anzuelo.jpg" alt=""></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <div class="split__body" style="justify-content:center">
+    <h1 class="h" style="font-size:52px;max-width:14ch">Se llama <span class="mk">ingeniería social</span></h1>
+    <p class="sub">Así se pierde la mayoría de las cuentas. No con un virus, con una conversación.</p>
+  </div>
+</section>
+
+<section class="slide dark" data-act="2" contenteditable="true" spellcheck="true" aria-label="La desconfiada del equipo">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:70px;max-width:17ch">Me pagan por ser <em>la desconfiada</em> del equipo</h1>
+  <p class="sub">Mi trabajo no es perseguir hackers de película. Es pensar como el que quiere entrar, antes de que entre.</p>
+</section>
+
+<section class="slide" data-act="2" contenteditable="true" spellcheck="true" aria-label="Un sistema entrenado sin ti">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h" style="font-size:74px;max-width:15ch">Un sistema entrenado sin ti, <span class="mk">falla contigo</span></h1>
+  <p class="sub">Hay cámaras que reconocen peor a las personas de piel oscura porque casi no vieron caras como las nuestras. Por eso importa quién está en la sala donde se construye.</p>
+</section>
+
 <section class="slide gift" data-act="2" contenteditable="true" spellcheck="true" aria-label="Tres cosas para hoy">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
@@ -493,6 +750,8 @@ html, body {
   </ol>
   <span class="shoot">Fotografía esto</span>
 </section>
+
+<!-- ============ Respuesta 3 . La decide quien la construye ============ -->
 
 <section class="slide divider divider--win" data-act="3" contenteditable="true" spellcheck="true" aria-label="Respuesta tres">
   <div class="map"><i></i><i></i><i></i></div>
@@ -526,6 +785,54 @@ html, body {
   </div>
 </section>
 
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Un ejemplo resuelto">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Así se ve una hoja llena</h1>
+  <div class="stage">
+    <div class="filled">
+      <article><h3>El problema</h3><p>Salir del colegio a las seis y no saber por cuál calle irse.</p></article>
+      <article><h3>El trabajo</h3><p>Arma la ruta más segura según la hora y hacia dónde va cada quien.</p></article>
+      <article><h3>Los datos</h3><p>Reportes del barrio, horarios de salida, qué calles tienen luz.</p></article>
+      <article><h3>El daño</h3><p>Si se equivoca, manda a alguien por la calle mala. Y donde nadie reporta, el mapa pinta seguro.</p></article>
+      <article><h3>El nombre</h3><p>Camino. Te dice por dónde irte, no solo por dónde no.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Los cinco roles">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Cinco en el grupo, cinco trabajos distintos</h1>
+  <div class="stage">
+    <div class="roles">
+      <article><h3>Quien escribe</h3><p>Llenas la hoja. No decides, escribes lo que el grupo acordó.</p></article>
+      <article><h3>Quien pregunta</h3><p>Tu trabajo es incomodar. Que el problema sea real de verdad.</p></article>
+      <article><h3>Quien busca los datos</h3><p>La casilla 3 es tuya. Si los datos no existen, el grupo cambia de idea.</p></article>
+      <article><h3>Quien desconfía</h3><p>La casilla 4 es tuya. Nadie presenta con esa casilla vacía.</p></article>
+      <article><h3>Quien presenta</h3><p>Hablas los 45 segundos. De pie y sin leer.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Doce minutos">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <div class="stage" style="flex-direction:column;align-items:flex-start;justify-content:center;margin-top:0">
+    <p class="timer">12<br>minutos</p>
+    <div class="chips">
+      <span>Problema</span><span>Trabajo</span><span>Datos</span><span>Daño</span><span>Nombre</span>
+    </div>
+    <p class="sub" style="margin-top:26px;font-weight:700">La casilla del daño no puede quedar vacía.</p>
+  </div>
+</section>
+
+<section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="Ensayen una vez">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <div class="order"><p>Elijan quién presenta.<br><em>Ensayen una vez, en voz baja.</em></p></div>
+</section>
+
 <section class="slide hero" data-act="3" contenteditable="true" spellcheck="true" aria-label="45 segundos">
   <div class="map"><i></i><i></i><i></i></div>
   <div class="hero__art"><img src="assets/art/taller.jpg" alt=""></div>
@@ -534,6 +841,13 @@ html, body {
     <p class="hero__word">45<br>segundos</p>
     <p class="hero__hint">Un grupo. Una idea. Ni un segundo más.</p>
   </div>
+</section>
+
+<section class="slide gift" data-act="3" contenteditable="true" spellcheck="true" aria-label="Cual construirias tu">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h" style="font-size:86px;max-width:14ch">¿Cuál construirías tú?</h1>
+  <p class="sub" style="font-weight:700;color:var(--ink)">Mano arriba por el grupo que te convenció.</p>
 </section>
 
 <section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="La carrera cambio">
@@ -545,9 +859,22 @@ html, body {
       <article class="card"><span class="card__n">01</span><h3>De escribir a decidir</h3><p>Hace diez años ser ingeniero era escribir línea por línea. Hoy la máquina escribe muchas de esas líneas.</p></article>
       <article class="card card--acc"><span class="card__n">02</span><h3>Subió de valor lo que acabas de hacer</h3><p>Definir el problema, elegir los datos, prever el daño.</p></article>
       <article class="card"><span class="card__n">03</span><h3>Lo que no reemplaza</h3><p>Criterio, gusto, ética y saber trabajar con gente. No sabe qué vale la pena resolver en tu barrio.</p></article>
-      <article class="card"><span class="card__n">04</span><h3>Por eso te necesitamos</h3><p>Estas máquinas se entrenaron lejos, con datos que no son de acá. Alguien tiene que construir la versión que sí nos entienda.</p></article>
+      <article class="card"><span class="card__n">04</span><h3>Bajó la barrera de entrada</h3><p>Con una idea clara y buenas preguntas se construye algo real en una tarde.</p></article>
     </div>
   </div>
+</section>
+
+<section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="Ese alguien esta en esta sala">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:46px;max-width:24ch;opacity:.82">Alguien tiene que construir la versión que sí nos entienda</h1>
+  <p class="punch" style="font-size:64px;max-width:15ch">Ese alguien está en esta sala.</p>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Terco con las preguntas">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h" style="font-size:68px;max-width:22ch">No necesitas ser un genio en matemáticas. Necesitas ser <span class="mk">terco con las preguntas</span>.</h1>
 </section>
 
 <section class="slide gift" data-act="3" contenteditable="true" spellcheck="true" aria-label="Tres pasos">
@@ -560,6 +887,19 @@ html, body {
     <li><b>Este año</b><span>Busca una comunidad. Nadie llega solo a esto.</span></li>
   </ol>
   <span class="shoot">Fotografía esto</span>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Donde buscar comunidad">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Y esa comunidad existe, y es gratis</h1>
+  <div class="stage">
+    <div class="cards cards--3">
+      <article class="card card--acc"><h3>Tribu IA</h3><p>Comunidad de inteligencia artificial en Colombia. Entrar no cuesta y no piden título.</p></article>
+      <article class="card"><h3>Cómo sabes que es la buena</h3><p>Si puedes preguntar algo básico sin que nadie se ría, te quedas.</p></article>
+      <article class="card"><h3>Con qué llegas</h3><p>Con la hoja que acabas de llenar. Ya tienes de qué hablar.</p></article>
+    </div>
+  </div>
 </section>
 
 <section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="La pregunta respondida">

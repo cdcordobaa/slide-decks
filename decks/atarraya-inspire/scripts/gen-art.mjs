@@ -44,7 +44,14 @@ const ART = [
    `Four young friends crammed into a small garage workspace at the turn of the millennium, bulky
     CRT monitors, tangled cables, pizza boxes, a hand-drawn map of the Americas taped to the wall
     with a pin on the south, single lamp burning late at night, messy and full of ambition.`],
+  /* Dos imagenes para el mismo tramo, y el orden importa. "datos" acompana las
+     tres preguntas amables y no puede insinuar nada: si la sala huele la trampa
+     antes de tiempo, el golpe se cae. El anzuelo entra despues del golpe. */
   ["datos", "3:4", POSTER,
+   `Two Colombian teenagers sitting side by side on a school staircase, leaning in and talking,
+    both laughing, one gesturing mid sentence, an open notebook resting on a knee, warm morning
+    light, completely ordinary and friendly. No phones, no screens, no locks, no keys.`],
+  ["anzuelo", "3:4", POSTER,
    `A friendly smiling figure casually holding a fishing rod; the line hooks a floating cluster of
     small glowing personal objects drifting out of a phone: a pet collar name tag, a birthday
     cake, a tiny school building, a house key. The objects glow like bait. Playful, not scary.`],

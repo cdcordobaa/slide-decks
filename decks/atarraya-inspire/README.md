@@ -8,7 +8,7 @@ Adriana.
 
 | Pieza | Donde vive | Quien la ve |
 |-------|------------|-------------|
-| **El deck** | Este repo, `charla.html` | La sala. 28 laminas de proyeccion |
+| **El deck** | Este repo, `charla.html` | La sala. 54 laminas de proyeccion |
 | **La escaleta** | [Notion](https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b) | Ustedes dos. Horas, reparto, guiones, materiales, pendientes |
 
 La escaleta es un documento de trabajo, no algo que se proyecta, y por eso vive
@@ -35,6 +35,28 @@ desmonta en orden:
 2. **La deciden los que saben mucho.** Una red neuronal entrenada en vivo.
 3. **La decide quien la construye.** El taller y el cierre.
 
+## Un momento de la escaleta no es una lamina
+
+La escaleta tiene 28 momentos y el deck tiene 54 laminas, y eso esta bien: un
+momento de 16 minutos no puede ser una sola lamina. Donde la relacion no es
+uno a uno:
+
+| Momento | Laminas | Por que |
+|---------|---------|---------|
+| 07 · Grita tu app | 2 | Despues de gritar hay que mostrar la respuesta |
+| 08 · Cristian | 5 | Indice progresivo: se ilumina el momento en curso |
+| 11 · Adriana | 5 | Igual, mas la frase dirigida a los hombres de la sala |
+| 13 · Seis voluntarios | 2 | El peso de cada neurona tambien va proyectado |
+| 15 · Perro o gato | 6 | Un caso por lamina, y la rejilla solo al final |
+| 19 · El golpe | 4 | Reveal, ingenieria social, su oficio, y el sesgo |
+| 22 y 23 · El taller | 5 | Plantilla, ejemplo resuelto, roles, cronometro |
+| 24 · 45 segundos | 3 | Ensayo, presentaciones, votacion |
+| 25 · La carrera cambio | 3 | El encuadre de pais y el antimito, cada uno solo |
+| 26 · Tres pasos | 2 | "Busca una comunidad" sin decir cual no sirve |
+
+La regla que no cambia: **lo que no este en "En pantalla" no se proyecta.** Que
+un momento ocupe cinco laminas no autoriza a subir el guion a ninguna de ellas.
+
 ## Sistema visual
 
 Cartel de calle: papel calido, tinta casi negra, bordes gruesos y sombras duras
@@ -54,7 +76,7 @@ respuestas va la charla, sin decir la hora. El reloj es asunto de la escaleta.
 
 `assets/globant-ink.svg` (monocromo, fondos claros y de color) y
 `assets/globant-white.png` (laminas oscuras y de imagen). Esquina superior
-derecha de las 28 laminas, 25 px de alto. Origen:
+derecha de todas las laminas, 25 px de alto. Origen:
 `decks/harness-talk/cards-v3/assets/`.
 
 ## Arte
@@ -66,10 +88,16 @@ fotos de los casos del clasificador. Viven en `assets/art/`.
 |-----------------|----------------------|-----------------------------------------|
 | `apertura.jpg`  | Portada              | Salon lleno de manos levantadas         |
 | `garaje.jpg`    | Respuesta 1          | Cuatro amigos, garaje, ano 2000         |
-| `datos.jpg`     | Respuesta 2, vertical| Anzuelo que pesca datos personales      |
+| `datos.jpg`     | Respuesta 2, vertical| Dos chicos conversando, sin ninguna pista|
+| `anzuelo.jpg`   | Respuesta 2, vertical| Anzuelo que pesca datos personales      |
 | `taller.jpg`    | Respuesta 3          | Grupos presentando su asistente         |
 | `futuro.jpg`    | Cierre               | Adolescente sobre Bogota al amanecer    |
 | `zoo-1..5.jpg`  | Respuesta 2          | Los cinco casos ambiguos perro / gato   |
+
+`datos.jpg` y `anzuelo.jpg` son la misma escena en dos tiempos, y el orden es lo
+unico que importa: la lamina de las tres preguntas amables no puede insinuar
+nada, porque si un solo chico huele la trampa antes de tiempo el golpe se cae.
+El anzuelo entra despues, cuando ya se revelo.
 
 Los cinco casos **no son decoracion**: son el material del ejercicio y
 reemplazan las cinco impresiones del kit. Cada uno rompe a proposito alguna de
@@ -87,15 +115,23 @@ node scripts/gen-art.mjs --list          # ver los briefs sin generar
 El script no tiene dependencias y comprime a JPEG con `sips` al terminar: el
 deck completo pesa 3,5 MB en vez de 18. Si `sips` no existe se queda el PNG.
 
-## Fotos reales que faltan
+## Fotos reales
 
-Van en `assets/fotos/` y son lo unico de diseno que bloquea el deck. Mientras no
-esten, esas laminas muestran un panel oscuro con el nombre, que se ve
-intencional pero no es lo que queremos.
+Van en `assets/fotos/` y son lo unico de diseno que sigue abierto.
 
-- `cristian.jpg` y `adriana.jpg`, algo no laboral
-- `cristian-15.jpg`, foto de adolescente
-- `adriana-equipo.jpg`, en su equipo hoy
+| Archivo | Estado |
+|---------|--------|
+| `cristian.jpg` | Listo. Maraton, no laboral, sirve |
+| `adriana.jpg` | Listo. Selfie en el avion, no laboral, sirve |
+| `cristian-15.jpg` | **Falta.** Hoy tiene la misma foto de adulto |
+| `adriana-equipo.jpg` | **Falta.** Hoy tiene la misma selfie del avion |
+
+Los dos que faltan van a sangre completa en su lamina, asi que se notan. La de
+Cristian a los 15 es la mas valiosa del deck: es donde 40 chicos de 15 se ven
+reflejados, y si no existe una de esa edad sirve cualquiera anterior a la
+universidad. La de Adriana tiene que ser **con su equipo**, y mejor si se nota
+que es la unica mujer o casi: la lamina se llama "Lo que hago hoy" y el punto
+es el equipo, no la cara.
 
 No se generan con IA: son personas reales. El resto de pendientes (los de
 contenido) esta en la escaleta.
