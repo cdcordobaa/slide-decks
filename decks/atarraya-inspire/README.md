@@ -8,7 +8,7 @@ Adriana.
 
 | Pieza | Donde vive | Quien la ve |
 |-------|------------|-------------|
-| **El deck** | Este repo, `charla.html` | La sala. 46 laminas de proyeccion |
+| **El deck** | Este repo, `charla.html` | La sala. 52 laminas de proyeccion |
 | **La escaleta** | [Notion](https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b) | Ustedes dos. Horas, reparto, guiones, materiales, pendientes |
 
 La escaleta es un documento de trabajo, no algo que se proyecta, y por eso vive
@@ -37,7 +37,7 @@ desmonta en orden:
 
 ## Un momento de la escaleta no es una lamina
 
-La escaleta tiene 28 momentos y el deck tiene 46 laminas, y eso esta bien: un
+La escaleta tiene 28 momentos y el deck tiene 52 laminas, y eso esta bien: un
 momento de 16 minutos no puede ser una sola lamina. Donde la relacion no es
 uno a uno:
 
@@ -51,12 +51,22 @@ uno a uno:
 | 19 · El golpe | 4 | Reveal, ingenieria social, su oficio, y el sesgo |
 | 22 y 23 · El taller | 5 | Plantilla, ejemplo resuelto, roles, cronometro |
 | 24 · 45 segundos | 3 | Ensayo, presentaciones, votacion |
-| 25 · La carrera cambio | 3 | El encuadre de pais y el antimito, cada uno solo |
-| 26 · Tres pasos | 2 | "Busca una comunidad" sin decir cual no sirve |
+| 25 · La carrera cambio | 1 | Las cuatro tarjetas |
+| 25b · Esto ya paso antes | 3 | El escriba, el piso minimo, y los roles sin nombre |
+| 25c · Tribu iA | 1 | Las seis caras |
+| 26 · Tres pasos | 2 | La comunidad primero, y despues los tres pasos |
 
 Fuera de esa cuenta va **un bonus track**: una lamina sobre NotebookLM entre
 "la decide quien se atreve" y el cierre. No sale de ningun momento de la
 escaleta, es el regalo con el que se van.
+
+El cierre corre seguido: la carrera cambio, el escriba, las seis caras, la
+comunidad, los tres pasos, la pregunta respondida. Se sacaron cuatro laminas que
+rompian esa linea (el encuadre de pais, el antimito, y las dos de "que te dejen
+entrar no es lo mismo que te hagan sitio"). **Esas frases siguen en la escaleta
+como texto hablado**, que es donde importan: las dos ultimas son las que
+resuelven la contradiccion entre "aca no importa de donde vienes" y las dos
+horas que la sala acaba de oir sobre a quien si le preguntaron si cabia.
 
 La regla que no cambia: **lo que no este en "En pantalla" no se proyecta.** Que
 un momento ocupe cinco laminas no autoriza a subir el guion a ninguna de ellas.
@@ -95,6 +105,7 @@ fotos de los casos del clasificador. Viven en `assets/art/`.
 | `datos.jpg`     | Respuesta 2, vertical| Dos chicos conversando, sin ninguna pista|
 | `anzuelo.jpg`   | Respuesta 2, vertical| Anzuelo que pesca datos personales      |
 | `taller.jpg`    | Respuesta 3          | Grupos presentando su asistente         |
+| `escriba.jpg`   | Cierre               | Escribano de plaza y la fila que espera |
 | `futuro.jpg`    | Cierre               | Adolescente sobre Bogota al amanecer    |
 | `zoo-1..5.jpg`  | Respuesta 2          | Los cinco casos ambiguos perro / gato   |
 
@@ -139,6 +150,45 @@ es el equipo, no la cara.
 
 No se generan con IA: son personas reales. El resto de pendientes (los de
 contenido) esta en la escaleta.
+
+## Las seis caras de Tribu
+
+Viven en `assets/tribu/`, `a.jpg` a `f.jpg`, en el orden en que llegaron. Se
+recortan a 373x229 con la cara al 28% de la altura.
+
+| Archivo | Quien | Titulo proyectado |
+|---------|-------|-------------------|
+| `a.jpg` | Jamilton Quintero | Lider y referente tecnologico |
+| `b.jpg` | Angel Varela | Researcher y founder tech |
+| `c.jpg` | John Alexander Paez | Lider tech |
+| `d.jpg` | Ana Milena Alonso | Consultora tecnologica |
+| `e.jpg` | Adriana Vergara | Consultora legal tech |
+| `f.jpg` | Andrea Caro | Comunicadora de tecnologia |
+
+El `onerror="this.remove()"` de cada `img` deja la celda como panel oscuro si
+falta el archivo, en vez del icono de imagen rota de Chrome.
+
+La clase `tribu--remate` pone el marco de color en la persona que cierra el
+argumento. Va por clase y no por posicion, para que no la herede quien quede de
+ultimo al reordenar. **Hoy no la lleva nadie:** falta decidir quien remata.
+
+La escaleta pide **permiso explicito** de cada persona para proyectar cara y
+nombre en un colegio.
+
+### El logo de la comunidad
+
+`assets/tribu-ia.png` (azul y rojo, para fondo claro) y `assets/tribu-ia-dark.png`
+(cian y magenta, para fondo oscuro). Salieron de
+`decks/product-eng-colombia/cards/assets/brand/`.
+
+Aparece en dos sitios. En la lamina de las seis caras va arriba a la izquierda,
+en espejo del logo de Globant, para que la rejilla se lea como "de esta
+comunidad" sin gastar una linea de texto. En la lamina de "y esa comunidad
+existe" reemplaza al titulo de la primera tarjeta, que pasa a fondo tinta: la
+version de fondo oscuro es cian y magenta, o sea dos de los acentos del deck,
+asi que el logo entra sin pelearse con la paleta.
+
+La marca se escribe **Tribu iA**, con i minuscula, que es como va en el logo.
 
 ## Renderizar
 

@@ -11,7 +11,7 @@
   "companion": "Escaleta en Notion: https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b",
   "visual_system": "Cartel serigrafico: papel calido, tinta negra, bloques saturados, arte generado con Gemini",
   "logo": "assets/globant-ink.svg, assets/globant-white.png",
-  "slides": 55
+  "slides": 48
 }
 </script>
 <style>
@@ -342,12 +342,44 @@ html, body {
 .deck { counter-reset: slide; }
 .slide { counter-increment: slide; }
 .slide::after {
-  content: counter(slide) " / 46";
+  content: counter(slide) " / 48";
   position: absolute; right: 18px; bottom: 16px; z-index: 8;
   background: var(--ink); color: var(--paper);
   font-size: 11px; font-weight: 800; letter-spacing: .14em;
   padding: 5px 9px; pointer-events: none;
 }
+
+/* ---------- las seis caras de Tribu ----------
+ * Ninguna estudio tecnologia y todas hacen tecnologia. El rol va grande porque
+ * el rol es el argumento; el nombre y lo que hacen hoy se dicen en voz alta. */
+.tribu { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 16px; width: 100%; height: 100%; }
+.tribu figure {
+  position: relative; margin: 0; overflow: hidden; background: var(--ink);
+  border: var(--bd) solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.tribu img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
+.tribu figcaption {
+  position: relative; z-index: 2; padding: 15px 17px;
+  background: linear-gradient(0deg, rgba(20,19,26,.96) 0%, rgba(20,19,26,.72) 62%, rgba(20,19,26,0) 100%);
+}
+.tribu b {
+  display: block; font-family: var(--display); font-size: 22px; line-height: 1.02;
+  font-weight: 900; letter-spacing: -.025em; text-transform: uppercase; color: var(--paper);
+}
+.tribu span:empty { display: none; }
+.tribu span { display: block; margin-top: 6px; font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--amarillo); }
+/* El marco de color marca a la persona que remata el argumento. Se pone con
+ * la clase, no por posicion, para que no lo herede quien quede de ultimo. */
+.tribu figure.tribu--remate { border-color: var(--acc); box-shadow: 8px 8px 0 var(--acc); }
+
+/* ---------- marca de la comunidad ----------
+ * Va arriba a la izquierda, en espejo del logo de Globant, para que las seis
+ * caras se lean como "de esta comunidad" sin gastar una linea de texto. */
+.tribu-mark { position: absolute; top: 32px; left: var(--pad); height: 30px; width: auto; z-index: 7; display: block; }
+.card--marca { background: var(--ink); }
+.card--marca img { width: 100%; max-width: 220px; height: auto; display: block; margin-bottom: 4px; }
+.card--marca p { color: rgba(246,242,232,.82); }
 
 @media print {
   html, body { background: #fff; }
@@ -793,17 +825,59 @@ html, body {
   </div>
 </section>
 
-<section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="Ese alguien esta en esta sala">
+<section class="slide hero" data-act="3" contenteditable="true" spellcheck="true" aria-label="El escriba">
   <div class="map"><i></i><i></i><i></i></div>
+  <div class="hero__art"><img src="assets/art/escriba.jpg" alt=""></div>
   <img class="brand" src="assets/globant-white.png" alt="Globant">
-  <h1 class="h" style="font-size:46px;max-width:24ch;opacity:.82">Alguien tiene que construir la versión que sí nos entienda</h1>
-  <p class="punch" style="font-size:64px;max-width:15ch">Ese alguien está en esta sala.</p>
+  <div class="hero__body">
+    <p class="hero__word hero__word--sm">Escribir fue un oficio</p>
+    <p class="hero__hint">Alguien cobraba por escribir las cartas de los demás</p>
+  </div>
 </section>
 
-<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Terco con las preguntas">
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Hoy carrera manana piso">
   <div class="map"><i></i><i></i><i></i></div>
   <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h" style="font-size:68px;max-width:22ch">No necesitas ser un genio en matemáticas. Necesitas ser <span class="mk">terco con las preguntas</span>.</h1>
+  <h1 class="h" style="font-size:68px;max-width:20ch">Lo que hoy es una carrera, mañana es <span class="mk">un piso</span></h1>
+  <p class="sub">Trabajar con tecnología va a ser como leer. No una profesión, un requisito.</p>
+</section>
+
+<section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="Todavia no tienen nombre">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-white.png" alt="Globant">
+  <h1 class="h" style="font-size:62px;max-width:27ch">Los trabajos que vas a tener todavía no tienen nombre</h1>
+  <p class="punch" style="font-size:34px;max-width:32ch;margin-top:26px">Y por eso no hay una carrera que los enseñe.</p>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Seis personas de Tribu">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <img class="tribu-mark" src="assets/tribu-ia.png" alt="Tribu iA">
+  <h1 class="h h--sm">Líderes y referentes de la comunidad</h1>
+  <p class="sub" style="font-weight:800;color:var(--ink);margin-top:12px">Ninguna de estas seis personas estudió tecnología.</p>
+  <div class="stage" style="margin-top:20px">
+    <div class="tribu">
+      <figure><img onerror="this.remove()" src="assets/tribu/a.jpg" alt=""><figcaption><b>Jamilton Quintero</b><span>Líder y referente tecnológico</span></figcaption></figure>
+      <figure><img onerror="this.remove()" src="assets/tribu/b.jpg" alt=""><figcaption><b>Ángel Varela</b><span>Researcher y founder tech</span></figcaption></figure>
+      <figure><img onerror="this.remove()" src="assets/tribu/c.jpg" alt=""><figcaption><b>John Alexander Páez</b><span>Líder tech</span></figcaption></figure>
+      <figure><img onerror="this.remove()" src="assets/tribu/d.jpg" alt=""><figcaption><b>Ana Milena Alonso</b><span>Consultora tecnológica</span></figcaption></figure>
+      <figure><img onerror="this.remove()" src="assets/tribu/e.jpg" alt=""><figcaption><b>Adriana Vergara</b><span>Consultora legal tech</span></figcaption></figure>
+      <figure><img onerror="this.remove()" src="assets/tribu/f.jpg" alt=""><figcaption><b>Andrea Caro</b><span>Comunicadora de tecnología</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Donde buscar comunidad">
+  <div class="map"><i></i><i></i><i></i></div>
+  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
+  <h1 class="h h--sm">Y esa comunidad existe, y es gratis</h1>
+  <div class="stage">
+    <div class="cards cards--3">
+      <article class="card card--marca"><img src="assets/tribu-ia-dark.png" alt="Tribu iA"><p>Comunidad de inteligencia artificial en Colombia. Entrar no cuesta y no piden título.</p></article>
+      <article class="card"><h3>Cómo sabes que es la buena</h3><p>Si puedes preguntar algo básico sin que nadie se ría, te quedas.</p></article>
+      <article class="card"><h3>Con qué llegas</h3><p>Con la hoja que acabas de llenar. Ya tienes de qué hablar.</p></article>
+    </div>
+  </div>
 </section>
 
 <section class="slide gift" data-act="3" contenteditable="true" spellcheck="true" aria-label="Tres pasos">
@@ -813,22 +887,9 @@ html, body {
   <ol class="gift__list">
     <li><b>Hoy</b><span>Usa una IA para aprender algo, no para que te haga la tarea. Pídele lo mismo tres veces, más simple cada vez.</span></li>
     <li><b>Este mes</b><span>Termina una cosa pequeña y muéstrasela a alguien. Terminar vale más que perfeccionar.</span></li>
-    <li><b>Este año</b><span>Busca una comunidad. Nadie llega solo a esto.</span></li>
+    <li><b>Este año</b><span>Busca una comunidad. Es lo que hicieron las seis personas que acabas de ver.</span></li>
   </ol>
   <span class="shoot">Fotografía esto</span>
-</section>
-
-<section class="slide" data-act="3" contenteditable="true" spellcheck="true" aria-label="Donde buscar comunidad">
-  <div class="map"><i></i><i></i><i></i></div>
-  <img class="brand" src="assets/globant-ink.svg" alt="Globant">
-  <h1 class="h h--sm">Y esa comunidad existe, y es gratis</h1>
-  <div class="stage">
-    <div class="cards cards--3">
-      <article class="card card--acc"><h3>Tribu IA</h3><p>Comunidad de inteligencia artificial en Colombia. Entrar no cuesta y no piden título.</p></article>
-      <article class="card"><h3>Cómo sabes que es la buena</h3><p>Si puedes preguntar algo básico sin que nadie se ría, te quedas.</p></article>
-      <article class="card"><h3>Con qué llegas</h3><p>Con la hoja que acabas de llenar. Ya tienes de qué hablar.</p></article>
-    </div>
-  </div>
 </section>
 
 <section class="slide dark" data-act="3" contenteditable="true" spellcheck="true" aria-label="La pregunta respondida">
