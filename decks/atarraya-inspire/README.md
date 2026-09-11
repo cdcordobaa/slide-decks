@@ -8,7 +8,7 @@ Adriana.
 
 | Pieza | Donde vive | Quien la ve |
 |-------|------------|-------------|
-| **El deck** | Este repo, `charla.html` | La sala. 52 laminas de proyeccion |
+| **El deck** | Este repo, `charla.html` | La sala. 48 laminas de proyeccion |
 | **La escaleta** | [Notion](https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b) | Ustedes dos. Horas, reparto, guiones, materiales, pendientes |
 
 La escaleta es un documento de trabajo, no algo que se proyecta, y por eso vive
@@ -37,7 +37,7 @@ desmonta en orden:
 
 ## Un momento de la escaleta no es una lamina
 
-La escaleta tiene 28 momentos y el deck tiene 52 laminas, y eso esta bien: un
+La escaleta tiene 28 momentos y el deck tiene 48 laminas, y eso esta bien: un
 momento de 16 minutos no puede ser una sola lamina. Donde la relacion no es
 uno a uno:
 
