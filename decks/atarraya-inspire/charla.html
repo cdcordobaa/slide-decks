@@ -11,7 +11,7 @@
   "companion": "Escaleta en Notion: https://www.notion.so/arkatechie/3d550d30822781fd8fd7edd72fabfb0b",
   "visual_system": "Cartel serigrafico: papel calido, tinta negra, bloques saturados, arte generado con Gemini",
   "logo": "assets/globant-ink.svg, assets/globant-white.png",
-  "slides": 48
+  "slides": 49
 }
 </script>
 <style>
@@ -342,7 +342,7 @@ html, body {
 .deck { counter-reset: slide; }
 .slide { counter-increment: slide; }
 .slide::after {
-  content: counter(slide) " / 48";
+  content: counter(slide) " / 49";
   position: absolute; right: 18px; bottom: 16px; z-index: 8;
   background: var(--ink); color: var(--paper);
   font-size: 11px; font-weight: 800; letter-spacing: .14em;
@@ -380,6 +380,15 @@ html, body {
 .card--marca { background: var(--ink); }
 .card--marca img { width: 100%; max-width: 220px; height: auto; display: block; margin-bottom: 4px; }
 .card--marca p { color: rgba(246,242,232,.82); }
+
+/* ---------- lamina pegada ----------
+ * Una pieza que viene de afuera y no se rehace: se monta sobre el papel con el
+ * marco y la sombra del deck, ligeramente torcida, como un recorte pegado. El
+ * collage es parte del lenguaje del cartel, asi que la costura se ve a
+ * proposito en vez de disimularse. */
+.pasted { background: var(--paper); padding: 40px; align-items: center; justify-content: center; }
+.pasted figure { margin: 0; line-height: 0; background: var(--white); border: var(--bd) solid var(--ink); box-shadow: 14px 14px 0 var(--ink); transform: rotate(-1.1deg); }
+.pasted figure img { display: block; height: 552px; width: auto; }
 
 @media print {
   html, body { background: #fff; }
@@ -926,6 +935,11 @@ html, body {
     <p class="hero__word hero__word--sm">Hojas en alto</p>
     <p class="hero__hint">Nos quedamos un rato más, por si quieres preguntar algo</p>
   </div>
+</section>
+
+<section class="slide pasted" data-act="3" contenteditable="true" spellcheck="true" aria-label="Asistencia de hoy">
+  <div class="map"><i></i><i></i><i></i></div>
+  <figure><img src="assets/asistencia.png" alt="Asistencia de hoy. Escanea el QR o entra a bit.ly/asistencia-ia-hoy"></figure>
 </section>
 
 </main>

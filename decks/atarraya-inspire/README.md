@@ -56,9 +56,23 @@ uno a uno:
 | 25c · Tribu iA | 1 | Las seis caras |
 | 26 · Tres pasos | 2 | La comunidad primero, y despues los tres pasos |
 
-Fuera de esa cuenta va **un bonus track**: una lamina sobre NotebookLM entre
-"la decide quien se atreve" y el cierre. No sale de ningun momento de la
-escaleta, es el regalo con el que se van.
+Fuera de esa cuenta van **dos laminas que no salen de ningun momento**: el
+bonus track de NotebookLM, entre "la decide quien se atreve" y el cierre, que es
+el regalo con el que se van; y la de asistencia, de ultima, despues de la foto
+grupal, cuando la sala ya se esta parando.
+
+La de asistencia (`assets/asistencia.png`) es **la plantilla de Globant tal
+cual**, sin rehacer. Se monta con `.pasted`: papel de fondo, el marco y la
+sombra dura del deck, y una rotacion de -1.1 grados. La costura se ve a
+proposito, que es como funciona el collage en un cartel, en vez de fingir que la
+pieza nacio aca. No lleva nuestro logo porque la imagen ya trae el suyo.
+
+Dos cosas de esa lamina sin resolver. **`bit.ly/asistencia-ia-hoy` responde
+404**, con HEAD y con GET siguiendo redirecciones: hay que crearlo o corregirlo
+antes del 11, porque va impreso en la lamina y la sala lo va a teclear. Y **el
+QR no esta verificado**: aca no hay con que decodificarlo, asi que conviene
+escanearlo una vez con un celular para confirmar que apunta al formulario de
+este encuentro y no al de otro.
 
 El cierre corre seguido: la carrera cambio, el escriba, las seis caras, la
 comunidad, los tres pasos, la pregunta respondida. Se sacaron cuatro laminas que
