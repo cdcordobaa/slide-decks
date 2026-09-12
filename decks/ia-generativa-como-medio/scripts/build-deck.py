@@ -31,49 +31,82 @@ def css_plantilla():
 # Solo lo que la plantilla no contempla: sangrado completo, texto sobre imagen,
 # modo presentacion con temporizador de 20 s.
 CSS = """
-:root{--paper:#F2EFE7;--ink:#16150F;--muted:#6E6A5E;--mut:#6E6A5E;--line:#D6D0C1;--ac:#2B3FD9;--accent:#2B3FD9;
- --w:1280px;--h:720px;color-scheme:light;
- --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
- --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
-*{box-sizing:border-box}body{margin:0;background:#DEDACE;color:var(--ink);font-family:var(--sans)}
-.edit-toolbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
- padding:10px 18px;background:rgba(242,239,231,.96);border-bottom:1px solid var(--line);
- backdrop-filter:blur(10px);font-size:13px;color:var(--mut)}
-.edit-toolbar strong{color:var(--ink);font-weight:600}.edit-toolbar .sp{flex:1}
-.edit-toolbar button{font:inherit;font-weight:600;color:var(--ink);background:var(--paper);
- border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
-.edit-toolbar button:hover{border-color:var(--ac);color:var(--ac)}
+/* ---- capa Pecha Kucha: sistema gráfico propio ---- */
+:root{--paper:#F2EFE7;--ink:#12110D;--muted:#7A7566;--mut:#7A7566;--line:#CFC8B7;
+ --ac:#1B2FE8;--accent:#1B2FE8;--w:1280px;--h:720px;
+ --cond:"Avenir Next Condensed","Avenir Next",Inter,system-ui,sans-serif;
+ --serif:"New York","Iowan Old Style",Palatino,Georgia,serif;
+ --mono:Menlo,"SF Mono",ui-monospace,monospace}
+body{background:#DAD6C9;font-family:var(--cond)}
 .deck{display:grid;gap:26px;justify-items:center;padding:26px}
-.slide{position:relative;width:var(--w);height:var(--h);overflow:hidden;background:var(--paper);padding:0;border-radius:0;box-shadow:none;
- border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;
- align-items:center;text-align:center}
+.slide{position:relative;width:var(--w);height:var(--h);overflow:hidden;background:var(--paper);
+ padding:0;border:1px solid var(--line);border-radius:0;box-shadow:none;display:block;color:var(--ink)}
 .slide:focus{outline:3px solid var(--ac);outline-offset:6px}
 .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.dark::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
- background:linear-gradient(to top,rgba(8,8,6,.72) 0%,rgba(8,8,6,.34) 26%,rgba(8,8,6,0) 52%)}
-.slide .num{position:absolute;right:26px;bottom:20px;font-size:12px;letter-spacing:.14em;
- color:var(--mut);font-variant-numeric:tabular-nums;z-index:3}
-.slide.dark .num{color:rgba(242,239,231,.6)}
-.slide .palabra{position:absolute;left:72px;bottom:64px;z-index:2;margin:0;font-family:var(--serif);
- font-size:88px;line-height:1;color:#F2EFE7;letter-spacing:-.015em}
-.slide .frase{margin:0;font-family:var(--serif);font-size:58px;line-height:1.22;max-width:32ch;margin:0}
-.slide .pie{position:absolute;left:72px;bottom:64px;z-index:2;margin:0;text-align:left;
- font-family:var(--serif);font-size:42px;line-height:1.24;color:#F2EFE7;max-width:28ch}
-@page{size:13.333in 7.5in;margin:0}
-@media print{body{background:#fff}.edit-toolbar,.pbar,.hud{display:none!important}
- .deck{display:block;padding:0;gap:0}
- .slide{width:13.333in;height:7.5in;border:none;break-after:page;page-break-after:always}
- .slide:last-child{break-after:auto}}
-body.present{background:#0E0E0C;overflow:hidden}
-body.present .edit-toolbar{display:none}body.present .deck{display:block;padding:0}
-body.present .slide{display:none;border:none}
-body.present .slide.on{display:flex;position:fixed;top:50%;left:50%;
- transform:translate(-50%,-50%) scale(var(--k,1));transform-origin:center}
-.pbar{display:none}body.present .pbar{display:block;position:fixed;left:0;bottom:0;height:5px;
- width:100%;background:rgba(255,255,255,.14);z-index:30}
-body.present .pbar i{display:block;height:100%;width:0;background:var(--ac)}
-.hud{display:none}body.present .hud{display:flex;position:fixed;right:18px;bottom:18px;z-index:30;
- gap:12px;color:#8C887C;font-size:13px;font-variant-numeric:tabular-nums}
+ background:linear-gradient(to top,rgba(6,6,4,.80) 0%,rgba(6,6,4,.40) 30%,rgba(6,6,4,0) 58%)}
+
+/* aparato gráfico común: se reconoce sin las fotos */
+.slide .marco{position:absolute;inset:0;z-index:4;pointer-events:none}
+.slide .rot{position:absolute;top:38px;left:56px;font-family:var(--mono);font-size:13px;
+ letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+.slide .nm{position:absolute;top:24px;right:52px;font-family:var(--cond);font-weight:700;
+ font-size:78px;line-height:1;color:var(--ink);opacity:.13;letter-spacing:-.03em}
+.slide .regla{position:absolute;left:56px;right:56px;top:68px;height:1px;background:var(--line)}
+.slide.dark .rot{color:rgba(242,239,231,.72)}
+.slide.dark .nm{color:#F2EFE7;opacity:.24}
+.slide.dark .regla{background:rgba(242,239,231,.3)}
+
+/* titulares */
+.slide .titular{position:absolute;left:56px;bottom:60px;z-index:3;margin:0;font-family:var(--cond);
+ font-weight:700;font-size:70px;line-height:.95;letter-spacing:-.018em;text-transform:uppercase;
+ max-width:17ch}
+.slide.dg .titular{font-size:58px;max-width:26ch}
+.slide.dg .titular::before{content:"";position:absolute;left:0;top:-30px;width:64px;height:3px;background:var(--ac)}
+.slide.dark .titular{color:#F2EFE7}
+.slide .pregunta{position:absolute;left:56px;right:56px;top:50%;transform:translateY(-50%);z-index:3;
+ margin:0;font-family:var(--serif);font-size:62px;line-height:1.16;letter-spacing:-.01em;max-width:26ch}
+
+/* portada */
+.slide .tit{position:absolute;left:56px;bottom:132px;z-index:3;margin:0;font-family:var(--cond);
+ font-weight:700;font-size:104px;line-height:.92;letter-spacing:-.025em;text-transform:uppercase;
+ color:#F2EFE7;max-width:15ch}
+.slide .baj{position:absolute;left:56px;right:200px;bottom:64px;z-index:3;margin:0;
+ font-family:var(--serif);font-size:23px;line-height:1.35;color:rgba(242,239,231,.9)}
+
+/* diagrama de columnas */
+.dgm{position:absolute;left:56px;right:56px;top:112px;bottom:268px;z-index:2;display:flex;gap:0}
+.dgm .col{flex:1;padding:0 34px 0 0}
+.dgm .col+.col{padding:0 0 0 34px;border-left:2px solid var(--ink)}
+.dgm .col.off{opacity:.36}
+.dgm h3{margin:0 0 22px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;
+ text-transform:uppercase;color:var(--mut);font-weight:400}
+.dgm .col.on h3{color:var(--ac)}
+.dgm ul{margin:0;padding:0;list-style:none}
+.dgm li{font-family:var(--cond);font-weight:600;font-size:33px;line-height:1.26;
+ letter-spacing:-.01em;text-transform:uppercase}
+.dgm .col.on li{color:var(--ac)}
+
+/* al imprimir manda la plantilla, no la vista de edicion */
+@media print{
+  body{background:#fff}
+  .deck{display:block;padding:0;gap:0}
+  .slide{width:13.333in;height:7.5in;border:0;margin:0;break-after:page;page-break-after:always}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+}
+
+/* diagrama de flujo */
+.flj{position:absolute;left:56px;right:56px;top:112px;bottom:268px;z-index:2;
+ display:flex;align-items:center;gap:0}
+.flj .ext{flex:0 0 auto;max-width:15ch;font-family:var(--serif);font-size:24px;line-height:1.25;
+ color:var(--mut)}
+.flj .caja{flex:1;margin:0 26px;border:2px solid var(--ink);display:flex}
+.flj .caja span{flex:1;padding:30px 10px;text-align:center;font-family:var(--cond);font-weight:700;
+ font-size:30px;letter-spacing:-.005em;text-transform:uppercase}
+.flj .caja span+span{border-left:1px solid var(--line)}
+.flj .fl{flex:0 0 auto;width:34px;height:2px;background:var(--ac);position:relative}
+.flj .fl::after{content:"";position:absolute;right:0;top:-4px;border:5px solid transparent;border-left-color:var(--ac)}
+.flj .ext.sale{color:var(--ac);font-style:italic}
 """
 
 JS = """
@@ -98,16 +131,32 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&on){stop();return}if(!on)ret
  if(e.key==='ArrowLeft'){e.preventDefault();show(i-1)}});
 """
 
+def marco(c):
+    sec = {"01":"Apertura","02":"El tema","03":"El tema","04":"El tema","05":"El tema"}.get(c["id"],"")
+    return (f'<div class="marco"><span class="rot">{sec}</span>'
+            f'<span class="nm">{c["id"]}</span><span class="regla"></span></div>')
+
 def slide(c):
-    img, cp = b64(c["id"]), c.get("copy") or {}
+    cp, v = c.get("copy") or {}, c.get("visual") or {}
+    img = b64(c["id"]) if v.get("kind") == "image" else None
     dark = " dark" if img else ""
-    body = f'<img src="{img}" alt="">' if img else ""
-    if cp.get("palabra"): body += f'<p class="palabra">{cp["palabra"]}</p>'
-    if cp.get("frase"):   body += f'<p class="frase">{cp["frase"]}</p>'
-    if cp.get("pie"):     body += f'<p class="pie">{cp["pie"]}</p>'
+    if v.get("kind") in ("columnas","flujo"): dark += " dg"
+    b = f'<img src="{img}" alt="">' if img else ""
+    if cp.get("titulo"):
+        b += f'<h1 class="tit">{cp["titulo"]}</h1><p class="baj">{cp.get("bajada","")}</p>'
+    if cp.get("titular"): b += f'<p class="titular">{cp["titular"]}</p>'
+    if cp.get("pregunta"): b += f'<p class="pregunta">{cp["pregunta"]}</p>'
+    if v.get("kind") == "columnas":
+        col = lambda d, cls: ('<div class="col ' + cls + '"><h3>' + d["titulo"] + '</h3><ul>'
+                              + "".join(f"<li>{i}</li>" for i in d["items"]) + '</ul></div>')
+        b += '<div class="dgm">' + col(v["izq"], "off") + col(v["der"], "on") + '</div>'
+    if v.get("kind") == "flujo":
+        pasos = "".join(f"<span>{p}</span>" for p in v["pasos"])
+        b += (f'<div class="flj"><div class="ext">{v["entra"]}</div><div class="fl"></div>'
+              f'<div class="caja">{pasos}</div><div class="fl"></div>'
+              f'<div class="ext sale">{v["sale"]}</div></div>')
     return (f'  <section class="slide{dark}" contenteditable="true" spellcheck="true" '
-            f'aria-label="Lámina {c["id"]} · {c["name"]}">{body}'
-            f'<span class="num" contenteditable="false">{c["id"]} / 20</span></section>')
+            f'aria-label="Lámina {c["id"]} · {c["name"]}">{b}{marco(c)}</section>')
 
 html = f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8">
@@ -135,6 +184,7 @@ html = f"""<!doctype html>
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(html, encoding="utf-8")
-con = sum(1 for c in cards if b64(c["id"]))
+con = sum(1 for c in cards if (c.get("visual") or {}).get("kind")=="image" and b64(c["id"]))
+dgm = sum(1 for c in cards if (c.get("visual") or {}).get("kind") in ("columnas","flujo"))
 print(f"escrito: {OUT} ({len(html)//1024} KB)")
-print(f"láminas: {len(cards)} · con imagen: {con} · solo tipografía: {len(cards)-con}")
+print(f"láminas: {len(cards)} · imagen: {con} · diagrama: {dgm} · otras: {len(cards)-con-dgm}")

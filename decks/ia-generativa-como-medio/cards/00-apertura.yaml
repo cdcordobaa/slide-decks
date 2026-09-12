@@ -7,7 +7,7 @@ cards:
 - id: '01'
   name: Apertura
   idea_ref: null
-  layout: imagen_sangre
+  layout: portada
   idea_central: La escena de trabajo donde ocurre todo lo demás, todavía sin explicar.
   entrega: Esto pasa en un escritorio cualquiera, hoy.
   en_pantalla: Solo imagen. Ningún texto.
@@ -32,4 +32,6 @@ cards:
       que lo que ocurre no es reemplazo ni aumento, sino una reasignación situada de roles: qué se
       delega, qué se retiene y qué se supervisa.'
   status: draft
-  copy: {}
+  copy:
+    titulo: La IA generativa<br>como medio
+    bajada: Mediaciones, criterio, autoría y la reconfiguración del trabajo creativo en América Latina
