@@ -43,6 +43,9 @@ cards:
   status: draft
   copy:
     titular: La conversación se quedó<br>en la mitad medible.
+  guion: Cuando hablamos de inteligencia artificial en el trabajo, hablamos de velocidad. Cuánto
+    tiempo ahorra, cuánto produce, cuánto cuesta. Es una mirada útil y hay buena investigación ahí.
+    Pero mide solo la mitad, y deja por fuera justo lo que me interesa.
 - id: '03'
   name: Interviene en el sentido
   idea_ref: 2
@@ -73,10 +76,13 @@ cards:
   status: draft
   copy:
     titular: No acelera el lenguaje.<br>Lo escribe contigo.
+  guion: Porque la IA no solo acelera tareas. Interviene en la producción de sentido. Sugiere, ordena,
+    completa y reformula el lenguaje con el que pensamos. Lo que ibas a decir entra por un lado,
+    y lo que queda escrito sale por el otro.
 - id: '04'
   name: Qué es un medio
   idea_ref: 3
-  layout: imagen_sangre_frase
+  layout: imagen_titular
   idea_central: Un medio importa menos por lo que transporta que por lo que reorganiza.
   entrega: Lo que una tecnología reorganiza pesa más que lo que transporta.
   en_pantalla: Imagen a sangre. Frase corta abajo a la izquierda.
@@ -100,14 +106,17 @@ cards:
   status: draft
   copy:
     titular: Lo que reorganiza pesa más<br>que lo que transporta.
+  guion: Y eso ya no es una herramienta que uno toma y suelta. McLuhan decía que una tecnología importa
+    menos por lo que transporta que por lo que reorganiza. Su mensaje no está en lo que lleva, sino
+    en la relación que instala.
 - id: '05'
   name: Qué es un ambiente
   idea_ref: 4
-  layout: imagen_sangre
+  layout: imagen_sola
   idea_central: Un ambiente no se ve desde adentro, no porque sea invisible sino porque es todo lo
     que hay.
   entrega: Un ambiente no se ve mientras estás adentro.
-  en_pantalla: Solo imagen. El momento visual más fuerte de la primera mitad.
+  en_pantalla: Imagen a sangre con el titular abajo a la izquierda.
   visual:
     kind: image
     brief: Superficie del agua vista desde abajo, a contraluz. El espectador está sumergido sin haberlo
@@ -127,3 +136,5 @@ cards:
   status: draft
   copy:
     titular: Un ambiente no se ve<br>mientras estás adentro.
+  guion: Un medio, en esa clave, es un ambiente. Y un ambiente no se ve desde adentro. No porque
+    sea invisible, sino porque es todo lo que hay. El pez sería el último en descubrir el agua.

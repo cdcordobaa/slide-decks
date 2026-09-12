@@ -7,14 +7,16 @@ cards:
 - id: '20'
   name: Cierre
   idea_ref: null
-  layout: imagen_sangre_frase
+  layout: imagen_titular
   idea_central: La misma escena de la apertura, ahora legible.
   entrega: Se puede decidir sobre esto, pero primero hay que poder verlo.
   en_pantalla: Imagen a sangre, misma escena que la 01. Frase de cierre.
   visual:
     kind: image
-    brief: El mismo escritorio de la lámina 01, mismo encuadre y misma luz, ahora con la escena resuelta
-      y legible. Debe reconocerse de inmediato.
+    brief: Un escritorio de trabajo de madera visto desde arriba, en picado cenital, con una mano
+      humana apoyada junto a un teclado, cuadernos gastados y lápices alrededor. Es exactamente la
+      misma escena y el mismo encuadre cenital de la lámina 01, la misma luz lateral dura, pero ahora
+      limpia y ordenada, legible. Solo manos humanas de carne y hueso.
     acento: true
   speaker: La rima visual con la 01 cierra sin que haya que decir 'en conclusión'.
   soporte:
@@ -28,3 +30,8 @@ cards:
       prompts”: su contribución es describir y nombrar esa reconfiguración desde la experiencia de
       profesionales creativos en latino america.'
   status: draft
+  copy:
+    titular: Se puede decidir sobre esto.<br>Primero hay que poder verlo.
+  guion: Vuelvo al escritorio del principio. No se puede decidir sobre lo que no se ve, ni ver lo
+    que no se nombra. Esta investigación es un intento de nombrarlo, desde adentro de la práctica
+    y desde acá.

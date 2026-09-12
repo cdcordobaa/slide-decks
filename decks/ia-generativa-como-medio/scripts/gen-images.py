@@ -46,7 +46,13 @@ def gen(cid, k):
     acento = (f"Acento de color: {sv['acento']}" if usa else
               "Acento de color: NINGUNO. La imagen es estrictamente monocroma. "
               "No debe aparecer ningun objeto ni detalle azul ni de ningun color saturado.")
-    prompt = f"{SISTEMA.format(acento=acento)}\n\nEscena de esta lamina: {brief}"
+    prompt = (f"{SISTEMA.format(acento=acento)}\n\nEscena de esta lamina: {brief}\n\n"
+              "REGLA FINAL, la mas importante: la fotografia llena el fotograma entero, "
+              "de borde a borde, como un fotograma de cine. Esta terminantemente prohibido "
+              "que aparezca un marco, un borde, una orla, una vineta, una esquina redondeada, "
+              "un paspartu, un reborde de papel, un efecto de copia antigua o cualquier cosa "
+              "que parezca una foto apoyada sobre una superficie. Nada de fondo alrededor "
+              "de la imagen. El encuadre es 16:9 y la escena ocupa el 100 por ciento.")
     body = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"responseModalities": ["IMAGE"],

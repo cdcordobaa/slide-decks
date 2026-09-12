@@ -7,7 +7,7 @@ cards:
 - id: '12'
   name: El binario agotado
   idea_ref: 12
-  layout: dos_bloques
+  layout: tachado
   idea_central: El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos.
   entrega: 'Ni reemplazo ni aumento: las dos respuestas fáciles fallan.'
   en_pantalla: Diagrama construido, no foto. Dos cajas enfrentadas y algo que las tacha.
@@ -19,6 +19,9 @@ cards:
     - label: AUMENTO
       result: la persona hace más de lo mismo
     note: las dos se tachan
+    tachar:
+    - Reemplazo
+    - Aumento
   soporte:
     seccion: §7.1 Justificación
     cita: 'El aporte se define frente a un debate empobrecido, atrapado entre el reemplazo y el aumento.
@@ -27,10 +30,14 @@ cards:
       (Clarke y Joffe, 2025; Mahnke, 2024), con efectos sobre la dependencia percibida y la degradación
       de habilidades (Högemann et al., 2025).'
   status: draft
+  copy:
+    titular: Las dos respuestas<br>fáciles fallan.
+  guion: Frente a esto, el debate está atrapado entre dos respuestas. O la máquina reemplaza a la
+    persona, o la persona hace más de lo mismo. Las dos son cómodas, y las dos se quedan cortas.
 - id: '13'
   name: Reasignación situada
   idea_ref: 13
-  layout: secuencia_3
+  layout: tres
   idea_central: 'Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene,
     qué se supervisa.'
   entrega: 'Lo que cambia es el reparto: qué delegas, qué retienes, qué supervisas.'
@@ -41,6 +48,13 @@ cards:
     - DELEGA
     - RETIENE
     - SUPERVISA
+    tres:
+    - - Delega
+      - borradores, opciones, estructura
+    - - Retiene
+      - intención, decisión, firma
+    - - Supervisa
+      - verifica, corrige, valida
   speaker: Clarke y Joffe. Es el supuesto que ordena toda la tesis.
   soporte:
     seccion: §7.1 Justificación
@@ -50,3 +64,8 @@ cards:
       (Clarke y Joffe, 2025; Mahnke, 2024), con efectos sobre la dependencia percibida y la degradación
       de habilidades (Högemann et al., 2025).'
   status: draft
+  copy:
+    titular: Lo que cambia<br>es el reparto.
+  guion: 'Lo que la evidencia cualitativa describe es otra cosa: una reasignación situada de roles.
+    Qué se delega, qué se retiene y qué se supervisa. No cambia quién trabaja. Cambia el reparto,
+    y cambia caso por caso.'

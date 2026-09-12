@@ -7,7 +7,7 @@ cards:
 - id: '10'
   name: Ya es masivo
   idea_ref: 24
-  layout: cifra_sobre_imagen
+  layout: imagen_cifra
   idea_central: Entre el 10 y el 24 % de la comunicación pública analizada ya tiene marcas de escritura
     asistida.
   entrega: 'Ya no es una hipótesis: está en la escritura pública que leemos.'
@@ -29,14 +29,21 @@ cards:
       internacionales anticipan además una afectación amplia del empleo regional, atravesada por
       la brecha digital (BID, 2025). Todo esto ocurre ya, dentro de las rutinas profesionales.
   status: draft
+  copy:
+    cifra: 10–24 %
+    glosa: de la comunicación pública analizada ya tiene marcas de escritura asistida
+    fuente: Liang et al., 2025
+  guion: No es una pregunta especulativa. Liang y su equipo estiman que entre el diez y el veinticuatro
+    por ciento de la comunicación pública e institucional que analizaron ya muestra marcas de redacción
+    asistida por modelos de lenguaje.
 - id: '11'
   name: Deja huella
   idea_ref: 27
-  layout: cifra_sola
+  layout: barra
   idea_central: El 83 % no pudo citar lo que acababa de escribir, y bajó su sentido de propiedad
     sobre el texto.
   entrega: El texto sale, pero no queda en quien lo escribió.
-  en_pantalla: Solo la cifra sobre el papel. Gemela de la 10, más seca.
+  en_pantalla: Cifra enorme, glosa, fuente y barra de proporción. Titular al pie.
   visual:
     kind: none
   fuente_dato: Kosmyna et al., 2025
@@ -53,3 +60,11 @@ cards:
       del vínculo autoral antes que un desenlace inevitable; por eso la voz propia queda planteada
       como algo que debe sostenerse de manera deliberada cuando el lenguaje llega previamente sugerido.
   status: draft
+  copy:
+    cifra: 83 %
+    glosa: no pudo citar lo que acababa de escribir
+    fuente: Kosmyna et al., 2025
+    titular: El texto sale.<br>No queda.
+  guion: Y deja huella. Kosmyna midió con electroencefalograma que el ochenta y tres por ciento de
+    quienes escribieron con asistencia no pudo citar lo que acababa de escribir, y bajó su sentido
+    de propiedad sobre el texto. Sale, pero no queda.

@@ -10,7 +10,7 @@ cards:
   layout: portada
   idea_central: La escena de trabajo donde ocurre todo lo demás, todavía sin explicar.
   entrega: Esto pasa en un escritorio cualquiera, hoy.
-  en_pantalla: Solo imagen. Ningún texto.
+  en_pantalla: Portada. Imagen a sangre con el título encima y la bajada al pie.
   visual:
     kind: image
     brief: Un escritorio de trabajo en penumbra, visto desde arriba. Una mano cerca de un teclado,
@@ -35,3 +35,6 @@ cards:
   copy:
     titulo: La IA generativa<br>como medio
     bajada: Mediaciones, criterio, autoría y la reconfiguración del trabajo creativo en América Latina
+  guion: 'Esto es un escritorio cualquiera, un martes cualquiera. Alguien tiene que escribir algo
+    hoy: un comunicado, una propuesta, un correo que sí importa. Lo que pasa en esa mesa en los próximos
+    minutos es de lo que vengo a hablar.'

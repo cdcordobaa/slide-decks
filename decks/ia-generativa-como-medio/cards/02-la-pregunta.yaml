@@ -7,7 +7,7 @@ cards:
 - id: '06'
   name: Pregunta problema
   idea_ref: 48
-  layout: tipografia_pico
+  layout: pregunta
   idea_central: Si el medio es el mensaje, cuál es el mensaje de la IA generativa como medio.
   entrega: Si el medio es el mensaje, hay que preguntar cuál es el de la IA.
   en_pantalla: Sin imagen. La lámina más grande tipográficamente de toda la charla.
@@ -24,10 +24,15 @@ cards:
       del sujeto: escribir una idea, organizar un argumento, producir una síntesis, elegir un tono,
       imaginar alternativas o decidir qué versión de un texto resulta más adecuada.'
   status: draft
+  copy:
+    pregunta: Si el medio es el mensaje,<br>¿cuál es el mensaje de la IA<br>generativa <em>como medio</em>?
+  guion: De ahí sale la pregunta que ordena todo mi proyecto. Si el medio es el mensaje, cuál es
+    el mensaje de la inteligencia artificial generativa como medio. Qué nos reorganiza por dentro
+    mientras no la estamos mirando.
 - id: '07'
   name: Dónde se busca
   idea_ref: 40
-  layout: mitad_imagen_texto
+  layout: imagen_diagrama
   idea_central: 'El mensaje no está en el aparato ni en lo que entrega: está en los usos cotidianos.'
   entrega: La respuesta no está en la herramienta, está en cómo la usamos a diario.
   en_pantalla: Mitad imagen, mitad texto.
@@ -36,6 +41,10 @@ cards:
     brief: 'Un escritorio real en pleno uso: papeles anotados, una taza, una pantalla fuera de foco.
       El desorden del trabajo cotidiano, no el producto terminado.'
     acento: false
+    overlay:
+      kind: contraste
+      'off': el aparato
+      'on': el uso cotidiano
   speaker: Martín-Barbero, de los medios a las mediaciones.
   soporte:
     seccion: §7.2.1 De los medios a las mediaciones
@@ -49,10 +58,15 @@ cards:
       aplica al pie de la letra: funciona como matriz para mirar el fenómeno. Esa raíz latinoamericana
       sostiene la decisión de estudiarlo desde aquí.'
   status: draft
-- id: 08
+  copy:
+    titular: La respuesta no está<br>en la herramienta.
+  guion: 'Esa respuesta no se busca en el aparato ni en lo que entrega. Martín-Barbero movió el foco
+    de los medios a las mediaciones: lo decisivo pasa en los usos cotidianos, en cómo la gente vuelve
+    cultura una tecnología.'
+- id: '08'
   name: Desde dónde
   idea_ref: 41
-  layout: imagen_sangre_palabra
+  layout: imagen_titular
   idea_central: América Latina no es el lugar donde ocurre el caso, es el lugar desde donde se mira.
   entrega: Mirar desde América Latina muestra cosas que desde el Norte no se ven.
   en_pantalla: Imagen a sangre. Una palabra.
@@ -75,10 +89,15 @@ cards:
       se deja de notar. La poca evidencia regional disponible sugiere que ese terreno es fértil y
       todavía está poco explorado (Farías Ocampo et al., 2025).
   status: draft
-- id: 09
+  copy:
+    titular: Mirar desde acá muestra<br>lo que desde el Norte<br>no se ve.
+  guion: Y se mira desde un lugar. Estudiar esto desde América Latina no es elegir un caso, es elegir
+    un punto de vista. Desde acá, con la desigualdad de acceso y los usos reales, se ven cosas que
+    los estudios del Norte no alcanzan a ver.
+- id: '09'
   name: Pregunta de investigación
   idea_ref: 49
-  layout: tipografia_sola
+  layout: pregunta
   idea_central: Cómo describen los profesionales creativos la reconfiguración de su forma de pensar,
     escribir y comunicar.
   entrega: Hay que preguntarle a quien ya trabaja así, y escuchar cómo lo describe.
@@ -95,3 +114,9 @@ cards:
       el mensaje de la IA generativa en tanto medio, y prepara el terreno para las decisiones metodológicas
       que la investigación aborda a continuación.'
   status: draft
+  copy:
+    pregunta: ¿Cómo describen los profesionales creativos la reconfiguración de su forma de <em>pensar</em>,
+      <em>escribir</em> y <em>comunicar</em>?
+  guion: Por eso mi pregunta de investigación es concreta y empírica. Cómo describen los profesionales
+    creativos la reconfiguración de su forma de pensar, escribir y comunicar cuando integran la IA
+    generativa en su trabajo de todos los días.

@@ -18,11 +18,13 @@ const all = secs.flatMap(s=>s.cards);
 const SRC_PATH = (deck.fuente ?? "fuente/anteproyecto-2026-06-18.md");
 const norm = x => String(x).replace(/\*\*|\*|`|&nbsp;|\\|_/g,"").replace(/\s+/g," ").trim();
 const SRC = norm(fs.readFileSync(SRC_PATH,"utf8"));
+const sinGuion = all.filter(c=>!c.guion);
 const rotas = all.filter(c => c.soporte?.cita && !SRC.includes(norm(c.soporte.cita)));
 const sinSop = all.filter(c => !c.soporte?.cita);
-if (rotas.length || sinSop.length) {
+if (rotas.length || sinSop.length || sinGuion.length) {
   if (rotas.length) console.error("CITAS QUE NO SON TEXTUALES:", rotas.map(c=>c.id).join(", "));
   if (sinSop.length) console.error("LÁMINAS SIN SOPORTE:", sinSop.map(c=>c.id).join(", "));
+  if (sinGuion.length) console.error("LÁMINAS SIN GUION:", sinGuion.map(c=>c.id).join(", "));
   process.exit(1);
 }
 console.log(`citas verificadas contra ${SRC_PATH}: ${all.length}/${all.length} textuales`);
@@ -80,7 +82,10 @@ const rows = secs.map(s=>`<section class="sec">
   <h2>§${esc(s.section.id)} · ${esc(s.section.title)}
     <span class="sec__meta">${s.section.laminas} lámina${s.section.laminas===1?"":"s"} · ${esc(s.section.tiempo)}</span></h2>
   ${s.cards.map(c=>`<article class="row">
-    <div class="col-wf">${WF[c.layout] ?? '<div class="wf wf-pap"></div>'}
+    <div class="col-wf">${(()=>{const p=`../build/shots-deck/slide-${c.id}.png`;
+      return fs.existsSync(path.join("build","shots-deck",`slide-${c.id}.png`))
+        ? `<img class="lam" src="${p}" alt="Lámina ${esc(c.id)}">`
+        : (WF[c.layout] ?? '<div class="wf wf-pap"></div>')})()}
       <div class="wf-lab">${esc(c.layout)}</div></div>
     <div class="col-vis">${visual(c)}</div>
     <div class="col-meta">
@@ -94,6 +99,14 @@ const rows = secs.map(s=>`<section class="sec">
       <p class="pant">En pantalla: ${esc(c.en_pantalla)}</p>
       ${c.fuente_dato?`<p class="fte">Fuente del dato: ${esc(c.fuente_dato)}</p>`:""}
       ${c.speaker?`<p class="spk">${esc(c.speaker)}</p>`:""}
+      ${c.copy?`<div class="bl"><div class="bl__lab">En pantalla</div>
+        <div class="pant2">${Object.entries(c.copy).map(([k,v])=>
+          `<div><i>${esc(k)}</i>${String(v).replace(/<br>/g," / ").replace(/<\/?em>/g,"")}</div>`).join("")}</div></div>`:""}
+      ${c.visual?.kind==="image"?`<div class="bl"><div class="bl__lab">Imagen · brief para Gemini</div>
+        <p class="brf">${esc(c.visual.brief)}</p>
+        <p class="acc">acento azul: ${c.visual.acento?"sí":"no"}</p></div>`:""}
+      ${c.guion?`<div class="bl bl--gui"><div class="bl__lab">Guion · 20 segundos · ${c.guion.trim().split(/\s+/).length} palabras</div>
+        <p class="gui">${esc(c.guion)}</p></div>`:""}
       ${c.soporte?`<div class="sop"><div class="sop__sec">De dónde sale · ${esc(c.soporte.seccion)}</div>
         <blockquote>${esc(c.soporte.cita)}</blockquote></div>`:""}
     </div></article>`).join("")}</section>`).join("");
@@ -168,6 +181,16 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
 .nm{font-size:12px;color:var(--mut)}
 .ref{font-size:10.5px;color:var(--ac);border:1px solid var(--ac);border-radius:999px;padding:1px 8px}
 .bl{margin:0 0 11px}
+.lam{width:100%;display:block;border:1px solid var(--ln)}
+.pant2{font-size:12.5px;line-height:1.5;color:#41402F}
+.pant2 i{font-style:normal;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;
+ letter-spacing:.06em;color:var(--mut);margin-right:7px;text-transform:uppercase}
+.brf{margin:0;font-size:12.5px;line-height:1.5;color:#41402F;font-style:italic;
+ background:#EFEDFB;border:1px solid #DCD8F5;border-radius:6px;padding:8px 10px}
+.acc{margin:5px 0 0;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--mut)}
+.bl--gui{background:#F7F5EE;border:1px solid var(--ln);border-left:3px solid var(--ink);
+ border-radius:7px;padding:10px 13px}
+.gui{margin:0;font-size:14px;line-height:1.55}
 .bl__lab{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:800;margin-bottom:4px}
 .bl--ent .bl__lab{color:var(--ac)}
 .idea{margin:0;font-size:17.5px;line-height:1.32;font-weight:600}
@@ -201,6 +224,7 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
   <div class="count count--spend"><b>${imgs.length-done}</b>imágenes por generar</div>
   <div class="count"><b>${done}</b>imágenes listas</div>
   <div class="count"><b>${tipo}</b>solo tipografía</div>
+  <div class="count"><b>${all.reduce((a,c)=>a+(c.guion?c.guion.trim().split(/\s+/).length:0),0)}</b>palabras de guion</div>
 </div>
 <div class="sv"><b>Sistema visual · borrador, pendiente de aprobación</b>
   <div><i>Tratamiento:</i> ${esc(sv.tratamiento)}</div>

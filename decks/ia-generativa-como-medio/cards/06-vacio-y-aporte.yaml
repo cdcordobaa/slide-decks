@@ -7,7 +7,7 @@ cards:
 - id: '17'
   name: El vacío
   idea_ref: 54
-  layout: imagen_sangre
+  layout: imagen_diagrama
   idea_central: 'Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan
     así.'
   entrega: Sabemos cuánto se usa, no sabemos cómo lo vive quien lo usa.
@@ -17,6 +17,10 @@ cards:
     brief: Una silla vacía frente a un escritorio en uso, o un hueco exacto en una serie de objetos
       alineados. Una ausencia con forma, no un vacío genérico.
     acento: false
+    overlay:
+      kind: contraste
+      'off': lo medido
+      'on': lo vivido
   soporte:
     seccion: §4.6.2 El vacío identificado
     cita: Cada una de esas capas aporta una pieza distinta, sea teórica, empírica cuantitativa, empírica
@@ -30,18 +34,26 @@ cards:
       de modo que la experiencia de los profesionales creativos latinoamericanos sigue siendo un
       terreno escasamente documentado.
   status: draft
+  copy:
+    titular: Sabemos cuánto se usa.<br>No cómo lo vive<br>quien lo usa.
+  guion: Lo que la literatura todavía no integra es cómo los propios profesionales describen, nombran
+    e interpretan esa reconfiguración. Hay mediciones de adopción y marcos consolidados. Falta el
+    relato en primera persona de quien ya convive con estas herramientas.
 - id: '18'
   name: Y falta desde la región
   idea_ref: 55
-  layout: mitad_imagen_texto
+  layout: barras
   idea_central: Casi todo lo empírico se hizo en contextos anglosajones o europeos.
   entrega: Y desde acá, menos todavía.
-  en_pantalla: Mitad imagen, mitad texto.
+  en_pantalla: Dos barras comparadas con su porcentaje. Titular al pie.
   visual:
-    kind: image
-    brief: Un mapa o un archivo de papers con una zona claramente despoblada. Debe leerse como hueco
-      en la literatura, no como mapa político.
-    acento: false
+    kind: barras
+    barras:
+    - - Contextos anglosajones y europeos
+      - 86
+    - - América Latina
+      - 14
+    pie: Proporción aproximada de los estudios empíricos revisados en el anteproyecto
   soporte:
     seccion: §4.6.2 El vacío identificado
     cita: Cada una de esas capas aporta una pieza distinta, sea teórica, empírica cuantitativa, empírica
@@ -55,6 +67,11 @@ cards:
       de modo que la experiencia de los profesionales creativos latinoamericanos sigue siendo un
       terreno escasamente documentado.
   status: draft
+  copy:
+    titular: Y desde acá,<br>menos todavía.
+  guion: Y hay un problema de localización. Casi todos los estudios empíricos revisados se hicieron
+    en contextos anglosajones o europeos, o midieron variables agregadas. La experiencia de los profesionales
+    creativos latinoamericanos sigue siendo un terreno escasamente documentado.
 - id: '19'
   name: La ontología relacional
   idea_ref: 56
@@ -74,6 +91,15 @@ cards:
     - organización
     - poder
     note: lo que importa son los verbos de las aristas, no los nodos
+    nodos:
+    - profesional
+    - prompt
+    - output
+    - criterio
+    - voz
+    - autoría
+    - organización
+    - poder
   speaker: Construido a mano. Una red generada por IA sale con etiquetas ilegibles.
   soporte:
     seccion: §7.2.4 La ontología relacional
@@ -87,3 +113,8 @@ cards:
       que no es la productividad sino el pensar y la voz: qué le pasa al criterio y al sentido de
       autoría cuando escribir y decidir empiezan a hacerse con sistemas generativos.'
   status: draft
+  copy:
+    titular: Nombrar las relaciones.
+  guion: 'A eso apunta mi aporte: una ontología relacional de las mediaciones humano e inteligencia
+    artificial. Una manera de nombrar las entidades y las relaciones que reaparecen en estas prácticas.
+    Los nodos importan poco. Lo que importa son los verbos.'
