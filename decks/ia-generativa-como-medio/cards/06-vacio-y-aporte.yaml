@@ -1,0 +1,34 @@
+section: { id: "6", title: "El vacío y el aporte", laminas: 3, tiempo: "1:00" }
+cards:
+  - id: "17"
+    name: "El vacío"
+    idea_ref: 54
+    layout: "imagen_sangre"
+    idea_central: "Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan así."
+    en_pantalla: "Solo imagen. Espacio negativo dominante."
+    visual:
+      kind: image
+      brief: "Una silla vacía frente a un escritorio en uso, o un hueco exacto en una serie de objetos alineados. Una ausencia con forma, no un vacío genérico."
+    status: draft
+  - id: "18"
+    name: "Y falta desde la región"
+    idea_ref: 55
+    layout: "mitad_imagen_texto"
+    idea_central: "Casi todo lo empírico se hizo en contextos anglosajones o europeos."
+    en_pantalla: "Mitad imagen, mitad texto."
+    visual:
+      kind: image
+      brief: "Un mapa o un archivo de papers con una zona claramente despoblada. Debe leerse como hueco en la literatura, no como mapa político."
+    status: draft
+  - id: "19"
+    name: "La ontología relacional"
+    idea_ref: 56
+    layout: "red"
+    idea_central: "El aporte es nombrar las entidades y las relaciones que reaparecen en estas prácticas."
+    en_pantalla: "Diagrama construido. Red de nodos y relaciones."
+    visual:
+      kind: network
+      items: ["profesional", "prompt", "output", "criterio", "voz", "autoría", "organización", "poder"]
+      note: "lo que importa son los verbos de las aristas, no los nodos"
+    speaker: "Construido a mano. Una red generada por IA sale con etiquetas ilegibles."
+    status: draft

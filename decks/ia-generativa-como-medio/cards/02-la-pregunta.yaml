@@ -1,0 +1,41 @@
+section: { id: "2", title: "La pregunta y dónde se busca", laminas: 4, tiempo: "1:20" }
+cards:
+  - id: "06"
+    name: "Pregunta problema"
+    idea_ref: 48
+    layout: "tipografia_pico"
+    idea_central: "Si el medio es el mensaje, cuál es el mensaje de la IA generativa como medio."
+    en_pantalla: "Sin imagen. La lámina más grande tipográficamente de toda la charla."
+    visual: { kind: none }
+    speaker: "Pausa antes y después. Es el centro del deck."
+    status: draft
+  - id: "07"
+    name: "Dónde se busca"
+    idea_ref: 40
+    layout: "mitad_imagen_texto"
+    idea_central: "El mensaje no está en el aparato ni en lo que entrega: está en los usos cotidianos."
+    en_pantalla: "Mitad imagen, mitad texto."
+    visual:
+      kind: image
+      brief: "Un escritorio real en pleno uso: papeles anotados, una taza, una pantalla fuera de foco. El desorden del trabajo cotidiano, no el producto terminado."
+    speaker: "Martín-Barbero, de los medios a las mediaciones."
+    status: draft
+  - id: "08"
+    name: "Desde dónde"
+    idea_ref: 41
+    layout: "imagen_sangre_palabra"
+    idea_central: "América Latina no es el lugar donde ocurre el caso, es el lugar desde donde se mira."
+    en_pantalla: "Imagen a sangre. Una palabra."
+    visual:
+      kind: image
+      brief: "Una ventana o un vano abierto desde el interior hacia afuera, con luz tropical dura. Punto de vista, no postal. Sin banderas ni símbolos nacionales."
+    speaker: "Ojo: si la imagen parece turismo, falló."
+    status: draft
+  - id: "09"
+    name: "Pregunta de investigación"
+    idea_ref: 49
+    layout: "tipografia_sola"
+    idea_central: "Cómo describen los profesionales creativos la reconfiguración de su forma de pensar, escribir y comunicar."
+    en_pantalla: "Sin imagen. Segundo pico tipográfico, menor que el de la 06."
+    visual: { kind: none }
+    status: draft

@@ -1,0 +1,42 @@
+section: { id: "1", title: "El tema · de herramienta a medio y ambiente", laminas: 4, tiempo: "1:20" }
+cards:
+  - id: "02"
+    name: "El encuadre común"
+    idea_ref: 1
+    layout: "imagen_sangre_palabra"
+    idea_central: "Cuando hablamos de IA en el trabajo hablamos de velocidad, y esa mirada se queda corta."
+    en_pantalla: "Imagen a sangre. Una palabra sobre ella."
+    visual:
+      kind: image
+      brief: "Un cronómetro o un contador de tiempo fuera de foco, muy cerca del lente. Sensación de medición y de prisa. Monocromo cálido."
+    speaker: "No descalificar esa mirada: decir que es útil y que se queda corta."
+    status: draft
+  - id: "03"
+    name: "Interviene en el sentido"
+    idea_ref: 2
+    layout: "tipografia_sola"
+    idea_central: "La IA no solo acelera tareas: sugiere, ordena, completa y reformula el lenguaje con el que pensamos."
+    en_pantalla: "Sin imagen. Frase en dos líneas. Respiro después de dos imágenes seguidas."
+    visual: { kind: none }
+    status: draft
+  - id: "04"
+    name: "Qué es un medio"
+    idea_ref: 3
+    layout: "imagen_sangre_frase"
+    idea_central: "Un medio importa menos por lo que transporta que por lo que reorganiza."
+    en_pantalla: "Imagen a sangre. Frase corta abajo a la izquierda."
+    visual:
+      kind: image
+      brief: "Luz atravesando un vidrio texturado o agua, y deformándose al pasar. Lo que sale no es lo que entró. Sin objetos identificables."
+    speaker: "Acá entra McLuhan, dicho, no escrito en pantalla."
+    status: draft
+  - id: "05"
+    name: "Qué es un ambiente"
+    idea_ref: 4
+    layout: "imagen_sangre"
+    idea_central: "Un ambiente no se ve desde adentro, no porque sea invisible sino porque es todo lo que hay."
+    en_pantalla: "Solo imagen. El momento visual más fuerte de la primera mitad."
+    visual:
+      kind: image
+      brief: "Superficie del agua vista desde abajo, a contraluz. El espectador está sumergido sin haberlo notado. Monocromo, con el azul de acento solo en la luz que cruza."
+    status: draft

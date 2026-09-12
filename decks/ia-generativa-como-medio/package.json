@@ -8,5 +8,10 @@
     "build": "python3 scripts/build-c.py",
     "render": "NODE_PATH=\"$PWD/node_modules\" node ../../skill/scripts/render-pdf.mjs build/genealogia-c.html build/genealogia-c.pdf --screenshots build/shots --fail-on-overflow"
   },
-  "devDependencies": { "playwright": "^1.47.0" }
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  },
+  "dependencies": {
+    "yaml": "^2.5.1"
+  }
 }

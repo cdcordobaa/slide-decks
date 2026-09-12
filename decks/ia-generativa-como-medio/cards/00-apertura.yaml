@@ -1,0 +1,13 @@
+section: { id: "0", title: "Apertura", laminas: 1, tiempo: "0:20" }
+cards:
+  - id: "01"
+    name: "Apertura"
+    idea_ref: null
+    layout: "imagen_sangre"
+    idea_central: "Antes de decir de qué trata, mostrar la escena donde ocurre."
+    en_pantalla: "Solo imagen. Ningún texto."
+    visual:
+      kind: image
+      brief: "Un escritorio de trabajo en penumbra, visto desde arriba. Una mano cerca de un teclado, quieta. Luz lateral dura. No se entiende todavía qué está pasando, y esa ambigüedad es el punto."
+    speaker: "Rima con la lámina 20: mismo plano, resuelto."
+    status: draft

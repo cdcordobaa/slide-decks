@@ -1,0 +1,413 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<title>Storyboard · La IA generativa como medio</title><style>
+:root{--ink:#16150F;--mut:#6E6A5E;--ln:#D6D0C1;--ac:#2B3FD9;--pap:#F4F2EC;--bg:#E6E3D9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+ font:14.5px/1.5 Inter,ui-sans-serif,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:34px 26px 70px}
+h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
+.sub{margin:0 0 4px;color:var(--mut);max-width:80ch}
+.meta{margin:0;color:var(--mut);font-size:13px}
+.counts{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 4px}
+.count{background:var(--pap);border:1px solid var(--ln);border-radius:8px;padding:8px 14px;font-size:12.5px;color:var(--mut)}
+.count b{font-size:19px;display:block;color:var(--ink)}
+.count--spend{border-color:#D9A441;background:#FBF3E2}
+.sv{background:var(--pap);border:1px solid var(--ln);border-left:3px solid var(--ac);
+ border-radius:8px;padding:14px 16px;margin:16px 0 0;font-size:13px}
+.sv b{display:block;margin-bottom:6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.sv div{margin:3px 0;color:#41402F}.sv i{color:var(--mut);font-style:normal}
+.sec h2{margin:34px 0 12px;font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:var(--ac);
+ border-bottom:1px solid var(--ln);padding-bottom:8px;display:flex;justify-content:space-between}
+.sec__meta{color:var(--mut);letter-spacing:.04em;text-transform:none;font-weight:400}
+.row{display:grid;grid-template-columns:150px 250px 1fr;gap:18px;background:var(--pap);
+ border:1px solid var(--ln);border-radius:10px;padding:16px;margin-bottom:12px;break-inside:avoid}
+.col-vis{border-left:1px dashed var(--ln);border-right:1px dashed var(--ln);padding:0 16px}
+.wf{aspect-ratio:16/9;border:1px solid var(--ln);background:var(--pap);position:relative;
+ display:flex;flex-direction:column;overflow:hidden}
+.wf-img{flex:1;background:repeating-linear-gradient(45deg,#DAD5C6,#DAD5C6 5px,#D2CCBB 5px,#D2CCBB 10px);
+ display:flex;align-items:center;justify-content:center;position:relative}
+.wf-img.q{background:repeating-linear-gradient(45deg,#EBE8DE,#EBE8DE 5px,#E5E1D5 5px,#E5E1D5 10px)}
+.wf-img em{font-style:normal;font-size:7.5px;font-weight:700;background:var(--ink);color:var(--pap);padding:2px 6px;border-radius:2px}
+.wf-img em.bl{position:absolute;left:7%;bottom:9%}
+.wf-img b{font-size:19px;color:var(--ac);letter-spacing:-.02em}
+.wf-pap{justify-content:center;gap:4px;padding:0 14%}
+.wf-pap i{display:block;height:5px;background:var(--ink);opacity:.8;border-radius:1px}
+.wf-pap i.s{width:52%;margin:0 auto}
+.wf-pico i{height:8px}
+.wf-dark{background:#16150F;justify-content:center;gap:5px;padding:0 14%}
+.wf-dark i{display:block;height:6px;background:var(--pap);opacity:.9;border-radius:1px}
+.wf-dark i.s{width:46%}
+.wf-split{flex-direction:row}.wf-split .wf-img{width:50%}
+.wf-side{width:50%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 10%}
+.wf-side i{display:block;height:4px;background:var(--ink);opacity:.8;border-radius:1px}
+.wf-side i.s{width:58%}
+.wf-ctr{align-items:center;justify-content:center}.wf-ctr b{font-size:22px;color:var(--ac);letter-spacing:-.02em}
+.wf-row{flex-direction:row;gap:8px}.wf-row u{width:26%;height:52%;border:1.5px solid var(--ink);opacity:.75}
+.wf-row span{font-size:8px;color:var(--mut)}
+.wf-chain{flex-direction:row;gap:0}.wf-chain o{display:block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink)}
+.wf-chain hr{width:14px;height:1.5px;background:var(--ink);border:0;opacity:.5;margin:0}
+.wf-net span{font-size:8px;letter-spacing:.14em;color:var(--mut);font-weight:700}
+.wf-lab{margin-top:6px;font-size:10.5px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
+.vis__tag{font-size:11px;font-weight:800;letter-spacing:.07em;margin-bottom:7px}
+.free{color:#1F7A52;font-weight:700;letter-spacing:0}
+.vis__brief{font-size:12.5px;color:#41402F;background:#EFEDFB;border:1px solid #DCD8F5;
+ border-radius:6px;padding:8px 10px;font-style:italic}
+.vis__row{font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace;margin:3px 0}
+.vis__state{margin-top:7px;font-size:11.5px;font-weight:700}
+.vis__state.ok{color:#1F7A52}.vis__state.wait{color:#A9741A}
+.vis--none .vis__tag{color:var(--mut)}
+.head{display:flex;align-items:center;gap:9px;margin-bottom:7px;flex-wrap:wrap}
+.id{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mut)}
+.nm{font-size:12px;color:var(--mut)}
+.ref{font-size:10.5px;color:var(--ac);border:1px solid var(--ac);border-radius:999px;padding:1px 8px}
+.idea{margin:0 0 7px;font-size:17.5px;line-height:1.32;font-weight:600}
+.pant{margin:0 0 5px;font-size:12.5px;color:var(--mut)}
+.fte{margin:0 0 5px;font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
+.spk{margin:0;font-size:12.5px;color:#41402F;border-left:2px solid var(--ln);padding-left:9px}
+.pill{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;
+ background:#E4E0D3;color:var(--mut)}
+.pill--listo{background:#DFF0E6;color:#1F7A52}
+@page{size:A3 portrait;margin:11mm}
+@media print{body{background:#fff}.wrap{max-width:none;padding:0}}
+</style></head><body><div class="wrap">
+<h1>Storyboard · La IA generativa como medio</h1>
+<p class="sub">Mediaciones, criterio, autoría y la reconfiguración del trabajo creativo en América Latina</p>
+<p class="meta">Paola Andrea Caro Burgos · Taller optativo PDA · Pensamiento de diseño aplicado como estrategia de comunicación creativa<br>Pecha Kucha · 20 láminas × 20 segundos · 6:40 · Charla TED. Una idea específica por lámina.</p>
+<div class="counts">
+  <div class="count"><b>20</b>láminas</div>
+  <div class="count"><b>4</b>diagramas construidos (gratis)</div>
+  <div class="count count--spend"><b>11</b>imágenes por generar</div>
+  <div class="count"><b>0</b>imágenes listas</div>
+  <div class="count"><b>5</b>solo tipografía</div>
+</div>
+<div class="sv"><b>Sistema visual · borrador, pendiente de aprobación</b>
+  <div><i>Tratamiento:</i> Fotografía documental, monocroma cálida sobre el papel del deck. Luz lateral dura, sombra larga. Grano fino visible.</div>
+  <div><i>Acento:</i> Un único azul saturado que aparece solo donde algo dejó de ser enteramente humano.</div>
+  <div><i>Encuadre:</i> Planos cerrados. Manos, superficies, objetos de trabajo. Sin rostros reconocibles.</div>
+  <div><i>Prohibido:</i> Nada de robots, cerebros, circuitos, humanoides ni manos azules tocándose. Nada de stock.</div>
+</div>
+<section class="sec">
+  <h2>§0 · Apertura
+    <span class="sec__meta">1 lámina · 0:20</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"></div></div>
+      <div class="wf-lab">imagen_sangre</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Un escritorio de trabajo en penumbra, visto desde arriba. Una mano cerca de un teclado, quieta. Luz lateral dura. No se entiende todavía qué está pasando, y esa ambigüedad es el punto.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">01</span><span class="nm">Apertura</span>
+        </div>
+      <p class="idea">Antes de decir de qué trata, mostrar la escena donde ocurre.</p>
+      <p class="pant">En pantalla: Solo imagen. Ningún texto.</p>
+      
+      <p class="spk">Rima con la lámina 20: mismo plano, resuelto.</p>
+    </div></article></section><section class="sec">
+  <h2>§1 · El tema · de herramienta a medio y ambiente
+    <span class="sec__meta">4 láminas · 1:20</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"><em>palabra</em></div></div>
+      <div class="wf-lab">imagen_sangre_palabra</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Un cronómetro o un contador de tiempo fuera de foco, muy cerca del lente. Sensación de medición y de prisa. Monocromo cálido.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">02</span><span class="nm">El encuadre común</span>
+        <span class="ref">idea 1 del mapa</span></div>
+      <p class="idea">Cuando hablamos de IA en el trabajo hablamos de velocidad, y esa mirada se queda corta.</p>
+      <p class="pant">En pantalla: Imagen a sangre. Una palabra sobre ella.</p>
+      
+      <p class="spk">No descalificar esa mirada: decir que es útil y que se queda corta.</p>
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-pap"><i></i><i></i><i class="s"></i></div>
+      <div class="wf-lab">tipografia_sola</div></div>
+    <div class="col-vis"><div class="vis vis--none"><div class="vis__tag">SIN VISUAL</div>
+    <div class="vis__row">solo tipografía</div></div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">03</span><span class="nm">Interviene en el sentido</span>
+        <span class="ref">idea 2 del mapa</span></div>
+      <p class="idea">La IA no solo acelera tareas: sugiere, ordena, completa y reformula el lenguaje con el que pensamos.</p>
+      <p class="pant">En pantalla: Sin imagen. Frase en dos líneas. Respiro después de dos imágenes seguidas.</p>
+      
+      
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"><em class="bl">frase</em></div></div>
+      <div class="wf-lab">imagen_sangre_frase</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Luz atravesando un vidrio texturado o agua, y deformándose al pasar. Lo que sale no es lo que entró. Sin objetos identificables.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">04</span><span class="nm">Qué es un medio</span>
+        <span class="ref">idea 3 del mapa</span></div>
+      <p class="idea">Un medio importa menos por lo que transporta que por lo que reorganiza.</p>
+      <p class="pant">En pantalla: Imagen a sangre. Frase corta abajo a la izquierda.</p>
+      
+      <p class="spk">Acá entra McLuhan, dicho, no escrito en pantalla.</p>
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"></div></div>
+      <div class="wf-lab">imagen_sangre</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Superficie del agua vista desde abajo, a contraluz. El espectador está sumergido sin haberlo notado. Monocromo, con el azul de acento solo en la luz que cruza.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">05</span><span class="nm">Qué es un ambiente</span>
+        <span class="ref">idea 4 del mapa</span></div>
+      <p class="idea">Un ambiente no se ve desde adentro, no porque sea invisible sino porque es todo lo que hay.</p>
+      <p class="pant">En pantalla: Solo imagen. El momento visual más fuerte de la primera mitad.</p>
+      
+      
+    </div></article></section><section class="sec">
+  <h2>§2 · La pregunta y dónde se busca
+    <span class="sec__meta">4 láminas · 1:20</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf wf-pap wf-pico"><i></i><i></i><i class="s"></i></div>
+      <div class="wf-lab">tipografia_pico</div></div>
+    <div class="col-vis"><div class="vis vis--none"><div class="vis__tag">SIN VISUAL</div>
+    <div class="vis__row">solo tipografía</div></div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">06</span><span class="nm">Pregunta problema</span>
+        <span class="ref">idea 48 del mapa</span></div>
+      <p class="idea">Si el medio es el mensaje, cuál es el mensaje de la IA generativa como medio.</p>
+      <p class="pant">En pantalla: Sin imagen. La lámina más grande tipográficamente de toda la charla.</p>
+      
+      <p class="spk">Pausa antes y después. Es el centro del deck.</p>
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-split"><div class="wf-img"></div><div class="wf-side"><i></i><i></i><i class="s"></i></div></div>
+      <div class="wf-lab">mitad_imagen_texto</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Un escritorio real en pleno uso: papeles anotados, una taza, una pantalla fuera de foco. El desorden del trabajo cotidiano, no el producto terminado.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">07</span><span class="nm">Dónde se busca</span>
+        <span class="ref">idea 40 del mapa</span></div>
+      <p class="idea">El mensaje no está en el aparato ni en lo que entrega: está en los usos cotidianos.</p>
+      <p class="pant">En pantalla: Mitad imagen, mitad texto.</p>
+      
+      <p class="spk">Martín-Barbero, de los medios a las mediaciones.</p>
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"><em>palabra</em></div></div>
+      <div class="wf-lab">imagen_sangre_palabra</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Una ventana o un vano abierto desde el interior hacia afuera, con luz tropical dura. Punto de vista, no postal. Sin banderas ni símbolos nacionales.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">08</span><span class="nm">Desde dónde</span>
+        <span class="ref">idea 41 del mapa</span></div>
+      <p class="idea">América Latina no es el lugar donde ocurre el caso, es el lugar desde donde se mira.</p>
+      <p class="pant">En pantalla: Imagen a sangre. Una palabra.</p>
+      
+      <p class="spk">Ojo: si la imagen parece turismo, falló.</p>
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-pap"><i></i><i></i><i class="s"></i></div>
+      <div class="wf-lab">tipografia_sola</div></div>
+    <div class="col-vis"><div class="vis vis--none"><div class="vis__tag">SIN VISUAL</div>
+    <div class="vis__row">solo tipografía</div></div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">09</span><span class="nm">Pregunta de investigación</span>
+        <span class="ref">idea 49 del mapa</span></div>
+      <p class="idea">Cómo describen los profesionales creativos la reconfiguración de su forma de pensar, escribir y comunicar.</p>
+      <p class="pant">En pantalla: Sin imagen. Segundo pico tipográfico, menor que el de la 06.</p>
+      
+      
+    </div></article></section><section class="sec">
+  <h2>§3 · Qué está pasando ya
+    <span class="sec__meta">2 láminas · 0:40</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img q"><b>00%</b></div></div>
+      <div class="wf-lab">cifra_sobre_imagen</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Trama de documentos institucionales apilados o superpuestos, muy tenue, casi textura. Solo sirve de fondo.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">10</span><span class="nm">Ya es masivo</span>
+        <span class="ref">idea 24 del mapa</span></div>
+      <p class="idea">Entre el 10 y el 24 % de la comunicación pública analizada ya tiene marcas de escritura asistida.</p>
+      <p class="pant">En pantalla: Cifra enorme sobre imagen al 15 % de opacidad. Pie con la fuente.</p>
+      <p class="fte">Fuente del dato: Liang et al., 2025</p>
+      
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-pap wf-ctr"><b>00%</b></div>
+      <div class="wf-lab">cifra_sola</div></div>
+    <div class="col-vis"><div class="vis vis--none"><div class="vis__tag">SIN VISUAL</div>
+    <div class="vis__row">solo tipografía</div></div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">11</span><span class="nm">Deja huella</span>
+        <span class="ref">idea 27 del mapa</span></div>
+      <p class="idea">El 83 % no pudo citar lo que acababa de escribir, y bajó su sentido de propiedad sobre el texto.</p>
+      <p class="pant">En pantalla: Solo la cifra sobre el papel. Gemela de la 10, más seca.</p>
+      <p class="fte">Fuente del dato: Kosmyna et al., 2025</p>
+      <p class="spk">El contraste entre las dos láminas hace el trabajo: una con fondo, otra desnuda.</p>
+    </div></article></section><section class="sec">
+  <h2>§4 · Lo que realmente ocurre en la práctica
+    <span class="sec__meta">2 láminas · 0:40</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf wf-pap wf-ctr wf-row"><u></u><span>vs</span><u></u></div>
+      <div class="wf-lab">dos_bloques</div></div>
+    <div class="col-vis"><div class="vis vis--dia">
+      <div class="vis__tag">DIAGRAMA · two_boxes <span class="free">construido · gratis · inmediato</span></div>
+      <div class="vis__row">REEMPLAZO: la máquina hace lo que hacía la persona</div><div class="vis__row">AUMENTO: la persona hace más de lo mismo</div><div class="vis__row">nota: las dos se tachan</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">12</span><span class="nm">El binario agotado</span>
+        <span class="ref">idea 12 del mapa</span></div>
+      <p class="idea">El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos.</p>
+      <p class="pant">En pantalla: Diagrama construido, no foto. Dos cajas enfrentadas y algo que las tacha.</p>
+      
+      
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-pap wf-ctr wf-row"><u></u><u></u><u></u></div>
+      <div class="wf-lab">secuencia_3</div></div>
+    <div class="col-vis"><div class="vis vis--dia">
+      <div class="vis__tag">DIAGRAMA · sequence_3 <span class="free">construido · gratis · inmediato</span></div>
+      <div class="vis__row">items: DELEGA · RETIENE · SUPERVISA</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">13</span><span class="nm">Reasignación situada</span>
+        <span class="ref">idea 13 del mapa</span></div>
+      <p class="idea">Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene, qué se supervisa.</p>
+      <p class="pant">En pantalla: Diagrama. Tres columnas iguales, sin jerarquía entre ellas.</p>
+      
+      <p class="spk">Clarke y Joffe. Es el supuesto que ordena toda la tesis.</p>
+    </div></article></section><section class="sec">
+  <h2>§5 · Lo que se juega
+    <span class="sec__meta">3 láminas · 1:00</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf wf-pap wf-ctr wf-chain"><o></o><hr><o></o><hr><o></o><hr><o></o><hr><o></o></div>
+      <div class="wf-lab">cadena_5</div></div>
+    <div class="col-vis"><div class="vis vis--dia">
+      <div class="vis__tag">DIAGRAMA · chain_5 <span class="free">construido · gratis · inmediato</span></div>
+      <div class="vis__row">pasos: idea → formulación → edición → firma → responsabilidad</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">14</span><span class="nm">La autoría es una cadena</span>
+        <span class="ref">idea 28 del mapa</span></div>
+      <p class="idea">La autoría deja de ser una propiedad del texto y pasa a ser una cadena de decisiones.</p>
+      <p class="pant">En pantalla: Diagrama horizontal. Cinco nodos conectados.</p>
+      
+      <p class="spk">Sale textual de tu 7.2.2.</p>
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"><em>palabra</em></div></div>
+      <div class="wf-lab">imagen_sangre_palabra</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Una mano tachando o descartando una hoja impresa. El gesto de decidir, capturado a media acción. El azul de acento solo en la marca que deja.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">15</span><span class="nm">El criterio</span>
+        <span class="ref">idea 33 del mapa</span></div>
+      <p class="idea">El criterio es la capacidad de evaluar, seleccionar y corregir lo que la herramienta ofrece.</p>
+      <p class="pant">En pantalla: Imagen a sangre. Una palabra.</p>
+      
+      
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-dark"><i></i><i class="s"></i></div>
+      <div class="wf-lab">tipografia_invertida</div></div>
+    <div class="col-vis"><div class="vis vis--none"><div class="vis__tag">SIN VISUAL</div>
+    <div class="vis__row">solo tipografía</div></div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">16</span><span class="nm">El riesgo silencioso</span>
+        <span class="ref">idea 58 del mapa</span></div>
+      <p class="idea">El riesgo no es el reemplazo: es ceder criterio y voz sin haberlo decidido.</p>
+      <p class="pant">En pantalla: Única lámina de fondo oscuro de todo el deck. Texto en claro.</p>
+      
+      <p class="spk">El cambio de fondo hace el trabajo emocional. No hay que subir la voz.</p>
+    </div></article></section><section class="sec">
+  <h2>§6 · El vacío y el aporte
+    <span class="sec__meta">3 láminas · 1:00</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"></div></div>
+      <div class="wf-lab">imagen_sangre</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Una silla vacía frente a un escritorio en uso, o un hueco exacto en una serie de objetos alineados. Una ausencia con forma, no un vacío genérico.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">17</span><span class="nm">El vacío</span>
+        <span class="ref">idea 54 del mapa</span></div>
+      <p class="idea">Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan así.</p>
+      <p class="pant">En pantalla: Solo imagen. Espacio negativo dominante.</p>
+      
+      
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-split"><div class="wf-img"></div><div class="wf-side"><i></i><i></i><i class="s"></i></div></div>
+      <div class="wf-lab">mitad_imagen_texto</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">Un mapa o un archivo de papers con una zona claramente despoblada. Debe leerse como hueco en la literatura, no como mapa político.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">18</span><span class="nm">Y falta desde la región</span>
+        <span class="ref">idea 55 del mapa</span></div>
+      <p class="idea">Casi todo lo empírico se hizo en contextos anglosajones o europeos.</p>
+      <p class="pant">En pantalla: Mitad imagen, mitad texto.</p>
+      
+      
+    </div></article><article class="row">
+    <div class="col-wf"><div class="wf wf-pap wf-ctr wf-net"><span>RED</span></div>
+      <div class="wf-lab">red</div></div>
+    <div class="col-vis"><div class="vis vis--dia">
+      <div class="vis__tag">DIAGRAMA · network <span class="free">construido · gratis · inmediato</span></div>
+      <div class="vis__row">items: profesional · prompt · output · criterio · voz · autoría · organización · poder</div><div class="vis__row">nota: lo que importa son los verbos de las aristas, no los nodos</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">19</span><span class="nm">La ontología relacional</span>
+        <span class="ref">idea 56 del mapa</span></div>
+      <p class="idea">El aporte es nombrar las entidades y las relaciones que reaparecen en estas prácticas.</p>
+      <p class="pant">En pantalla: Diagrama construido. Red de nodos y relaciones.</p>
+      
+      <p class="spk">Construido a mano. Una red generada por IA sale con etiquetas ilegibles.</p>
+    </div></article></section><section class="sec">
+  <h2>§7 · Cierre
+    <span class="sec__meta">1 lámina · 0:20</span></h2>
+  <article class="row">
+    <div class="col-wf"><div class="wf"><div class="wf-img"><em class="bl">frase</em></div></div>
+      <div class="wf-lab">imagen_sangre_frase</div></div>
+    <div class="col-vis"><div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">El mismo escritorio de la lámina 01, mismo encuadre y misma luz, ahora con la escena resuelta y legible. Debe reconocerse de inmediato.</div>
+      <div class="vis__state wait">sin generar · costará una llamada a Gemini</div>
+    </div></div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--draft">draft</span>
+        <span class="id">20</span><span class="nm">Cierre</span>
+        </div>
+      <p class="idea">Volver a la escena de la apertura, ahora legible.</p>
+      <p class="pant">En pantalla: Imagen a sangre, misma escena que la 01. Frase de cierre.</p>
+      
+      <p class="spk">La rima visual con la 01 cierra sin que haya que decir 'en conclusión'.</p>
+    </div></article></section></div></body></html>

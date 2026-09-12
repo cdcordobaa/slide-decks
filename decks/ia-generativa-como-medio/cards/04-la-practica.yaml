@@ -1,0 +1,26 @@
+section: { id: "4", title: "Lo que realmente ocurre en la práctica", laminas: 2, tiempo: "0:40" }
+cards:
+  - id: "12"
+    name: "El binario agotado"
+    idea_ref: 12
+    layout: "dos_bloques"
+    idea_central: "El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos."
+    en_pantalla: "Diagrama construido, no foto. Dos cajas enfrentadas y algo que las tacha."
+    visual:
+      kind: two_boxes
+      boxes:
+        - { label: "REEMPLAZO", result: "la máquina hace lo que hacía la persona" }
+        - { label: "AUMENTO", result: "la persona hace más de lo mismo" }
+      note: "las dos se tachan"
+    status: draft
+  - id: "13"
+    name: "Reasignación situada"
+    idea_ref: 13
+    layout: "secuencia_3"
+    idea_central: "Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene, qué se supervisa."
+    en_pantalla: "Diagrama. Tres columnas iguales, sin jerarquía entre ellas."
+    visual:
+      kind: sequence_3
+      items: ["DELEGA", "RETIENE", "SUPERVISA"]
+    speaker: "Clarke y Joffe. Es el supuesto que ordena toda la tesis."
+    status: draft

@@ -1,0 +1,13 @@
+section: { id: "7", title: "Cierre", laminas: 1, tiempo: "0:20" }
+cards:
+  - id: "20"
+    name: "Cierre"
+    idea_ref: null
+    layout: "imagen_sangre_frase"
+    idea_central: "Volver a la escena de la apertura, ahora legible."
+    en_pantalla: "Imagen a sangre, misma escena que la 01. Frase de cierre."
+    visual:
+      kind: image
+      brief: "El mismo escritorio de la lámina 01, mismo encuadre y misma luz, ahora con la escena resuelta y legible. Debe reconocerse de inmediato."
+    speaker: "La rima visual con la 01 cierra sin que haya que decir 'en conclusión'."
+    status: draft
