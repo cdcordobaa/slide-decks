@@ -35,6 +35,7 @@ cards:
     kind: image
     brief: 'Un escritorio real en pleno uso: papeles anotados, una taza, una pantalla fuera de foco.
       El desorden del trabajo cotidiano, no el producto terminado.'
+    acento: false
   speaker: Martín-Barbero, de los medios a las mediaciones.
   soporte:
     seccion: §7.2.1 De los medios a las mediaciones
@@ -48,7 +49,7 @@ cards:
       aplica al pie de la letra: funciona como matriz para mirar el fenómeno. Esa raíz latinoamericana
       sostiene la decisión de estudiarlo desde aquí.'
   status: draft
-- id: "08"
+- id: 08
   name: Desde dónde
   idea_ref: 41
   layout: imagen_sangre_palabra
@@ -59,6 +60,7 @@ cards:
     kind: image
     brief: Una ventana o un vano abierto desde el interior hacia afuera, con luz tropical dura. Punto
       de vista, no postal. Sin banderas ni símbolos nacionales.
+    acento: false
   speaker: 'Ojo: si la imagen parece turismo, falló.'
   soporte:
     seccion: §7.1 Justificación
@@ -73,7 +75,7 @@ cards:
       se deja de notar. La poca evidencia regional disponible sugiere que ese terreno es fértil y
       todavía está poco explorado (Farías Ocampo et al., 2025).
   status: draft
-- id: "09"
+- id: 09
   name: Pregunta de investigación
   idea_ref: 49
   layout: tipografia_sola

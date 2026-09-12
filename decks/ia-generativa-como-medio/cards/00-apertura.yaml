@@ -15,6 +15,7 @@ cards:
     kind: image
     brief: Un escritorio de trabajo en penumbra, visto desde arriba. Una mano cerca de un teclado,
       quieta. Luz lateral dura. No se entiende todavía qué está pasando, y esa ambigüedad es el punto.
+    acento: false
   speaker: 'Rima con la lámina 20: mismo plano, resuelto.'
   soporte:
     seccion: §2 Resumen
@@ -31,3 +32,4 @@ cards:
       que lo que ocurre no es reemplazo ni aumento, sino una reasignación situada de roles: qué se
       delega, qué se retiene y qué se supervisa.'
   status: draft
+  copy: {}

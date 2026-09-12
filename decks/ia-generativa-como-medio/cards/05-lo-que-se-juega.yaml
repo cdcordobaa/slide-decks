@@ -39,6 +39,7 @@ cards:
     kind: image
     brief: Una mano tachando o descartando una hoja impresa. El gesto de decidir, capturado a media
       acción. El azul de acento solo en la marca que deja.
+    acento: true
   soporte:
     seccion: §7.2.2 Mediación, agencia, autoría y criterio
     cita: 'Y está el criterio, que ocupa el centro de este marco: la capacidad de evaluar, seleccionar

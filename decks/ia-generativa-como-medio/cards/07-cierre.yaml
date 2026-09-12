@@ -15,6 +15,7 @@ cards:
     kind: image
     brief: El mismo escritorio de la lámina 01, mismo encuadre y misma luz, ahora con la escena resuelta
       y legible. Debe reconocerse de inmediato.
+    acento: true
   speaker: La rima visual con la 01 cierra sin que haya que decir 'en conclusión'.
   soporte:
     seccion: §7.1 Justificación

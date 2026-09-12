@@ -16,6 +16,7 @@ cards:
     kind: image
     brief: Un cronómetro o un contador de tiempo fuera de foco, muy cerca del lente. Sensación de
       medición y de prisa. Monocromo cálido.
+    acento: false
   speaker: 'No descalificar esa mirada: decir que es útil y que se queda corta.'
   soporte:
     seccion: §7.1 Justificación
@@ -29,6 +30,8 @@ cards:
       al proyecto: si el medio es el mensaje, ¿cuál es el “mensaje” de la IA generativa como medio?
       (Petricini, 2024; Islas et al., 2024; Scolari, 2023).'
   status: draft
+  copy:
+    palabra: Velocidad
 - id: '03'
   name: Interviene en el sentido
   idea_ref: 2
@@ -50,6 +53,8 @@ cards:
       cuando los profesionales comienzan a trabajar con sistemas capaces de sugerir, completar, ordenar
       y reformular el lenguaje.
   status: draft
+  copy:
+    frase: La IA no acelera el lenguaje.<br>Lo escribe con nosotros.
 - id: '04'
   name: Qué es un medio
   idea_ref: 3
@@ -59,8 +64,10 @@ cards:
   en_pantalla: Imagen a sangre. Frase corta abajo a la izquierda.
   visual:
     kind: image
-    brief: Luz atravesando un vidrio texturado o agua, y deformándose al pasar. Lo que sale no es
-      lo que entró. Sin objetos identificables.
+    brief: Luz dura atravesando un vidrio grueso texturado y proyectando su sombra deformada sobre
+      una superficie lisa. Lo que sale no es lo que entró. Plano cerrado, la imagen llena todo el
+      encuadre de borde a borde, sin ningún marco.
+    acento: true
   speaker: Acá entra McLuhan, dicho, no escrito en pantalla.
   soporte:
     seccion: §4.1.1 De la herramienta al medio
@@ -73,6 +80,8 @@ cards:
       cuando los profesionales comienzan a trabajar con sistemas capaces de sugerir, completar, ordenar
       y reformular el lenguaje.
   status: draft
+  copy:
+    pie: Lo que reorganiza pesa más<br>que lo que transporta.
 - id: '05'
   name: Qué es un ambiente
   idea_ref: 4
@@ -85,6 +94,7 @@ cards:
     kind: image
     brief: Superficie del agua vista desde abajo, a contraluz. El espectador está sumergido sin haberlo
       notado. Monocromo, con el azul de acento solo en la luz que cruza.
+    acento: true
   soporte:
     seccion: §7.2 Marco conceptual
     cita: 'Este marco parte de una decisión teórica: mirar la IA generativa desde la ecología de
@@ -97,3 +107,4 @@ cards:
       por varios autores (Petricini, 2024; Islas et al., 2024; Scolari, 2023). Es también la lente
       que vuelve pertinente el proyecto para la línea de medios emergentes.'
   status: draft
+  copy: {}

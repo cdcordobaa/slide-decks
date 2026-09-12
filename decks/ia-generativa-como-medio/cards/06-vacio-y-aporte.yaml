@@ -16,6 +16,7 @@ cards:
     kind: image
     brief: Una silla vacía frente a un escritorio en uso, o un hueco exacto en una serie de objetos
       alineados. Una ausencia con forma, no un vacío genérico.
+    acento: false
   soporte:
     seccion: §4.6.2 El vacío identificado
     cita: Cada una de esas capas aporta una pieza distinta, sea teórica, empírica cuantitativa, empírica
@@ -40,6 +41,7 @@ cards:
     kind: image
     brief: Un mapa o un archivo de papers con una zona claramente despoblada. Debe leerse como hueco
       en la literatura, no como mapa político.
+    acento: false
   soporte:
     seccion: §4.6.2 El vacío identificado
     cita: Cada una de esas capas aporta una pieza distinta, sea teórica, empírica cuantitativa, empírica

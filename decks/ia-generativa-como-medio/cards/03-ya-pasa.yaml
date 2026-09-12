@@ -16,6 +16,7 @@ cards:
     kind: image
     brief: Trama de documentos institucionales apilados o superpuestos, muy tenue, casi textura.
       Solo sirve de fondo.
+    acento: false
   fuente_dato: Liang et al., 2025
   soporte:
     seccion: §7.1 Justificación
