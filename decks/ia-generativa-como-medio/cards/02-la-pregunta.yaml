@@ -5,6 +5,7 @@ cards:
     idea_ref: 48
     layout: "tipografia_pico"
     idea_central: "Si el medio es el mensaje, cuál es el mensaje de la IA generativa como medio."
+    entrega: "Si el medio es el mensaje, hay que preguntar cuál es el de la IA."
     en_pantalla: "Sin imagen. La lámina más grande tipográficamente de toda la charla."
     visual: { kind: none }
     speaker: "Pausa antes y después. Es el centro del deck."
@@ -14,6 +15,7 @@ cards:
     idea_ref: 40
     layout: "mitad_imagen_texto"
     idea_central: "El mensaje no está en el aparato ni en lo que entrega: está en los usos cotidianos."
+    entrega: "La respuesta no está en la herramienta, está en cómo la usamos a diario."
     en_pantalla: "Mitad imagen, mitad texto."
     visual:
       kind: image
@@ -25,6 +27,7 @@ cards:
     idea_ref: 41
     layout: "imagen_sangre_palabra"
     idea_central: "América Latina no es el lugar donde ocurre el caso, es el lugar desde donde se mira."
+    entrega: "Mirar desde América Latina muestra cosas que desde el Norte no se ven."
     en_pantalla: "Imagen a sangre. Una palabra."
     visual:
       kind: image
@@ -36,6 +39,7 @@ cards:
     idea_ref: 49
     layout: "tipografia_sola"
     idea_central: "Cómo describen los profesionales creativos la reconfiguración de su forma de pensar, escribir y comunicar."
+    entrega: "Hay que preguntarle a quien ya trabaja así, y escuchar cómo lo describe."
     en_pantalla: "Sin imagen. Segundo pico tipográfico, menor que el de la 06."
     visual: { kind: none }
     status: draft

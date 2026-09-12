@@ -62,6 +62,9 @@ const done = imgs.filter(c=>fs.existsSync(path.join(DIR,"assets",`${c.id}.png`))
 const dias = all.filter(c=>c.visual?.kind && !["image","none"].includes(c.visual.kind)).length;
 const tipo = all.length - imgs.length - dias;
 
+const argumento = `<div class="arg"><b>El argumento completo · las 20 ideas que se entregan, en orden</b>
+<ol>${all.map(c=>`<li><span>${esc(c.id)}</span>${esc(c.entrega)}</li>`).join("")}</ol></div>`;
+
 const rows = secs.map(s=>`<section class="sec">
   <h2>§${esc(s.section.id)} · ${esc(s.section.title)}
     <span class="sec__meta">${s.section.laminas} lámina${s.section.laminas===1?"":"s"} · ${esc(s.section.tiempo)}</span></h2>
@@ -74,6 +77,7 @@ const rows = secs.map(s=>`<section class="sec">
         <span class="id">${esc(c.id)}</span><span class="nm">${esc(c.name)}</span>
         ${c.idea_ref?`<span class="ref">idea ${c.idea_ref} del mapa</span>`:""}</div>
       <p class="idea">${esc(c.idea_central)}</p>
+      <p class="entrega">${esc(c.entrega)}</p>
       <p class="pant">En pantalla: ${esc(c.en_pantalla)}</p>
       ${c.fuente_dato?`<p class="fte">Fuente del dato: ${esc(c.fuente_dato)}</p>`:""}
       ${c.speaker?`<p class="spk">${esc(c.speaker)}</p>`:""}
@@ -97,6 +101,13 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
  border-radius:8px;padding:14px 16px;margin:16px 0 0;font-size:13px}
 .sv b{display:block;margin-bottom:6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
 .sv div{margin:3px 0;color:#41402F}.sv i{color:var(--mut);font-style:normal}
+.entrega{margin:0 0 8px;font-size:14px;line-height:1.4;color:#41402F;
+ border-left:3px solid var(--ac);padding-left:10px}
+.arg{background:var(--pap);border:1px solid var(--ln);border-radius:10px;padding:18px 20px;margin:18px 0 4px}
+.arg b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:12px}
+.arg ol{margin:0;padding:0;list-style:none;columns:2;column-gap:34px}
+.arg li{break-inside:avoid;margin:0 0 7px;font-size:13.5px;line-height:1.42;display:flex;gap:9px}
+.arg li span{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ac);font-weight:700;flex:0 0 20px;padding-top:2px}
 .sec h2{margin:34px 0 12px;font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:var(--ac);
  border-bottom:1px solid var(--ln);padding-bottom:8px;display:flex;justify-content:space-between}
 .sec__meta{color:var(--mut);letter-spacing:.04em;text-transform:none;font-weight:400}
@@ -167,6 +178,7 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
   <div><i>Encuadre:</i> ${esc(sv.encuadre)}</div>
   <div><i>Prohibido:</i> ${esc(sv.prohibido)}</div>
 </div>
+${argumento}
 ${rows}</div></body></html>`;
 
 fs.mkdirSync("build",{recursive:true});

@@ -5,6 +5,7 @@ cards:
     idea_ref: 54
     layout: "imagen_sangre"
     idea_central: "Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan así."
+    entrega: "Sabemos cuánto se usa, no sabemos cómo lo vive quien lo usa."
     en_pantalla: "Solo imagen. Espacio negativo dominante."
     visual:
       kind: image
@@ -15,6 +16,7 @@ cards:
     idea_ref: 55
     layout: "mitad_imagen_texto"
     idea_central: "Casi todo lo empírico se hizo en contextos anglosajones o europeos."
+    entrega: "Y desde acá, menos todavía."
     en_pantalla: "Mitad imagen, mitad texto."
     visual:
       kind: image
@@ -25,6 +27,7 @@ cards:
     idea_ref: 56
     layout: "red"
     idea_central: "El aporte es nombrar las entidades y las relaciones que reaparecen en estas prácticas."
+    entrega: "Nombrar esas relaciones es lo que esta investigación va a construir."
     en_pantalla: "Diagrama construido. Red de nodos y relaciones."
     visual:
       kind: network

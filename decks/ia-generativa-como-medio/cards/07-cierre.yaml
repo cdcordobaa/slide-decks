@@ -4,7 +4,8 @@ cards:
     name: "Cierre"
     idea_ref: null
     layout: "imagen_sangre_frase"
-    idea_central: "Volver a la escena de la apertura, ahora legible."
+    idea_central: "La misma escena de la apertura, ahora legible."
+    entrega: "Se puede decidir sobre esto, pero primero hay que poder verlo."
     en_pantalla: "Imagen a sangre, misma escena que la 01. Frase de cierre."
     visual:
       kind: image

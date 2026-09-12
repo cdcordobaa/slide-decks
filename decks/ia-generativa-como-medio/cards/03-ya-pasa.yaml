@@ -5,6 +5,7 @@ cards:
     idea_ref: 24
     layout: "cifra_sobre_imagen"
     idea_central: "Entre el 10 y el 24 % de la comunicación pública analizada ya tiene marcas de escritura asistida."
+    entrega: "Ya no es una hipótesis: está en la escritura pública que leemos."
     en_pantalla: "Cifra enorme sobre imagen al 15 % de opacidad. Pie con la fuente."
     visual:
       kind: image
@@ -16,6 +17,7 @@ cards:
     idea_ref: 27
     layout: "cifra_sola"
     idea_central: "El 83 % no pudo citar lo que acababa de escribir, y bajó su sentido de propiedad sobre el texto."
+    entrega: "El texto sale, pero no queda en quien lo escribió."
     en_pantalla: "Solo la cifra sobre el papel. Gemela de la 10, más seca."
     visual: { kind: none }
     fuente_dato: "Kosmyna et al., 2025"

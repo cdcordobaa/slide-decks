@@ -5,6 +5,7 @@ cards:
     idea_ref: 28
     layout: "cadena_5"
     idea_central: "La autoría deja de ser una propiedad del texto y pasa a ser una cadena de decisiones."
+    entrega: "La autoría no es una propiedad del texto, es una cadena de decisiones."
     en_pantalla: "Diagrama horizontal. Cinco nodos conectados."
     visual:
       kind: chain_5
@@ -16,6 +17,7 @@ cards:
     idea_ref: 33
     layout: "imagen_sangre_palabra"
     idea_central: "El criterio es la capacidad de evaluar, seleccionar y corregir lo que la herramienta ofrece."
+    entrega: "El criterio es lo que decide en cada eslabón de esa cadena."
     en_pantalla: "Imagen a sangre. Una palabra."
     visual:
       kind: image
@@ -26,6 +28,7 @@ cards:
     idea_ref: 58
     layout: "tipografia_invertida"
     idea_central: "El riesgo no es el reemplazo: es ceder criterio y voz sin haberlo decidido."
+    entrega: "Lo grave no es perder el trabajo: es ceder la voz sin haberlo decidido."
     en_pantalla: "Única lámina de fondo oscuro de todo el deck. Texto en claro."
     visual: { kind: none }
     speaker: "El cambio de fondo hace el trabajo emocional. No hay que subir la voz."

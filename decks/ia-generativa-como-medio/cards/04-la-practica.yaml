@@ -5,6 +5,7 @@ cards:
     idea_ref: 12
     layout: "dos_bloques"
     idea_central: "El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos."
+    entrega: "Ni reemplazo ni aumento: las dos respuestas fáciles fallan."
     en_pantalla: "Diagrama construido, no foto. Dos cajas enfrentadas y algo que las tacha."
     visual:
       kind: two_boxes
@@ -18,6 +19,7 @@ cards:
     idea_ref: 13
     layout: "secuencia_3"
     idea_central: "Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene, qué se supervisa."
+    entrega: "Lo que cambia es el reparto: qué delegas, qué retienes, qué supervisas."
     en_pantalla: "Diagrama. Tres columnas iguales, sin jerarquía entre ellas."
     visual:
       kind: sequence_3

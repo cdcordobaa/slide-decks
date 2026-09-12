@@ -4,7 +4,8 @@ cards:
     name: "Apertura"
     idea_ref: null
     layout: "imagen_sangre"
-    idea_central: "Antes de decir de qué trata, mostrar la escena donde ocurre."
+    idea_central: "La escena de trabajo donde ocurre todo lo demás, todavía sin explicar."
+    entrega: "Esto pasa en un escritorio cualquiera, hoy."
     en_pantalla: "Solo imagen. Ningún texto."
     visual:
       kind: image
