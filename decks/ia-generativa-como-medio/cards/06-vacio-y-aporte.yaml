@@ -1,55 +1,87 @@
-section: { id: "6", title: "El vacío y el aporte", laminas: 3, tiempo: "1:00" }
+section:
+  id: '6'
+  title: El vacío y el aporte
+  laminas: 3
+  tiempo: '1:00'
 cards:
-  - id: "17"
-    name: "El vacío"
-    idea_ref: 54
-    layout: "imagen_sangre"
-    idea_central: "Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan así."
-    entrega: "Sabemos cuánto se usa, no sabemos cómo lo vive quien lo usa."
-    en_pantalla: "Solo imagen. Espacio negativo dominante."
-    visual:
-      kind: image
-      brief: "Una silla vacía frente a un escritorio en uso, o un hueco exacto en una serie de objetos alineados. Una ausencia con forma, no un vacío genérico."
-    soporte:
-      seccion: "§4.6.2 El vacío identificado"
-      cita: >-
-        Lo que la literatura todavía no integra es una mirada sobre la manera en que los propios
-        profesionales creativos describen, nombran e interpretan la reconfiguración de su forma de
-        pensar, escribir y comunicar en el trabajo cotidiano.
-    status: draft
-  - id: "18"
-    name: "Y falta desde la región"
-    idea_ref: 55
-    layout: "mitad_imagen_texto"
-    idea_central: "Casi todo lo empírico se hizo en contextos anglosajones o europeos."
-    entrega: "Y desde acá, menos todavía."
-    en_pantalla: "Mitad imagen, mitad texto."
-    visual:
-      kind: image
-      brief: "Un mapa o un archivo de papers con una zona claramente despoblada. Debe leerse como hueco en la literatura, no como mapa político."
-    soporte:
-      seccion: "§4.6.2 El vacío identificado"
-      cita: >-
-        la mayoría de los estudios empíricos revisados se realizó en contextos anglosajones o
-        europeos, o bien midió variables agregadas, de modo que la experiencia de los profesionales
-        creativos latinoamericanos sigue siendo un terreno escasamente documentado
-    status: draft
-  - id: "19"
-    name: "La ontología relacional"
-    idea_ref: 56
-    layout: "red"
-    idea_central: "El aporte es nombrar las entidades y las relaciones que reaparecen en estas prácticas."
-    entrega: "Nombrar esas relaciones es lo que esta investigación va a construir."
-    en_pantalla: "Diagrama construido. Red de nodos y relaciones."
-    visual:
-      kind: network
-      items: ["profesional", "prompt", "output", "criterio", "voz", "autoría", "organización", "poder"]
-      note: "lo que importa son los verbos de las aristas, no los nodos"
-    speaker: "Construido a mano. Una red generada por IA sale con etiquetas ilegibles."
-    soporte:
-      seccion: "§7.2.4 La ontología relacional"
-      cita: >-
-        Es una manera de nombrar las entidades y las relaciones que reaparecen en estas prácticas:
-        profesional, herramienta, prompt, output, criterio, autoría, voz, organización, audiencia,
-        poder.
-    status: draft
+- id: '17'
+  name: El vacío
+  idea_ref: 54
+  layout: imagen_sangre
+  idea_central: 'Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan
+    así.'
+  entrega: Sabemos cuánto se usa, no sabemos cómo lo vive quien lo usa.
+  en_pantalla: Solo imagen. Espacio negativo dominante.
+  visual:
+    kind: image
+    brief: Una silla vacía frente a un escritorio en uso, o un hueco exacto en una serie de objetos
+      alineados. Una ausencia con forma, no un vacío genérico.
+  soporte:
+    seccion: §4.6.2 El vacío identificado
+    cita: Cada una de esas capas aporta una pieza distinta, sea teórica, empírica cuantitativa, empírica
+      cualitativa, crítica o contextual. Lo que la literatura todavía no integra es una mirada sobre
+      la manera en que los propios profesionales creativos describen, nombran e interpretan la reconfiguración
+      de su forma de pensar, escribir y comunicar en el trabajo cotidiano. Existen mediciones de
+      adopción, marcos conceptuales consolidados y advertencias sobre los efectos cognitivos, pero
+      el relato en primera persona de quienes ya conviven con estas herramientas permanece poco explorado.
+      A esa carencia se añade una limitación de localización, pues la mayoría de los estudios empíricos
+      revisados se realizó en contextos anglosajones o europeos, o bien midió variables agregadas,
+      de modo que la experiencia de los profesionales creativos latinoamericanos sigue siendo un
+      terreno escasamente documentado.
+  status: draft
+- id: '18'
+  name: Y falta desde la región
+  idea_ref: 55
+  layout: mitad_imagen_texto
+  idea_central: Casi todo lo empírico se hizo en contextos anglosajones o europeos.
+  entrega: Y desde acá, menos todavía.
+  en_pantalla: Mitad imagen, mitad texto.
+  visual:
+    kind: image
+    brief: Un mapa o un archivo de papers con una zona claramente despoblada. Debe leerse como hueco
+      en la literatura, no como mapa político.
+  soporte:
+    seccion: §4.6.2 El vacío identificado
+    cita: Cada una de esas capas aporta una pieza distinta, sea teórica, empírica cuantitativa, empírica
+      cualitativa, crítica o contextual. Lo que la literatura todavía no integra es una mirada sobre
+      la manera en que los propios profesionales creativos describen, nombran e interpretan la reconfiguración
+      de su forma de pensar, escribir y comunicar en el trabajo cotidiano. Existen mediciones de
+      adopción, marcos conceptuales consolidados y advertencias sobre los efectos cognitivos, pero
+      el relato en primera persona de quienes ya conviven con estas herramientas permanece poco explorado.
+      A esa carencia se añade una limitación de localización, pues la mayoría de los estudios empíricos
+      revisados se realizó en contextos anglosajones o europeos, o bien midió variables agregadas,
+      de modo que la experiencia de los profesionales creativos latinoamericanos sigue siendo un
+      terreno escasamente documentado.
+  status: draft
+- id: '19'
+  name: La ontología relacional
+  idea_ref: 56
+  layout: red
+  idea_central: El aporte es nombrar las entidades y las relaciones que reaparecen en estas prácticas.
+  entrega: Nombrar esas relaciones es lo que esta investigación va a construir.
+  en_pantalla: Diagrama construido. Red de nodos y relaciones.
+  visual:
+    kind: network
+    items:
+    - profesional
+    - prompt
+    - output
+    - criterio
+    - voz
+    - autoría
+    - organización
+    - poder
+    note: lo que importa son los verbos de las aristas, no los nodos
+  speaker: Construido a mano. Una red generada por IA sale con etiquetas ilegibles.
+  soporte:
+    seccion: §7.2.4 La ontología relacional
+    cita: 'Estos lentes no se quedan sueltos. La apuesta del marco es ordenarlos en lo que aquí se
+      llama, por ahora, una ontología relacional de las mediaciones humano–IA. Es una manera de nombrar
+      las entidades y las relaciones que reaparecen en estas prácticas: profesional, herramienta,
+      prompt, output, criterio, autoría, voz, organización, audiencia, poder. Su función es metodológica
+      además de conceptual. Cada relación que el marco vuelve visible; qué se delega, cómo se negocia
+      la autoría, dónde se ejerce o se cede el criterio, se convierte en una categoría con la que
+      se leerán las entrevistas y la etnografía digital. Y devuelve la pregunta al lugar donde empezó,
+      que no es la productividad sino el pensar y la voz: qué le pasa al criterio y al sentido de
+      autoría cuando escribir y decidir empiezan a hacerse con sistemas generativos.'
+  status: draft

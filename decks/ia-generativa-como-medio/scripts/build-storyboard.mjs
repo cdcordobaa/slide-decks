@@ -75,8 +75,6 @@ const done = imgs.filter(c=>fs.existsSync(path.join(DIR,"assets",`${c.id}.png`))
 const dias = all.filter(c=>c.visual?.kind && !["image","none"].includes(c.visual.kind)).length;
 const tipo = all.length - imgs.length - dias;
 
-const argumento = `<div class="arg"><b>El argumento completo · las 20 ideas que se entregan, en orden</b>
-<ol>${all.map(c=>`<li><span>${esc(c.id)}</span>${esc(c.entrega)}</li>`).join("")}</ol></div>`;
 
 const rows = secs.map(s=>`<section class="sec">
   <h2>§${esc(s.section.id)} · ${esc(s.section.title)}
@@ -126,7 +124,7 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
 .sec h2{margin:34px 0 12px;font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:var(--ac);
  border-bottom:1px solid var(--ln);padding-bottom:8px;display:flex;justify-content:space-between}
 .sec__meta{color:var(--mut);letter-spacing:.04em;text-transform:none;font-weight:400}
-.row{display:grid;grid-template-columns:150px 250px 1fr;gap:18px;background:var(--pap);
+.row{display:grid;grid-template-columns:132px 210px 1fr;gap:18px;background:var(--pap);
  border:1px solid var(--ln);border-radius:10px;padding:16px;margin-bottom:12px;break-inside:avoid}
 .col-vis{border-left:1px dashed var(--ln);border-right:1px dashed var(--ln);padding:0 16px}
 .wf{aspect-ratio:16/9;border:1px solid var(--ln);background:var(--pap);position:relative;
@@ -173,7 +171,7 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
 .spk{margin:0 0 9px;font-size:12.5px;color:#41402F;border-left:2px solid var(--ln);padding-left:9px}
 .sop{margin-top:10px;border-top:1px solid var(--ln);padding-top:9px}
 .sop__sec{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:5px}
-.sop blockquote{margin:0;font-size:12.5px;line-height:1.5;color:#41402F;font-style:italic;
+.sop blockquote{margin:0;font-size:12.5px;line-height:1.62;color:#41402F;font-style:italic;
  border-left:2px solid var(--ac);padding-left:10px}
 .rep{width:100%;border-collapse:collapse;margin:16px 0 0;font-size:12.5px;background:var(--pap);
  border:1px solid var(--ln);border-radius:8px;overflow:hidden}
@@ -203,7 +201,6 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
   <div><i>Encuadre:</i> ${esc(sv.encuadre)}</div>
   <div><i>Prohibido:</i> ${esc(sv.prohibido)}</div>
 </div>
-${argumento}
 <table class="rep"><thead><tr><th>Bloque</th><th>Láminas</th><th>Minutos</th></tr></thead><tbody>
 ${secs.map(x=>`<tr><td>${esc(x.section.title)}</td><td>${x.section.laminas}</td><td>${esc(x.section.tiempo)}</td></tr>`).join("")}
 <tr><td>Total</td><td>${all.length}</td><td>6:40</td></tr></tbody></table>

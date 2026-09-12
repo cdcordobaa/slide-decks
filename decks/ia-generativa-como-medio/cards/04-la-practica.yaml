@@ -1,38 +1,52 @@
-section: { id: "4", title: "Lo que realmente ocurre en la práctica", laminas: 2, tiempo: "0:40" }
+section:
+  id: '4'
+  title: Lo que realmente ocurre en la práctica
+  laminas: 2
+  tiempo: 0:40
 cards:
-  - id: "12"
-    name: "El binario agotado"
-    idea_ref: 12
-    layout: "dos_bloques"
-    idea_central: "El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos."
-    entrega: "Ni reemplazo ni aumento: las dos respuestas fáciles fallan."
-    en_pantalla: "Diagrama construido, no foto. Dos cajas enfrentadas y algo que las tacha."
-    visual:
-      kind: two_boxes
-      boxes:
-        - { label: "REEMPLAZO", result: "la máquina hace lo que hacía la persona" }
-        - { label: "AUMENTO", result: "la persona hace más de lo mismo" }
-      note: "las dos se tachan"
-    soporte:
-      seccion: "§7.1 Justificación"
-      cita: >-
-        El aporte se define frente a un debate empobrecido, atrapado entre el reemplazo y el
-        aumento. Mi apuesta es salir de ese binario.
-    status: draft
-  - id: "13"
-    name: "Reasignación situada"
-    idea_ref: 13
-    layout: "secuencia_3"
-    idea_central: "Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene, qué se supervisa."
-    entrega: "Lo que cambia es el reparto: qué delegas, qué retienes, qué supervisas."
-    en_pantalla: "Diagrama. Tres columnas iguales, sin jerarquía entre ellas."
-    visual:
-      kind: sequence_3
-      items: ["DELEGA", "RETIENE", "SUPERVISA"]
-    speaker: "Clarke y Joffe. Es el supuesto que ordena toda la tesis."
-    soporte:
-      seccion: "§7.1 Justificación"
-      cita: >-
-        describe una reasignación situada de roles, esto es, qué se delega, qué se retiene y qué se
-        supervisa
-    status: draft
+- id: '12'
+  name: El binario agotado
+  idea_ref: 12
+  layout: dos_bloques
+  idea_central: El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos.
+  entrega: 'Ni reemplazo ni aumento: las dos respuestas fáciles fallan.'
+  en_pantalla: Diagrama construido, no foto. Dos cajas enfrentadas y algo que las tacha.
+  visual:
+    kind: two_boxes
+    boxes:
+    - label: REEMPLAZO
+      result: la máquina hace lo que hacía la persona
+    - label: AUMENTO
+      result: la persona hace más de lo mismo
+    note: las dos se tachan
+  soporte:
+    seccion: §7.1 Justificación
+    cita: 'El aporte se define frente a un debate empobrecido, atrapado entre el reemplazo y el aumento.
+      Mi apuesta es salir de ese binario. La evidencia cualitativa reciente lo desmonta: describe
+      una reasignación situada de roles, esto es, qué se delega, qué se retiene y qué se supervisa
+      (Clarke y Joffe, 2025; Mahnke, 2024), con efectos sobre la dependencia percibida y la degradación
+      de habilidades (Högemann et al., 2025).'
+  status: draft
+- id: '13'
+  name: Reasignación situada
+  idea_ref: 13
+  layout: secuencia_3
+  idea_central: 'Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene,
+    qué se supervisa.'
+  entrega: 'Lo que cambia es el reparto: qué delegas, qué retienes, qué supervisas.'
+  en_pantalla: Diagrama. Tres columnas iguales, sin jerarquía entre ellas.
+  visual:
+    kind: sequence_3
+    items:
+    - DELEGA
+    - RETIENE
+    - SUPERVISA
+  speaker: Clarke y Joffe. Es el supuesto que ordena toda la tesis.
+  soporte:
+    seccion: §7.1 Justificación
+    cita: 'El aporte se define frente a un debate empobrecido, atrapado entre el reemplazo y el aumento.
+      Mi apuesta es salir de ese binario. La evidencia cualitativa reciente lo desmonta: describe
+      una reasignación situada de roles, esto es, qué se delega, qué se retiene y qué se supervisa
+      (Clarke y Joffe, 2025; Mahnke, 2024), con efectos sobre la dependencia percibida y la degradación
+      de habilidades (Högemann et al., 2025).'
+  status: draft
