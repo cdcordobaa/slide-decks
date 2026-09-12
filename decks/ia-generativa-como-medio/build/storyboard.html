@@ -66,7 +66,12 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
 .id{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mut)}
 .nm{font-size:12px;color:var(--mut)}
 .ref{font-size:10.5px;color:var(--ac);border:1px solid var(--ac);border-radius:999px;padding:1px 8px}
-.idea{margin:0 0 7px;font-size:17.5px;line-height:1.32;font-weight:600}
+.bl{margin:0 0 11px}
+.bl__lab{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:800;margin-bottom:4px}
+.bl--ent .bl__lab{color:var(--ac)}
+.idea{margin:0;font-size:17.5px;line-height:1.32;font-weight:600}
+.bl--ent{background:#EFEDFB;border:1px solid #DCD8F5;border-radius:7px;padding:9px 12px}
+.entrega{margin:0;font-size:15px;line-height:1.4;font-weight:650;color:#22214A}
 .pant{margin:0 0 5px;font-size:12.5px;color:var(--mut)}
 .fte{margin:0 0 5px;font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
 .spk{margin:0 0 9px;font-size:12.5px;color:#41402F;border-left:2px solid var(--ln);padding-left:9px}
@@ -120,8 +125,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">01</span><span class="nm">Apertura</span>
         </div>
-      <p class="idea">La escena de trabajo donde ocurre todo lo demás, todavía sin explicar.</p>
-      <p class="entrega">Esto pasa en un escritorio cualquiera, hoy.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">La escena de trabajo donde ocurre todo lo demás, todavía sin explicar.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Esto pasa en un escritorio cualquiera, hoy.</p></div>
       <p class="pant">En pantalla: Solo imagen. Ningún texto.</p>
       
       <p class="spk">Rima con la lámina 20: mismo plano, resuelto.</p>
@@ -142,8 +149,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">02</span><span class="nm">El encuadre común</span>
         <span class="ref">idea 1 del mapa</span></div>
-      <p class="idea">Cuando hablamos de IA en el trabajo hablamos de velocidad, y esa mirada se queda corta.</p>
-      <p class="entrega">La conversación sobre IA en el trabajo se quedó en la velocidad.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Cuando hablamos de IA en el trabajo hablamos de velocidad, y esa mirada se queda corta.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">La conversación sobre IA en el trabajo se quedó en la velocidad.</p></div>
       <p class="pant">En pantalla: Imagen a sangre. Una palabra sobre ella.</p>
       
       <p class="spk">No descalificar esa mirada: decir que es útil y que se queda corta.</p>
@@ -158,8 +167,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">03</span><span class="nm">Interviene en el sentido</span>
         <span class="ref">idea 2 del mapa</span></div>
-      <p class="idea">La IA no solo acelera tareas: sugiere, ordena, completa y reformula el lenguaje con el que pensamos.</p>
-      <p class="entrega">La IA no acelera el lenguaje: lo escribe con nosotros.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">La IA no solo acelera tareas: sugiere, ordena, completa y reformula el lenguaje con el que pensamos.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">La IA no acelera el lenguaje: lo escribe con nosotros.</p></div>
       <p class="pant">En pantalla: Sin imagen. Frase en dos líneas. Respiro después de dos imágenes seguidas.</p>
       
       
@@ -177,8 +188,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">04</span><span class="nm">Qué es un medio</span>
         <span class="ref">idea 3 del mapa</span></div>
-      <p class="idea">Un medio importa menos por lo que transporta que por lo que reorganiza.</p>
-      <p class="entrega">Lo que una tecnología reorganiza pesa más que lo que transporta.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Un medio importa menos por lo que transporta que por lo que reorganiza.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Lo que una tecnología reorganiza pesa más que lo que transporta.</p></div>
       <p class="pant">En pantalla: Imagen a sangre. Frase corta abajo a la izquierda.</p>
       
       <p class="spk">Acá entra McLuhan, dicho, no escrito en pantalla.</p>
@@ -196,8 +209,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">05</span><span class="nm">Qué es un ambiente</span>
         <span class="ref">idea 4 del mapa</span></div>
-      <p class="idea">Un ambiente no se ve desde adentro, no porque sea invisible sino porque es todo lo que hay.</p>
-      <p class="entrega">Un ambiente no se ve mientras estás adentro.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Un ambiente no se ve desde adentro, no porque sea invisible sino porque es todo lo que hay.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Un ambiente no se ve mientras estás adentro.</p></div>
       <p class="pant">En pantalla: Solo imagen. El momento visual más fuerte de la primera mitad.</p>
       
       
@@ -215,8 +230,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">06</span><span class="nm">Pregunta problema</span>
         <span class="ref">idea 48 del mapa</span></div>
-      <p class="idea">Si el medio es el mensaje, cuál es el mensaje de la IA generativa como medio.</p>
-      <p class="entrega">Si el medio es el mensaje, hay que preguntar cuál es el de la IA.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Si el medio es el mensaje, cuál es el mensaje de la IA generativa como medio.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Si el medio es el mensaje, hay que preguntar cuál es el de la IA.</p></div>
       <p class="pant">En pantalla: Sin imagen. La lámina más grande tipográficamente de toda la charla.</p>
       
       <p class="spk">Pausa antes y después. Es el centro del deck.</p>
@@ -234,8 +251,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">07</span><span class="nm">Dónde se busca</span>
         <span class="ref">idea 40 del mapa</span></div>
-      <p class="idea">El mensaje no está en el aparato ni en lo que entrega: está en los usos cotidianos.</p>
-      <p class="entrega">La respuesta no está en la herramienta, está en cómo la usamos a diario.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">El mensaje no está en el aparato ni en lo que entrega: está en los usos cotidianos.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">La respuesta no está en la herramienta, está en cómo la usamos a diario.</p></div>
       <p class="pant">En pantalla: Mitad imagen, mitad texto.</p>
       
       <p class="spk">Martín-Barbero, de los medios a las mediaciones.</p>
@@ -253,8 +272,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">08</span><span class="nm">Desde dónde</span>
         <span class="ref">idea 41 del mapa</span></div>
-      <p class="idea">América Latina no es el lugar donde ocurre el caso, es el lugar desde donde se mira.</p>
-      <p class="entrega">Mirar desde América Latina muestra cosas que desde el Norte no se ven.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">América Latina no es el lugar donde ocurre el caso, es el lugar desde donde se mira.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Mirar desde América Latina muestra cosas que desde el Norte no se ven.</p></div>
       <p class="pant">En pantalla: Imagen a sangre. Una palabra.</p>
       
       <p class="spk">Ojo: si la imagen parece turismo, falló.</p>
@@ -269,8 +290,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">09</span><span class="nm">Pregunta de investigación</span>
         <span class="ref">idea 49 del mapa</span></div>
-      <p class="idea">Cómo describen los profesionales creativos la reconfiguración de su forma de pensar, escribir y comunicar.</p>
-      <p class="entrega">Hay que preguntarle a quien ya trabaja así, y escuchar cómo lo describe.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Cómo describen los profesionales creativos la reconfiguración de su forma de pensar, escribir y comunicar.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Hay que preguntarle a quien ya trabaja así, y escuchar cómo lo describe.</p></div>
       <p class="pant">En pantalla: Sin imagen. Segundo pico tipográfico, menor que el de la 06.</p>
       
       
@@ -291,8 +314,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">10</span><span class="nm">Ya es masivo</span>
         <span class="ref">idea 24 del mapa</span></div>
-      <p class="idea">Entre el 10 y el 24 % de la comunicación pública analizada ya tiene marcas de escritura asistida.</p>
-      <p class="entrega">Ya no es una hipótesis: está en la escritura pública que leemos.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Entre el 10 y el 24 % de la comunicación pública analizada ya tiene marcas de escritura asistida.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Ya no es una hipótesis: está en la escritura pública que leemos.</p></div>
       <p class="pant">En pantalla: Cifra enorme sobre imagen al 15 % de opacidad. Pie con la fuente.</p>
       <p class="fte">Fuente del dato: Liang et al., 2025</p>
       
@@ -307,8 +332,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">11</span><span class="nm">Deja huella</span>
         <span class="ref">idea 27 del mapa</span></div>
-      <p class="idea">El 83 % no pudo citar lo que acababa de escribir, y bajó su sentido de propiedad sobre el texto.</p>
-      <p class="entrega">El texto sale, pero no queda en quien lo escribió.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">El 83 % no pudo citar lo que acababa de escribir, y bajó su sentido de propiedad sobre el texto.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">El texto sale, pero no queda en quien lo escribió.</p></div>
       <p class="pant">En pantalla: Solo la cifra sobre el papel. Gemela de la 10, más seca.</p>
       <p class="fte">Fuente del dato: Kosmyna et al., 2025</p>
       <p class="spk">El contraste entre las dos láminas hace el trabajo: una con fondo, otra desnuda.</p>
@@ -328,8 +355,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">12</span><span class="nm">El binario agotado</span>
         <span class="ref">idea 12 del mapa</span></div>
-      <p class="idea">El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos.</p>
-      <p class="entrega">Ni reemplazo ni aumento: las dos respuestas fáciles fallan.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">El debate está atrapado entre reemplazo y aumento, y los dos se quedan cortos.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Ni reemplazo ni aumento: las dos respuestas fáciles fallan.</p></div>
       <p class="pant">En pantalla: Diagrama construido, no foto. Dos cajas enfrentadas y algo que las tacha.</p>
       
       
@@ -346,8 +375,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">13</span><span class="nm">Reasignación situada</span>
         <span class="ref">idea 13 del mapa</span></div>
-      <p class="idea">Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene, qué se supervisa.</p>
-      <p class="entrega">Lo que cambia es el reparto: qué delegas, qué retienes, qué supervisas.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Lo que ocurre es una reasignación situada de roles: qué se delega, qué se retiene, qué se supervisa.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Lo que cambia es el reparto: qué delegas, qué retienes, qué supervisas.</p></div>
       <p class="pant">En pantalla: Diagrama. Tres columnas iguales, sin jerarquía entre ellas.</p>
       
       <p class="spk">Clarke y Joffe. Es el supuesto que ordena toda la tesis.</p>
@@ -367,8 +398,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">14</span><span class="nm">La autoría es una cadena</span>
         <span class="ref">idea 28 del mapa</span></div>
-      <p class="idea">La autoría deja de ser una propiedad del texto y pasa a ser una cadena de decisiones.</p>
-      <p class="entrega">La autoría no es una propiedad del texto, es una cadena de decisiones.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">La autoría deja de ser una propiedad del texto y pasa a ser una cadena de decisiones.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">La autoría no es una propiedad del texto, es una cadena de decisiones.</p></div>
       <p class="pant">En pantalla: Diagrama horizontal. Cinco nodos conectados.</p>
       
       <p class="spk">Sale textual de tu 7.2.2.</p>
@@ -386,8 +419,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">15</span><span class="nm">El criterio</span>
         <span class="ref">idea 33 del mapa</span></div>
-      <p class="idea">El criterio es la capacidad de evaluar, seleccionar y corregir lo que la herramienta ofrece.</p>
-      <p class="entrega">El criterio es lo que decide en cada eslabón de esa cadena.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">El criterio es la capacidad de evaluar, seleccionar y corregir lo que la herramienta ofrece.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">El criterio es lo que decide en cada eslabón de esa cadena.</p></div>
       <p class="pant">En pantalla: Imagen a sangre. Una palabra.</p>
       
       
@@ -402,8 +437,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">16</span><span class="nm">El riesgo silencioso</span>
         <span class="ref">idea 58 del mapa</span></div>
-      <p class="idea">El riesgo no es el reemplazo: es ceder criterio y voz sin haberlo decidido.</p>
-      <p class="entrega">Lo grave no es perder el trabajo: es ceder la voz sin haberlo decidido.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">El riesgo no es el reemplazo: es ceder criterio y voz sin haberlo decidido.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Lo grave no es perder el trabajo: es ceder la voz sin haberlo decidido.</p></div>
       <p class="pant">En pantalla: Única lámina de fondo oscuro de todo el deck. Texto en claro.</p>
       
       <p class="spk">El cambio de fondo hace el trabajo emocional. No hay que subir la voz.</p>
@@ -424,8 +461,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">17</span><span class="nm">El vacío</span>
         <span class="ref">idea 54 del mapa</span></div>
-      <p class="idea">Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan así.</p>
-      <p class="entrega">Sabemos cuánto se usa, no sabemos cómo lo vive quien lo usa.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Hay medición y hay marcos: falta el relato en primera persona de quienes ya trabajan así.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Sabemos cuánto se usa, no sabemos cómo lo vive quien lo usa.</p></div>
       <p class="pant">En pantalla: Solo imagen. Espacio negativo dominante.</p>
       
       
@@ -443,8 +482,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">18</span><span class="nm">Y falta desde la región</span>
         <span class="ref">idea 55 del mapa</span></div>
-      <p class="idea">Casi todo lo empírico se hizo en contextos anglosajones o europeos.</p>
-      <p class="entrega">Y desde acá, menos todavía.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">Casi todo lo empírico se hizo en contextos anglosajones o europeos.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Y desde acá, menos todavía.</p></div>
       <p class="pant">En pantalla: Mitad imagen, mitad texto.</p>
       
       
@@ -461,8 +502,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">19</span><span class="nm">La ontología relacional</span>
         <span class="ref">idea 56 del mapa</span></div>
-      <p class="idea">El aporte es nombrar las entidades y las relaciones que reaparecen en estas prácticas.</p>
-      <p class="entrega">Nombrar esas relaciones es lo que esta investigación va a construir.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">El aporte es nombrar las entidades y las relaciones que reaparecen en estas prácticas.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Nombrar esas relaciones es lo que esta investigación va a construir.</p></div>
       <p class="pant">En pantalla: Diagrama construido. Red de nodos y relaciones.</p>
       
       <p class="spk">Construido a mano. Una red generada por IA sale con etiquetas ilegibles.</p>
@@ -483,8 +526,10 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
       <div class="head"><span class="pill pill--draft">draft</span>
         <span class="id">20</span><span class="nm">Cierre</span>
         </div>
-      <p class="idea">La misma escena de la apertura, ahora legible.</p>
-      <p class="entrega">Se puede decidir sobre esto, pero primero hay que poder verlo.</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">La misma escena de la apertura, ahora legible.</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">Se puede decidir sobre esto, pero primero hay que poder verlo.</p></div>
       <p class="pant">En pantalla: Imagen a sangre, misma escena que la 01. Frase de cierre.</p>
       
       <p class="spk">La rima visual con la 01 cierra sin que haya que decir 'en conclusión'.</p>

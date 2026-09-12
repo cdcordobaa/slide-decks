@@ -87,8 +87,10 @@ const rows = secs.map(s=>`<section class="sec">
       <div class="head"><span class="pill pill--${esc(c.status)}">${esc(c.status)}</span>
         <span class="id">${esc(c.id)}</span><span class="nm">${esc(c.name)}</span>
         ${c.idea_ref?`<span class="ref">idea ${c.idea_ref} del mapa</span>`:""}</div>
-      <p class="idea">${esc(c.idea_central)}</p>
-      <p class="entrega">${esc(c.entrega)}</p>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">${esc(c.idea_central)}</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">${esc(c.entrega)}</p></div>
       <p class="pant">En pantalla: ${esc(c.en_pantalla)}</p>
       ${c.fuente_dato?`<p class="fte">Fuente del dato: ${esc(c.fuente_dato)}</p>`:""}
       ${c.speaker?`<p class="spk">${esc(c.speaker)}</p>`:""}
@@ -165,7 +167,12 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
 .id{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mut)}
 .nm{font-size:12px;color:var(--mut)}
 .ref{font-size:10.5px;color:var(--ac);border:1px solid var(--ac);border-radius:999px;padding:1px 8px}
-.idea{margin:0 0 7px;font-size:17.5px;line-height:1.32;font-weight:600}
+.bl{margin:0 0 11px}
+.bl__lab{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:800;margin-bottom:4px}
+.bl--ent .bl__lab{color:var(--ac)}
+.idea{margin:0;font-size:17.5px;line-height:1.32;font-weight:600}
+.bl--ent{background:#EFEDFB;border:1px solid #DCD8F5;border-radius:7px;padding:9px 12px}
+.entrega{margin:0;font-size:15px;line-height:1.4;font-weight:650;color:#22214A}
 .pant{margin:0 0 5px;font-size:12.5px;color:var(--mut)}
 .fte{margin:0 0 5px;font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
 .spk{margin:0 0 9px;font-size:12.5px;color:#41402F;border-left:2px solid var(--ln);padding-left:9px}
