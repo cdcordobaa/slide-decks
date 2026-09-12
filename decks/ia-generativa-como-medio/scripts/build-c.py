@@ -231,14 +231,14 @@ CSS = """
 *{box-sizing:border-box}
 body{margin:0;background:#E2DED3;color:var(--ink);font-family:var(--sans)}
 
-.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
+.edit-toolbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
   padding:10px 18px;background:rgba(242,239,231,.95);border-bottom:1px solid var(--line);
   backdrop-filter:blur(10px);font-size:13px;color:var(--muted)}
-.bar strong{color:var(--ink);font-weight:600}
-.bar button{font:inherit;font-weight:600;color:var(--ink);background:var(--paper);
+.edit-toolbar strong{color:var(--ink);font-weight:600}
+.edit-toolbar button{font:inherit;font-weight:600;color:var(--ink);background:var(--paper);
   border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
-.bar button:hover{border-color:var(--accent);color:var(--accent)}
-.bar .sp{flex:1}
+.edit-toolbar button:hover{border-color:var(--accent);color:var(--accent)}
+.edit-toolbar .sp{flex:1}
 
 .deck{display:grid;gap:28px;justify-items:center;padding:28px}
 
@@ -289,7 +289,7 @@ body{margin:0;background:#E2DED3;color:var(--ink);font-family:var(--sans)}
 
 /* ---- modo presentacion ---- */
 body.present{background:#0E0E0C;overflow:hidden}
-body.present .bar{display:none}
+body.present .edit-toolbar{display:none}
 body.present .deck{display:block;padding:0}
 body.present .slide{display:none;border:none}
 body.present .slide.on{display:flex;position:fixed;top:50%;left:50%;
@@ -306,7 +306,7 @@ body.present .hud{display:flex;position:fixed;right:18px;bottom:18px;z-index:30;
 @page{size:13.333in 7.5in;margin:0}
 @media print{
   body{background:#fff}
-  .bar,.pbar,.hud{display:none!important}
+  .edit-toolbar,.pbar,.hud{display:none!important}
   .deck{display:block;padding:0;gap:0}
   .slide{display:flex!important;position:static!important;transform:none!important;
     width:13.333in;height:7.5in;border:none;break-after:page;page-break-after:always}
@@ -373,13 +373,13 @@ doc = f"""<!doctype html>
 <style>{CSS}</style>
 </head>
 <body>
-<div class="bar" contenteditable="false">
+<aside class="edit-toolbar" contenteditable="false">
   <strong>La genealogía de la palabra</strong>
   <span>20 láminas · 20 segundos · 6:40</span>
   <span class="sp"></span>
   <span>Haz clic en cualquier texto para editarlo</span>
   <button id="go">Presentar</button>
-</div>
+</aside>
 <main class="deck">
 {chr(10).join(slide_html(n+1, s) for n, s in enumerate(S))}
 </main>

@@ -43,3 +43,31 @@ El azul es la tinta que no es tuya. El pez de McLuhan, en la lámina 8, es la ú
 - [ ] Elegir entre A y C
 - [ ] Ensayo contra reloj
 - [ ] Añadir dos o tres líneas sobre la imprenta al 4.1.2 del anteproyecto, que hoy no la trata
+
+## Verificación (skill `create-slide-deck`)
+
+El deck se construyó siguiendo `skill/SKILL.md` y `skill/references/editable-html-deck-mechanics.md`.
+
+**Render oficial del repo** (`npm run render`, que llama a `skill/scripts/render-pdf.mjs` con `--fail-on-overflow`):
+
+```
+Found 20 slides.
+No likely overflow detected.
+Saved 20 slide screenshots to build/shots
+Wrote PDF: build/genealogia-c.pdf
+```
+
+**Checklist funcional** (`node scripts/qa.mjs`), 14 de 14:
+
+edición directa al hacer clic · Presentar entra en modo presentación · una sola lámina a la vez ·
+la lámina cabe en pantalla · no editable mientras se presenta · la barra de progreso avanza ·
+la cuenta regresiva muestra segundos · las flechas cambian de lámina · Escape sale ·
+vuelve a ser editable al salir · la barra de herramientas no sale al imprimir ·
+la barra de progreso tampoco · las 20 láminas se imprimen · cada lámina rompe página
+
+## Desviaciones respecto al skill
+
+| Regla del skill | Qué hice | Por qué |
+|---|---|---|
+| Partir de `assets/editable-deck-template.html` | CSS propio, con las mismas mecánicas | El formato Pecha Kucha necesita temporizador y modo presentación, que la plantilla no trae. Todas las mecánicas del reference se cumplen y están verificadas arriba |
+| Logo de la institución arriba a la derecha | **Sin logo** | Esa esquina lleva el número de lámina, que en Pecha Kucha orienta al público. Pendiente de decisión de Andrea |
