@@ -9,6 +9,10 @@ cards:
     en_pantalla: "Sin imagen. La lámina más grande tipográficamente de toda la charla."
     visual: { kind: none }
     speaker: "Pausa antes y después. Es el centro del deck."
+    soporte:
+      seccion: "§5 Pregunta"
+      cita: >-
+        Si el medio es el mensaje, ¿cuál es el “mensaje” de la IA generativa como medio?
     status: draft
   - id: "07"
     name: "Dónde se busca"
@@ -21,6 +25,11 @@ cards:
       kind: image
       brief: "Un escritorio real en pleno uso: papeles anotados, una taza, una pantalla fuera de foco. El desorden del trabajo cotidiano, no el producto terminado."
     speaker: "Martín-Barbero, de los medios a las mediaciones."
+    soporte:
+      seccion: "§7.2.1 De los medios a las mediaciones"
+      cita: >-
+        lo decisivo no ocurre en el aparato ni en sus productos, sino en las mediaciones, en los
+        usos y apropiaciones con que la gente vuelve cultura a un medio
     status: draft
   - id: "08"
     name: "Desde dónde"
@@ -33,6 +42,12 @@ cards:
       kind: image
       brief: "Una ventana o un vano abierto desde el interior hacia afuera, con luz tropical dura. Punto de vista, no postal. Sin banderas ni símbolos nacionales."
     speaker: "Ojo: si la imagen parece turismo, falló."
+    soporte:
+      seccion: "§7.1 Justificación"
+      cita: >-
+        No porque la región sea el lugar donde ocurre el caso, sino porque mirar el fenómeno desde
+        aquí, desde la desigualdad de acceso y los usos cotidianos, revela dimensiones que los
+        estudios de otros sitios no alcanzan a ver
     status: draft
   - id: "09"
     name: "Pregunta de investigación"
@@ -42,4 +57,9 @@ cards:
     entrega: "Hay que preguntarle a quien ya trabaja así, y escuchar cómo lo describe."
     en_pantalla: "Sin imagen. Segundo pico tipográfico, menor que el de la 06."
     visual: { kind: none }
+    soporte:
+      seccion: "§5 Pregunta"
+      cita: >-
+        ¿Cómo describen los profesionales creativos la reconfiguración de su forma de pensar,
+        escribir y comunicar al integrar la IA generativa en su trabajo cotidiano?
     status: draft

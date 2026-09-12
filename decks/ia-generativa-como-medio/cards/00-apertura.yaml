@@ -11,4 +11,10 @@ cards:
       kind: image
       brief: "Un escritorio de trabajo en penumbra, visto desde arriba. Una mano cerca de un teclado, quieta. Luz lateral dura. No se entiende todavía qué está pasando, y esa ambigüedad es el punto."
     speaker: "Rima con la lámina 20: mismo plano, resuelto."
+    soporte:
+      seccion: "§2 Resumen"
+      cita: >-
+        La inteligencia artificial generativa se ha integrado al trabajo creativo y comunicativo a
+        una velocidad que supera la capacidad de las organizaciones y las personas para comprender
+        sus efectos.
     status: draft

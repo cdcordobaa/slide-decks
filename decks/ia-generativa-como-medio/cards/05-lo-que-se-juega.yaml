@@ -11,6 +11,11 @@ cards:
       kind: chain_5
       steps: ["idea", "formulación", "edición", "firma", "responsabilidad"]
     speaker: "Sale textual de tu 7.2.2."
+    soporte:
+      seccion: "§7.2.2 Mediación, agencia, autoría y criterio"
+      cita: >-
+        Conviene entonces separar idea, formulación, edición, firma y responsabilidad, y tratar la
+        autoría como una práctica relacional y no como una propiedad individual del texto
     status: draft
   - id: "15"
     name: "El criterio"
@@ -22,6 +27,11 @@ cards:
     visual:
       kind: image
       brief: "Una mano tachando o descartando una hoja impresa. El gesto de decidir, capturado a media acción. El azul de acento solo en la marca que deja."
+    soporte:
+      seccion: "§7.2.2 Mediación, agencia, autoría y criterio"
+      cita: >-
+        Y está el criterio, que ocupa el centro de este marco: la capacidad de evaluar, seleccionar
+        y corregir lo que la herramienta ofrece.
     status: draft
   - id: "16"
     name: "El riesgo silencioso"
@@ -32,4 +42,10 @@ cards:
     en_pantalla: "Única lámina de fondo oscuro de todo el deck. Texto en claro."
     visual: { kind: none }
     speaker: "El cambio de fondo hace el trabajo emocional. No hay que subir la voz."
+    soporte:
+      seccion: "§7.1 Justificación"
+      cita: >-
+        El riesgo de fondo es silencioso. No tanto que la IA reemplace el trabajo, sino que cambie
+        nuestra forma de pensar y de escribir sin que lo notemos, y que se ceda sin decisión aquello
+        que un profesional creativo no debería perder: la voz propia y el criterio.
     status: draft

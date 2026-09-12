@@ -14,6 +14,19 @@ const secs = fs.readdirSync(DIR).filter(f=>/\.ya?ml$/.test(f) && f!=="deck.yaml"
   .filter(s => (s.cards||[]).length);
 const all = secs.flatMap(s=>s.cards);
 
+// --- Cada cita de soporte debe ser TEXTUAL del anteproyecto. Si no, el build falla.
+const SRC_PATH = (deck.fuente ?? "fuente/anteproyecto-2026-06-18.md");
+const norm = x => String(x).replace(/\*\*|\*|`|&nbsp;|\\|_/g,"").replace(/\s+/g," ").trim();
+const SRC = norm(fs.readFileSync(SRC_PATH,"utf8"));
+const rotas = all.filter(c => c.soporte?.cita && !SRC.includes(norm(c.soporte.cita)));
+const sinSop = all.filter(c => !c.soporte?.cita);
+if (rotas.length || sinSop.length) {
+  if (rotas.length) console.error("CITAS QUE NO SON TEXTUALES:", rotas.map(c=>c.id).join(", "));
+  if (sinSop.length) console.error("LÁMINAS SIN SOPORTE:", sinSop.map(c=>c.id).join(", "));
+  process.exit(1);
+}
+console.log(`citas verificadas contra ${SRC_PATH}: ${all.length}/${all.length} textuales`);
+
 // ---- miniatura del wireframe, por arquetipo de composicion
 const WF = {
   imagen_sangre:        '<div class="wf"><div class="wf-img"></div></div>',
@@ -81,6 +94,8 @@ const rows = secs.map(s=>`<section class="sec">
       <p class="pant">En pantalla: ${esc(c.en_pantalla)}</p>
       ${c.fuente_dato?`<p class="fte">Fuente del dato: ${esc(c.fuente_dato)}</p>`:""}
       ${c.speaker?`<p class="spk">${esc(c.speaker)}</p>`:""}
+      ${c.soporte?`<div class="sop"><div class="sop__sec">De dónde sale · ${esc(c.soporte.seccion)}</div>
+        <blockquote>${esc(c.soporte.cita)}</blockquote></div>`:""}
     </div></article>`).join("")}</section>`).join("");
 
 const sv = deck.sistema_visual ?? {};
@@ -155,7 +170,17 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
 .idea{margin:0 0 7px;font-size:17.5px;line-height:1.32;font-weight:600}
 .pant{margin:0 0 5px;font-size:12.5px;color:var(--mut)}
 .fte{margin:0 0 5px;font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
-.spk{margin:0;font-size:12.5px;color:#41402F;border-left:2px solid var(--ln);padding-left:9px}
+.spk{margin:0 0 9px;font-size:12.5px;color:#41402F;border-left:2px solid var(--ln);padding-left:9px}
+.sop{margin-top:10px;border-top:1px solid var(--ln);padding-top:9px}
+.sop__sec{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:5px}
+.sop blockquote{margin:0;font-size:12.5px;line-height:1.5;color:#41402F;font-style:italic;
+ border-left:2px solid var(--ac);padding-left:10px}
+.rep{width:100%;border-collapse:collapse;margin:16px 0 0;font-size:12.5px;background:var(--pap);
+ border:1px solid var(--ln);border-radius:8px;overflow:hidden}
+.rep th,.rep td{text-align:left;padding:7px 12px;border-bottom:1px solid var(--ln)}
+.rep th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.rep td:nth-child(2),.rep td:nth-child(3){text-align:right;font-variant-numeric:tabular-nums;width:90px}
+.rep tr:last-child td{border-bottom:0;font-weight:700}
 .pill{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;
  background:#E4E0D3;color:var(--mut)}
 .pill--listo{background:#DFF0E6;color:#1F7A52}
@@ -179,6 +204,9 @@ h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
   <div><i>Prohibido:</i> ${esc(sv.prohibido)}</div>
 </div>
 ${argumento}
+<table class="rep"><thead><tr><th>Bloque</th><th>Láminas</th><th>Minutos</th></tr></thead><tbody>
+${secs.map(x=>`<tr><td>${esc(x.section.title)}</td><td>${x.section.laminas}</td><td>${esc(x.section.tiempo)}</td></tr>`).join("")}
+<tr><td>Total</td><td>${all.length}</td><td>6:40</td></tr></tbody></table>
 ${rows}</div></body></html>`;
 
 fs.mkdirSync("build",{recursive:true});

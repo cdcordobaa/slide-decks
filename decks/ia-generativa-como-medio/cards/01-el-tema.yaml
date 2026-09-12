@@ -11,6 +11,12 @@ cards:
       kind: image
       brief: "Un cronómetro o un contador de tiempo fuera de foco, muy cerca del lente. Sensación de medición y de prisa. Monocromo cálido."
     speaker: "No descalificar esa mirada: decir que es útil y que se queda corta."
+    soporte:
+      seccion: "§2 Resumen"
+      cita: >-
+        Buena parte de la literatura la ha estudiado desde la productividad, la adopción y el
+        empleo, pero esa mirada resulta insuficiente cuando el fenómeno se observa desde la
+        comunicación
     status: draft
   - id: "03"
     name: "Interviene en el sentido"
@@ -20,6 +26,11 @@ cards:
     entrega: "La IA no acelera el lenguaje: lo escribe con nosotros."
     en_pantalla: "Sin imagen. Frase en dos líneas. Respiro después de dos imágenes seguidas."
     visual: { kind: none }
+    soporte:
+      seccion: "§2 Resumen"
+      cita: >-
+        la IA generativa interviene en la producción de sentido: sugiere, ordena, completa y
+        reformula el lenguaje con que pensamos, escribimos y nos comunicamos
     status: draft
   - id: "04"
     name: "Qué es un medio"
@@ -32,6 +43,11 @@ cards:
       kind: image
       brief: "Luz atravesando un vidrio texturado o agua, y deformándose al pasar. Lo que sale no es lo que entró. Sin objetos identificables."
     speaker: "Acá entra McLuhan, dicho, no escrito en pantalla."
+    soporte:
+      seccion: "§4.1.1 De la herramienta al medio"
+      cita: >-
+        el significado cultural de una tecnología no reside únicamente en los contenidos que
+        transmite, sino en la reorganización perceptiva, social y simbólica que introduce
     status: draft
   - id: "05"
     name: "Qué es un ambiente"
@@ -43,4 +59,10 @@ cards:
     visual:
       kind: image
       brief: "Superficie del agua vista desde abajo, a contraluz. El espectador está sumergido sin haberlo notado. Monocromo, con el azul de acento solo en la luz que cruza."
+    soporte:
+      seccion: "§7.2 Marco conceptual"
+      cita: >-
+        no entiende las tecnologías de comunicación como instrumentos neutrales que se usan y se
+        sueltan, sino como ambientes que reorganizan la percepción, la cultura y las formas de
+        producir sentido
     status: draft

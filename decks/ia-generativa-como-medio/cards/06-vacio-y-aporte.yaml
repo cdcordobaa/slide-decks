@@ -10,6 +10,12 @@ cards:
     visual:
       kind: image
       brief: "Una silla vacía frente a un escritorio en uso, o un hueco exacto en una serie de objetos alineados. Una ausencia con forma, no un vacío genérico."
+    soporte:
+      seccion: "§4.6.2 El vacío identificado"
+      cita: >-
+        Lo que la literatura todavía no integra es una mirada sobre la manera en que los propios
+        profesionales creativos describen, nombran e interpretan la reconfiguración de su forma de
+        pensar, escribir y comunicar en el trabajo cotidiano.
     status: draft
   - id: "18"
     name: "Y falta desde la región"
@@ -21,6 +27,12 @@ cards:
     visual:
       kind: image
       brief: "Un mapa o un archivo de papers con una zona claramente despoblada. Debe leerse como hueco en la literatura, no como mapa político."
+    soporte:
+      seccion: "§4.6.2 El vacío identificado"
+      cita: >-
+        la mayoría de los estudios empíricos revisados se realizó en contextos anglosajones o
+        europeos, o bien midió variables agregadas, de modo que la experiencia de los profesionales
+        creativos latinoamericanos sigue siendo un terreno escasamente documentado
     status: draft
   - id: "19"
     name: "La ontología relacional"
@@ -34,4 +46,10 @@ cards:
       items: ["profesional", "prompt", "output", "criterio", "voz", "autoría", "organización", "poder"]
       note: "lo que importa son los verbos de las aristas, no los nodos"
     speaker: "Construido a mano. Una red generada por IA sale con etiquetas ilegibles."
+    soporte:
+      seccion: "§7.2.4 La ontología relacional"
+      cita: >-
+        Es una manera de nombrar las entidades y las relaciones que reaparecen en estas prácticas:
+        profesional, herramienta, prompt, output, criterio, autoría, voz, organización, audiencia,
+        poder.
     status: draft

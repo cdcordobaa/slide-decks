@@ -13,6 +13,11 @@ cards:
         - { label: "REEMPLAZO", result: "la máquina hace lo que hacía la persona" }
         - { label: "AUMENTO", result: "la persona hace más de lo mismo" }
       note: "las dos se tachan"
+    soporte:
+      seccion: "§7.1 Justificación"
+      cita: >-
+        El aporte se define frente a un debate empobrecido, atrapado entre el reemplazo y el
+        aumento. Mi apuesta es salir de ese binario.
     status: draft
   - id: "13"
     name: "Reasignación situada"
@@ -25,4 +30,9 @@ cards:
       kind: sequence_3
       items: ["DELEGA", "RETIENE", "SUPERVISA"]
     speaker: "Clarke y Joffe. Es el supuesto que ordena toda la tesis."
+    soporte:
+      seccion: "§7.1 Justificación"
+      cita: >-
+        describe una reasignación situada de roles, esto es, qué se delega, qué se retiene y qué se
+        supervisa
     status: draft

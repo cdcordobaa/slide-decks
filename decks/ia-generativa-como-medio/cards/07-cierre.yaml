@@ -11,4 +11,10 @@ cards:
       kind: image
       brief: "El mismo escritorio de la lámina 01, mismo encuadre y misma luz, ahora con la escena resuelta y legible. Debe reconocerse de inmediato."
     speaker: "La rima visual con la 01 cierra sin que haya que decir 'en conclusión'."
+    soporte:
+      seccion: "§7.1 Justificación"
+      cita: >-
+        Lo que esta investigación busca comprender es el criterio y la voz, no la eficiencia: qué
+        ocurre con el pensar y con el sentido de autoría cuando escribir y decidir empiezan a
+        hacerse con sistemas generativos.
     status: draft
