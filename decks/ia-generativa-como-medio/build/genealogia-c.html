@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La IA generativa como medio · Pecha Kucha</title>
+<script type="application/json" id="deck-metadata">
+{"titulo":"La IA generativa como medio: mediaciones, criterio, autoría y la reconfiguración del trabajo creativo en América Latina",
+ "estructura":"Opción C, la genealogía de la palabra",
+ "formato":"Pecha Kucha, 20 láminas x 20 segundos, 6:40",
+ "autora":"Paola Andrea Caro Burgos",
+ "fuente":"fuente/anteproyecto-2026-06-18.md",
+ "guion":"GUION-C-genealogia.md",
+ "generado":"scripts/build-c.py"}
+</script>
+<style>
+:root{
+  --paper:#F2EFE7; --ink:#16150F; --muted:#6E6A5E; --line:#D6D0C1;
+  --accent:#2B3FD9; --accent-soft:#E4E6FA;
+  --w:1280px; --h:720px;
+  color-scheme:light;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#E2DED3;color:var(--ink);font-family:var(--sans)}
+
+.edit-toolbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
+  padding:10px 18px;background:rgba(242,239,231,.95);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(10px);font-size:13px;color:var(--muted)}
+.edit-toolbar strong{color:var(--ink);font-weight:600}
+.edit-toolbar button{font:inherit;font-weight:600;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.edit-toolbar button:hover{border-color:var(--accent);color:var(--accent)}
+.edit-toolbar .sp{flex:1}
+
+.deck{display:grid;gap:28px;justify-items:center;padding:28px}
+
+.slide{position:relative;width:var(--w);height:var(--h);overflow:hidden;
+  padding:64px 84px;background:var(--paper);border:1px solid var(--line);
+  display:flex;flex-direction:column}
+.slide:focus{outline:3px solid var(--accent);outline-offset:6px}
+
+.head{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.head .num{font-variant-numeric:tabular-nums;font-weight:600}
+.body{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:40px;text-align:center}
+.kicker{font-size:15px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin:0}
+
+.lead{font-family:var(--serif);font-size:62px;line-height:1.16;margin:0;
+  letter-spacing:-.01em;max-width:30ch}
+.lead.sm{font-size:40px;max-width:30ch;line-height:1.28}
+.lead.accent{color:var(--accent)}
+.lead em{font-style:italic;color:var(--accent)}
+.stmt{font-family:var(--serif);font-size:46px;line-height:1.2;margin:0;max-width:34ch}
+.foot{font-size:19px;color:var(--muted);margin:0;max-width:44ch}
+.strike{font-family:var(--serif);font-size:40px;margin:0;color:var(--muted);
+  text-decoration:line-through;text-decoration-thickness:2px}
+.stmt.off{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px;font-size:34px}
+.stmt.on{color:var(--accent);font-size:52px}
+
+.artwrap{width:100%;display:flex;justify-content:center}
+.art{width:min(660px,62%);height:auto;display:block}
+
+.cols{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:18px 44px;
+  margin:0;padding:0;font-family:var(--serif);font-size:30px;text-align:left;max-width:860px}
+.cols.four{grid-template-columns:repeat(4,1fr);gap:26px;font-size:22px}
+.cols.four b{display:block;font-family:var(--sans);font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:700}
+.cols.four span{display:block;font-size:21px;line-height:1.35}
+
+.verbs{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin:0}
+.verbs span{font-family:var(--serif);font-size:44px;padding:6px 22px;
+  border:1px solid var(--line);border-radius:999px}
+
+.figs{display:flex;gap:80px;justify-content:center;align-items:flex-start;text-align:left}
+.figs b{display:block;font-family:var(--serif);font-size:88px;line-height:1;
+  color:var(--accent);letter-spacing:-.02em}
+.figs span{display:block;margin-top:14px;font-size:19px;color:var(--ink);max-width:19ch;line-height:1.4}
+.figs i{display:block;margin-top:8px;font-style:normal;font-size:14px;color:var(--muted)}
+
+/* ---- modo presentacion ---- */
+body.present{background:#0E0E0C;overflow:hidden}
+body.present .edit-toolbar{display:none}
+body.present .deck{display:block;padding:0}
+body.present .slide{display:none;border:none}
+body.present .slide.on{display:flex;position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(var(--k,1));transform-origin:center}
+.pbar{display:none}
+body.present .pbar{display:block;position:fixed;left:0;bottom:0;height:5px;
+  width:100%;background:rgba(255,255,255,.14);z-index:30}
+body.present .pbar i{display:block;height:100%;width:0;background:var(--accent)}
+body.present .hud{display:flex;position:fixed;right:18px;bottom:18px;z-index:30;
+  gap:12px;align-items:center;color:#8C887C;font-size:13px;font-variant-numeric:tabular-nums}
+.hud{display:none}
+
+/* ---- impresion ---- */
+@page{size:13.333in 7.5in;margin:0}
+@media print{
+  body{background:#fff}
+  .edit-toolbar,.pbar,.hud{display:none!important}
+  .deck{display:block;padding:0;gap:0}
+  .slide{display:flex!important;position:static!important;transform:none!important;
+    width:13.333in;height:7.5in;border:none;break-after:page;page-break-after:always}
+  .slide:last-child{break-after:auto}
+}
+</style>
+</head>
+<body>
+<aside class="edit-toolbar" contenteditable="false">
+  <strong>La genealogía de la palabra</strong>
+  <span>20 láminas · 20 segundos · 6:40</span>
+  <span class="sp"></span>
+  <span>Haz clic en cualquier texto para editarlo</span>
+  <button id="go">Presentar</button>
+</aside>
+<main class="deck">
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 1">
+    <div class="head"><span>La pregunta vieja</span><span class="num">01 / 20</span></div>
+    <div class="body"><p class="lead">¿Qué le hace a una persona<br>la tecnología con la que escribe?</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 2">
+    <div class="head"><span>La pregunta vieja</span><span class="num">02 / 20</span></div>
+    <div class="body"><p class="kicker">Oralidad</p><p class="stmt">Pensar era recordar.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="10" y="17" width="5" height="26" rx="2.5" fill="var(--ink)" opacity="1.0"/><rect x="26" y="10" width="5" height="40" rx="2.5" fill="var(--ink)" opacity="0.87"/><rect x="42" y="21" width="5" height="18" rx="2.5" fill="var(--ink)" opacity="0.74"/><rect x="58" y="7" width="5" height="46" rx="2.5" fill="var(--ink)" opacity="0.61"/><rect x="74" y="19" width="5" height="22" rx="2.5" fill="var(--ink)" opacity="0.48"/><rect x="90" y="12" width="5" height="36" rx="2.5" fill="var(--ink)" opacity="0.35"/><rect x="106" y="23" width="5" height="14" rx="2.5" fill="var(--ink)" opacity="0.22"/><rect x="122" y="17" width="5" height="26" rx="2.5" fill="var(--ink)" opacity="0.09"/><rect x="138" y="25" width="5" height="10" rx="2.5" fill="var(--ink)" opacity="0.06"/><line x1="4" y1="56" x2="144" y2="56" stroke="var(--line)" stroke-width="2" stroke-dasharray="3 6"/></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 3">
+    <div class="head"><span>Lo que cambió cada vez</span><span class="num">03 / 20</span></div>
+    <div class="body"><p class="kicker">Escritura</p><p class="stmt">No fue una técnica<br>para registrar.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="4" y1="56" x2="144" y2="56" stroke="var(--line)" stroke-width="2"/><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" opacity="1.0"/></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 4">
+    <div class="head"><span>Lo que cambió cada vez</span><span class="num">04 / 20</span></div>
+    <div class="body"><p class="kicker">Escritura</p><ul class="cols"><li>Volver atrás sobre una frase</li><li>Sostener un argumento largo</li><li>Comparar dos versiones</li><li>Abstraer</li></ul><div class="artwrap"><svg class="art" viewBox="0 -8 148 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="4" y1="56" x2="144" y2="56" stroke="var(--line)" stroke-width="2"/><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" opacity="1.0"/><path d="M128,12 C126,-4 34,-6 14,20" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><path d="M14,20 L21,13 M14,20 L23,22" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 5">
+    <div class="head"><span>Lo que cambió cada vez</span><span class="num">05 / 20</span></div>
+    <div class="body"><p class="kicker">Imprenta</p><p class="stmt">Estable. Idéntico.<br>Firmado.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 78" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(6,4) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(54,4) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(102,4) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(6,28) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(54,28) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(102,28) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(6,52) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(54,52) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(102,52) scale(0.26)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="20" stroke-linecap="round" opacity="1.0"/></g></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 6">
+    <div class="head"><span>Lo que cambió cada vez</span><span class="num">06 / 20</span></div>
+    <div class="body"><p class="kicker">El patrón</p><p class="stmt">Mientras pasa,<br>no se siente como un cambio.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(0,4)"><rect x="0" y="0" width="32" height="26" rx="3" fill="none" stroke="var(--line)" stroke-width="1.5"/><rect x="4" y="10" width="2.4" height="5" rx="1.2" fill="var(--ink)" opacity="1.0"/><rect x="9" y="8" width="2.4" height="9" rx="1.2" fill="var(--ink)" opacity="0.83"/><rect x="14" y="11" width="2.4" height="4" rx="1.2" fill="var(--ink)" opacity="0.66"/><rect x="19" y="8" width="2.4" height="10" rx="1.2" fill="var(--ink)" opacity="0.49"/><rect x="24" y="10" width="2.4" height="6" rx="1.2" fill="var(--ink)" opacity="0.32"/><text x="16" y="37" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">oralidad</text></g><g transform="translate(38,4)"><rect x="0" y="0" width="32" height="26" rx="3" fill="none" stroke="var(--line)" stroke-width="1.5"/><g transform="translate(2,6) scale(0.2)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="26" stroke-linecap="round" opacity="1.0"/></g><text x="16" y="37" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">escritura</text></g><g transform="translate(76,4)"><rect x="0" y="0" width="32" height="26" rx="3" fill="none" stroke="var(--line)" stroke-width="1.5"/><g transform="translate(2,4) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(16,4) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(2,13) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(16,13) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><text x="16" y="37" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">imprenta</text></g></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 7">
+    <div class="head"><span>El nombre del patrón</span><span class="num">07 / 20</span></div>
+    <div class="body"><p class="kicker">McLuhan</p><p class="lead">El medio es el mensaje.</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 8">
+    <div class="head"><span>El nombre del patrón</span><span class="num">08 / 20</span></div>
+    <div class="body"><p class="kicker">El pez y el agua</p><p class="stmt">No porque sea invisible.<br>Porque es todo lo que hay.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M30,34 C44,16 84,14 104,32 C84,50 44,52 30,34 Z" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M104,32 L126,18 L126,48 Z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><circle cx="48" cy="30" r="3" fill="var(--ink)"/><g stroke="var(--accent)" stroke-width="2" stroke-linecap="round" opacity="0.5"><path d="M6,12 C16,6 26,18 36,12"/><path d="M112,10 C122,4 132,16 142,10"/><path d="M6,58 C16,52 26,64 36,58"/><path d="M100,60 C110,54 120,66 130,60"/></g></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 9">
+    <div class="head"><span>Ahora</span><span class="num">09 / 20</span></div>
+    <div class="body"><p class="kicker">La siguiente de la serie</p><p class="stmt">Un medio emergente<br>que hereda problemas viejos.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(0,4)"><rect x="0" y="0" width="32" height="26" rx="3" fill="none" stroke="var(--line)" stroke-width="1.5"/><rect x="4" y="10" width="2.4" height="5" rx="1.2" fill="var(--ink)" opacity="1.0"/><rect x="9" y="8" width="2.4" height="9" rx="1.2" fill="var(--ink)" opacity="0.83"/><rect x="14" y="11" width="2.4" height="4" rx="1.2" fill="var(--ink)" opacity="0.66"/><rect x="19" y="8" width="2.4" height="10" rx="1.2" fill="var(--ink)" opacity="0.49"/><rect x="24" y="10" width="2.4" height="6" rx="1.2" fill="var(--ink)" opacity="0.32"/><text x="16" y="37" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">oralidad</text></g><g transform="translate(38,4)"><rect x="0" y="0" width="32" height="26" rx="3" fill="none" stroke="var(--line)" stroke-width="1.5"/><g transform="translate(2,6) scale(0.2)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="26" stroke-linecap="round" opacity="1.0"/></g><text x="16" y="37" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">escritura</text></g><g transform="translate(76,4)"><rect x="0" y="0" width="32" height="26" rx="3" fill="none" stroke="var(--line)" stroke-width="1.5"/><g transform="translate(2,4) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(16,4) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(2,13) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><g transform="translate(16,13) scale(0.093)"><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--ink)" stroke-width="52" stroke-linecap="round" opacity="1.0"/></g><text x="16" y="37" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">imprenta</text></g><g transform="translate(114,4)"><rect x="0" y="0" width="32" height="26" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 4"/><text x="16" y="18" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">?</text><text x="16" y="37" text-anchor="middle" font-size="6" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">¿?</text></g></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 10">
+    <div class="head"><span>Ahora</span><span class="num">10 / 20</span></div>
+    <div class="body"><p class="kicker">Qué cambió esta vez</p><p class="stmt">Escribir ya no empieza<br>en una página en blanco.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 78" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="4" y1="56" x2="144" y2="56" stroke="var(--line)" stroke-width="2"/><path d="M8,44 C24,12 52,10 74,30 C92,46 116,50 140,34" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" opacity="1.0"/><text x="74" y="72" text-anchor="middle" font-size="7" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">la marca llega antes que la mano</text></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 11">
+    <div class="head"><span>Ahora</span><span class="num">11 / 20</span></div>
+    <div class="body"><p class="kicker">Y no se queda en el arranque</p><p class="verbs"><span>sugiere</span><span>ordena</span><span>completa</span><span>reformula</span></p><p class="foot">El trabajo no desaparece. Se corre de sitio.</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 12">
+    <div class="head"><span>Ahora</span><span class="num">12 / 20</span></div>
+    <div class="body"><p class="kicker">Entonces no es una herramienta</p><p class="strike">herramienta</p><p class="lead accent">ambiente</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 13">
+    <div class="head"><span>La pregunta</span><span class="num">13 / 20</span></div>
+    <div class="body"><p class="kicker">Pregunta problema</p><p class="lead">Si el medio es el mensaje,<br>¿cuál es el mensaje<br>de la IA generativa como medio?</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 14">
+    <div class="head"><span>La pregunta</span><span class="num">14 / 20</span></div>
+    <div class="body"><p class="kicker">Dónde se busca ese mensaje</p><p class="stmt off">en el aparato</p><p class="stmt on">en los usos</p><p class="foot">Martín-Barbero, de los medios a las mediaciones.</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 15">
+    <div class="head"><span>La pregunta</span><span class="num">15 / 20</span></div>
+    <div class="body"><p class="kicker">Y desde dónde</p><p class="stmt">No es el lugar donde ocurre el caso.<br>Es el lugar desde donde se mira.</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 16">
+    <div class="head"><span>La pregunta</span><span class="num">16 / 20</span></div>
+    <div class="body"><p class="kicker">Pregunta de investigación</p><p class="lead sm">¿Cómo describen los profesionales creativos la reconfiguración de su forma de <em>pensar</em>, <em>escribir</em> y <em>comunicar</em> al integrar la IA generativa en su trabajo cotidiano?</p></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 17">
+    <div class="head"><span>La pregunta</span><span class="num">17 / 20</span></div>
+    <div class="body"><p class="kicker">Los cuatro frentes</p><ul class="cols four"><li><b>Roles</b><span>qué delegan, retienen, supervisan</span></li><li><b>Autoría</b><span>qué pasa con la voz propia</span></li><li><b>Criterio</b><span>competencia y dependencia</span></li><li><b>Ambiente</b><span>qué revela sobre el medio</span></li></ul></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 18">
+    <div class="head"><span>Por qué importa</span><span class="num">18 / 20</span></div>
+    <div class="body"><p class="kicker">No es especulación</p><div class="figs"><div><b>10–24 %</b><span>de la comunicación pública analizada, con marcas de escritura asistida<i>Liang et al., 2025</i></span></div><div><b>83 %</b><span>no pudo citar lo que acababa de escribir<i>Kosmyna et al., 2025</i></span></div></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 19">
+    <div class="head"><span>A dónde quiero llegar</span><span class="num">19 / 20</span></div>
+    <div class="body"><p class="kicker">La ontología relacional</p><p class="stmt">Nombrar las entidades<br>y las relaciones.</p><div class="artwrap"><svg class="art" viewBox="-20 -2 188 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="74.0" y1="20.0" x2="105.1" y2="27.6" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="105.1" y1="27.6" x2="118.0" y2="46.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="118.0" y1="46.0" x2="105.1" y2="64.4" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="105.1" y1="64.4" x2="74.0" y2="72.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="74.0" y1="72.0" x2="42.9" y2="64.4" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="42.9" y1="64.4" x2="74.0" y2="20.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="74.0" y1="20.0" x2="118.0" y2="46.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="105.1" y1="27.6" x2="74.0" y2="72.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="30.0" y1="46.0" x2="74.0" y2="20.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="30.0" y1="46.0" x2="118.0" y2="46.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="42.9" y1="27.6" x2="105.1" y2="64.4" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><line x1="42.9" y1="27.6" x2="30.0" y2="46.0" stroke="var(--accent)" stroke-width="1" opacity="0.5"/><circle cx="74.0" cy="20.0" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="74.0" y="11.6" text-anchor="middle" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">profesional</text><circle cx="105.1" cy="27.6" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="112.9" y="22.1" text-anchor="start" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">prompt</text><circle cx="118.0" cy="46.0" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="129.0" y="47.6" text-anchor="start" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">output</text><circle cx="105.1" cy="64.4" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="112.9" y="73.1" text-anchor="start" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">criterio</text><circle cx="74.0" cy="72.0" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="74.0" y="83.6" text-anchor="middle" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">voz</text><circle cx="42.9" cy="64.4" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="35.1" y="73.1" text-anchor="end" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">autoría</text><circle cx="30.0" cy="46.0" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="19.0" y="47.6" text-anchor="end" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">organización</text><circle cx="42.9" cy="27.6" r="2.8" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/><text x="35.1" y="22.1" text-anchor="end" font-size="5.2" fill="var(--muted)" font-family="Inter,system-ui,sans-serif">poder</text></svg></div></div>
+  </section>
+  <section class="slide" contenteditable="true" spellcheck="true" aria-label="Lámina 20">
+    <div class="head"><span>Cierre</span><span class="num">20 / 20</span></div>
+    <div class="body"><p class="lead">Estamos adentro del agua.</p><p class="foot">Por eso hay que preguntar ahora, mientras está pasando.</p><div class="artwrap"><svg class="art" viewBox="0 0 148 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M30,34 C44,16 84,14 104,32 C84,50 44,52 30,34 Z" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M104,32 L126,18 L126,48 Z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><circle cx="48" cy="30" r="3" fill="var(--ink)"/><g stroke="var(--accent)" stroke-width="2" stroke-linecap="round" opacity="0.5"><path d="M6,12 C16,6 26,18 36,12"/><path d="M112,10 C122,4 132,16 142,10"/><path d="M6,58 C16,52 26,64 36,58"/><path d="M100,60 C110,54 120,66 130,60"/></g></svg></div></div>
+  </section>
+</main>
+<div class="pbar" contenteditable="false"><i></i></div>
+<div class="hud" contenteditable="false"><span class="n"></span><span class="t"></span></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const fill=document.querySelector('.pbar i');
+const hudN=document.querySelector('.hud .n'), hudT=document.querySelector('.hud .t');
+const STEP=20000; let i=0,t0=0,raf=null,on=false;
+
+function fit(){const s=slides[i];if(!s)return;
+  const k=Math.min(innerWidth/1280,innerHeight/720)*0.94;
+  s.style.setProperty('--k',k);}
+function show(n){slides.forEach(s=>s.classList.remove('on'));
+  i=(n+slides.length)%slides.length;slides[i].classList.add('on');
+  hudN.textContent=(i+1)+' / '+slides.length;fit();t0=performance.now();}
+function tick(now){if(!on)return;const d=now-t0;
+  fill.style.width=Math.min(100,d/STEP*100)+'%';
+  hudT.textContent=Math.max(0,Math.ceil((STEP-d)/1000))+'s';
+  if(d>=STEP){if(i===slides.length-1){stop();return;}show(i+1);}
+  raf=requestAnimationFrame(tick);}
+function start(){on=true;document.body.classList.add('present');
+  slides.forEach(s=>s.setAttribute('contenteditable','false'));
+  show(0);raf=requestAnimationFrame(tick);}
+function stop(){on=false;cancelAnimationFrame(raf);document.body.classList.remove('present');
+  slides.forEach(s=>{s.setAttribute('contenteditable','true');s.classList.remove('on');s.style.removeProperty('--k');});
+  fill.style.width='0%';}
+document.getElementById('go').onclick=()=>on?stop():start();
+addEventListener('resize',()=>{if(on)fit();});
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&on){stop();return;}
+  if(!on)return;
+  if(e.key===' '||e.key==='ArrowRight'){e.preventDefault();show(i+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();show(i-1);}
+});
+</script>
+</body>
+</html>

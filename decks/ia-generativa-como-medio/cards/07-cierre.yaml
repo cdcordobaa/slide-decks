@@ -1,0 +1,37 @@
+section:
+  id: '7'
+  title: Cierre
+  laminas: 1
+  tiempo: 0:20
+cards:
+- id: '20'
+  name: Cierre
+  idea_ref: null
+  layout: imagen_titular
+  idea_central: La misma escena de la apertura, ahora legible.
+  entrega: Se puede decidir sobre esto, pero primero hay que poder verlo.
+  en_pantalla: Imagen a sangre, misma escena que la 01. Frase de cierre.
+  visual:
+    kind: image
+    brief: Un escritorio de trabajo de madera visto desde arriba, en picado cenital, con una mano
+      humana apoyada junto a un teclado, cuadernos gastados y lápices alrededor. Es exactamente la
+      misma escena y el mismo encuadre cenital de la lámina 01, la misma luz lateral dura, pero ahora
+      limpia y ordenada, legible. Solo manos humanas de carne y hueso.
+    acento: true
+  speaker: La rima visual con la 01 cierra sin que haya que decir 'en conclusión'.
+  soporte:
+    seccion: §7.1 Justificación
+    cita: 'Lo que esta investigación busca comprender es el criterio y la voz, no la eficiencia:
+      qué ocurre con el pensar y con el sentido de autoría cuando escribir y decidir empiezan a hacerse
+      con sistemas generativos. El riesgo de fondo es silencioso. No tanto que la IA reemplace el
+      trabajo, sino que cambie nuestra forma de pensar y de escribir sin que lo notemos, y que se
+      ceda sin decisión aquello que un profesional creativo no debería perder: la voz propia y el
+      criterio. Por eso el proyecto no se conforma con la noción corriente de “alfabetización en
+      prompts”: su contribución es describir y nombrar esa reconfiguración desde la experiencia de
+      profesionales creativos en latino america.'
+  status: draft
+  copy:
+    titular: Se puede decidir sobre esto.<br>Primero hay que poder verlo.
+  guion: Vuelvo al escritorio del principio. No se puede decidir sobre lo que no se ve, ni ver lo
+    que no se nombra. Esta investigación es un intento de nombrarlo, desde adentro de la práctica
+    y desde acá.

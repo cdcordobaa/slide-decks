@@ -1,0 +1,93 @@
+section:
+  id: '5'
+  title: Lo que se juega
+  laminas: 3
+  tiempo: '1:00'
+cards:
+- id: '14'
+  name: La autoría es una cadena
+  idea_ref: 28
+  layout: cadena
+  idea_central: La autoría deja de ser una propiedad del texto y pasa a ser una cadena de decisiones.
+  entrega: La autoría no es una propiedad del texto, es una cadena de decisiones.
+  en_pantalla: Diagrama horizontal. Cinco nodos conectados.
+  visual:
+    kind: chain_5
+    steps:
+    - idea
+    - formulación
+    - edición
+    - firma
+    - responsabilidad
+    pasos:
+    - idea
+    - formulación
+    - edición
+    - firma
+    - responsabilidad
+  speaker: Sale textual de tu 7.2.2.
+  soporte:
+    seccion: §7.2.2 Mediación, agencia, autoría y criterio
+    cita: La autoría queda, por lo mismo, en entredicho. Alguien tiene la intención, la IA la formula,
+      el profesional la edita y una organización la publica. Conviene entonces separar idea, formulación,
+      edición, firma y responsabilidad, y tratar la autoría como una práctica relacional y no como
+      una propiedad individual del texto (Liang et al., 2025; Agarwal, Naaman y Vashistha, 2024).
+  status: draft
+  copy:
+    titular: La autoría no es<br>una propiedad. Es una cadena.
+  guion: Y ahí la autoría deja de ser una propiedad del texto. Alguien tiene la intención, la máquina
+    la formula, el profesional la edita, una persona firma y una organización responde. Conviene
+    separar esos eslabones en vez de preguntar de quién es.
+- id: '15'
+  name: El criterio
+  idea_ref: 33
+  layout: imagen_titular
+  idea_central: El criterio es la capacidad de evaluar, seleccionar y corregir lo que la herramienta
+    ofrece.
+  entrega: El criterio es lo que decide en cada eslabón de esa cadena.
+  en_pantalla: Imagen a sangre. Una palabra.
+  visual:
+    kind: image
+    brief: Una mano tachando o descartando una hoja impresa. El gesto de decidir, capturado a media
+      acción. El azul de acento solo en la marca que deja.
+    acento: true
+  soporte:
+    seccion: §7.2.2 Mediación, agencia, autoría y criterio
+    cita: 'Y está el criterio, que ocupa el centro de este marco: la capacidad de evaluar, seleccionar
+      y corregir lo que la herramienta ofrece. La evidencia sobre cognición es ambivalente. La IA
+      puede sostener procesos reflexivos, pero también reduce la fricción que cuesta pensar y produce
+      una sensación de comprensión que descansa más en la fluidez del output que en el trabajo propio
+      (Lee et al., 2025; Gerlich, 2025; Kosmyna et al., 2025). El criterio es lo que permite ver
+      qué conservan los profesionales como suyo y qué empiezan a ceder sin notarlo.'
+  status: draft
+  copy:
+    titular: El criterio decide<br>en cada eslabón.
+  guion: 'En cada eslabón hay alguien que evalúa, selecciona y corrige. Eso es el criterio, y es
+    el centro de mi marco. La evidencia es ambivalente: la IA puede sostener el pensamiento, y también
+    reducir la fricción que cuesta pensar.'
+- id: '16'
+  name: El riesgo silencioso
+  idea_ref: 58
+  layout: oscura
+  idea_central: 'El riesgo no es el reemplazo: es ceder criterio y voz sin haberlo decidido.'
+  entrega: 'Lo grave no es perder el trabajo: es ceder la voz sin haberlo decidido.'
+  en_pantalla: Única lámina de fondo oscuro de todo el deck. Texto en claro.
+  visual:
+    kind: none
+  speaker: El cambio de fondo hace el trabajo emocional. No hay que subir la voz.
+  soporte:
+    seccion: §7.1 Justificación
+    cita: 'Lo que esta investigación busca comprender es el criterio y la voz, no la eficiencia:
+      qué ocurre con el pensar y con el sentido de autoría cuando escribir y decidir empiezan a hacerse
+      con sistemas generativos. El riesgo de fondo es silencioso. No tanto que la IA reemplace el
+      trabajo, sino que cambie nuestra forma de pensar y de escribir sin que lo notemos, y que se
+      ceda sin decisión aquello que un profesional creativo no debería perder: la voz propia y el
+      criterio. Por eso el proyecto no se conforma con la noción corriente de “alfabetización en
+      prompts”: su contribución es describir y nombrar esa reconfiguración desde la experiencia de
+      profesionales creativos en latino america.'
+  status: draft
+  copy:
+    titular: Lo grave no es<br>perder el trabajo.<br>Es ceder la voz<br>sin haberlo decidido.
+  guion: Por eso el riesgo de fondo es silencioso. No es tanto que la IA reemplace el trabajo. Es
+    que cambie cómo pensamos y escribimos sin que lo notemos, y que se ceda sin decisión la voz propia
+    y el criterio.
