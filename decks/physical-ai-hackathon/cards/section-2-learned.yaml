@@ -11,8 +11,8 @@ cards:
     time: 30
     visual:
       kind: "swap"
-      before: "assets/img/fire_bc1_before.jpg"
-      after: "assets/img/fire_bc1_after.jpg"
+      before: "assets/img/fire_tank_real_before.jpg"
+      after: "assets/img/fire_tank_real_after.jpg"
       note: "Before: pretrained detector, no box. After 2.4 s: our model, box 'fire 0.96'."
       backup: ["training_pipeline", "chart_training"]
       shots: ["assets/img/fire_bc1_autolabel.jpg"]
