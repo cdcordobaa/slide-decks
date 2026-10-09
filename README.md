@@ -12,6 +12,7 @@ slide-decks/
 │   └── agents/            Packaging metadata for other harnesses
 └── decks/                 The outputs: one folder per presentation
     ├── harness-talk/      "Operators, Not Authors" talk (Globant, active)
+    ├── physical-ai-hackathon/  Team 05 "The Round" deck, Globant Physical AI Hackathon (finished)
     └── symphony/          Symphony x Claude Code deck (finished)
 ```
 
@@ -36,6 +37,16 @@ repo; nothing depends on files outside it.
 - `scripts/` + `theme/` - the YAML -> HTML blueprint renderer
 - `build/` - rendered output, gitignored
 - `.env` - local only (GEMINI_API_KEY for infographic generation), gitignored
+
+## decks/physical-ai-hackathon
+
+The Team 05 deck for the Globant Physical AI Hackathon: a 10-minute talk after
+the live demo, 23 slides on screen plus 4 behind D. Open `deck.html` in Chrome;
+`README.md` in the folder has the keys, the acts and the build steps
+(`npm run check`, `npm run storyboard`, `npm run backup`). Its own
+`.claude/skills/team05-deck/` skill holds the team's rules for adding content.
+The team's working copy lives in the GlobantHackaton repo at
+`presentation/deck/`; this folder is the same deck, kept here as the record.
 
 ## Working from a new machine
 
