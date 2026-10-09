@@ -33,7 +33,7 @@ cards:
       ref: "G14"
       brief: >
         A road with four milestones, from a small plant model to a map with
-        many pins: a phone scan, a single robot at one plant, a repeating
+        many pins: a scan (G14_scan.png: the phone repainted as a lidar puck), a single robot at one plant, a repeating
         calendar, many plants.
       labels: ["TWIN", "PILOT", "SUBSCRIPTION", "ROLLOUT"]
       keep_empty: "under each milestone"
