@@ -916,6 +916,57 @@ table.mt{border-collapse:collapse;width:100%}
     <aside class="notes">And it does not stop at a 3D copy. Every round, the robot builds a knowledge graph of what it finds: the site, its zones, every asset, and how they are connected in meaning. This valve feeds that tank. This deluge protects the tank farm. This e-stop stops those pumps. Then what it perceives joins the graph live: a fire burning at T-102, fed through the open valve FV-102, exposing the tank next to it; a worker approaching the heat; the robot reading a gauge. And its decisions point at their causes: it proposes to close FV-102 because the fire is fed through it. A blueprint says where things are; a digital twin says what they look like; this graph says what they mean to each other, and why the robot asks you to act. Shown here at the fuel terminal, in simulation.</aside>
   </section>
 
+  <!-- ================= 17a · CP7 · three services (from the business-case deck) ================= -->
+  <section class="slide panel bleedf" data-cp="7" id="sBusinessServices">
+    <img class="bg" src="assets/img/bottling_stairs.jpg" alt="Robot operating in the simulated bottling plant" style="object-position:40% 50%">
+    <div class="shade" style="background:linear-gradient(180deg,rgba(7,9,11,.92) 0%,rgba(7,9,11,.66) 44%,rgba(7,9,11,.96) 100%),linear-gradient(90deg,rgba(7,9,11,.60),rgba(7,9,11,.28))"></div>
+    <div class="scanline"></div>
+    <div class="abs" style="left:56px;top:96px;width:1168px">
+      <div class="k">Checkpoint 7 · Muster point · What we sell</div>
+      <h2 style="margin-top:16px;font-size:44px">Three services, one flexible model.</h2>
+      <p class="lede" style="margin-top:16px;font-size:17px;line-height:1.45;color:#C9D3DD">Digital Twin, Site Pilot and Rollout can be delivered individually or combined to fit each client's needs.</p>
+    </div>
+    <div class="abs gtm2" style="left:56px;top:330px;width:1168px;grid-template-columns:repeat(3,1fr);gap:46px">
+      <div class="det estimate" data-tag="estimate" style="--i:0;padding:20px 18px;min-height:184px;background:rgba(10,14,19,.91);border-radius:4px">
+        <b style="font-size:28px">Digital Twin</b>
+        <span style="font:500 12px 'JetBrains Mono';color:var(--lime)">FROM A SCAN</span>
+        <span>Their bottling hall, food plant or warehouse as a site file, from a scan. Rounds and drills rehearsed on a Thor.</span>
+      </div>
+      <div class="det estimate" data-tag="estimate" style="--i:1;padding:20px 18px;min-height:184px;background:rgba(10,14,19,.91);border-radius:4px">
+        <b style="font-size:28px">Site Pilot</b>
+        <span style="font:500 12px 'JetBrains Mono';color:var(--lime)">90 DAYS · PAID · ~$80K</span>
+        <span>The same software on a real robot at one plant. Night rounds first, emergencies in drills. Integration included.</span>
+      </div>
+      <div class="det claim" data-tag="claim" style="--i:2;padding:20px 18px;min-height:184px;background:rgba(10,14,19,.91);border-radius:4px">
+        <b style="font-size:28px">Rollout</b>
+        <span style="font:500 12px 'JetBrains Mono';color:var(--lime)">MORE PLANTS, LINES &amp; SITES</span>
+        <span>Expand to terminals and data centers. The operator board joins the control room; the same brain scales across sites.</span>
+      </div>
+    </div>
+    <div class="honest abs" style="left:56px;top:596px;width:1168px;font-size:13px">
+      <b>REVENUE</b> · twin build + integration (SCADA, maintenance systems) + <b>~$5k per robot-month</b> subscription + managed models.<br>
+      Partners we would seek: NVIDIA, robot makers, insurers. Commercial prices and timelines are estimates to validate in the pilot.
+    </div>
+    <aside class="notes">Digital Twin, Site Pilot and Rollout are three modular services. Each can be delivered on its own or combined according to the client's needs. The following describes one possible combination. Globant sells the brain and the integration on any robot through three services. First, Digital Twin: a scan becomes the client's bottling hall, food plant or warehouse as a site file, with rounds and drills rehearsed in simulation on a Thor. Second, Site Pilot: a paid 90-day pilot at one real plant, night rounds first and emergency response in drills, at approximately 80 thousand dollars including integration. Third, Rollout: expand to more plants, lines and sites, including terminals and data centers, and bring the operator board into the control room. Revenue comes from twin builds, integration with line SCADA and maintenance systems, an estimated five thousand dollars per robot-month subscription, and managed models. The partners we would seek are NVIDIA, robot makers and insurers. The pilot validates the commercial estimates. Press D for the road from twin to rollout.</aside>
+  </section>
+
+  <!-- ================= 20 · D · go-to-market (hidden, under the three services) ================= -->
+  <section class="slide panel" data-cp="7" data-hidden="1">
+    <div class="scanline"></div>
+    <div class="abs" style="left:56px;top:96px;width:1168px">
+      <div class="k">D · Checkpoint 7 · Go-to-market</div>
+      <h2 style="margin-top:16px;font-size:38px">The next plant starts with a scan, not a project.</h2>
+    </div>
+    <div class="genbox band" style="left:56px;top:182px;width:1168px;height:270px;background-image:url('assets/gen/G14.png')" role="img" aria-label="A road: twin, pilot, subscription, rollout"></div>
+    <div class="abs gtm2" style="left:56px;top:470px;width:1168px">
+      <div class="det claim" data-tag="claim" style="--i:0"><b>From a scan</b><span>their plant as a twin from a scan; drills rehearsed on a Thor, no robot bought</span></div>
+      <div class="det estimate" data-tag="estimate" style="--i:1"><b>90 days · ~$80k</b><span>paid pilot on a real robot: rounds first, emergencies in drills</span></div>
+      <div class="det estimate" data-tag="estimate" style="--i:2"><b>~$5k a robot-month</b><span>rounds, detection, what-if planning, reports</span></div>
+      <div class="det claim" data-tag="claim" style="--i:3"><b>More plants</b><span>then terminals, data centers, solar: sites we already simulate</span></div>
+    </div>
+    <aside class="notes">Globant sells the brain and the integration, on any robot. It starts with a twin of the client's plant from a scan, so they see their rounds and drills before buying a robot. Then a paid 90-day pilot, then the subscription, then more plants and the other site types we already simulate. The twin is the first product. Partners: NVIDIA, robot makers, and insurers who price lower risk.</aside>
+  </section>
+
   <!-- ================= 17 · CP7 · who pays ================= -->
   <section class="slide panel bleedf" data-cp="7">
     <img class="bg" src="assets/img/tasks2_3_push_cart.jpg" alt="The robot pushes the 40 kg spill cart" style="left:-300px;top:-60px;width:1620px;height:911px">
@@ -980,23 +1031,6 @@ table.mt{border-collapse:collapse;width:100%}
     </div>
     <div class="honest abs" style="left:56px;top:540px;width:1168px">Every input except the injury cost, the wage and the Thor price is our assumption. One avoided injury a year is a scenario, not a statistic. The pilot replaces all of them with the plant's own numbers.</div>
     <aside class="notes">Here is what you have to believe. On labour alone it takes six years: replacing hours is not the business. The value is in seeing the leak or the hot motor first. The base case is about 25 months. At a fuel terminal, where a tank fire is in the case, about 17. One avoided injury a year, a scenario, brings it to 15. All estimates; the pilot measures the real ones.</aside>
-  </section>
-
-  <!-- ================= 20 · CP7 · go-to-market ================= -->
-  <section class="slide panel" data-cp="7">
-    <div class="scanline"></div>
-    <div class="abs" style="left:56px;top:96px;width:1168px">
-      <div class="k">Checkpoint 7 · Muster point · Go-to-market</div>
-      <h2 style="margin-top:16px;font-size:38px">The next plant starts with a scan, not a project.</h2>
-    </div>
-    <div class="genbox band" style="left:56px;top:182px;width:1168px;height:270px;background-image:url('assets/gen/G14.png')" role="img" aria-label="A road: twin, pilot, subscription, rollout"></div>
-    <div class="abs gtm2" style="left:56px;top:470px;width:1168px">
-      <div class="det estimate" data-tag="estimate" style="--i:0"><b>4-6 weeks</b><span>their plant as a twin from a scan; drills rehearsed on a Thor, no robot bought</span></div>
-      <div class="det estimate" data-tag="estimate" style="--i:1"><b>90 days · ~$80k</b><span>paid pilot on a real robot: rounds first, emergencies in drills</span></div>
-      <div class="det estimate" data-tag="estimate" style="--i:2"><b>~$5k a robot-month</b><span>rounds, detection, what-if planning, reports</span></div>
-      <div class="det claim" data-tag="claim" style="--i:3"><b>More plants</b><span>then terminals, data centers, solar: sites we already simulate</span></div>
-    </div>
-    <aside class="notes">Globant sells the brain and the integration, on any robot. It starts with a twin of the client's plant from a scan, so they see their rounds and drills before buying a robot. Then a paid 90-day pilot, then the subscription, then more plants and the other site types we already simulate. The twin is the first product. Partners: NVIDIA, robot makers, and insurers who price lower risk.</aside>
   </section>
 
   <!-- ================= 21 · D · risks (hidden) ================= -->

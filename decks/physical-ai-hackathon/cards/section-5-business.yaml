@@ -4,6 +4,49 @@ section:
   goal: "To review. Who pays and why now, the unit economics of one plant, what you have to believe, how we sell it (the twin first), then lessons, the ask and the close. Every figure is from BUSINESS.adoc / facts.json; all value figures are estimates."
 
 cards:
+  - id: "17a"
+    name: "Three services"
+    type: "explainer"
+    title: "Three services, one flexible model."
+    time: 30
+    visual:
+      kind: "frame"
+      src: "assets/img/bottling_stairs.jpg"
+      note: "From the teammate's business-case deck (Thor /workspace/tracks/deck-business-case, slide 18), ported as is with fixes: tags carry the status only, '4-6 weeks' dropped (not in facts.json), partners worded 'we would seek', the source line dropped from the notes. The go-to-market road (card 20) is now its hidden D slide."
+      review: ["Register a twin-delivery time (BUSINESS.adoc says 4-6 weeks) in facts.json if the twin card should carry it.", "Still open from card 18: the client both buys the robot and pays ~$5k a robot-month."]
+    overlay:
+      - { n: "90 days · ~$80k", label: "Site Pilot: paid, integration included", status: "estimate", fact: "biz.pilot" }
+      - { n: "~$5k", label: "per robot-month subscription, in the revenue line", status: "estimate", fact: "biz.price_model" }
+    honest: "Commercial prices and timelines are estimates to validate in the pilot."
+    takeaway: "Digital Twin, Site Pilot, Rollout: one at a time or combined."
+    speaker: "Three modular services, alone or combined: Digital Twin from a scan, rehearsed on a Thor; a paid 90-day Site Pilot, about 80 thousand dollars with integration; Rollout to more plants and site types. Revenue: twin builds, integration, about 5 thousand dollars a robot-month, managed models. Partners we would seek: NVIDIA, robot makers, insurers."
+    status: "draft"
+
+  - id: "20"
+    name: "Go-to-market"
+    type: "explainer"
+    path: "D"
+    title: "The next plant starts with a scan, not a project."
+    time: 0
+    visual:
+      kind: "image"
+      ref: "G14"
+      brief: >
+        A road with four milestones, from a small plant model to a map with
+        many pins: a phone scan, a single robot at one plant, a repeating
+        calendar, many plants.
+      labels: ["TWIN", "PILOT", "SUBSCRIPTION", "ROLLOUT"]
+      keep_empty: "under each milestone"
+      shots: ["assets/img/lidartest_inside.jpg"]
+    overlay:
+      - { n: "From a scan", label: "their plant as a twin, drills rehearsed on a Thor, no robot bought (4-6 weeks is in BUSINESS.adoc but not in facts.json: not shown)", status: "claim" }
+      - { n: "90 days · ~$80k", label: "paid pilot on a real robot, rounds first, emergencies in drills", status: "estimate", fact: "biz.pilot" }
+      - { n: "~$5k", label: "per robot-month; then more plants, then terminals, data centers, solar", status: "estimate", fact: "biz.price_model" }
+    review: ["Pilot success metrics (rounds without help, confirmed findings, gauge error, false alarms per shift, time to an approved action) have no targets yet: list them without numbers, or keep them for Q&A."]
+    takeaway: "Step 1 is Act 4, sold: the twin is the first product."
+    speaker: "Globant sells the brain and the integration, on any robot. It starts with a twin of the client's plant from a scan, so they see their rounds and drills before buying a robot. Then a paid 90-day pilot, then the subscription, then more plants and the other site types we already simulate. Partners: NVIDIA, robot makers, and insurers who price lower risk."
+    status: "draft"
+
   - id: "17"
     name: "Who pays, and why now"
     type: "opener"
@@ -64,30 +107,6 @@ cards:
     review: ["Keep or cut: with 10 minutes it fits; it is the slide that shows the case is honest about its assumptions."]
     takeaway: "If it only saved hours, it would not be worth it. It is worth it because it sees the leak first."
     speaker: "Here is what you have to believe. On labour alone it takes six years: replacing hours is not the business. The value is in seeing the leak or the hot motor first. One avoided injury a year brings it to 15 months; at a fuel terminal, where a tank fire is in the case, 17. All estimates; the pilot measures the real ones."
-    status: "draft"
-
-  - id: "20"
-    name: "Go-to-market"
-    type: "explainer"
-    title: "The next plant starts with a scan, not a project."
-    time: 30
-    visual:
-      kind: "image"
-      ref: "G14"
-      brief: >
-        A road with four milestones, from a small plant model to a map with
-        many pins: a phone scan, a single robot at one plant, a repeating
-        calendar, many plants.
-      labels: ["TWIN", "PILOT", "SUBSCRIPTION", "ROLLOUT"]
-      keep_empty: "under each milestone"
-      shots: ["assets/img/lidartest_inside.jpg"]
-    overlay:
-      - { n: "4-6 wk", label: "their plant as a twin from a scan, drills rehearsed on a Thor, no robot bought", status: "estimate", fact: "BUSINESS.adoc §5" }
-      - { n: "90 days · ~$80k", label: "paid pilot on a real robot, rounds first, emergencies in drills", status: "estimate", fact: "biz.pilot" }
-      - { n: "~$5k", label: "per robot-month; then more plants, then terminals, data centers, solar", status: "estimate", fact: "biz.price_model" }
-    review: ["Pilot success metrics (rounds without help, confirmed findings, gauge error, false alarms per shift, time to an approved action) have no targets yet: list them without numbers, or keep them for Q&A."]
-    takeaway: "Step 1 is Act 4, sold: the twin is the first product."
-    speaker: "Globant sells the brain and the integration, on any robot. It starts with a twin of the client's plant from a scan, so they see their rounds and drills before buying a robot. Then a paid 90-day pilot, then the subscription, then more plants and the other site types we already simulate. Partners: NVIDIA, robot makers, and insurers who price lower risk."
     status: "draft"
 
   - id: "21"
