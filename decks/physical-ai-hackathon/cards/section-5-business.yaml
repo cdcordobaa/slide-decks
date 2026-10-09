@@ -69,7 +69,7 @@ cards:
   - id: "20"
     name: "Go-to-market"
     type: "explainer"
-    title: "The next plant starts with a phone scan, not a project."
+    title: "The next plant starts with a scan, not a project."
     time: 30
     visual:
       kind: "image"
@@ -116,8 +116,8 @@ cards:
       - { n: "The right model for the job.", label: "the language model read 5.5 bar as 'above 10'; a classic reader measures", status: "measured", fact: "12d" }
       - { n: "Long runs find bugs.", label: "1 round then stuck → 15 rounds, 0 stuck", status: "measured", fact: "12l" }
       - { n: "Say what is simulated.", label: "we measured our own model on 3D workers, and say so", status: "measured", fact: "12az" }
-    takeaway: "The ask: one real plant. Its layout or a phone scan, and a night-shift lead."
-    speaker: "Four lessons, then our ask: one real plant to pilot with, its layout or a phone scan, and a night-shift lead to work with. We build its twin, run its rounds and drills on a Thor, then a 90-day pilot on a real robot."
+    takeaway: "The ask: one real plant. Its layout or a scan, and a night-shift lead."
+    speaker: "Four lessons, then our ask: one real plant to pilot with, its layout or a scan, and a night-shift lead to work with. We build its twin, run its rounds and drills on a Thor, then a 90-day pilot on a real robot."
     status: "draft"
 
   - id: "23"

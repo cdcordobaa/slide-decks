@@ -1,7 +1,7 @@
 section:
   id: "4"
   title: "Everything starts from the twin"
-  goal: "The bridge from tech to business: one simulated plant to simulate, learn, train and monitor; a phone scan becomes a twin; next, the robot builds the twin itself and understands it (video + an interactive splat)."
+  goal: "The bridge from tech to business: one simulated plant to simulate, learn, train and monitor; a scan becomes a twin; next, the robot builds the twin itself and understands it (video + an interactive splat)."
 
 cards:
   - id: "14"
@@ -26,13 +26,13 @@ cards:
   - id: "15"
     name: "Scan → twin"
     type: "evidence"
-    title: "A phone scan becomes a room the robot can walk into."
+    title: "A scan becomes a room the robot can walk into."
     time: 20
     visual:
       kind: "image"
       ref: "G12"
       brief: >
-        Four panels left to right: a phone sweeping a small room; the room as a
+        Four panels left to right: a LiDAR scanner sweeping a small room (G12_scan.png: the phone icon repainted as a lidar puck); the room as a
         dotted point cloud; the same room as a clean grey mesh; a small
         humanoid standing in the mesh in front of a round pressure gauge. Thin
         arrows between the panels.
@@ -43,10 +43,10 @@ cards:
       review: ["Shots: the Oct 8 office lobby scan (docs/screenshots officescan_oct8_*, scanlab_lobby_*), cropped to the 3D view. No reading in the lobby is registered: the PI-501 frame carries no number."]
       backup: ["scan_to_twin"]
     overlay:
-      - { n: "8.25 × 7.45 m", label: "our office lobby, from one phone sweep", status: "measured", fact: "scan.office_full" }
+      - { n: "8.25 × 7.45 m", label: "our office lobby, from one LiDAR scan", status: "measured", fact: "scan.office_full" }
       - { n: "99,998", label: "mesh faces, imported as the plant's shift office", status: "measured", fact: "scan.office_full" }
       - { n: "5 / 5", label: "gauge readings in a public scan of a real pump room", status: "measured", fact: "scan.pumphouse" }
-    honest: "People masked and text blurred before it was built. Scale from the phone, not yet tape-checked; not yet the demo's room."
+    honest: "This scan was handheld; next, the robot's own lidar does it. People masked; scale not yet tape-checked."
     honest_facts: ["scan.office_full (measured, 12bb; flatness CHECK, scale unverified, not the live room yet)"]
     takeaway: "A new site starts from a scan, not a modelling project."
     speaker: "We swept our own office lobby with an iPhone's LiDAR: people masked and text blurred, fused into a metric mesh, 8 by 7 metres, about a hundred thousand faces, dropped into the plant as the shift office. The robot walks in on its round. A public pump-room scan: 5 of 5 readings. Scale still needs a tape check; not yet today's demo room."

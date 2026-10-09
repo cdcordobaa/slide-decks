@@ -826,9 +826,9 @@ table.mt{border-collapse:collapse;width:100%}
     <div class="scanline"></div>
     <div class="abs" style="left:56px;top:96px;width:1168px">
       <div class="k">Checkpoint 6 · QA lab · Scan to twin</div>
-      <h2 style="margin-top:16px;font-size:38px">A phone scan becomes a room the robot can walk into.</h2>
+      <h2 style="margin-top:16px;font-size:38px">A scan becomes a room the robot can walk into.</h2>
     </div>
-    <div class="genbox band" style="left:56px;top:178px;width:1168px;height:190px;background-image:url('assets/gen/G12.png')" role="img" aria-label="Phone sweep, point cloud, mesh, the robot reading a gauge"></div>
+    <div class="genbox band" style="left:56px;top:178px;width:1168px;height:190px;background-image:url('assets/gen/G12_scan.png')" role="img" aria-label="A LiDAR scan, point cloud, mesh, the robot reading a gauge"></div>
     <div class="abs" style="left:56px;top:384px;width:1168px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
       <div class="shot" style="height:150px"><img src="assets/img/lobby_mesh.jpg" alt="Our office lobby, fused from one iPhone LiDAR sweep"><span>OUR LOBBY · FUSED MESH</span></div>
       <div class="shot" style="height:150px"><img src="assets/img/lobby_above.jpg" alt="The scanned lobby dropped into the plant, seen from above" style="object-position:50% 45%"><span>THE LOBBY, IN THE PLANT</span></div>
@@ -836,12 +836,12 @@ table.mt{border-collapse:collapse;width:100%}
       <div class="shot" style="height:150px"><img src="assets/img/lobby_robotcam_pi501.jpg" alt="The robot camera reading gauge PI-501 in the scanned lobby" style="object-position:50% 8%"><span>ROBOT CAM · PI-501</span></div>
     </div>
     <div class="abs" style="left:56px;top:584px;width:1168px;display:grid;grid-template-columns:repeat(3,1fr) 1.2fr;gap:30px">
-      <div class="stat sm det measured" data-tag="measured" style="--i:0"><div class="n">8.25 × 7.45 m</div><div class="u">our office lobby, from one phone sweep</div></div>
+      <div class="stat sm det measured" data-tag="measured" style="--i:0"><div class="n">8.25 × 7.45 m</div><div class="u">our office lobby, from one LiDAR scan</div></div>
       <div class="stat sm det measured" data-tag="measured" style="--i:1"><div class="n">99,998</div><div class="u">mesh faces, imported as the plant's shift office</div></div>
       <div class="stat sm det measured" data-tag="measured" style="--i:2"><div class="n">5 / 5</div><div class="u">gauge readings in a public scan of a real pump room</div></div>
-      <div class="honest" style="font-size:12.5px">People masked and text blurred before it was built. Scale from the phone, not yet tape-checked; not yet the demo's room.</div>
+      <div class="honest" style="font-size:12.5px">This scan was handheld; next, the robot's own lidar does it. People masked; scale not yet tape-checked.</div>
     </div>
-    <aside class="notes">A phone scan becomes a room. We swept our own office lobby with an iPhone's LiDAR: people masked and text blurred first, then fused into a metric mesh, 8 by 7 metres, about a hundred thousand faces, given collisions and a walkable grid, and dropped into the plant as the shift office. The robot walks in on its round and reads the gauges we placed there. We did the same with a public scan of a real pump room: 5 of 5 readings. Its scale still needs a tape check, and it is not yet the room in today's demo. A new site starts from a scan, not a modelling project.</aside>
+    <aside class="notes">A scan becomes a room. We scanned our own office lobby with LiDAR, handheld this time: people masked and text blurred first, then fused into a metric mesh, 8 by 7 metres, about a hundred thousand faces, given collisions and a walkable grid, and dropped into the plant as the shift office. The robot walks in on its round and reads the gauges we placed there. We did the same with a public scan of a real pump room: 5 of 5 readings. Its scale still needs a tape check, and it is not yet the room in today's demo. Next, the scanner is the robot itself: its own lidar builds the twin as it walks. A new site starts from a scan, not a modelling project.</aside>
   </section>
 
   <!-- ================= 15b · CP6 · same brain, any site, any robot ================= -->
@@ -986,7 +986,7 @@ table.mt{border-collapse:collapse;width:100%}
     <div class="scanline"></div>
     <div class="abs" style="left:56px;top:96px;width:1168px">
       <div class="k">Checkpoint 7 · Muster point · Go-to-market</div>
-      <h2 style="margin-top:16px;font-size:38px">The next plant starts with a phone scan, not a project.</h2>
+      <h2 style="margin-top:16px;font-size:38px">The next plant starts with a scan, not a project.</h2>
     </div>
     <div class="genbox band" style="left:56px;top:182px;width:1168px;height:270px;background-image:url('assets/gen/G14.png')" role="img" aria-label="A road: twin, pilot, subscription, rollout"></div>
     <div class="abs gtm2" style="left:56px;top:470px;width:1168px">
@@ -1029,8 +1029,8 @@ table.mt{border-collapse:collapse;width:100%}
       <div class="lesson det measured" data-tag="measured" style="--i:2"><div class="lt">Long runs find bugs.</div><div class="lx">In 30 simulated minutes it did 1 round, then got stuck. After the fix: 15 rounds, 0 stuck.</div></div>
       <div class="lesson det measured" data-tag="measured" style="--i:3"><div class="lt">Say what is simulated.</div><div class="lx">We measured our own model on the new 3D workers: it learned the cardboard ones. We say so.</div></div>
     </div>
-    <div class="ask abs" style="left:56px;top:520px;width:1168px"><b>THE ASK</b>One real plant: its layout or a phone scan, and a night-shift lead. We build its twin, run its drills on a Thor, then a 90-day pilot on a real robot.</div>
-    <aside class="notes">Four lessons. Physics over animation. The right model for the job: a language model is not a gauge reader. Long runs find bugs. And say what is simulated, every time. Our ask: one real plant to pilot with, its layout or a phone scan, and a night-shift lead to work with.</aside>
+    <div class="ask abs" style="left:56px;top:520px;width:1168px"><b>THE ASK</b>One real plant: its layout or a scan, and a night-shift lead. We build its twin, run its drills on a Thor, then a 90-day pilot on a real robot.</div>
+    <aside class="notes">Four lessons. Physics over animation. The right model for the job: a language model is not a gauge reader. Long runs find bugs. And say what is simulated, every time. Our ask: one real plant to pilot with, its layout or a scan, and a night-shift lead to work with.</aside>
   </section>
 
   <!-- ================= 23 · close (map) ================= -->
