@@ -9,7 +9,7 @@ cards:
     type: "explainer"
     title: "One Jetson Thor runs the plant, the robot and its mind."
     subtitle: "Sense, perceive, decide, act on the box. The language model looks only when asked. The browser only draws."
-    time: 35
+    time: 25
     visual:
       kind: "svg"
       dropped_gemini: "G5"
@@ -25,11 +25,27 @@ cards:
     speaker: "Everything runs on one Jetson Thor; the browser only draws. It senses with a simulated camera, a radiometric thermal camera and a 3D lidar; perception turns that into facts; the brain decides ten times a second, a human approves, and the legs and arms act at 50. The language model sits beside the loop: it pulls one frame when asked. With every feature on, the simulation holds real time. Our hardest performance problem was not the Thor: the same file moves at 311 megabytes a second on the box and 165 kilobytes through the tunnel, so we send only what changed."
     status: "draft"
 
+  - id: "09b"
+    name: "System architecture"
+    type: "evidence"
+    title: "The browser only draws. Everything else runs on the Thor."
+    time: 25
+    visual:
+      kind: "image"
+      src: "assets/img/system_architecture.svg"
+      note: "The bundle's diagrams/architecture-deck.svg, with its 'Sources:' line removed and the margins cropped (assets/img/system_architecture.svg). Right: three cards (one 15 GB box, physics never waits, human approval gate), as the user's reference slide."
+    overlay:
+      - { n: "15 GB", label: "one container on the Thor (organizers' limit)", status: "sourced", fact: "thor.mem_limit" }
+      - { n: "1.002×", label: "real time with everything on", status: "measured", fact: "thor.rtf_all_flags" }
+    takeaway: "One box runs the plant, the robot and its mind; a person approves every action."
+    speaker: "The whole system: the browser only draws; right of the Cloudflare login, one 15 GB container on one Thor runs physics, sensors, perception, brain, approval, what-if, the agent, voice and ROS 2. Physics never waits: real time 1.002 with everything on. Every proposal waits for a person."
+    status: "draft"
+
   - id: "10"
     name: "Models · memory and GPU"
     type: "explainer"
     title: "Nine models, one Thor. The language-model agent holds two thirds of GPU memory."
-    time: 35
+    time: 30
     visual:
       kind: "chart"
       chart: "memory bar + model table (coded, exact 12ba numbers)"
@@ -63,7 +79,7 @@ cards:
     type: "explainer"
     title: "Every feature started as a spec. Every number ended in the audit trail."
     subtitle: "Parallel tracks, each worked by a coding agent against its own spec, on one shared Thor."
-    time: 30
+    time: 25
     visual:
       kind: "image"
       ref: "G9"

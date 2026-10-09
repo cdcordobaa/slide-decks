@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 84 1880 900" width="1880" height="900" font-family="Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect width="1920" height="1080" fill="#0A0E13"/>
+<g transform="translate(4.3 -48.3) scale(0.9935)">
+<rect x="40.0" y="140.0" width="310.0" height="590.0" rx="18" fill="#0A0E13" fill-opacity="0.0" stroke="#A78BFA" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="58.0" y="170.0" font-size="20" font-weight="700" fill="#A78BFA" text-anchor="start">Browser (laptop / projector)</text>
+<rect x="58.0" y="200.0" width="274.0" height="160.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#A78BFA" stroke-width="2"/>
+<rect x="58.0" y="200.0" width="8" height="160.0" rx="4" fill="#A78BFA"/>
+<text x="80.0" y="234.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Robot Command  /</text>
+<text x="80.0" y="266.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">Three.js 3D · Spark splats</text>
+<text x="80.0" y="290.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">WebCodecs H.264 decode</text>
+<text x="80.0" y="314.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">approvals · push-to-talk</text>
+<rect x="58.0" y="378.0" width="274.0" height="100.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#A78BFA" stroke-width="2"/>
+<rect x="58.0" y="378.0" width="8" height="100.0" rx="4" fill="#A78BFA"/>
+<text x="80.0" y="412.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Incident board</text>
+<text x="80.0" y="444.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">/board · approve / reject</text>
+<rect x="58.0" y="496.0" width="274.0" height="100.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#A78BFA" stroke-width="2"/>
+<rect x="58.0" y="496.0" width="8" height="100.0" rx="4" fill="#A78BFA"/>
+<text x="80.0" y="530.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">ROS dashboard</text>
+<text x="80.0" y="562.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">/ros · Lichtblick (MPL-2.0)</text>
+<rect x="58.0" y="614.0" width="274.0" height="100.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#A78BFA" stroke-width="2"/>
+<rect x="58.0" y="614.0" width="8" height="100.0" rx="4" fill="#A78BFA"/>
+<text x="80.0" y="648.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Fleet page</text>
+<text x="80.0" y="680.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">/fleet · GPU humanoids</text>
+<rect x="384.0" y="330.0" width="196.0" height="250.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#8796A6" stroke-width="2"/>
+<rect x="384.0" y="330.0" width="8" height="250.0" rx="4" fill="#8796A6"/>
+<text x="406.0" y="364.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Cloudflare</text>
+<text x="406.0" y="395.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">Access login</text>
+<text x="406.0" y="418.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">https / wss</text>
+<text x="406.0" y="441.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">only :8000</text>
+<text x="406.0" y="464.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">public</text>
+<text x="406.0" y="487.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">~150–350 KB/s</text>
+<text x="406.0" y="510.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">per viewer</text>
+<rect x="606.0" y="130.0" width="1278.0" height="790.0" rx="18" fill="#0A0E13" fill-opacity="0.0" stroke="#8796A6" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="624.0" y="160.0" font-size="20" font-weight="700" fill="#8796A6" text-anchor="start">Jetson AGX Thor · 15 GB unified CPU+GPU memory · 8 cores · CUDA 13 · TensorRT 10.13</text>
+<rect x="622.0" y="180.0" width="668.0" height="726.0" rx="18" fill="#0A0E13" fill-opacity="0.0" stroke="#7DD3FC" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="640.0" y="210.0" font-size="20" font-weight="700" fill="#7DD3FC" text-anchor="start">Sim server :8000 · one Python process (FastAPI + MuJoCo)</text>
+<rect x="640.0" y="228.0" width="316.0" height="120.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#7DD3FC" stroke-width="2"/>
+<rect x="640.0" y="228.0" width="8" height="120.0" rx="4" fill="#7DD3FC"/>
+<text x="662.0" y="262.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">MuJoCo physics 500 Hz</text>
+<text x="662.0" y="294.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">sim.py · scene.py · sites/*.py</text>
+<text x="662.0" y="318.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">plant · fire · people · forklift</text>
+<rect x="640.0" y="364.0" width="316.0" height="148.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#7DD3FC" stroke-width="2"/>
+<rect x="640.0" y="364.0" width="8" height="148.0" rx="4" fill="#7DD3FC"/>
+<text x="662.0" y="398.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Robot control</text>
+<text x="662.0" y="430.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">walking LSTM 50 Hz (Unitree)</text>
+<text x="662.0" y="454.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">two-arm IK · palm grips</text>
+<text x="662.0" y="478.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">DreamWaQ stairs (ported)</text>
+<rect x="640.0" y="528.0" width="316.0" height="148.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#7DD3FC" stroke-width="2"/>
+<rect x="640.0" y="528.0" width="8" height="148.0" rx="4" fill="#7DD3FC"/>
+<text x="662.0" y="562.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Brain · 10 Hz</text>
+<text x="662.0" y="594.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">brain.py state machine</text>
+<text x="662.0" y="618.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">round · tasks · A* routes</text>
+<text x="662.0" y="642.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">findings → proposals</text>
+<rect x="640.0" y="692.0" width="316.0" height="196.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#F0453A" stroke-width="2"/>
+<rect x="640.0" y="692.0" width="8" height="196.0" rx="4" fill="#F0453A"/>
+<text x="662.0" y="726.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Incident &amp; approval</text>
+<text x="662.0" y="758.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">proposals wait for a human</text>
+<text x="662.0" y="782.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">rejected = never run</text>
+<text x="662.0" y="806.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">timeline · protocol</text>
+<text x="662.0" y="830.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">auto shift report</text>
+<rect x="972.0" y="228.0" width="300.0" height="148.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#7DD3FC" stroke-width="2"/>
+<rect x="972.0" y="228.0" width="8" height="148.0" rx="4" fill="#7DD3FC"/>
+<text x="994.0" y="262.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Sensors (simulated)</text>
+<text x="994.0" y="294.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">camera 640×480 (EGL)</text>
+<text x="994.0" y="318.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">radiometric thermal 160×120</text>
+<text x="994.0" y="342.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">lidar 16×512 · gauge CV</text>
+<rect x="972.0" y="392.0" width="300.0" height="148.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#BFD732" stroke-width="2"/>
+<rect x="972.0" y="392.0" width="8" height="148.0" rx="4" fill="#BFD732"/>
+<text x="994.0" y="426.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Perception (GPU)</text>
+<text x="994.0" y="458.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">YOLO11n TensorRT FP16</text>
+<text x="994.0" y="482.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">own YOLO11n-seg + defects</text>
+<text x="994.0" y="506.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">FastSAM-s fusion → 3D</text>
+<rect x="972.0" y="556.0" width="300.0" height="120.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#8796A6" stroke-width="2"/>
+<rect x="972.0" y="556.0" width="8" height="120.0" rx="4" fill="#8796A6"/>
+<text x="994.0" y="590.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Streaming</text>
+<text x="994.0" y="622.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">WebSocket delta stream</text>
+<text x="994.0" y="646.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">H.264 on NVENC</text>
+<rect x="972.0" y="692.0" width="300.0" height="196.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#F5B841" stroke-width="2"/>
+<rect x="972.0" y="692.0" width="8" height="196.0" rx="4" fill="#F5B841"/>
+<text x="994.0" y="726.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">External data</text>
+<text x="994.0" y="758.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">weather.py → Open-Meteo</text>
+<text x="994.0" y="782.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">chemdata.py → PubChem</text>
+<text x="994.0" y="806.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">background thread · cache</text>
+<text x="994.0" y="830.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">offline → says so</text>
+<rect x="1392.0" y="182.0" width="230.0" height="130.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#BFD732" stroke-width="2"/>
+<rect x="1392.0" y="182.0" width="8" height="130.0" rx="4" fill="#BFD732"/>
+<text x="1414.0" y="216.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">What-if worker</text>
+<text x="1414.0" y="248.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">PyTorch on CUDA</text>
+<text x="1414.0" y="272.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">rollouts of every plan</text>
+<rect x="1640.0" y="182.0" width="230.0" height="130.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#BFD732" stroke-width="2"/>
+<rect x="1640.0" y="182.0" width="8" height="130.0" rx="4" fill="#BFD732"/>
+<text x="1662.0" y="216.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Fleet :8003</text>
+<text x="1662.0" y="248.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">MuJoCo-Warp</text>
+<text x="1662.0" y="272.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">1,024–4,096 G1 on GPU</text>
+<rect x="1392.0" y="336.0" width="230.0" height="112.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#8796A6" stroke-width="2"/>
+<rect x="1392.0" y="336.0" width="8" height="112.0" rx="4" fill="#8796A6"/>
+<text x="1414.0" y="370.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">MQTT :1883</text>
+<text x="1414.0" y="402.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">amqtt · plant/robot1/*</text>
+<rect x="1640.0" y="336.0" width="230.0" height="112.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#BFD732" stroke-width="2"/>
+<rect x="1640.0" y="336.0" width="8" height="112.0" rx="4" fill="#BFD732"/>
+<text x="1662.0" y="370.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Voice :8002</text>
+<text x="1662.0" y="402.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">Piper TTS (CPU)</text>
+<text x="1662.0" y="426.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">/ws/voice via the sim</text>
+<rect x="1392.0" y="474.0" width="478.0" height="168.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#BFD732" stroke-width="2"/>
+<rect x="1392.0" y="474.0" width="8" height="168.0" rx="4" fill="#BFD732"/>
+<text x="1414.0" y="508.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">Mission agent :8001</text>
+<text x="1414.0" y="540.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">Qwen3-VL-4B (bf16, CUDA) + tools</text>
+<text x="1414.0" y="564.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">reports from facts · Q&amp;A · image looks</text>
+<text x="1414.0" y="588.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">+ Whisper small.en STT, same process</text>
+<rect x="1392.0" y="666.0" width="478.0" height="124.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#8796A6" stroke-width="2"/>
+<rect x="1392.0" y="666.0" width="8" height="124.0" rx="4" fill="#8796A6"/>
+<text x="1414.0" y="700.0" font-size="22" font-weight="700" fill="#EEF2F6" text-anchor="start">ROS 2 Jazzy bridge</text>
+<text x="1414.0" y="732.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">bridge.py → 15 topics · /robot/task in</text>
+<text x="1414.0" y="756.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">foxglove_bridge :8765 → /foxglove</text>
+<rect x="1392.0" y="812.0" width="478.0" height="80.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#8796A6" stroke-width="2"/>
+<rect x="1392.0" y="812.0" width="8" height="80.0" rx="4" fill="#8796A6"/>
+<text x="1414.0" y="844.0" font-size="20" font-weight="700" fill="#EEF2F6" text-anchor="start">start_all.sh + watchdog, every 15 s</text>
+<rect x="980.0" y="950.0" width="300.0" height="70.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#F5B841" stroke-width="2"/>
+<rect x="980.0" y="950.0" width="8" height="70.0" rx="4" fill="#F5B841"/>
+<text x="1002.0" y="982.0" font-size="20" font-weight="700" fill="#EEF2F6" text-anchor="start">Open-Meteo API</text>
+<rect x="1300.0" y="950.0" width="300.0" height="70.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#F5B841" stroke-width="2"/>
+<rect x="1300.0" y="950.0" width="8" height="70.0" rx="4" fill="#F5B841"/>
+<text x="1322.0" y="982.0" font-size="20" font-weight="700" fill="#EEF2F6" text-anchor="start">PubChem PUG View</text>
+<rect x="1620.0" y="950.0" width="250.0" height="70.0" rx="12" fill="#111821" fill-opacity="1.0" stroke="#8796A6" stroke-width="2"/>
+<rect x="1620.0" y="950.0" width="8" height="70.0" rx="4" fill="#8796A6"/>
+<text x="1642.0" y="982.0" font-size="20" font-weight="700" fill="#EEF2F6" text-anchor="start">GitHub (deploy)</text>
+<defs><marker id="arrow-human" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#A78BFA"/></marker></defs>
+<path d="M 332.0 264.0 L 384.0 264.0 L 413.4 330.0" fill="none" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#arrow-human)" marker-start="url(#arrow-human)"/>
+<rect x="319.7" y="263.1" width="149.2" height="24.0" rx="9" fill="#0A0E13" fill-opacity="1.0" stroke="#A78BFA" stroke-width="1.2"/>
+<text x="394.3" y="280.1" font-size="15" font-weight="600" fill="#EEF2F6" text-anchor="middle">wss state + video</text>
+<path d="M 332.0 428.0 L 384.0 470.0" fill="none" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#arrow-human)" marker-start="url(#arrow-human)"/>
+<path d="M 332.0 546.0 L 384.0 546.0" fill="none" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#arrow-human)" marker-start="url(#arrow-human)"/>
+<path d="M 332.0 664.0 L 384.0 560.0" fill="none" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#arrow-human)" marker-start="url(#arrow-human)"/>
+<defs><marker id="arrow-infra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8796A6"/></marker></defs>
+<path d="M 580.0 455.0 L 622.0 455.0" fill="none" stroke="#8796A6" stroke-width="2.6" marker-end="url(#arrow-infra)" marker-start="url(#arrow-infra)"/>
+<rect x="574.1" y="427.0" width="53.8" height="24.0" rx="9" fill="#0A0E13" fill-opacity="1.0" stroke="#8796A6" stroke-width="1.2"/>
+<text x="601.0" y="444.0" font-size="15" font-weight="600" fill="#EEF2F6" text-anchor="middle">:8000</text>
+<defs><marker id="arrow-sim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#7DD3FC"/></marker></defs>
+<path d="M 798.0 348.0 L 798.0 364.0" fill="none" stroke="#7DD3FC" stroke-width="2.6" marker-end="url(#arrow-sim)" marker-start="url(#arrow-sim)"/>
+<path d="M 798.0 512.0 L 798.0 528.0" fill="none" stroke="#7DD3FC" stroke-width="2.6" marker-end="url(#arrow-sim)" marker-start="url(#arrow-sim)"/>
+<defs><marker id="arrow-safety" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#F0453A"/></marker></defs>
+<path d="M 798.0 676.0 L 798.0 692.0" fill="none" stroke="#F0453A" stroke-width="2.6" marker-end="url(#arrow-safety)"/>
+<defs><marker id="arrow-ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#BFD732"/></marker></defs>
+<path d="M 1122.0 376.0 L 1122.0 392.0" fill="none" stroke="#BFD732" stroke-width="2.6" marker-end="url(#arrow-ai)"/>
+<path d="M 972.0 480.8 L 956.0 572.4" fill="none" stroke="#BFD732" stroke-width="2.6" marker-end="url(#arrow-ai)"/>
+<path d="M 956.0 288.0 L 972.0 287.2" fill="none" stroke="#7DD3FC" stroke-width="2.6" marker-end="url(#arrow-sim)"/>
+<path d="M 1290.0 246.0 L 1392.0 247.0" fill="none" stroke="#BFD732" stroke-width="2.6" marker-end="url(#arrow-ai)" marker-start="url(#arrow-ai)"/>
+<rect x="1314.1" y="218.5" width="53.8" height="24.0" rx="9" fill="#0A0E13" fill-opacity="1.0" stroke="#BFD732" stroke-width="1.2"/>
+<text x="1341.0" y="235.5" font-size="15" font-weight="600" fill="#EEF2F6" text-anchor="middle">plans</text>
+<path d="M 1290.0 392.0 L 1392.0 392.0" fill="none" stroke="#8796A6" stroke-width="2.6" marker-end="url(#arrow-infra)"/>
+<rect x="1310.2" y="364.0" width="61.7" height="24.0" rx="9" fill="#0A0E13" fill-opacity="1.0" stroke="#8796A6" stroke-width="1.2"/>
+<text x="1341.0" y="381.0" font-size="15" font-weight="600" fill="#EEF2F6" text-anchor="middle">events</text>
+<path d="M 1507.0 448.0 L 1509.1 474.0" fill="none" stroke="#8796A6" stroke-width="2.6" marker-end="url(#arrow-infra)"/>
+<path d="M 1290.0 560.0 L 1392.0 558.0" fill="none" stroke="#BFD732" stroke-width="2.6" marker-end="url(#arrow-ai)" marker-start="url(#arrow-ai)"/>
+<rect x="1294.2" y="531.0" width="93.5" height="24.0" rx="9" fill="#0A0E13" fill-opacity="1.0" stroke="#BFD732" stroke-width="1.2"/>
+<text x="1341.0" y="548.0" font-size="15" font-weight="600" fill="#EEF2F6" text-anchor="middle">/api/agent</text>
+<path d="M 1755.0 448.0 L 1755.3 474.0" fill="none" stroke="#BFD732" stroke-width="2.6" marker-end="url(#arrow-ai)" marker-start="url(#arrow-ai)"/>
+<path d="M 1290.0 728.0 L 1392.0 728.0" fill="none" stroke="#8796A6" stroke-width="2.6" marker-end="url(#arrow-infra)"/>
+<rect x="1298.2" y="700.0" width="85.5" height="24.0" rx="9" fill="#0A0E13" fill-opacity="1.0" stroke="#8796A6" stroke-width="1.2"/>
+<text x="1341.0" y="717.0" font-size="15" font-weight="600" fill="#EEF2F6" text-anchor="middle">/ws/state</text>
+<defs><marker id="arrow-data" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#F5B841"/></marker></defs>
+<path d="M 1062.0 888.0 L 1070.0 950.0" fill="none" stroke="#F5B841" stroke-width="2.6" marker-end="url(#arrow-data)"/>
+<path d="M 1212.0 888.0 L 1360.0 950.0" fill="none" stroke="#F5B841" stroke-width="2.6" marker-end="url(#arrow-data)"/>
+<path d="M 1745.0 950.0 L 1774.4 892.0" fill="none" stroke="#8796A6" stroke-width="2.6" marker-end="url(#arrow-infra)"/>
+<rect x="1768.9" y="907.0" width="77.6" height="24.0" rx="9" fill="#0A0E13" fill-opacity="1.0" stroke="#8796A6" stroke-width="1.2"/>
+<text x="1807.7" y="924.0" font-size="15" font-weight="600" fill="#EEF2F6" text-anchor="middle">git pull</text>
+<rect x="60" y="766" width="18" height="18" rx="4" fill="#7DD3FC"/>
+<text x="86.0" y="780.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">simulation / physics</text>
+<rect x="60" y="794" width="18" height="18" rx="4" fill="#BFD732"/>
+<text x="86.0" y="808.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">AI model (GPU)</text>
+<rect x="60" y="822" width="18" height="18" rx="4" fill="#A78BFA"/>
+<text x="86.0" y="836.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">human / UI</text>
+<rect x="60" y="850" width="18" height="18" rx="4" fill="#F5B841"/>
+<text x="86.0" y="864.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">data / external</text>
+<rect x="60" y="878" width="18" height="18" rx="4" fill="#8796A6"/>
+<text x="86.0" y="892.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">network / infrastructure</text>
+<rect x="60" y="906" width="18" height="18" rx="4" fill="#F0453A"/>
+<text x="86.0" y="920.0" font-size="17" font-weight="400" fill="#A9B6C5" text-anchor="start">safety gate</text>
+<text x="60.0" y="960.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">Physics never waits: render, YOLO, fusion, thermal,</text>
+<text x="60.0" y="982.0" font-size="16" font-weight="400" fill="#A9B6C5" text-anchor="start">lidar, JPEG and encoding run in their own threads.</text>
+</g>
+</svg>

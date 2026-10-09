@@ -27,7 +27,7 @@ cards:
     name: "Scan → twin"
     type: "evidence"
     title: "A phone scan becomes a room the robot can walk into."
-    time: 25
+    time: 20
     visual:
       kind: "image"
       ref: "G12"
@@ -52,11 +52,29 @@ cards:
     speaker: "We swept our own office lobby with an iPhone's LiDAR: people masked and text blurred, fused into a metric mesh, 8 by 7 metres, about a hundred thousand faces, dropped into the plant as the shift office. The robot walks in on its round. A public pump-room scan: 5 of 5 readings. Scale still needs a tape check; not yet today's demo room."
     status: "draft"
 
+  - id: "15b"
+    name: "Same brain, any site, any robot"
+    type: "evidence"
+    title: "Same brain on any site. Same brain on any robot."
+    time: 30
+    visual:
+      kind: "media"
+      note: "Top: five sites as real screenshots (bottling, fuel terminal, data center, solar farm, two floors), 3D views cropped from presentation/images. Bottom: the Lichtblick ROS 2 dashboard (ros_dashboard.jpg, URL bar cropped), then two numbers and the pilot line. Leads into the robot building the twin."
+      shots: ["assets/img/site_bottling.jpg", "assets/img/site_terminal.jpg", "assets/img/site_datacenter.jpg", "assets/img/site_solar.jpg", "assets/img/site_twofloors.jpg", "assets/img/ros_dashboard_crop.jpg"]
+      review: ["'Unitree, Boston Dynamics and ANYbotics speak ROS 2' and 'robot-agnostic' (BUSINESS.adoc) are not registered facts: shown as plain text, no box. Ask the bundle owner to register them if wanted as a number.", "Site screenshots are laptop runs (manifest caveat), shown as the sites, not as the Thor."]
+    overlay:
+      - { n: "~9 s", label: "to switch the whole sim to another site, live", status: "measured", fact: "deploy.site_switch" }
+      - { n: "15", label: "standard ROS 2 topics the Thor publishes", status: "measured", fact: "ros.topics" }
+    honest: "Today it drives one robot: the simulated G1."
+    takeaway: "The site is a file and the robot is a ROS 2 body: the brain stays the same."
+    speaker: "The site is interchangeable: bottling, terminal, data center, solar farm, two floors; a new site is one file; switching takes about nine seconds. The robot is interchangeable: the brain talks ROS 2, fifteen standard topics, and real robots speak ROS 2, so in a pilot it plugs in the same way. Today it drives the simulated G1. And it doesn't just walk the site: it builds the twin as it goes."
+    status: "draft"
+
   - id: "16"
     name: "The robot builds the twin"
     type: "evidence"
     title: "The robot maps the plant as it walks, and names what it finds."
-    time: 30
+    time: 25
     visual:
       kind: "video"
       src: "assets/video/twin.mp4"
@@ -75,7 +93,7 @@ cards:
     name: "Digital understanding"
     type: "explainer"
     title: "Not just a digital twin. A digital understanding of the plant."
-    time: 35
+    time: 30
     visual:
       kind: "svg"
       note: "Animated knowledge graph built from the scene-graph track's own layers and relation names (poc-mujoco/scenegraph.py): SITE → ZONES → ASSETS from the map; FIRE, a worker and the robot from perception; a proposal from the brain. Edges: contains; feeds, protects, stops (process, lime); burning, fed_by, exposes (hazard, red, pulsing); approaching, doing (perceived, sky); acts_on, because (decision, violet). Under it: a blueprint says where, a twin says what it looks like, the robot's graph says what things mean to each other."

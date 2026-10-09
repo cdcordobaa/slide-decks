@@ -29,7 +29,7 @@ cards:
     name: "Unit economics, one plant"
     type: "evidence"
     title: "One 24/7 bottling plant: about $137k of value a year, payback in about two years."
-    time: 40
+    time: 30
     visual:
       kind: "chart"
       chart: "waterfall"
@@ -107,7 +107,7 @@ cards:
     name: "Lessons + the ask"
     type: "close"
     title: "What two weeks on the Thor taught us."
-    time: 25
+    time: 20
     visual:
       kind: "cards"
       note: "Four one-line lessons, then the ask in lime."

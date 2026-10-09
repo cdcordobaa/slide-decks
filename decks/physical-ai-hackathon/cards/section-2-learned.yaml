@@ -11,11 +11,11 @@ cards:
     time: 30
     visual:
       kind: "swap"
-      before: "assets/img/fire_bott_before.jpg"
-      after: "assets/img/fire_bott_after.jpg"
+      before: "assets/img/fire_bc1_before.jpg"
+      after: "assets/img/fire_bc1_after.jpg"
       note: "Before: pretrained detector, no box. After 2.4 s: our model, box 'fire 0.96'."
       backup: ["training_pipeline", "chart_training"]
-      shots: ["assets/img/autolabel_qa_bottling.jpg"]
+      shots: ["assets/img/fire_bc1_autolabel.jpg"]
     overlay:
       - { n: "3,000", label: "images the simulator rendered and labelled itself", status: "measured", fact: "train.simseg_images" }
       - { n: "0.65 h", label: "training on the Thor GPU", status: "measured", fact: "train.simseg_time" }
@@ -31,7 +31,7 @@ cards:
     type: "opener"
     title: "The original walker fell on the first step. We trained it to climb."
     subtitle: "Unitree's walking network, retrained on the Thor by trial and error in simulation. Blind: it climbs by feel."
-    time: 35
+    time: 30
     visual:
       kind: "video"
       src: "assets/video/antes_despues.mp4"
