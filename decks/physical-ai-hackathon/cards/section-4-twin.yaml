@@ -39,16 +39,17 @@ cards:
       labels: []
       keep_empty: "bottom band"
       note: "The infographic tells the steps; the real frames prove them."
-      shots: ["assets/img/lidartest_fused_mesh.jpg", "assets/img/lidartest_inside.jpg", "assets/img/lidartest_robotcam.jpg", "assets/img/pumphouse_robotcam_01.jpg"]
+      shots: ["assets/img/lobby_mesh.jpg", "assets/img/lobby_above.jpg", "assets/img/lobby_inside.jpg", "assets/img/lobby_robotcam_pi501.jpg"]
+      review: ["Shots: the Oct 8 office lobby scan (docs/screenshots officescan_oct8_*, scanlab_lobby_*), cropped to the 3D view. No reading in the lobby is registered: the PI-501 frame carries no number."]
       backup: ["scan_to_twin"]
     overlay:
-      - { n: "86 → 155k", label: "phone LiDAR frames → metric mesh triangles", status: "measured", fact: "scan.splatking · scan.fused_mesh" }
-      - { n: "5.2 / 5.2", label: "gauge read in the scanned room vs the truth", status: "measured", fact: "scan.walkin" }
-      - { n: "5 / 5", label: "readings in a real pump-house scan", status: "measured", fact: "scan.pumphouse" }
-    honest: "Today's office scan: an 8.25 × 7.45 m room, people removed. Scale from the phone, not yet tape-checked."
+      - { n: "8.25 × 7.45 m", label: "our office lobby, from one phone sweep", status: "measured", fact: "scan.office_full" }
+      - { n: "99,998", label: "mesh faces, imported as the plant's shift office", status: "measured", fact: "scan.office_full" }
+      - { n: "5 / 5", label: "gauge readings in a public scan of a real pump room", status: "measured", fact: "scan.pumphouse" }
+    honest: "People masked and text blurred before it was built. Scale from the phone, not yet tape-checked; not yet the demo's room."
     honest_facts: ["scan.office_full (measured, 12bb; flatness CHECK, scale unverified, not the live room yet)"]
     takeaway: "A new site starts from a scan, not a modelling project."
-    speaker: "A phone scan becomes a room: 86 iPhone LiDAR frames fused into a metric mesh, given collisions and a walkable grid. The robot walks in and reads the gauge, 5.2 against a true 5.2. We did the same with a public scan of a real pump room."
+    speaker: "We swept our own office lobby with an iPhone's LiDAR: people masked and text blurred, fused into a metric mesh, 8 by 7 metres, about a hundred thousand faces, dropped into the plant as the shift office. The robot walks in on its round. A public pump-room scan: 5 of 5 readings. Scale still needs a tape check; not yet today's demo room."
     status: "draft"
 
   - id: "16"

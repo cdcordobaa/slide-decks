@@ -809,18 +809,18 @@ table.mt{border-collapse:collapse;width:100%}
     </div>
     <div class="genbox band" style="left:56px;top:178px;width:1168px;height:190px;background-image:url('assets/gen/G12.png')" role="img" aria-label="Phone sweep, point cloud, mesh, the robot reading a gauge"></div>
     <div class="abs" style="left:56px;top:384px;width:1168px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
-      <div class="shot" style="height:150px"><img src="assets/img/lidartest_fused_mesh.jpg" alt="The fused mesh from the phone scan"><span>FUSED MESH</span></div>
-      <div class="shot" style="height:150px"><img src="assets/img/lidartest_inside.jpg" alt="The scanned room inside the plant"><span>THE ROOM, IN THE PLANT</span></div>
-      <div class="shot" style="height:150px"><img src="assets/img/lidartest_robotcam.jpg" alt="The robot camera reading PI-501"><span>ROBOT CAM · PI-501</span></div>
-      <div class="shot" style="height:150px"><img src="assets/img/pumphouse_robotcam_01.jpg" alt="The robot camera in the scanned pump house"><span>A REAL PUMP-HOUSE SCAN</span></div>
+      <div class="shot" style="height:150px"><img src="assets/img/lobby_mesh.jpg" alt="Our office lobby, fused from one iPhone LiDAR sweep"><span>OUR LOBBY · FUSED MESH</span></div>
+      <div class="shot" style="height:150px"><img src="assets/img/lobby_above.jpg" alt="The scanned lobby dropped into the plant, seen from above" style="object-position:50% 45%"><span>THE LOBBY, IN THE PLANT</span></div>
+      <div class="shot" style="height:150px"><img src="assets/img/lobby_inside.jpg" alt="Inside the scanned lobby, the robot's inspection stops marked" style="object-position:50% 55%"><span>ON THE ROUND</span></div>
+      <div class="shot" style="height:150px"><img src="assets/img/lobby_robotcam_pi501.jpg" alt="The robot camera reading gauge PI-501 in the scanned lobby" style="object-position:50% 8%"><span>ROBOT CAM · PI-501</span></div>
     </div>
-    <div class="abs" style="left:56px;top:556px;width:1168px;display:grid;grid-template-columns:repeat(3,1fr) 1.2fr;gap:30px">
-      <div class="stat sm det measured" data-tag="measured" style="--i:0"><div class="n">86 → 155k</div><div class="u">phone LiDAR frames → mesh triangles</div></div>
-      <div class="stat sm det measured" data-tag="measured" style="--i:1"><div class="n">5.2 / 5.2</div><div class="u">gauge read in the scanned room vs the truth</div></div>
-      <div class="stat sm det measured" data-tag="measured" style="--i:2"><div class="n">5 / 5</div><div class="u">readings in a real pump-house scan</div></div>
-      <div class="honest" style="font-size:12.5px">Today's office scan: an <b>8.25 × 7.45 m</b> room, people removed. Scale from the phone, not yet tape-checked.</div>
+    <div class="abs" style="left:56px;top:584px;width:1168px;display:grid;grid-template-columns:repeat(3,1fr) 1.2fr;gap:30px">
+      <div class="stat sm det measured" data-tag="measured" style="--i:0"><div class="n">8.25 × 7.45 m</div><div class="u">our office lobby, from one phone sweep</div></div>
+      <div class="stat sm det measured" data-tag="measured" style="--i:1"><div class="n">99,998</div><div class="u">mesh faces, imported as the plant's shift office</div></div>
+      <div class="stat sm det measured" data-tag="measured" style="--i:2"><div class="n">5 / 5</div><div class="u">gauge readings in a public scan of a real pump room</div></div>
+      <div class="honest" style="font-size:12.5px">People masked and text blurred before it was built. Scale from the phone, not yet tape-checked; not yet the demo's room.</div>
     </div>
-    <aside class="notes">A phone scan becomes a room: 86 iPhone LiDAR frames fused into a metric mesh, given collisions and a walkable grid, and dropped into the plant. The robot walks in and reads the gauge, 5.2 against a true 5.2. We did the same with a public scan of a real pump room: 5 of 5 readings. And this morning we scanned our office lobby: an 8 by 7 metre room, with people removed before it was built; its scale still needs a tape check. A new site starts from a scan, not a modelling project.</aside>
+    <aside class="notes">A phone scan becomes a room. We swept our own office lobby with an iPhone's LiDAR: people masked and text blurred first, then fused into a metric mesh, 8 by 7 metres, about a hundred thousand faces, given collisions and a walkable grid, and dropped into the plant as the shift office. The robot walks in on its round and reads the gauges we placed there. We did the same with a public scan of a real pump room: 5 of 5 readings. Its scale still needs a tape check, and it is not yet the room in today's demo. A new site starts from a scan, not a modelling project.</aside>
   </section>
 
   <!-- ================= 16 · CP6 · the robot builds the twin ================= -->
