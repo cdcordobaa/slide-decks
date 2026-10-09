@@ -1,0 +1,86 @@
+section:
+  id: "4"
+  title: "Everything starts from the twin"
+  goal: "The bridge from tech to business: one simulated plant to simulate, learn, train and monitor; a phone scan becomes a twin; next, the robot builds the twin itself and understands it (video + an interactive splat)."
+
+cards:
+  - id: "14"
+    name: "One twin, four uses"
+    type: "opener"
+    title: "Everything starts from the simulated plant."
+    time: 30
+    visual:
+      kind: "svg"
+      dropped_gemini: "G11"
+      note: "Coded SVG hub: the top-down render of the plant in a ring, spokes to the four real screenshots."
+      shots: ["assets/img/bottling_overview.jpg", "assets/img/simseg_qa_fire.jpg", "assets/video/evolucion_final.jpg", "assets/img/ros_dashboard.jpg"]
+    overlay:
+      - { n: "6 / 6", label: "Simulate: rounds on the Thor", status: "measured", fact: "site.bott_rounds_thor" }
+      - { n: "3,000", label: "Learn: images that labelled themselves", status: "measured", fact: "train.simseg_images" }
+      - { n: "2,048 G1s", label: "Train: the stair skill, 52 min", status: "measured", fact: "stairs.rl_train" }
+      - { n: "15", label: "Monitor: ROS 2 topics; lidar changes vs the as-built map", status: "measured", fact: "ros.topics" }
+    takeaway: "One twin: the plant to rehearse in, the data to learn from, the gym to train in, the map to watch."
+    speaker: "Everything you saw starts from one simulated plant. We simulate the rounds and fire drills in it; it labels its own training images and runs the what-if futures; it is the gym where the stair skill trained; and it is the map the robot compares the real plant against."
+    status: "draft"
+
+  - id: "15"
+    name: "Scan → twin"
+    type: "evidence"
+    title: "A phone scan becomes a room the robot can walk into."
+    time: 25
+    visual:
+      kind: "image"
+      ref: "G12"
+      brief: >
+        Four panels left to right: a phone sweeping a small room; the room as a
+        dotted point cloud; the same room as a clean grey mesh; a small
+        humanoid standing in the mesh in front of a round pressure gauge. Thin
+        arrows between the panels.
+      labels: []
+      keep_empty: "bottom band"
+      note: "The infographic tells the steps; the real frames prove them."
+      shots: ["assets/img/lidartest_fused_mesh.jpg", "assets/img/lidartest_inside.jpg", "assets/img/lidartest_robotcam.jpg", "assets/img/pumphouse_robotcam_01.jpg"]
+      backup: ["scan_to_twin"]
+    overlay:
+      - { n: "86 → 155k", label: "phone LiDAR frames → metric mesh triangles", status: "measured", fact: "scan.splatking · scan.fused_mesh" }
+      - { n: "5.2 / 5.2", label: "gauge read in the scanned room vs the truth", status: "measured", fact: "scan.walkin" }
+      - { n: "5 / 5", label: "readings in a real pump-house scan", status: "measured", fact: "scan.pumphouse" }
+    honest: "Today's office scan: an 8.25 × 7.45 m room, people removed. Scale from the phone, not yet tape-checked."
+    honest_facts: ["scan.office_full (measured, 12bb; flatness CHECK, scale unverified, not the live room yet)"]
+    takeaway: "A new site starts from a scan, not a modelling project."
+    speaker: "A phone scan becomes a room: 86 iPhone LiDAR frames fused into a metric mesh, given collisions and a walkable grid. The robot walks in and reads the gauge, 5.2 against a true 5.2. We did the same with a public scan of a real pump room."
+    status: "draft"
+
+  - id: "16"
+    name: "The robot builds the twin"
+    type: "evidence"
+    title: "The robot maps the plant as it walks, and names what it finds."
+    time: 30
+    visual:
+      kind: "video"
+      src: "assets/video/twin.mp4"
+      poster: "assets/video/twin_poster.jpg"
+      note: "From the Live Lidar Mapping page: 60 s, the robot at the fuel terminal (sim) beside its lidar point-cloud map growing live, with the scene-graph panel naming assets. Laptop run at 0.15x, sped up x6.5 (labelled in the video). Right: GEOMETRY / THINGS / MEANING, then the two lidar facts."
+      review: ["The lidar map + scene graph is a teammate's unmerged track (origin/track/scene-graph, Diego): labelled so; facts register only after a merge. The video shows numbers not in facts.json: not quoted in the overlay"]
+    overlay:
+      - { n: "16 × 512", label: "our simulated lidar (OS1-16 class), 10 scans a second", status: "measured", fact: "sens.lidar_geom" }
+      - { n: "MID-360", label: "the real G1's head lidar: a different design from our sim sensor", status: "sourced", fact: "arch.twin_mid360" }
+    honest: "In simulation: positions from the simulator (a real robot needs SLAM)."
+    takeaway: "Geometry and things, built live as it walks."
+    speaker: "The robot builds the twin itself as it walks: every lidar scan lands in a growing map, and a scene graph names the assets its cameras find. In simulation, on a teammate's track, sped up. Next: what it understands."
+    status: "draft"
+
+  - id: "16b"
+    name: "Digital understanding"
+    type: "explainer"
+    title: "Not just a digital twin. A digital understanding of the plant."
+    time: 35
+    visual:
+      kind: "svg"
+      note: "Animated knowledge graph built from the scene-graph track's own layers and relation names (poc-mujoco/scenegraph.py): SITE → ZONES → ASSETS from the map; FIRE, a worker and the robot from perception; a proposal from the brain. Edges: contains; feeds, protects, stops (process, lime); burning, fed_by, exposes (hazard, red, pulsing); approaching, doing (perceived, sky); acts_on, because (decision, violet). Under it: a blueprint says where, a twin says what it looks like, the robot's graph says what things mean to each other."
+    overlay:
+      - { n: "where → looks → means", label: "blueprint · digital twin · the robot's knowledge graph", status: "claim" }
+    honest: "Fuel terminal, in simulation. Map relations come from the site description; live ones from perception; every edge keeps its source. No counts quoted until merged and registered."
+    takeaway: "A blueprint says where things are. This says what they mean to each other, and why the robot asks you to act."
+    speaker: "Every round, the robot builds a knowledge graph of what it finds and how it connects in meaning: this valve feeds that tank, the deluge protects the tank farm, the e-stop stops the pumps; then a fire burning at T-102, fed through FV-102, exposing T-101; and a proposal to close FV-102 because of it."
+    status: "draft"

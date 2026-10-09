@@ -1,0 +1,34 @@
+# Deck metadata + storyboard config (same card model as decks/harness-talk).
+# Numbers: GlobantHackaton/presentation/facts.json (main b8b71cb). Each overlay
+# number carries its fact id and status; the slide face shows status by colour
+# only (lime measured, sky sourced, amber estimate + "est."), never the source.
+deck:
+  title: "A robot operator that thinks before it acts"
+  subtitle: "Team 05 · Globant Physical AI Hackathon · 10-minute talk after the live demo · Thu Oct 8 2026"
+  spine: "The pitch deck's story (why → the loop → how → where it goes), our technical cards for the Thor, everything starts from the twin, then the business."
+  core_line: "It looks, thinks, asks and acts, on one Thor. And it all starts from a simulated twin of the plant."
+  rules:
+    - "No source text on slide faces: no 'Sources:' lines, audit tags or fact ids. They live in speaker notes and the D view."
+    - "Status by colour: lime measured, sky sourced, amber estimate (+ 'est.'). 'In simulation' stays where it matters."
+    - "Credits once, on the close (licences require it)."
+    - "Act openers are full-bleed frames (Night Shift); the rest is the round: plant map, robot walking, two approval gates."
+    - "Technical slides are pictures, not paragraphs: one infographic each, the HTML overlays at most 3 numbers and short labels."
+    - "Our trained stair policy and the round's ported DreamWaQ never share a line or a bar."
+    - "No Git on any slide: how we built it is told through specs, parallel tracks, coding agents and the audit trail."
+    - "Real screenshots from the product sit next to every infographic where one exists; missing ones are requested from the bundle session (shown dashed)."
+  budget_seconds: 600
+
+# Gemini infographics (same route as harness-talk: scripts/gen-infographics.mjs).
+# Gemini draws, the HTML writes the numbers: briefs ask for no numbers and only
+# the short labels listed, and leave the overlay area empty.
+art:
+  model: "gemini-2.5-flash-image"
+  aspect: "16:9"
+  style: >
+    Flat technical infographic on a dark navy-black background (#0A0E13). Thin
+    line art in cool grey (#8796A6); a single accent colour, lime (#BFD732), for
+    whatever the robot does; warm orange (#FF6A1A) only for heat or fire; sky blue
+    (#7DD3FC) for sensors. Isometric or clean orthographic, calm, precise, no
+    gradients, no photographic textures, no logos, no faces, generous empty
+    space. No numbers anywhere. Labels only where the brief lists them, in a
+    plain sans-serif, all caps, very short.

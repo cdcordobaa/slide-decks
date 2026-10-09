@@ -1,0 +1,134 @@
+section:
+  id: "5"
+  title: "Business"
+  goal: "To review. Who pays and why now, the unit economics of one plant, what you have to believe, how we sell it (the twin first), then lessons, the ask and the close. Every figure is from BUSINESS.adoc / facts.json; all value figures are estimates."
+
+cards:
+  - id: "17"
+    name: "Who pays, and why now"
+    type: "opener"
+    title: "Plants already pay for robots that only look. Ours acts."
+    time: 30
+    visual:
+      kind: "frame"
+      src: "assets/img/tasks2_3_push_cart.jpg"
+      note: "Full-bleed, robot on the left (built in deck.html). Right: precedents, then the who's-who row."
+      shots: ["assets/img/bottling_board.jpg"]
+    overlay:
+      - { n: "$13.9B", label: "inspection robots by 2030, all industries", status: "sourced", fact: "biz.market_size" }
+      - { n: "~1,800 · 80 % · 100k+", label: "Spot inspections a week at AB InBev · Shell robot missions with no human help · totes moved by Digit at GXO", status: "sourced", fact: "biz.spot_abinbev · biz.shell_exrobotics · biz.digit_totes" }
+      - { n: "Buys · champions · uses", label: "plant manager (uptime, night staffing) · EHS manager (fewer people sent into the hazard) · maintenance lead (findings with evidence)", status: "claim", fact: "BUSINESS.adoc §1" }
+    review:
+      - "$13.9B is all industries; the beverage and food share is still a placeholder (biz.market_food). Say 'all industries'."
+      - "Don't use the humanoid market figures ($5T Morgan Stanley, $138B Goldman via a secondary report): long-range and off-segment."
+    takeaway: "The market exists; what's missing is a robot that also acts, with a human in charge."
+    speaker: "Inspection robots are already bought: Spot does about 1,800 inspections a week at AB InBev, 80 percent of Shell's offshore robot missions ran with no human help, Digit moved over 100 thousand totes at GXO. They look. Ours also acts. Who buys: the plant manager, for uptime and the night shift; the EHS manager champions it; the maintenance lead uses it."
+    status: "draft"
+
+  - id: "18"
+    name: "Unit economics, one plant"
+    type: "evidence"
+    title: "One 24/7 bottling plant: about $137k of value a year, payback in about two years."
+    time: 40
+    visual:
+      kind: "chart"
+      chart: "waterfall"
+      note: "Coded chart (exact numbers, no Gemini): upfront bar split robot / Thor / sensors / integration + pilot; yearly value bar split rounds / faults caught early; minus the subscription; the payback marker. Every bar amber except the Thor price (sky)."
+    overlay:
+      - { n: "~$160k", label: "upfront: robot ~$60k · Thor $5,499 · sensors ~$15k · integration + pilot ~$80k", status: "estimate", fact: "biz.upfront · biz.robot_assumed · biz.thor_price (sourced)" }
+      - { n: "~$137k / yr", label: "value: rounds ~$86.6k (1,460 h × $42.36 × 1.4) + faults caught earlier ~$50k", status: "estimate", fact: "biz.roi_site · biz.labour_value · biz.wage (sourced) · biz.minor_events" }
+      - { n: "~25 mo", label: "payback against ~$5k per robot-month; 3-year ROI ~20 %", status: "estimate", fact: "biz.payback_bottling · biz.price_model · biz.roi3_bottling" }
+    review:
+      - "Pricing model mixes two things: the client buys the robot upfront (~$60k in the $160k) AND pays ~$5k per robot-month 'robot as a service'. Pick one: sale + software subscription, or true RaaS (we own the robot, no robot in the upfront)."
+      - "The wage is a petroleum-operator proxy (BLS $42.36). A bottling operator is likely paid less, which lowers the rounds value: say 'proxy', or find a food-manufacturing wage."
+      - "The ~$50k of 'faults caught earlier' is a pure assumption and 37 % of the value; the case rests on it (labour alone: ~6 years). It has no sourced anchor yet."
+      - "The ~$80k pilot is inside the upfront and is also our pilot revenue: fine, but say it once."
+    takeaway: "The robot pays for itself in about two years, before counting one avoided injury or fire."
+    speaker: "For one bottling plant running around the clock, all estimates: about 160 thousand dollars upfront, robot, Thor, sensors and the integration with the pilot. About 137 thousand dollars of value a year: 1,460 hours of rounds at an operator's loaded wage, and about 50 thousand of leaks and faults caught earlier. Against about 5 thousand dollars per robot-month, it pays back in about 25 months."
+    status: "draft"
+
+  - id: "19"
+    name: "What you have to believe"
+    type: "evidence"
+    title: "The business is in seeing it first, not in replacing hours."
+    time: 25
+    visual:
+      kind: "chart"
+      chart: "bars"
+      note: "Coded horizontal bars of payback by scenario (exact numbers): labour alone ~6 years · base ~25 months · + one avoided injury a year ~15 months · a fuel terminal ~17 months. Amber, all estimates."
+    overlay:
+      - { n: "~6 years", label: "payback on labour alone", status: "estimate", fact: "biz.labour_only_payback" }
+      - { n: "~15 mo", label: "with one avoided injury a year ($48k, NSC): a scenario, not a statistic", status: "estimate", fact: "biz.payback_bottling_injury · biz.injury_cost (sourced)" }
+      - { n: "~17 mo", label: "the same robot at a fuel terminal, where a tank fire is in the case", status: "estimate", fact: "biz.payback" }
+    honest: "Every input except the NSC injury cost, the BLS wage and the Thor price is a team assumption. The pilot replaces them with the plant's own numbers."
+    review: ["Keep or cut: with 10 minutes it fits; it is the slide that shows the case is honest about its assumptions."]
+    takeaway: "If it only saved hours, it would not be worth it. It is worth it because it sees the leak first."
+    speaker: "Here is what you have to believe. On labour alone it takes six years: replacing hours is not the business. The value is in seeing the leak or the hot motor first. One avoided injury a year brings it to 15 months; at a fuel terminal, where a tank fire is in the case, 17. All estimates; the pilot measures the real ones."
+    status: "draft"
+
+  - id: "20"
+    name: "Go-to-market"
+    type: "explainer"
+    title: "The next plant starts with a phone scan, not a project."
+    time: 30
+    visual:
+      kind: "image"
+      ref: "G14"
+      brief: >
+        A road with four milestones, from a small plant model to a map with
+        many pins: a phone scan, a single robot at one plant, a repeating
+        calendar, many plants.
+      labels: ["TWIN", "PILOT", "SUBSCRIPTION", "ROLLOUT"]
+      keep_empty: "under each milestone"
+      shots: ["assets/img/lidartest_inside.jpg"]
+    overlay:
+      - { n: "4-6 wk", label: "their plant as a twin from a scan, drills rehearsed on a Thor, no robot bought", status: "estimate", fact: "BUSINESS.adoc §5" }
+      - { n: "90 days · ~$80k", label: "paid pilot on a real robot, rounds first, emergencies in drills", status: "estimate", fact: "biz.pilot" }
+      - { n: "~$5k", label: "per robot-month; then more plants, then terminals, data centers, solar", status: "estimate", fact: "biz.price_model" }
+    review: ["Pilot success metrics (rounds without help, confirmed findings, gauge error, false alarms per shift, time to an approved action) have no targets yet: list them without numbers, or keep them for Q&A."]
+    takeaway: "Step 1 is Act 4, sold: the twin is the first product."
+    speaker: "Globant sells the brain and the integration, on any robot. It starts with a twin of the client's plant from a scan, so they see their rounds and drills before buying a robot. Then a paid 90-day pilot, then the subscription, then more plants and the other site types we already simulate. Partners: NVIDIA, robot makers, and insurers who price lower risk."
+    status: "draft"
+
+  - id: "21"
+    name: "Risks and how we de-risk"
+    type: "explainer"
+    path: "D"
+    title: "What could stop it, and what we do about it."
+    time: 0
+    visual:
+      kind: "cards"
+      note: "Coded table, six rows from BUSINESS.adoc §7: hazardous-area rules (start in non-classified halls) · sim is not reality (say so; rounds first) · acting alone (proposals only, a human approves) · false alarms (a pilot metric) · humanoid cost (rounds work on legged robots) · assumptions (the pilot measures first)."
+    takeaway: "Every risk has a first move, and the first move is always the pilot."
+    speaker: "Shown only if asked."
+    status: "draft"
+
+  - id: "22"
+    name: "Lessons + the ask"
+    type: "close"
+    title: "What two weeks on the Thor taught us."
+    time: 25
+    visual:
+      kind: "cards"
+      note: "Four one-line lessons, then the ask in lime."
+    overlay:
+      - { n: "Physics, not animation.", label: "our first valve close was an animation; we rebuilt every action on contact", status: "claim" }
+      - { n: "The right model for the job.", label: "the language model read 5.5 bar as 'above 10'; a classic reader measures", status: "measured", fact: "12d" }
+      - { n: "Long runs find bugs.", label: "1 round then stuck → 15 rounds, 0 stuck", status: "measured", fact: "12l" }
+      - { n: "Say what is simulated.", label: "we measured our own model on 3D workers, and say so", status: "measured", fact: "12az" }
+    takeaway: "The ask: one real plant. Its layout or a phone scan, and a night-shift lead."
+    speaker: "Four lessons, then our ask: one real plant to pilot with, its layout or a phone scan, and a night-shift lead to work with. We build its twin, run its rounds and drills on a Thor, then a 90-day pilot on a real robot."
+    status: "draft"
+
+  - id: "23"
+    name: "Close"
+    type: "close"
+    title: "A robot on the night shift that looks, thinks, asks and acts. On one Thor."
+    time: 10
+    visual:
+      kind: "map"
+      note: "The round completes on the plant map. The only slide with source text: credits."
+    credits: "Unitree G1 + unitree_rl_gym (BSD-3) · DreamWaQ (BSD-3, ported) · Ultralytics YOLO11 / FastSAM (AGPL-3.0) · Qwen3-VL (Apache-2.0) · MuJoCo (Apache-2.0) · Spark (MIT) · Open-Meteo (CC BY 4.0) · PubChem (NCBI/NIH) · CC BY scans"
+    takeaway: "Every number measured, sourced, or marked as an estimate."
+    speaker: "Everything you saw ran on one box, and a human approves every action. Thank you; happy to take questions."
+    status: "draft"

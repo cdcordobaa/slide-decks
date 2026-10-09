@@ -1,0 +1,114 @@
+section:
+  id: "2"
+  title: "How it learned, and how it acts"
+  goal: "Eyes and legs, both trained on the one Thor from the simulator (the stair videos from our training run). Then imagine and act, with the jury approving at the two gates."
+
+cards:
+  - id: "04"
+    name: "Perceive · eyes"
+    type: "evidence"
+    title: "Off the shelf it saw no fire. Ours, trained on the Thor, finds it."
+    time: 30
+    visual:
+      kind: "swap"
+      before: "assets/img/fire_bott_before.jpg"
+      after: "assets/img/fire_bott_after.jpg"
+      note: "Before: pretrained detector, no box. After 2.4 s: our model, box 'fire 0.96'."
+      backup: ["training_pipeline", "chart_training"]
+      shots: ["assets/img/autolabel_qa_bottling.jpg"]
+    overlay:
+      - { n: "3,000", label: "images the simulator rendered and labelled itself", status: "measured", fact: "train.simseg_images" }
+      - { n: "0.65 h", label: "training on the Thor GPU", status: "measured", fact: "train.simseg_time" }
+      - { n: "18 / 21", label: "views of a fire at a plant it never trained on", status: "measured", fact: "train.fire_transfer" }
+    honest: "It learned cardboard people: 4 of 42 standing 3D workers. In the demo, lidar + thermal find the person down."
+    honest_facts: ["sens.ours_people3d_standing", "fire.man_down_lidar"]
+    takeaway: "Nobody has photos of a fire in your plant. The simulator makes them, and labels them."
+    speaker: "Off the shelf, the detector saw nothing at the charger fire. We had no plant and no camera, so the simulator rendered and labelled its own training set, and we trained on the Thor in forty minutes. Honestly, about people: we trained on cardboard standees; on the new 3D workers ours finds 4 of 42. That is why the demo finds Lena with lidar and thermal."
+    status: "draft"
+
+  - id: "05"
+    name: "Legs · stairs"
+    type: "opener"
+    title: "The original walker fell on the first step. We trained it to climb."
+    subtitle: "Unitree's walking network, retrained on the Thor by trial and error in simulation. Blind: it climbs by feel."
+    time: 35
+    visual:
+      kind: "video"
+      src: "assets/video/antes_despues.mp4"
+      poster: "assets/video/antes_despues_final.jpg"
+      note: "The teammate's video, 22 s: same robot, same stairs at 6 / 11 / 17 cm, original falls, trained crosses. Plays muted beside the numbers; the full-bleed bottling_stairs frame stays as the opener behind it. Captions are in Spanish (SE CAYO / CRUZO): ask the teammate for an English render."
+      review: ["Spanish captions on stage: ask the teammate for an English render"]
+      shots: ["assets/img/bottling_stairs.jpg"]
+      backup: ["chart_stairs_trained"]
+    overlay:
+      - { n: "88-100 %", label: "cross the stairs at every riser 4.6-17 cm; the original 0 % from 6 cm", status: "measured", fact: "stairs.rl_exam_trained · stairs.rl_exam_original" }
+      - { n: "52 min", label: "2,048 G1s in parallel on MuJoCo-Warp, Thor GPU", status: "measured", fact: "stairs.rl_minutes · stairs.rl_train" }
+      - { n: "≈410 h", label: "of robot experience", status: "measured", fact: "stairs.rl_experience" }
+    honest: "In simulation; not in the demo yet. The live round climbs with a ported policy (19/20), shown apart, never on our line."
+    honest_facts: ["stairs.rl_not_in_demo", "stairs.bott_trials"]
+    takeaway: "Eyes and legs: both trained on the same Thor, from the simulator."
+    speaker: "Unitree's walking network falls on the first six centimetre step. We retrained it on the Thor: two thousand G1s in parallel, 52 minutes, about 410 hours of robot experience. Tested on a thousand robots: 0 percent before, 88 to 100 after. Simulation only, and not in the demo yet: the round you saw climbs with a ported policy."
+    status: "draft"
+
+  - id: "06"
+    name: "How we trained it"
+    type: "explainer"
+    title: "First it learned not to fall. Then it learned to go faster."
+    time: 25
+    visual:
+      kind: "video"
+      src: "assets/video/evolucion.mp4"
+      poster: "assets/video/evolucion_final.jpg"
+      note: "The teammate's video, 22 s: the same 12 cm stair at the start and iterations 250 / 500 / 750 / 1000 / 1500. Spanish captions: English re-render requested. Iteration 500 reads 3.7 m in the video, 3.8 m in the registered fact: BLOCKED on stage until the teammate confirms which is right (or re-renders)."
+      review: ["Video caption 3.7 m vs fact stairs.rl_snapshots 3.8 m at iteration 500: ask the teammate", "Captions in Spanish: ask the teammate for an English render (the bundle session has neither the videos nor the script)"]
+    overlay:
+      - { n: "25 → 10 %", label: "falls, after the curriculum ceiling", status: "measured", fact: "stairs.rl_curve" }
+      - { n: "40 → 70 %", label: "successful crossings", status: "measured", fact: "stairs.rl_curve" }
+      - { n: "3-17 cm", label: "curriculum risers, 10 layouts, randomised robots", status: "measured", fact: "stairs.rl_curriculum" }
+    honest: "On 3 cm steps only 60 % cross in time: it got slow. Next: mix flat ground into training."
+    honest_facts: ["stairs.rl_exam_3cm"]
+    takeaway: "No camera, no new network: new weights, learned by trial and error."
+    speaker: "Same network, same 47 inputs and 12 outputs; PPO with a curriculum from 3 to 17 centimetres; motor strength, loads, pushes and sensor noise randomised. It first learned not to fall, then to go faster."
+    status: "draft"
+
+  - id: "07"
+    name: "Imagine · gate 1"
+    type: "gate"
+    gate: "Show the jury whether its predictions hold up"
+    title: "Before it asks, it imagines every order of the response."
+    time: 35
+    visual:
+      kind: "frame"
+      src: "assets/img/ui5_1440_response.jpg"
+      dropped_gemini: "G3"
+      note: "Real screenshot: the operator view during the fire, proposals in the planned order (ui5_1440_response)."
+      shots: ["assets/img/ui5_1440_response.jpg"]
+      wanted: ["The what-if moment: proposal list with the planned order (operator view), if a cleaner frame exists"]
+      backup: ["chart_whatif_rollouts"]
+    overlay:
+      - { n: "6 × 4,096", label: "response plans × rollouts, on the Thor GPU", status: "measured", fact: "fire.bott_whatif" }
+      - { n: "190 → 134 s", label: "fire out, with the order it proposes", status: "measured", fact: "gpu.whatif_value" }
+      - { n: "4.1-10.8 %", label: "its prediction vs the real run", status: "measured", fact: "gpu.whatif_accuracy" }
+    takeaway: "Order matters, and the robot works it out before it asks you."
+    speaker: "[Approve] Before it proposes the fire response, it simulates every order of the open actions thousands of times on the GPU. In our runs the fire is out in 134 seconds with its order, against 190 with the newest proposal first. And its predictions land within 4 to 11 percent of what really happens."
+    status: "draft"
+
+  - id: "08"
+    name: "Act · hands · gate 2"
+    type: "gate"
+    gate: "Show what is real and what is simulated in a grip"
+    title: "The G1's hands have no fingers. Every grip is physics we had to build."
+    time: 30
+    visual:
+      kind: "frame"
+      src: "assets/img/deck_v3_handwheel.jpg"
+      dropped_gemini: "G4"
+      note: "Real screenshot: both palms on the V-3 handwheel (laptop run, cropped to the 3D view), with HTML labels SIMULATED · THE GRIP and PHYSICS."
+      shots: ["assets/img/deck_v3_handwheel.jpg", "assets/img/deck_estop_lockout.jpg", "assets/img/tasks2_3_push_cart.jpg"]
+    overlay:
+      - { n: "~20°", label: "one hand alone; two hands close it in 2 turns", status: "measured", fact: "hands.one_hand · site.bott_v3" }
+      - { n: "40 kg", label: "spill cart, moved only through the grip: 5/5", status: "measured", fact: "hands.cart_mass · hands.tasks_bott" }
+      - { n: "3-4 cm", label: "e-stop plunger travel, only under contact force", status: "measured", fact: "hands.estop" }
+    takeaway: "Simulated: the grip. Physics: everything else."
+    speaker: "[Approve] What is simulated is the grip itself: when a palm is within a centimetre of the rim, a constraint switches on. Everything else is physics: friction decides if the wheel turns, the arms push, the legs keep balance, and the cart and e-stop move only when it really pushes."
+    status: "draft"

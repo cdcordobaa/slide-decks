@@ -1,0 +1,126 @@
+section:
+  id: "3"
+  title: "Under the hood: one Thor"
+  goal: "Synthesised to three slides: how it all runs on one box (architecture, the brain and the link in one picture), every model and its share of the GPU, and how we built it from specs. Senses and the link details stay behind D."
+
+cards:
+  - id: "09"
+    name: "One Thor, one loop"
+    type: "explainer"
+    title: "One Jetson Thor runs the plant, the robot and its mind."
+    subtitle: "Sense, perceive, decide, act on the box. The language model looks only when asked. The browser only draws."
+    time: 35
+    visual:
+      kind: "svg"
+      dropped_gemini: "G5"
+      note: "Coded SVG: the Thor as one box with four bands (ACT, DECIDE + a human gate, PERCEIVE, SENSE, with rates), the language model on the side, and the link out (311 MB/s vs 165 KB/s)."
+      shots: ["assets/img/thor_brain_card.jpg", "assets/img/thor_stats_panel.jpg"]
+      wanted: ["Thor panel live with everything on: RTF and GPU memory per process (needs the live Thor)"]
+      backup: ["architecture", "perception_fusion", "thor_resources", "chart_link_budget", "chart_link_updates"]
+    overlay:
+      - { n: "1.0×", label: "real time, with every feature on", status: "measured", fact: "perf.rtf_fixed" }
+      - { n: "10 Hz · 50 Hz · ~1.8 s", label: "brain · legs · one look by the language model, on request", status: "measured", fact: "arch.brain_rate · llm.vlm_look" }
+      - { n: "311 MB/s vs 165 KB/s", label: "on the box vs through the tunnel: the link was the bottleneck, not the Thor", status: "measured", fact: "perf.local_vs_tunnel" }
+    takeaway: "Fast models on every frame, the language model only on events, and every model on the box."
+    speaker: "Everything runs on one Jetson Thor; the browser only draws. It senses with a simulated camera, a radiometric thermal camera and a 3D lidar; perception turns that into facts; the brain decides ten times a second, a human approves, and the legs and arms act at 50. The language model sits beside the loop: it pulls one frame when asked. With every feature on, the simulation holds real time. Our hardest performance problem was not the Thor: the same file moves at 311 megabytes a second on the box and 165 kilobytes through the tunnel, so we send only what changed."
+    status: "draft"
+
+  - id: "10"
+    name: "Models · memory and GPU"
+    type: "explainer"
+    title: "Nine models, one Thor. The language-model agent holds two thirds of GPU memory."
+    time: 35
+    visual:
+      kind: "chart"
+      chart: "memory bar + model table (coded, exact 12ba numbers)"
+      replaced_brief: "G8"
+      brief: >
+        A tall transparent tank, filled almost to the brim. The fill is three
+        stacked layers: at the bottom a large lime layer filling about two
+        thirds of the tank, above it a grey-blue layer of about one third, and
+        on top a very thin sliver. A dashed horizontal red-orange line crosses
+        the tank a little BELOW the top of the fill, so the liquid clearly
+        rises above the line. Small icons inside the layers: a brain in the
+        lime layer, an eye in the grey-blue layer. Beside the tank, outside
+        it, a small shelf with a few more icons (a leg, a gauge dial, a
+        speaker).
+      labels: []
+      html_labels: ["LIMIT 15 GiB", "CPU"]
+      keep_empty: "right half"
+      note: "Kept as is: every model with its memory and GPU share (the table from the current deck on the right half, the tank on the left)."
+      shots: ["assets/img/thor_meters.jpg"]
+      backup: ["chart_model_budget", "chart_yolo_latency", "chart_segmenters"]
+    overlay:
+      - { n: "10.77 · 4.98 · 0.19 GiB", label: "agent · sim + vision · what-if", status: "measured", fact: "budget.agent_gpu · budget.sim_gpu · budget.whatif_gpu" }
+      - { n: "15.94 vs 11.34 GiB", label: "GPU processes vs what the container counted", status: "measured", fact: "budget.gpu_total · budget.cgroup" }
+      - { n: "30-56 %", label: "GPU busy on average; per-model shares are estimates", status: "measured", fact: "budget.gpu_util · budget.share_*" }
+    takeaway: "Unified memory: the box's own count missed the GPU side."
+    speaker: "Nine models on one Thor, and what each costs. The agent process, Qwen with Whisper, holds almost eleven gigabytes, two thirds of GPU memory. The vision models are small and share the GPU; walking, stairs, gauges and voice run on the CPU. What we learned: the container said 11 gigabytes, but the GPU processes hold almost 16, because CPU and GPU share one memory."
+    status: "draft"
+
+  - id: "11"
+    name: "Built from specs"
+    type: "explainer"
+    title: "Every feature started as a spec. Every number ended in the audit trail."
+    subtitle: "Parallel tracks, each worked by a coding agent against its own spec, on one shared Thor."
+    time: 30
+    visual:
+      kind: "image"
+      ref: "G9"
+      brief: >
+        Left: a single document with a checklist and small scenario cards
+        fanning out of it. Middle: many thin parallel lanes running left to
+        right, each with a small robot-like helper icon working on a block.
+        Right: all lanes converge into one tall ledger book with dated rows,
+        one row lit in lime.
+      labels: ["SPEC", "PARALLEL TRACKS", "AUDIT TRAIL"]
+      keep_empty: "top band"
+      note: "No Git: the story is spec → parallel tracks with coding agents → audit trail."
+    overlay:
+      - { n: "16 · 171 · 208", label: "spec changes · requirements · scenarios", status: "measured", fact: "proj.openspec_changes · proj.openspec_requirements · proj.openspec_scenarios" }
+      - { n: "38", label: "parallel tracks", status: "measured", fact: "proj.track_merges" }
+      - { n: "66 · 2,895", label: "dated audit sections · lines: every decision, number and failure", status: "measured", fact: "proj.audit_sections · proj.audit_lines" }
+    takeaway: "The spec told the agent what to build; the audit trail tells you what is true."
+    speaker: "We built it with OpenSpec: every feature started as a change with requirements and scenarios, 171 requirements and 208 scenarios in all. Each became a parallel track worked by a coding agent, 38 of them. And every decision, number and failure went into a dated audit trail: that is where every number on these slides comes from."
+    status: "draft"
+
+  - id: "12"
+    name: "How it senses"
+    type: "explainer"
+    path: "D"
+    title: "Three senses, three pipelines."
+    time: 0
+    visual:
+      kind: "frame"
+      src: "assets/img/fusion_tank_and_man_down.jpg"
+      dropped_gemini: "G7"
+      note: "Three real frames: lidar point cloud, radiometric thermal, fusion of a person lying warm."
+      shots: ["assets/img/sensors2_pointcloud.png", "assets/img/thermal_radiometric.jpg"]
+      wanted: ["Man down at bottling: lidar shape + thermal frame", "Lidar at bottling: a new object vs the as-built map"]
+    overlay:
+      - { n: "9.8 ms", label: "8,192 lidar rays, off the physics thread", status: "measured", fact: "sens.lidar_cast" }
+      - { n: "50 mK", label: "thermal noise, Planck over 8-14 µm", status: "measured", fact: "sens.thermal_netd" }
+      - { n: "64 → 40.7 °C", label: "shiny metal reads cold, like a real camera", status: "measured", fact: "sens.emissivity_demo" }
+    takeaway: "Lying + warm = man down."
+    speaker: "Shown only if asked. The lidar compares each scan with the as-built map: a new object becomes a work order. The thermal camera is radiometric, so shiny metal reads cold. A lying shape that is warm becomes man down."
+    status: "draft"
+
+  - id: "13"
+    name: "The link, in detail"
+    type: "explainer"
+    path: "D"
+    title: "The Thor was fast. The link to your browser was not."
+    time: 0
+    visual:
+      kind: "frame"
+      src: "assets/dd/chart_link_budget.png"
+      dropped_gemini: "G10"
+      note: "The measured link chart (chart_link_budget), cropped above its sources line."
+      backup: ["chart_link_budget", "chart_link_updates", "chart_view_fps"]
+    overlay:
+      - { n: "80 %", label: "of the stream was moving bottles", status: "measured", fact: "perf.poses_share" }
+      - { n: "1.3 → 12.1 /s", label: "updates live, after sending only what changed", status: "measured", fact: "perf.link_worst · link.live_lowbw_msgs" }
+      - { n: "165 → 80 KB/s", label: "one dashboard, with a budget per viewer", status: "measured", fact: "perf.lowbw_dashboard" }
+    takeaway: "Measure the network on day one."
+    speaker: "Shown only if asked. 80 percent of the stream was the poses of moving bottles. We send only what changed, with a budget per viewer: live through the tunnel, 12 updates a second instead of 1.3."
+    status: "draft"

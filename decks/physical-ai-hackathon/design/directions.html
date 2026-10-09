@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Directions</title>
+<!--
+  Team 05 · Globant Physical AI Hackathon deck: design directions board.
+  Same three sample slides (cover, evidence, fire moment) in three visual systems.
+  Numbers come from GlobantHackaton/presentation/facts.json (ids in data-fact).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lime:#BFD732; --green:#39B54A; --green-deep:#1F7A3D;
+  --violet:#A78BFA; --hot:#FF6A1A; --red:#F0453A;
+  --board-bg:#E9EBE4; --board-ink:#14181C; --board-muted:#5C6670;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--board-bg);color:var(--board-ink);font-family:Inter,system-ui,sans-serif;padding:48px 40px 80px}
+.board-head{max-width:1900px;margin:0 auto 40px}
+.board-head h1{font-family:"Inter Tight";font-size:34px;letter-spacing:-.02em}
+.board-head p{color:var(--board-muted);margin-top:8px;max-width:900px;line-height:1.5}
+.dir{max-width:1900px;margin:0 auto 64px}
+.dir-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:6px}
+.dir-head .tag{font:700 13px "JetBrains Mono";background:var(--board-ink);color:var(--lime);padding:4px 10px;border-radius:4px}
+.dir-head h2{font-family:"Inter Tight";font-size:26px;letter-spacing:-.01em}
+.dir-head .rec{font:600 12px Inter;background:var(--lime);color:#14181C;padding:4px 10px;border-radius:99px}
+.dir-sub{color:var(--board-muted);max-width:1100px;line-height:1.5;margin-bottom:14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{display:flex;align-items:center;gap:8px;font:500 12px "JetBrains Mono";background:#fff;padding:5px 10px 5px 5px;border-radius:6px}
+.chip i{width:20px;height:20px;border-radius:4px;display:block;border:1px solid rgba(0,0,0,.12)}
+.row{display:flex;gap:20px;flex-wrap:wrap}
+.frame{width:614px;height:345.6px;overflow:hidden;border-radius:6px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.frame>.slide{transform:scale(.48);transform-origin:0 0}
+.slide{width:1280px;height:720px;position:relative;overflow:hidden}
+.slide img{display:block}
+
+/* ============ A · CONTROL ROOM ============ */
+.A{--bg:#0A0E13;--panel:#111821;--line:#223040;--ink:#EAF0F4;--muted:#8796A6;background:var(--bg);color:var(--ink);font-family:Inter}
+.A .grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:40px 40px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 75%)}
+.A .bar{position:absolute;left:56px;right:56px;top:32px;display:flex;justify-content:space-between;align-items:center;font:500 13px "JetBrains Mono";color:var(--muted);letter-spacing:.06em}
+.A .bar b{color:var(--lime);font-weight:500}
+.A .bar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lime);margin-right:8px;box-shadow:0 0 12px var(--lime)}
+.A .logo{height:20px}
+.A .foot{position:absolute;left:56px;right:56px;bottom:28px;display:flex;justify-content:space-between;font:400 12px "JetBrains Mono";color:var(--muted);letter-spacing:.05em}
+.A h1{font:800 84px/0.98 "Inter Tight";letter-spacing:-.035em}
+.A h2{font:700 46px/1.05 "Inter Tight";letter-spacing:-.025em}
+.A .kicker{font:500 14px "JetBrains Mono";color:var(--lime);letter-spacing:.12em;text-transform:uppercase}
+.A .feed{position:relative;border:1px solid var(--line);background:#000}
+.A .feed::before,.A .feed::after{content:"";position:absolute;width:22px;height:22px;border:2px solid var(--lime);z-index:2}
+.A .feed::before{left:-6px;top:-6px;border-right:0;border-bottom:0}
+.A .feed::after{right:-6px;bottom:-6px;border-left:0;border-top:0}
+.A .feed .lbl{position:absolute;left:10px;top:10px;font:500 11px "JetBrains Mono";background:rgba(10,14,19,.85);color:var(--ink);padding:4px 8px;letter-spacing:.06em;z-index:2}
+.A .stat{border-left:2px solid var(--lime);padding-left:16px}
+.A .stat .n{font:700 44px/1 "Inter Tight";letter-spacing:-.02em}
+.A .stat .u{font:500 12px "JetBrains Mono";color:var(--muted);margin-top:8px;letter-spacing:.04em;line-height:1.4}
+.A .pill{display:inline-flex;align-items:center;gap:8px;font:600 13px Inter;padding:6px 12px;border-radius:99px}
+.A .pill.ask{background:rgba(167,139,250,.16);color:var(--violet);border:1px solid rgba(167,139,250,.5)}
+.A .pill.act{background:rgba(191,215,50,.12);color:var(--lime);border:1px solid rgba(191,215,50,.5)}
+.A .pill.haz{background:rgba(255,106,26,.14);color:var(--hot);border:1px solid rgba(255,106,26,.5)}
+
+/* ============ B · SPEC SHEET ============ */
+.B{--bg:#F5F6F0;--ink:#0F1A13;--muted:#5E6B62;--rule:#C9CFC3;background:var(--bg);color:var(--ink);font-family:Inter}
+.B .paper{position:absolute;inset:0;background-image:linear-gradient(rgba(31,122,61,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(31,122,61,.07) 1px,transparent 1px);background-size:32px 32px}
+.B .hdr{position:absolute;left:56px;right:56px;top:30px;display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1.5px solid var(--ink);font:500 12px "JetBrains Mono";letter-spacing:.08em;text-transform:uppercase}
+.B .logo{height:20px}
+.B .ftr{position:absolute;left:56px;right:56px;bottom:26px;display:flex;justify-content:space-between;font:400 11px "JetBrains Mono";color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.B h1{font:700 76px/1.0 "Inter Tight";letter-spacing:-.035em}
+.B h2{font:700 42px/1.08 "Inter Tight";letter-spacing:-.025em}
+.B .hl{background:linear-gradient(transparent 58%,var(--lime) 58%,var(--lime) 92%,transparent 92%)}
+.B .fig{border:1.5px solid var(--ink);background:#fff;padding:8px}
+.B .cap{font:500 11px "JetBrains Mono";letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.B .cap b{color:var(--green-deep)}
+.B table{border-collapse:collapse;width:100%}
+.B td{border-top:1px solid var(--rule);padding:12px 0;vertical-align:baseline}
+.B td.n{font:700 34px "Inter Tight";letter-spacing:-.02em;width:46%}
+.B td.u{font-size:15px;color:var(--muted);line-height:1.35}
+.B .callout{position:absolute;font:600 12px "JetBrains Mono";background:var(--ink);color:var(--lime);padding:6px 10px;white-space:nowrap}
+.B .leader{position:absolute;border-top:1.5px solid var(--ink)}
+
+/* ============ C · NIGHT SHIFT ============ */
+.C{--ink:#F3F1EA;--muted:#A7A49A;background:#07090B;color:var(--ink);font-family:Inter}
+.C .bleed{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.C .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,9,11,.96) 0%,rgba(7,9,11,.82) 38%,rgba(7,9,11,.15) 75%,rgba(7,9,11,.35) 100%)}
+.C .shade.b{background:linear-gradient(0deg,rgba(7,9,11,.97) 0%,rgba(7,9,11,.7) 40%,rgba(7,9,11,.05) 75%)}
+.C .clock{position:absolute;left:64px;top:48px;font:500 14px "JetBrains Mono";letter-spacing:.14em;color:var(--muted);display:flex;gap:18px;align-items:center}
+.C .clock .t{font:500 15px "JetBrains Mono";color:var(--ink);background:rgba(255,255,255,.08);padding:6px 12px;border-radius:4px;border:1px solid rgba(255,255,255,.18)}
+.C .clock .t.hot{color:#fff;background:var(--red);border-color:var(--red)}
+.C .logo{position:absolute;right:64px;top:50px;height:20px;opacity:.9}
+.C h1{font:400 112px/0.92 "Instrument Serif";letter-spacing:-.01em}
+.C h1 em{font-style:italic;color:var(--lime)}
+.C h2{font:400 66px/0.98 "Instrument Serif"}
+.C h2 em{font-style:italic;color:var(--lime)}
+.C p.lede{font-size:20px;line-height:1.5;color:#D6D3CA;max-width:520px}
+.C .big{font:600 64px/1 "Inter Tight";letter-spacing:-.03em}
+.C .small{font:500 12px "JetBrains Mono";color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:8px;line-height:1.5}
+.C .line{height:1px;background:rgba(255,255,255,.2)}
+</style>
+</head>
+<body>
+
+<header class="board-head">
+  <h1>Team 05 deck · three design directions</h1>
+  <p>The same three slides in each system: <b>cover</b>, <b>evidence</b> (what we trained on the Thor) and <b>the fire moment</b> (what-if planning). Real screenshots, real numbers from <code>facts.json</code>. Pick a direction, or mix parts of them.</p>
+</header>
+
+<!-- ======================= A ======================= -->
+<section class="dir">
+  <div class="dir-head"><span class="tag">A</span><h2>Control Room</h2><span class="rec">Recommended base</span></div>
+  <p class="dir-sub">The deck looks like the robot's own console. Dark, a grid, monospace telemetry, screenshots framed as live feeds. The colors mean the same thing they mean in Robot Command: <b>lime = the robot acts</b>, <b>violet = a human decides</b>, <b>orange = hazard</b>. Globant lime is the signal color, not decoration.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#0A0E13"></i>#0A0E13 base</span>
+    <span class="chip"><i style="background:#111821"></i>#111821 panel</span>
+    <span class="chip"><i style="background:#BFD732"></i>#BFD732 robot / live</span>
+    <span class="chip"><i style="background:#A78BFA"></i>#A78BFA human decision</span>
+    <span class="chip"><i style="background:#FF6A1A"></i>#FF6A1A hazard</span>
+    <span class="chip">Inter Tight · Inter · JetBrains Mono</span>
+  </div>
+  <div class="row">
+    <!-- A1 cover -->
+    <div class="frame"><section class="slide A" aria-label="A cover">
+      <div class="grid-bg"></div>
+      <div class="bar"><span><span class="dot"></span><b>LIVE</b> · TEAM 05 · JETSON AGX THOR</span><img class="logo" src="assets/globant-logo-white.svg" alt="Globant"></div>
+      <div class="feed" style="position:absolute;right:56px;top:96px;width:560px;height:430px">
+        <span class="lbl">SIM · BOTTLING PLANT · ROUND 1</span>
+        <img src="assets/bottling_stairs.jpg" style="width:100%;height:100%;object-fit:cover" alt="">
+      </div>
+      <div style="position:absolute;left:56px;top:170px;width:600px">
+        <div class="kicker">Globant Physical AI Hackathon</div>
+        <h1 style="margin-top:22px">One night shift.<br>One robot.<br><span style="color:var(--lime)">One Thor.</span></h1>
+        <p style="margin-top:26px;font-size:19px;line-height:1.5;color:#C4CED8;max-width:520px">An AI operator that does the rounds, asks before it acts, and runs the fire response. All on one Jetson AGX Thor.</p>
+      </div>
+      <div class="foot"><span>UNITREE G1 · MUJOCO · TENSORRT · QWEN3-VL</span><span>OCT 2026</span></div>
+    </section></div>
+
+    <!-- A2 evidence -->
+    <div class="frame"><section class="slide A" aria-label="A evidence">
+      <div class="bar"><span>04 · PERCEPTION</span><img class="logo" src="assets/globant-logo-white.svg" alt="Globant"></div>
+      <div style="position:absolute;left:56px;top:92px;width:1168px">
+        <div class="kicker">Trained on the Thor</div>
+        <h2 style="margin-top:12px">The detector called a collapsed worker a <span style="color:var(--hot)">book</span>.<br>So we taught it with our own simulator.</h2>
+      </div>
+      <div class="feed" style="position:absolute;left:56px;top:290px;width:760px;height:284px">
+        <img src="assets/simseg_before_after_man_down.jpg" style="width:100%;height:100%;object-fit:cover" alt="">
+      </div>
+      <div style="position:absolute;left:868px;top:290px;width:356px;display:grid;gap:26px">
+        <div class="stat" data-fact="train.simseg_images"><div class="n">3,000</div><div class="u">AUTO-LABELLED IMAGES · 117 S</div></div>
+        <div class="stat" data-fact="train.simseg_time"><div class="n">0.651 h</div><div class="u">FINE-TUNE ON THE THOR GPU</div></div>
+        <div class="stat" data-fact="train.simseg_map"><div class="n">0.972</div><div class="u">BOX mAP50 · VALIDATION</div></div>
+      </div>
+      <div class="foot"><span>ALL IMAGES RENDERED BY OUR SIMULATOR</span><span>T05</span></div>
+    </section></div>
+
+    <!-- A3 fire -->
+    <div class="frame"><section class="slide A" aria-label="A fire">
+      <div class="bar"><span style="color:var(--hot)">● FIRE AT BC-1 · SITE ALARM</span><img class="logo" src="assets/globant-logo-white.svg" alt="Globant"></div>
+      <div style="position:absolute;left:56px;top:96px;width:470px">
+        <div class="kicker" style="color:var(--hot)">Imagine before acting</div>
+        <h2 style="margin-top:12px">It rehearses the response on the GPU before it asks.</h2>
+        <div style="margin-top:30px;display:grid;gap:22px">
+          <div class="stat" data-fact="fire.bott_whatif"><div class="n">6 × 4,096</div><div class="u">PLANS × ROLLOUTS · 1.1 S ON CUDA</div></div>
+          <div class="stat" data-fact="gpu.whatif_rate"><div class="n">286k / s</div><div class="u">WHAT-IF ROLLOUTS ON THE THOR</div></div>
+        </div>
+        <div style="margin-top:30px;display:flex;gap:10px;flex-wrap:wrap">
+          <span class="pill haz">sprinkler</span><span class="pill haz">isolator</span><span class="pill haz">e-stop</span>
+          <span class="pill ask">→ proposed, waiting for you</span>
+        </div>
+      </div>
+      <div class="feed" style="position:absolute;right:56px;top:96px;width:640px;height:500px">
+        <span class="lbl">ROBOT COMMAND · SIM 3:47</span>
+        <img src="assets/ui5_1440_response.jpg" style="width:100%;height:100%;object-fit:cover;object-position:62% 30%" alt="">
+      </div>
+      <div class="foot"><span>PREDICTION, NOT A MEASUREMENT: ~1:42 VS ~2:03 IN RULE ORDER</span><span>T05</span></div>
+    </section></div>
+  </div>
+</section>
+
+<!-- ======================= B ======================= -->
+<section class="dir">
+  <div class="dir-head"><span class="tag">B</span><h2>Spec Sheet</h2></div>
+  <p class="dir-sub">An engineering report from a Globant studio. Light paper, a drafting grid, numbered figures, callouts on the screenshots, tables of numbers. The most corporate and the most readable on a bad projector. Continues the green look of your harness talk.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#F5F6F0"></i>#F5F6F0 paper</span>
+    <span class="chip"><i style="background:#0F1A13"></i>#0F1A13 ink</span>
+    <span class="chip"><i style="background:#1F7A3D"></i>#1F7A3D green deep</span>
+    <span class="chip"><i style="background:#BFD732"></i>#BFD732 highlight</span>
+    <span class="chip">Inter Tight · Inter · JetBrains Mono</span>
+  </div>
+  <div class="row">
+    <div class="frame"><section class="slide B" aria-label="B cover">
+      <div class="paper"></div>
+      <div class="hdr"><span>Physical AI Hackathon · Team 05</span><img class="logo" src="assets/globant-logo.svg" alt="Globant"></div>
+      <div style="position:absolute;left:56px;top:150px;width:620px">
+        <h1>One night shift.<br>One robot.<br><span class="hl">One Thor.</span></h1>
+        <p style="margin-top:28px;font-size:19px;line-height:1.5;color:var(--muted);max-width:540px">An AI operator for a bottling plant: rounds, findings, proposals a human approves, and work done by hand. On one Jetson AGX Thor.</p>
+      </div>
+      <div style="position:absolute;right:56px;top:120px;width:500px">
+        <div class="fig"><img src="assets/bottling_overview.jpg" style="width:100%;height:330px;object-fit:cover;object-position:30% 50%" alt=""></div>
+        <div class="cap"><b>Fig. 01</b> · Bottling plant, 48 × 36 m, simulated in MuJoCo</div>
+      </div>
+      <div class="ftr"><span>Unitree G1 · MuJoCo · TensorRT</span><span>Oct 2026</span></div>
+    </section></div>
+
+    <div class="frame"><section class="slide B" aria-label="B evidence">
+      <div class="paper"></div>
+      <div class="hdr"><span>04 · What we trained on the Thor</span><img class="logo" src="assets/globant-logo.svg" alt="Globant"></div>
+      <h2 style="position:absolute;left:56px;top:100px;width:1100px">The off-the-shelf detector saw a <span class="hl">book</span>. Ours sees a person down.</h2>
+      <div style="position:absolute;left:56px;top:250px;width:720px">
+        <div class="fig" style="position:relative"><img src="assets/simseg_before_after_man_down.jpg" style="width:100%;height:270px;object-fit:cover" alt=""></div>
+        <div class="cap"><b>Fig. 04</b> · Before: YOLO11n (COCO). After: YOLO11n-seg trained on our simulator</div>
+      </div>
+      <div style="position:absolute;left:820px;top:250px;width:404px">
+        <table>
+          <tr data-fact="train.simseg_images"><td class="n">3,000</td><td class="u">auto-labelled images, rendered in 117 s</td></tr>
+          <tr data-fact="train.simseg_time"><td class="n">0.651 h</td><td class="u">60-epoch fine-tune on the Thor GPU</td></tr>
+          <tr data-fact="train.simseg_map"><td class="n">0.972</td><td class="u">box mAP50 on validation</td></tr>
+          <tr data-fact="train.simseg_speed"><td class="n">8.9 ms</td><td class="u">per frame, from 20.4 ms</td></tr>
+        </table>
+      </div>
+      <div class="ftr"><span>Measured in simulation · facts.json</span><span>04</span></div>
+    </section></div>
+
+    <div class="frame"><section class="slide B" aria-label="B fire">
+      <div class="paper"></div>
+      <div class="hdr"><span>05 · Imagine before acting</span><img class="logo" src="assets/globant-logo.svg" alt="Globant"></div>
+      <h2 style="position:absolute;left:56px;top:100px;width:520px">Before it proposes, it simulates <span class="hl">every order</span> of the response.</h2>
+      <div style="position:absolute;left:56px;top:330px;width:500px;display:grid;grid-template-columns:1fr 1fr;gap:28px">
+        <div data-fact="fire.bott_whatif"><div style="font:700 44px 'Inter Tight';letter-spacing:-.02em">1.1 s</div><div class="cap" style="margin-top:4px">6 plans × 4,096 rollouts</div></div>
+        <div data-fact="gpu.whatif_rate"><div style="font:700 44px 'Inter Tight';letter-spacing:-.02em">286k/s</div><div class="cap" style="margin-top:4px">rollouts on the Thor GPU</div></div>
+      </div>
+      <div style="position:absolute;right:56px;top:100px;width:600px">
+        <div class="fig" style="position:relative"><img src="assets/ui5_1440_response.jpg" style="width:100%;height:440px;object-fit:cover;object-position:70% 30%" alt=""></div>
+        <div class="cap"><b>Fig. 05</b> · Robot Command during the charger fire, sim 3:47</div>
+      </div>
+      <div class="ftr"><span>Best order: sprinkler → isolator → e-stop · a prediction</span><span>05</span></div>
+    </section></div>
+  </div>
+</section>
+
+<!-- ======================= C ======================= -->
+<section class="dir">
+  <div class="dir-head"><span class="tag">C</span><h2>Night Shift</h2></div>
+  <p class="dir-sub">Cinematic. Every slide is a full-bleed frame from the shift, stamped with the simulator clock, so the talk is one continuous story. An editorial serif for the headlines makes it feel fresh and un-corporate; lime only appears where the robot acts. The most memorable, and the hardest to keep readable with dense numbers.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#07090B"></i>#07090B night</span>
+    <span class="chip"><i style="background:#F3F1EA"></i>#F3F1EA warm white</span>
+    <span class="chip"><i style="background:#BFD732"></i>#BFD732 robot acts</span>
+    <span class="chip"><i style="background:#F0453A"></i>#F0453A alarm</span>
+    <span class="chip">Instrument Serif · Inter Tight · JetBrains Mono</span>
+  </div>
+  <div class="row">
+    <div class="frame"><section class="slide C" aria-label="C cover">
+      <img class="bleed" src="assets/bottling_stairs.jpg" alt="" style="object-position:60% 50%">
+      <div class="shade"></div>
+      <div class="clock"><span class="t">T+00:00</span><span>SHIFT START · BOTTLING PLANT</span></div>
+      <img class="logo" src="assets/globant-logo-white.svg" alt="Globant">
+      <div style="position:absolute;left:64px;bottom:96px;width:640px">
+        <h1>One night shift.<br>One robot.<br><em>One Thor.</em></h1>
+        <p class="lede" style="margin-top:24px">Team 05 · Globant Physical AI Hackathon</p>
+      </div>
+    </section></div>
+
+    <div class="frame"><section class="slide C" aria-label="C evidence">
+      <img class="bleed" src="assets/fusion_tank_and_man_down.jpg" alt="" style="object-position:50% 60%">
+      <div class="shade b"></div>
+      <div class="clock"><span class="t">FIELD OF VIEW · CAM HEAD</span><span>PERSON 2.0 M · LYING · 52 °C</span></div>
+      <img class="logo" src="assets/globant-logo-white.svg" alt="Globant">
+      <div style="position:absolute;left:64px;right:64px;bottom:56px">
+        <h2>It used to see a <em style="color:#FF8A5B">book</em>. Now it sees a person down.</h2>
+        <div class="line" style="margin:28px 0 22px"></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+          <div data-fact="train.simseg_images"><div class="big">3,000</div><div class="small">auto-labelled images</div></div>
+          <div data-fact="train.simseg_time"><div class="big">0.651 h</div><div class="small">fine-tune on the Thor</div></div>
+          <div data-fact="train.simseg_map"><div class="big">0.972</div><div class="small">box mAP50 · sim</div></div>
+          <div data-fact="train.simseg_speed"><div class="big">8.9 ms</div><div class="small">per frame</div></div>
+        </div>
+      </div>
+    </section></div>
+
+    <div class="frame"><section class="slide C" aria-label="C fire">
+      <img class="bleed" src="assets/ui5_1440_response.jpg" alt="" style="object-position:40% 40%;filter:saturate(.8) brightness(.8)">
+      <div class="shade"></div>
+      <div class="clock"><span class="t hot">T+03:47</span><span>FIRE AT BC-1 · SITE ALARM</span></div>
+      <img class="logo" src="assets/globant-logo-white.svg" alt="Globant">
+      <div style="position:absolute;left:64px;top:170px;width:560px">
+        <h2>Before it asks,<br>it <em>imagines</em>.</h2>
+        <p class="lede" style="margin-top:22px">Six response plans, 4,096 rollouts each, in 1.1 seconds on the Thor GPU. Then it proposes the best order and waits for a human.</p>
+        <div style="margin-top:34px;display:flex;gap:40px">
+          <div data-fact="gpu.whatif_rate"><div class="big">286k/s</div><div class="small">rollouts</div></div>
+          <div data-fact="fire.bott_muster"><div class="big">6 / 7</div><div class="small">at the muster point</div></div>
+        </div>
+      </div>
+    </section></div>
+  </div>
+</section>
+
+</body>
+</html>

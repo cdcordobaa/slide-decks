@@ -1,0 +1,53 @@
+section:
+  id: "1"
+  title: "Why"
+  goal: "From the demo to the question: robots already walk plants, none of them can act. Set up the loop as the map of the talk."
+
+cards:
+  - id: "01"
+    name: "Cover"
+    type: "opener"
+    title: "A robot operator that thinks before it acts"
+    subtitle: "Team 05 · one night shift, one robot, one Thor"
+    time: 10
+    visual:
+      kind: "frame"
+      src: "assets/img/bottling_stairs.jpg"
+      note: "Full-bleed, Night Shift: serif headline bottom-left, Globant logo top-right."
+    takeaway: "You saw what it does. Now: how it learned, how it runs on one box, and why it starts from a twin."
+    speaker: "We are Team 05. You saw what the robot does; now we show how it learned, how it runs on one Thor, and why everything starts from a twin of the plant."
+    status: "draft"
+
+  - id: "02"
+    name: "The problem"
+    type: "opener"
+    title: "Night shifts are thin. The dangerous moments happen when nobody is looking."
+    time: 30
+    visual:
+      kind: "frame"
+      src: "assets/img/bottling_robotcam_jam.jpg"
+      note: "Full-bleed robot camera at the line jam; numbers in a row under a thin rule."
+    overlay:
+      - { n: "~85", label: "forklift deaths a year in the US", status: "sourced", fact: "biz.forklift_deaths" }
+      - { n: "$48k", label: "cost of one work injury", status: "sourced", fact: "biz.injury_cost" }
+      - { n: "~1,800", label: "Spot inspections a week at AB InBev", status: "sourced", fact: "biz.spot_abinbev" }
+    takeaway: "Robots already walk plants. None of them can also act."
+    speaker: "A bottling plant at night: two operators, one forklift, a yard of CO2 and ammonia. When a line jams, people reach in. Robots like Spot already inspect thousands of times a week, but they only look."
+    status: "draft"
+
+  - id: "03"
+    name: "The loop"
+    type: "map"
+    title: "The architecture is the loop"
+    subtitle: "Every slide from here zooms into one step of it."
+    time: 25
+    visual:
+      kind: "svg"
+      dropped_gemini: "G1"
+      note: "Coded SVG: six steps on a ring, PERCEIVE · IMAGINE · ACT lit, ONE THOR in the centre."
+      shots: ["assets/img/ui5_1920_present.jpg"]
+    overlay:
+      - { n: "Perceive · Imagine · Act", label: "the steps this talk opens, lit in lime", status: "claim" }
+    takeaway: "Walk, perceive, imagine, ask, act, report: on one Thor, no cloud."
+    speaker: "This is the whole system, and it is the loop you watched. The next slides open three of its steps: how it perceives, how it imagines, and how it acts."
+    status: "draft"

@@ -1,0 +1,16 @@
+{
+  "name": "physical-ai-hackathon-deck",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "backup": "node scripts/render-backup.mjs",
+    "storyboard": "node scripts/build-storyboard.mjs cards --out build/storyboard.html",
+    "art": "GEMINI_ENV_FILE=${GEMINI_ENV_FILE:-../atarraya-inspire/.env} node scripts/gen-infographics.mjs cards",
+    "check": "node scripts/check-deck.mjs",
+    "kit": "rm -f build/team05-deck-kit.zip && mkdir -p build && zip -qr build/team05-deck-kit.zip . -x \"node_modules/*\" \"build/*\" \".env\" \"design/*\" \"*.DS_Store\" && ls -lh build/team05-deck-kit.zip"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1",
+    "yaml": "2.9.0"
+  }
+}
