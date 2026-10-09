@@ -58,7 +58,7 @@ must stay at or under 10:00. Detail that doesn't fit goes on a hidden **D** slid
 4. **Build the slide** in `deck.html`: a `<section class="slide panel" data-cp="N">` in act order, using the patterns
    in `.claude/skills/team05-deck/references/slide-patterns.md`. Speaker notes go in `<aside class="notes">`.
 5. `npm run check` (rules) and `npm run backup` (renders every slide to `build/slides/` and `build/backup.pdf`).
-   Look at your slide's PNG: nothing overlaps, nothing runs into the timeline at the bottom.
+   Look at your slide's PNG: nothing overlaps, nothing runs into the colour legend at the bottom.
 6. Hand it back with what you changed and which facts you used.
 
 ## What is not yours to change from here

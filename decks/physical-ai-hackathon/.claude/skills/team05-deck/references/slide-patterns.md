@@ -1,6 +1,6 @@
 # Slide patterns (copy, then change)
 
-Stage: 1280 × 720. The HUD takes the top 56 px and the timeline the bottom ~60 px, so content lives between
+Stage: 1280 × 720. The HUD takes the top 56 px and the colour legend the bottom ~60 px, so content lives between
 **y 96 and y ~650**, **x 56 to 1224** (1168 wide). Everything is positioned with `class="abs"` + inline
 `left/top/width`. Colours and fonts come from the deck's CSS; don't add new ones.
 

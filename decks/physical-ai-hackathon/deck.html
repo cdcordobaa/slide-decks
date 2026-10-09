@@ -147,7 +147,7 @@ p.lede{font-size:18px;line-height:1.5;color:#C4CED8}
 .alarmbg{background:radial-gradient(ellipse at 85% 30%,rgba(240,69,58,.16),transparent 55%),var(--bg)!important}
 .proposal{background:#120F1C;border:1.5px solid rgba(167,139,250,.55);border-radius:8px;padding:20px 22px;transition:all .35s}
 .proposal .ph{display:flex;justify-content:space-between;font:600 11.5px "JetBrains Mono";color:var(--violet);letter-spacing:.08em}
-.proposal .pt{font:700 23px/1.2 "Inter Tight";margin-top:12px;letter-spacing:-.01em}
+.proposal .pt{display:block;font:700 23px/1.2 "Inter Tight";margin-top:12px;letter-spacing:-.01em}
 .proposal .pr{font-size:14.5px;color:#B9C3CE;margin-top:10px;line-height:1.5}
 .proposal .pw{font:500 12px "JetBrains Mono";color:var(--violet);margin-top:14px}
 .proposal .btns{display:flex;gap:10px;margin-top:16px}
@@ -599,25 +599,25 @@ table.mt{border-collapse:collapse;width:100%}
       <h2 style="margin-top:16px;font-size:38px">Before it asks, it imagines every order of the response.</h2>
     </div>
     <div class="shot" style="position:absolute;left:56px;top:190px;width:620px;height:354px"><img src="assets/img/ui5_1440_response.jpg" alt="The operator view during the fire: the response proposals in the planned order" style="object-position:100% 20%"><span>THE FIRE RESPONSE, LIVE · PROPOSALS IN THE PLANNED ORDER</span></div>
-    <div class="abs" style="left:56px;top:560px;width:620px">
+    <div class="abs" style="left:56px;top:586px;width:620px">
       <div class="stat sm det measured" data-tag="measured" style="--i:0"><div class="n">6 × 4,096</div><div class="u">response plans × futures each, on the Thor GPU, before it proposes the order</div></div>
     </div>
     <div class="abs" style="left:704px;top:190px;width:520px">
       <div class="proposal">
         <div class="ph"><span>PROPOSAL #1 · NEEDS YOUR DECISION</span><span class="pstate">●</span></div>
-        <div class="pt">Show the jury whether its predictions hold up</div>
-        <div class="pr">because a plan is only worth following if what it predicts is what then happens.</div>
+        <div class="pt">Fire at BC-1: sprinkler, then isolator, then <span style="white-space:nowrap">e-stop</span></div>
+        <div class="pr">because of 6 orders played 4,096 times each on the GPU, this one puts the fire out first.</div>
         <div class="pw">Waiting for your approval · A / R</div>
         <div class="btns"><button class="ap" onclick="decide(true)">✓ Approve</button><button class="rj" onclick="decide(false)">✕ Reject</button></div>
       </div>
       <div class="after-ok" style="margin-top:44px">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px">
-          <div class="stat sm det measured" data-tag="measured" style="--i:0"><div class="n">190 → 134 s</div><div class="u">fire out, with the order it proposes</div></div>
+          <div class="stat sm det measured" data-tag="measured" style="--i:0"><div class="n">190 → 134 s</div><div class="u">fire out with its order, at the fuel terminal</div></div>
           <div class="stat sm det measured" data-tag="measured" style="--i:1"><div class="n">4.1-10.8 %</div><div class="u">its prediction vs the real run</div></div>
         </div>
       </div>
     </div>
-    <aside class="notes">You heard the robot say it simulated every order of the response. It takes every ordering of the open actions and plays each one 4,096 times with uncertainty: how fast the fire grows, how fast it walks, a valve that sticks, how fast you approve. All on the Thor's GPU. [Approve] And it holds up: the planner's order put the fire out in 134 seconds instead of 190, and its predictions landed within 4 to 11 percent of what then happened.</aside>
+    <aside class="notes">This is the proposal the robot makes at the charger fire: sprinkler, then isolator, then e-stop. Before it asks, it takes every ordering of the open actions and plays each one 4,096 times with uncertainty: how fast the fire grows, how fast it walks, a valve that sticks, how fast you approve. All on the Thor's GPU, in about a second. [Approve] And the predictions hold up: at the fuel terminal the planner's order put the fire out in 134 seconds instead of 190, and its predictions landed within 4 to 11 percent of what then happened.</aside>
   </section>
 
   <!-- ================= 08 · CP4 · act (gate 2) ================= -->
@@ -630,15 +630,15 @@ table.mt{border-collapse:collapse;width:100%}
     <div class="abs" style="left:56px;top:196px;width:540px">
       <div class="proposal">
         <div class="ph"><span>PROPOSAL #2 · NEEDS YOUR DECISION</span><span class="pstate">●</span></div>
-        <div class="pt">Show what is real and what is simulated in a grip</div>
-        <div class="pr">because it looks like animation in the demo, and it is not.</div>
+        <div class="pt">CO2 leak: close V-3 with both hands</div>
+        <div class="pr">because CO2 pools low and pushes the oxygen out of the hall. Isolate it, then a fitter remakes the flange.</div>
         <div class="pw">Waiting for your approval · A / R</div>
         <div class="btns"><button class="ap" onclick="decide(true)">✓ Approve</button><button class="rj" onclick="decide(false)">✕ Reject</button></div>
       </div>
     </div>
-    <div class="shot" style="position:absolute;left:56px;top:432px;width:174px;height:170px"><img src="assets/img/tasks2_2_set_tray_under_leak.jpg" alt="The robot sets a drip tray under a leak"><span>TRAY · 2.5 KG</span></div>
-    <div class="shot" style="position:absolute;left:239px;top:432px;width:174px;height:170px"><img src="assets/img/deck_estop_lockout.jpg" alt="The robot after pressing the line e-stop ES-L1" style="object-position:30% 55%"><span>ES-L1 · LOCKOUT</span></div>
-    <div class="shot" style="position:absolute;left:422px;top:432px;width:174px;height:170px"><img src="assets/img/tasks2_3_push_cart.jpg" alt="The robot pushes the spill cart" style="object-position:45% 55%"><span>CART · 40 KG</span></div>
+    <div class="shot" style="position:absolute;left:56px;top:458px;width:174px;height:150px"><img src="assets/img/tasks2_2_set_tray_under_leak.jpg" alt="The robot sets a drip tray under a leak"><span>TRAY · 2.5 KG</span></div>
+    <div class="shot" style="position:absolute;left:239px;top:458px;width:174px;height:150px"><img src="assets/img/deck_estop_lockout.jpg" alt="The robot after pressing the line e-stop ES-L1" style="object-position:30% 55%"><span>ES-L1 · LOCKOUT</span></div>
+    <div class="shot" style="position:absolute;left:422px;top:458px;width:174px;height:150px"><img src="assets/img/tasks2_3_push_cart.jpg" alt="The robot pushes the spill cart" style="object-position:45% 55%"><span>CART · 40 KG</span></div>
     <div class="after-ok abs" style="left:624px;top:190px;width:600px">
       <div class="shot" style="position:relative;width:600px;height:300px">
         <img src="assets/img/deck_v3_handwheel.jpg" alt="Both palms on the V-3 handwheel, mid-turn" style="object-position:40% 45%">
@@ -652,7 +652,7 @@ table.mt{border-collapse:collapse;width:100%}
       </div>
     </div>
     <div class="credit">Unitree G1 model: BSD-3-Clause. Physics: MuJoCo, Apache-2.0.</div>
-    <aside class="notes">The G1's hands have no fingers, so a grip is something we had to build, and we want to be clear about it. [Approve] What is simulated is the grip itself: when a palm is within a centimetre of the rim, a constraint switches on. Everything else is physics: hinge friction decides whether the valve turns, so one hand gets about 20 degrees and two hands close it in two turns; the force goes through the arms and the legs keep balance; and the cart, the tray and the e-stop move only when the robot actually pushes them.</aside>
+    <aside class="notes">This is the robot's proposal when the CO2 pressure drops: close V-3, because CO2 pools low and displaces oxygen. The G1's hands have no fingers, so that grip is something we had to build, and we want to be clear about it. [Approve] What is simulated is the grip itself: when a palm is within a centimetre of the rim, a constraint switches on. Everything else is physics: hinge friction decides whether the valve turns, so one hand gets about 20 degrees and two hands close it in two turns; the force goes through the arms and the legs keep balance; and the cart, the tray and the e-stop move only when the robot actually pushes them.</aside>
   </section>
 
   <!-- ================= 09 · CP5 · one Thor, one loop ================= -->
@@ -1005,8 +1005,7 @@ table.mt{border-collapse:collapse;width:100%}
   </div>
   <div class="ddhint" id="ddhint">D · DIAGNOSTICS</div>
   <div class="hud-bot">
-    <span class="lbl">TIMELINE</span><div id="timeline"></div>
-    <div class="legend"><span><i style="border-color:var(--lime)"></i>measured</span><span><i style="border-color:var(--sky)"></i>sourced</span><span><i style="border-color:var(--amber)"></i>estimate</span></div>
+    <div class="legend" style="margin-left:auto"><span><i style="border-color:var(--lime)"></i>measured</span><span><i style="border-color:var(--sky)"></i>sourced</span><span><i style="border-color:var(--amber)"></i>estimate</span></div>
   </div>
   <div id="notes"></div>
   <div id="dd"><span class="ddl" id="ddl"></span><span class="ddh">D next · Esc close</span><img id="ddimg" alt=""></div>
@@ -1213,7 +1212,7 @@ const cpOf = s => +s.dataset.cp;
 const gates = {};                 // gate id -> true / false once decided
 let cur = 0, busy = false;
 const timeline = document.getElementById("timeline");
-function ev(text, cls){ const d = document.createElement("div"); d.className = "ev "+(cls||""); d.textContent = text; timeline.appendChild(d); while (timeline.children.length > 3) timeline.firstChild.remove(); }
+function ev(text, cls){ if (!timeline) return; const d = document.createElement("div"); d.className = "ev "+(cls||""); d.textContent = text; timeline.appendChild(d); while (timeline.children.length > 3) timeline.firstChild.remove(); }
 
 function paint(i){
   const s = slides[i], cp = cpOf(s), closing = !!s.dataset.close;
@@ -1271,8 +1270,8 @@ function runSwap(s, instant){
 
 /* gates */
 const GATE_TXT = {
-  fire:  {ok:"✓ Approved · show how the predictions hold up", no:"✕ Rejected · not shown", after:null},
-  hands: {ok:"✓ Approved · open the grip mechanism", no:"✕ Rejected · not shown", after:null},
+  fire:  {ok:"✓ Approved · sprinkler, isolator, e-stop", no:"✕ Rejected · not shown", after:null},
+  hands: {ok:"✓ Approved · closing V-3, two turns hand over hand", no:"✕ Rejected · not shown", after:null},
 };
 function applyGate(s){
   const id = s.dataset.gate; if (!id) return;
@@ -1346,7 +1345,7 @@ addEventListener("keydown", e => {
   if (["ArrowRight"," ","PageDown"].includes(k)){ e.preventDefault(); next(); }
   else if (k === "Enter"){ e.preventDefault(); if (slides[cur].dataset.gate && gates[slides[cur].dataset.gate] === undefined) decide(true); else next(); }
   else if (["ArrowLeft","PageUp"].includes(k)){ e.preventDefault(); if (cur > 0) go(prevIdx()); }
-  else if (k === "Home"){ timeline.innerHTML = ""; for (const g in gates) delete gates[g]; go(0); }
+  else if (k === "Home"){ if (timeline) timeline.innerHTML = ""; for (const g in gates) delete gates[g]; go(0); }
   else if (k === "a" || k === "A") decide(true);
   else if (k === "r" || k === "R") decide(false);
   else if (k === "d" || k === "D") stepDD();

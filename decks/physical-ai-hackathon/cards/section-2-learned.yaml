@@ -74,7 +74,7 @@ cards:
   - id: "07"
     name: "Imagine · gate 1"
     type: "gate"
-    gate: "Show the jury whether its predictions hold up"
+    gate: "Fire at BC-1: sprinkler, then isolator, then e-stop (the robot's real proposal, fire.bott_whatif)"
     title: "Before it asks, it imagines every order of the response."
     time: 35
     visual:
@@ -87,7 +87,7 @@ cards:
       backup: ["chart_whatif_rollouts"]
     overlay:
       - { n: "6 × 4,096", label: "response plans × rollouts, on the Thor GPU", status: "measured", fact: "fire.bott_whatif" }
-      - { n: "190 → 134 s", label: "fire out, with the order it proposes", status: "measured", fact: "gpu.whatif_value" }
+      - { n: "190 → 134 s", label: "fire out with its order, at the fuel terminal", status: "measured", fact: "gpu.whatif_value" }
       - { n: "4.1-10.8 %", label: "its prediction vs the real run", status: "measured", fact: "gpu.whatif_accuracy" }
     takeaway: "Order matters, and the robot works it out before it asks you."
     speaker: "[Approve] Before it proposes the fire response, it simulates every order of the open actions thousands of times on the GPU. In our runs the fire is out in 134 seconds with its order, against 190 with the newest proposal first. And its predictions land within 4 to 11 percent of what really happens."
@@ -96,7 +96,7 @@ cards:
   - id: "08"
     name: "Act · hands · gate 2"
     type: "gate"
-    gate: "Show what is real and what is simulated in a grip"
+    gate: "CO2 leak: close V-3 with both hands (the robot's real proposal, bottling.py)"
     title: "The G1's hands have no fingers. Every grip is physics we had to build."
     time: 30
     visual:

@@ -13,7 +13,7 @@ Open `deck.html` in Chrome. Full screen with Cmd+Ctrl+F. Everything works from t
 | A / R / Enter | approve / reject the proposal; → is blocked until you decide (2 gates: imagine, act) |
 | D | opens the slide's hidden D slides one by one, then its diagrams / charts; Esc goes back |
 | N | speaker notes |
-| Home | restart (clears gates and timeline) |
+| Home | restart (clears gates) |
 
 `deck.html?slide=N` opens slide N directly with both gates approved (QA, backup).
 
