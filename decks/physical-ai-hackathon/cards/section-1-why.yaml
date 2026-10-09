@@ -21,18 +21,18 @@ cards:
   - id: "02"
     name: "The problem"
     type: "opener"
-    title: "Night shifts are thin. The dangerous moments happen when nobody is looking."
+    title: "Night shifts are thin. Plants need safer, more reliable operations."
     time: 30
     visual:
       kind: "frame"
       src: "assets/img/bottling_robotcam_jam.jpg"
-      note: "Full-bleed robot camera at the line jam; numbers in a row under a thin rule."
+      note: "Full-bleed robot camera at the line jam; three need cards under a thin rule (the user's layout, text as given)."
     overlay:
-      - { n: "~85", label: "forklift deaths a year in the US", status: "sourced", fact: "biz.forklift_deaths" }
-      - { n: "$48k", label: "cost of one work injury", status: "sourced", fact: "biz.injury_cost" }
-      - { n: "~1,800", label: "Spot inspections a week at AB InBev", status: "sourced", fact: "biz.spot_abinbev" }
-    takeaway: "Robots already walk plants. None of them can also act."
-    speaker: "A bottling plant at night: two operators, one forklift, a yard of CO2 and ammonia. When a line jams, people reach in. Robots like Spot already inspect thousands of times a week, but they only look."
+      - { n: "Know the site", label: "Blind spots hide hazards. Teams need a shared model and rehearsed responses.", status: "claim" }
+      - { n: "Prove the value", label: "Teams need evidence that rounds and approved actions deliver value on their site.", status: "claim" }
+      - { n: "Scale with confidence", label: "More sites add complexity. Teams need consistent rounds and connected findings.", status: "claim" }
+    takeaway: "Address the need that matters now. Combine capabilities as needs grow."
+    speaker: "Night shifts are thin; plants need safer, more reliable operations. Know the site, prove the value, scale with confidence. Address the need that matters now, combine capabilities as needs grow."
     status: "draft"
 
   - id: "03"
