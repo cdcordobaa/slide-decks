@@ -37,16 +37,23 @@ last, never first.
    and anything unconfirmed is marked as an estimate or left out.
 3. **Outline the talk.** Write the story as acts or sections with a time
    budget: what each part must make the audience believe, in one line, and
-   the evidence that proves it. No slide layouts yet.
-4. **Generate the storyboard.** Turn the outline into one card per slide
-   (`cards/*.yaml`: headline, visual, receipts, speaker note, time), render
-   it (`npm run storyboard`) and review the whole flow and timing on one page.
-   Infographics can be generated from the cards at this stage.
+   the evidence that proves it. No slide layouts yet. The outline often lives
+   in Notion (the harness talk outline, the Atarraya escaleta).
+4. **Generate the storyboard.** Turn the outline into one YAML card per slide
+   (`cards/*.yaml`: title, content, takeaway, planned visual, receipts,
+   speaker note, time) and render the cards into `build/storyboard.html`, one
+   scannable review sheet for the whole talk (`npm run storyboard` in
+   `harness-talk/` and `physical-ai-hackathon/`). It shows every slide's
+   message and planned visual before any image is generated or any slide is
+   designed, so the flow, timing and gaps get fixed here, where they are cheap.
+   Infographics are generated from the approved cards (`npm run art`).
 5. **Make the slides.** Build the deck from the approved cards with the
-   skill's template and the chosen visual concept, run the deck's checks
-   (`npm run check`: no em dashes, every number sourced, assets present), click
-   through it in the browser, and export the PDF (`npm run backup` or
-   `skill/scripts/render-pdf.mjs`).
+   chosen visual concept: either generated from the cards by a script
+   (`harness-talk`, `product-eng-colombia`) or hand-built on the skill's
+   template with the cards as the spec (`physical-ai-hackathon`). Run the
+   deck's checks (no em dashes, every number sourced, assets present), click
+   through it in the browser, and export the PDF (`npm run backup`,
+   `npm run render` or `skill/scripts/render-pdf.mjs`).
 
 Changes after step 5 go back to the earliest step they touch: a new number
 goes into the facts first, a new slide gets a card first.
