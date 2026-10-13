@@ -11,13 +11,45 @@ slide-decks/
 │   ├── references/        Deck mechanics + the artifact-recolor-slicing workflow
 │   └── agents/            Packaging metadata for other harnesses
 └── decks/                 The outputs: one folder per presentation
+    ├── atarraya-inspire/  "Inspire on Site" talk for ninth graders, Atarraya (Spanish)
     ├── harness-talk/      "Operators, Not Authors" talk (Globant, active)
     ├── physical-ai-hackathon/  Team 05 "The Round" deck, Globant Physical AI Hackathon (finished)
+    ├── product-eng-colombia/   "Product Engineering Made in Colombia", Tribu IA (Spanish)
     └── symphony/          Symphony x Claude Code deck (finished)
 ```
 
 Every future presentation gets its own folder under `decks/`, built with the
 skill in `skill/`.
+
+## How we build a deck
+
+Every deck goes through the same five steps, in this order. Each step ends with
+something the speaker signs off on before the next one starts; slides come
+last, never first.
+
+1. **Agree on a visual concept.** Explore two or three directions as rough
+   HTML pages (palette, type, one hero slide, the device that carries the
+   story, such as the community map or the robot's round) and pick one.
+   Example: `decks/physical-ai-hackathon/design/directions.html`, then
+   `design/the-round.html` for the chosen one.
+2. **Compile the information.** Gather every fact, number, image and video
+   the talk may use, each with its source. Numbers come only from that list,
+   and anything unconfirmed is marked as an estimate or left out.
+3. **Outline the talk.** Write the story as acts or sections with a time
+   budget: what each part must make the audience believe, in one line, and
+   the evidence that proves it. No slide layouts yet.
+4. **Generate the storyboard.** Turn the outline into one card per slide
+   (`cards/*.yaml`: headline, visual, receipts, speaker note, time), render
+   it (`npm run storyboard`) and review the whole flow and timing on one page.
+   Infographics can be generated from the cards at this stage.
+5. **Make the slides.** Build the deck from the approved cards with the
+   skill's template and the chosen visual concept, run the deck's checks
+   (`npm run check`: no em dashes, every number sourced, assets present), click
+   through it in the browser, and export the PDF (`npm run backup` or
+   `skill/scripts/render-pdf.mjs`).
+
+Changes after step 5 go back to the earliest step they touch: a new number
+goes into the facts first, a new slide gets a card first.
 
 ## Using the skill
 
