@@ -21,12 +21,44 @@ slide-decks/
 Every future presentation gets its own folder under `decks/`, built with the
 skill in `skill/`.
 
-Every deck ships as an HTML page (to present live and edit in the browser) and
-a PDF (to share with a wide audience: email, Slack, print, any device).
-
 Want to use this for your own decks? Start with [GUIDE.md](GUIDE.md): what the
 skill and the scripts can do, which path fits your situation, and how to adapt
 the process to your own workflow.
+
+## What you get: HTML and PDF
+
+Every deck comes out in two forms, from the same source, so you never keep two
+versions in sync by hand.
+
+| | **HTML** (`deck.html`) | **PDF** (`*.pdf`) |
+|---|---|---|
+| Best for | Presenting live, and editing | Sharing with anyone, anywhere |
+| Who it's for | The speaker and the team | Wide audiences: attendees, managers, clients, students, anyone who wasn't in the room |
+| Opens in | A browser (Chrome works best), no internet or server needed | Any PDF reader, phone, tablet, email preview, Slack, Drive, a printer |
+| Moving parts | Videos play, animations and interactive steps run, speaker notes on a key | Each slide is a still page; videos show as a frame; interactive steps are shown completed |
+| Editing | Click into any text and type, then save with File, Save Page As, Webpage Complete | Not editable; regenerate it from the HTML |
+| Extras | Hidden backup slides you can open on demand | One page per slide in 16:9, backgrounds included, no notes or toolbars; backup slides included where the deck says so |
+
+Also produced: one PNG per slide (from `render-pdf.mjs --screenshots` or a
+deck's backup script). Use them for social posts, a doc, a thumbnail, or to
+review the deck at a glance.
+
+**Rule of thumb:** present from the HTML, send the PDF. Share the PDF after
+the talk, attach it to invites, upload it where people will look for it later,
+and keep it as the backup if the presenting laptop or browser fails. Regenerate
+the PDF every time the HTML changes so the two never drift.
+
+To get the PDF:
+
+- Any deck: `node path/to/skill/scripts/render-pdf.mjs deck.html deck.pdf --screenshots shots`
+- Without a terminal: open the HTML in Chrome, Print, Save as PDF, landscape,
+  margins none, background graphics on.
+- Decks with their own script: `npm run render` or `npm run backup` (see the
+  deck's `package.json`).
+
+Before sharing a PDF widely, page through all of it: no clipped text, no
+missing images, and nothing on it you wouldn't want forwarded (internal URLs,
+names, draft numbers).
 
 ## How we build a deck
 
