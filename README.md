@@ -21,6 +21,9 @@ slide-decks/
 Every future presentation gets its own folder under `decks/`, built with the
 skill in `skill/`.
 
+Every deck ships as an HTML page (to present live and edit in the browser) and
+a PDF (to share with a wide audience: email, Slack, print, any device).
+
 Want to use this for your own decks? Start with [GUIDE.md](GUIDE.md): what the
 skill and the scripts can do, which path fits your situation, and how to adapt
 the process to your own workflow.
