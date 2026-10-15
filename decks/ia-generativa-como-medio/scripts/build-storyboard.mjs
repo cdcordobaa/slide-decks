@@ -1,0 +1,245 @@
+#!/usr/bin/env node
+// Storyboard (escaleta) del deck. Misma arquitectura que decks/harness-talk:
+// las cards YAML son la fuente de verdad, esto es la vista de produccion.
+import fs from "node:fs";
+import path from "node:path";
+import { parse as parseYaml } from "yaml";
+
+const DIR = "cards", OUT = "build/storyboard.html";
+const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+const deck = parseYaml(fs.readFileSync(path.join(DIR,"deck.yaml"),"utf8")) || {};
+const secs = fs.readdirSync(DIR).filter(f=>/\.ya?ml$/.test(f) && f!=="deck.yaml").sort()
+  .map(f => parseYaml(fs.readFileSync(path.join(DIR,f),"utf8"))||{})
+  .filter(s => (s.cards||[]).length);
+const all = secs.flatMap(s=>s.cards);
+
+// --- Cada cita de soporte debe ser TEXTUAL del anteproyecto. Si no, el build falla.
+const SRC_PATH = (deck.fuente ?? "fuente/anteproyecto-2026-06-18.md");
+const norm = x => String(x).replace(/\*\*|\*|`|&nbsp;|\\|_/g,"").replace(/\s+/g," ").trim();
+const SRC = norm(fs.readFileSync(SRC_PATH,"utf8"));
+const sinGuion = all.filter(c=>!c.guion);
+const rotas = all.filter(c => c.soporte?.cita && !SRC.includes(norm(c.soporte.cita)));
+const sinSop = all.filter(c => !c.soporte?.cita);
+if (rotas.length || sinSop.length || sinGuion.length) {
+  if (rotas.length) console.error("CITAS QUE NO SON TEXTUALES:", rotas.map(c=>c.id).join(", "));
+  if (sinSop.length) console.error("LÁMINAS SIN SOPORTE:", sinSop.map(c=>c.id).join(", "));
+  if (sinGuion.length) console.error("LÁMINAS SIN GUION:", sinGuion.map(c=>c.id).join(", "));
+  process.exit(1);
+}
+console.log(`citas verificadas contra ${SRC_PATH}: ${all.length}/${all.length} textuales`);
+
+// ---- miniatura del wireframe, por arquetipo de composicion
+const WF = {
+  imagen_sangre:        '<div class="wf"><div class="wf-img"></div></div>',
+  imagen_sangre_palabra:'<div class="wf"><div class="wf-img"><em>palabra</em></div></div>',
+  imagen_sangre_frase:  '<div class="wf"><div class="wf-img"><em class="bl">frase</em></div></div>',
+  tipografia_sola:      '<div class="wf wf-pap"><i></i><i></i><i class="s"></i></div>',
+  tipografia_pico:      '<div class="wf wf-pap wf-pico"><i></i><i></i><i class="s"></i></div>',
+  tipografia_invertida: '<div class="wf wf-dark"><i></i><i class="s"></i></div>',
+  mitad_imagen_texto:   '<div class="wf wf-split"><div class="wf-img"></div><div class="wf-side"><i></i><i></i><i class="s"></i></div></div>',
+  cifra_sobre_imagen:   '<div class="wf"><div class="wf-img q"><b>00%</b></div></div>',
+  cifra_sola:           '<div class="wf wf-pap wf-ctr"><b>00%</b></div>',
+  dos_bloques:          '<div class="wf wf-pap wf-ctr wf-row"><u></u><span>vs</span><u></u></div>',
+  secuencia_3:          '<div class="wf wf-pap wf-ctr wf-row"><u></u><u></u><u></u></div>',
+  cadena_5:             '<div class="wf wf-pap wf-ctr wf-chain">'+Array.from({length:9},(_,i)=>i%2?'<hr>':'<o></o>').join("")+'</div>',
+  red:                  '<div class="wf wf-pap wf-ctr wf-net"><span>RED</span></div>',
+};
+
+function visual(c){
+  const v = c.visual ?? {};
+  if (v.kind === "image") {
+    const png = path.join(DIR,"assets",`${c.id}.png`);
+    const done = fs.existsSync(png);
+    return `<div class="vis vis--img">
+      <div class="vis__tag">IMAGEN · Gemini</div>
+      <div class="vis__brief">${esc(v.brief)}</div>
+      <div class="vis__state ${done?"ok":"wait"}">${done?"generada":"sin generar · costará una llamada a Gemini"}</div>
+    </div>`;
+  }
+  if (v.kind && v.kind !== "none") {
+    const bits = [];
+    if (v.items) bits.push(`items: ${v.items.map(esc).join(" · ")}`);
+    if (v.steps) bits.push(`pasos: ${v.steps.map(esc).join(" → ")}`);
+    if (v.boxes) bits.push(...v.boxes.map(b=>`${esc(b.label)}: ${esc(b.result)}`));
+    if (v.note)  bits.push(`nota: ${esc(v.note)}`);
+    return `<div class="vis vis--dia">
+      <div class="vis__tag">DIAGRAMA · ${esc(v.kind)} <span class="free">construido · gratis · inmediato</span></div>
+      ${bits.map(b=>`<div class="vis__row">${b}</div>`).join("")}
+    </div>`;
+  }
+  return `<div class="vis vis--none"><div class="vis__tag">SIN VISUAL</div>
+    <div class="vis__row">solo tipografía</div></div>`;
+}
+
+const imgs = all.filter(c=>c.visual?.kind==="image");
+const done = imgs.filter(c=>fs.existsSync(path.join(DIR,"assets",`${c.id}.png`))).length;
+const dias = all.filter(c=>c.visual?.kind && !["image","none"].includes(c.visual.kind)).length;
+const tipo = all.length - imgs.length - dias;
+
+
+const rows = secs.map(s=>`<section class="sec">
+  <h2>§${esc(s.section.id)} · ${esc(s.section.title)}
+    <span class="sec__meta">${s.section.laminas} lámina${s.section.laminas===1?"":"s"} · ${esc(s.section.tiempo)}</span></h2>
+  ${s.cards.map(c=>`<article class="row">
+    <div class="col-wf">${(()=>{const p=`../build/shots-deck/slide-${c.id}.png`;
+      return fs.existsSync(path.join("build","shots-deck",`slide-${c.id}.png`))
+        ? `<img class="lam" src="${p}" alt="Lámina ${esc(c.id)}">`
+        : (WF[c.layout] ?? '<div class="wf wf-pap"></div>')})()}
+      <div class="wf-lab">${esc(c.layout)}</div></div>
+    <div class="col-vis">${visual(c)}</div>
+    <div class="col-meta">
+      <div class="head"><span class="pill pill--${esc(c.status)}">${esc(c.status)}</span>
+        <span class="id">${esc(c.id)}</span><span class="nm">${esc(c.name)}</span>
+        ${c.idea_ref?`<span class="ref">idea ${c.idea_ref} del mapa</span>`:""}</div>
+      <div class="bl"><div class="bl__lab">La idea de la lámina</div>
+        <p class="idea">${esc(c.idea_central)}</p></div>
+      <div class="bl bl--ent"><div class="bl__lab">Lo que se lleva el público</div>
+        <p class="entrega">${esc(c.entrega)}</p></div>
+      <p class="pant">En pantalla: ${esc(c.en_pantalla)}</p>
+      ${c.fuente_dato?`<p class="fte">Fuente del dato: ${esc(c.fuente_dato)}</p>`:""}
+      ${c.speaker?`<p class="spk">${esc(c.speaker)}</p>`:""}
+      ${c.copy?`<div class="bl"><div class="bl__lab">En pantalla</div>
+        <div class="pant2">${Object.entries(c.copy).map(([k,v])=>
+          `<div><i>${esc(k)}</i>${String(v).replace(/<br>/g," / ").replace(/<\/?em>/g,"")}</div>`).join("")}</div></div>`:""}
+      ${c.visual?.kind==="image"?`<div class="bl"><div class="bl__lab">Imagen · brief para Gemini</div>
+        <p class="brf">${esc(c.visual.brief)}</p>
+        <p class="acc">acento azul: ${c.visual.acento?"sí":"no"}</p></div>`:""}
+      ${c.guion?`<div class="bl bl--gui"><div class="bl__lab">Guion · 20 segundos · ${c.guion.trim().split(/\s+/).length} palabras</div>
+        <p class="gui">${esc(c.guion)}</p></div>`:""}
+      ${c.soporte?`<div class="sop"><div class="sop__sec">De dónde sale · ${esc(c.soporte.seccion)}</div>
+        <blockquote>${esc(c.soporte.cita)}</blockquote></div>`:""}
+    </div></article>`).join("")}</section>`).join("");
+
+const sv = deck.sistema_visual ?? {};
+const html = `<!doctype html><html lang="es"><head><meta charset="utf-8">
+<title>Storyboard · ${esc(deck.title)}</title><style>
+:root{--ink:#16150F;--mut:#6E6A5E;--ln:#D6D0C1;--ac:#2B3FD9;--pap:#F4F2EC;--bg:#E6E3D9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+ font:14.5px/1.5 Inter,ui-sans-serif,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:34px 26px 70px}
+h1{margin:0 0 4px;font-size:27px;letter-spacing:-.01em}
+.sub{margin:0 0 4px;color:var(--mut);max-width:80ch}
+.meta{margin:0;color:var(--mut);font-size:13px}
+.counts{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 4px}
+.count{background:var(--pap);border:1px solid var(--ln);border-radius:8px;padding:8px 14px;font-size:12.5px;color:var(--mut)}
+.count b{font-size:19px;display:block;color:var(--ink)}
+.count--spend{border-color:#D9A441;background:#FBF3E2}
+.sv{background:var(--pap);border:1px solid var(--ln);border-left:3px solid var(--ac);
+ border-radius:8px;padding:14px 16px;margin:16px 0 0;font-size:13px}
+.sv b{display:block;margin-bottom:6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.sv div{margin:3px 0;color:#41402F}.sv i{color:var(--mut);font-style:normal}
+.entrega{margin:0 0 8px;font-size:14px;line-height:1.4;color:#41402F;
+ border-left:3px solid var(--ac);padding-left:10px}
+.arg{background:var(--pap);border:1px solid var(--ln);border-radius:10px;padding:18px 20px;margin:18px 0 4px}
+.arg b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:12px}
+.arg ol{margin:0;padding:0;list-style:none;columns:2;column-gap:34px}
+.arg li{break-inside:avoid;margin:0 0 7px;font-size:13.5px;line-height:1.42;display:flex;gap:9px}
+.arg li span{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ac);font-weight:700;flex:0 0 20px;padding-top:2px}
+.sec h2{margin:34px 0 12px;font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:var(--ac);
+ border-bottom:1px solid var(--ln);padding-bottom:8px;display:flex;justify-content:space-between}
+.sec__meta{color:var(--mut);letter-spacing:.04em;text-transform:none;font-weight:400}
+.row{display:grid;grid-template-columns:132px 210px 1fr;gap:18px;background:var(--pap);
+ border:1px solid var(--ln);border-radius:10px;padding:16px;margin-bottom:12px;break-inside:avoid}
+.col-vis{border-left:1px dashed var(--ln);border-right:1px dashed var(--ln);padding:0 16px}
+.wf{aspect-ratio:16/9;border:1px solid var(--ln);background:var(--pap);position:relative;
+ display:flex;flex-direction:column;overflow:hidden}
+.wf-img{flex:1;background:repeating-linear-gradient(45deg,#DAD5C6,#DAD5C6 5px,#D2CCBB 5px,#D2CCBB 10px);
+ display:flex;align-items:center;justify-content:center;position:relative}
+.wf-img.q{background:repeating-linear-gradient(45deg,#EBE8DE,#EBE8DE 5px,#E5E1D5 5px,#E5E1D5 10px)}
+.wf-img em{font-style:normal;font-size:7.5px;font-weight:700;background:var(--ink);color:var(--pap);padding:2px 6px;border-radius:2px}
+.wf-img em.bl{position:absolute;left:7%;bottom:9%}
+.wf-img b{font-size:19px;color:var(--ac);letter-spacing:-.02em}
+.wf-pap{justify-content:center;gap:4px;padding:0 14%}
+.wf-pap i{display:block;height:5px;background:var(--ink);opacity:.8;border-radius:1px}
+.wf-pap i.s{width:52%;margin:0 auto}
+.wf-pico i{height:8px}
+.wf-dark{background:#16150F;justify-content:center;gap:5px;padding:0 14%}
+.wf-dark i{display:block;height:6px;background:var(--pap);opacity:.9;border-radius:1px}
+.wf-dark i.s{width:46%}
+.wf-split{flex-direction:row}.wf-split .wf-img{width:50%}
+.wf-side{width:50%;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 10%}
+.wf-side i{display:block;height:4px;background:var(--ink);opacity:.8;border-radius:1px}
+.wf-side i.s{width:58%}
+.wf-ctr{align-items:center;justify-content:center}.wf-ctr b{font-size:22px;color:var(--ac);letter-spacing:-.02em}
+.wf-row{flex-direction:row;gap:8px}.wf-row u{width:26%;height:52%;border:1.5px solid var(--ink);opacity:.75}
+.wf-row span{font-size:8px;color:var(--mut)}
+.wf-chain{flex-direction:row;gap:0}.wf-chain o{display:block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink)}
+.wf-chain hr{width:14px;height:1.5px;background:var(--ink);border:0;opacity:.5;margin:0}
+.wf-net span{font-size:8px;letter-spacing:.14em;color:var(--mut);font-weight:700}
+.wf-lab{margin-top:6px;font-size:10.5px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
+.vis__tag{font-size:11px;font-weight:800;letter-spacing:.07em;margin-bottom:7px}
+.free{color:#1F7A52;font-weight:700;letter-spacing:0}
+.vis__brief{font-size:12.5px;color:#41402F;background:#EFEDFB;border:1px solid #DCD8F5;
+ border-radius:6px;padding:8px 10px;font-style:italic}
+.vis__row{font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace;margin:3px 0}
+.vis__state{margin-top:7px;font-size:11.5px;font-weight:700}
+.vis__state.ok{color:#1F7A52}.vis__state.wait{color:#A9741A}
+.vis--none .vis__tag{color:var(--mut)}
+.head{display:flex;align-items:center;gap:9px;margin-bottom:7px;flex-wrap:wrap}
+.id{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mut)}
+.nm{font-size:12px;color:var(--mut)}
+.ref{font-size:10.5px;color:var(--ac);border:1px solid var(--ac);border-radius:999px;padding:1px 8px}
+.bl{margin:0 0 11px}
+.lam{width:100%;display:block;border:1px solid var(--ln)}
+.pant2{font-size:12.5px;line-height:1.5;color:#41402F}
+.pant2 i{font-style:normal;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;
+ letter-spacing:.06em;color:var(--mut);margin-right:7px;text-transform:uppercase}
+.brf{margin:0;font-size:12.5px;line-height:1.5;color:#41402F;font-style:italic;
+ background:#EFEDFB;border:1px solid #DCD8F5;border-radius:6px;padding:8px 10px}
+.acc{margin:5px 0 0;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--mut)}
+.bl--gui{background:#F7F5EE;border:1px solid var(--ln);border-left:3px solid var(--ink);
+ border-radius:7px;padding:10px 13px}
+.gui{margin:0;font-size:14px;line-height:1.55}
+.bl__lab{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);font-weight:800;margin-bottom:4px}
+.bl--ent .bl__lab{color:var(--ac)}
+.idea{margin:0;font-size:17.5px;line-height:1.32;font-weight:600}
+.bl--ent{background:#EFEDFB;border:1px solid #DCD8F5;border-radius:7px;padding:9px 12px}
+.entrega{margin:0;font-size:15px;line-height:1.4;font-weight:650;color:#22214A}
+.pant{margin:0 0 5px;font-size:12.5px;color:var(--mut)}
+.fte{margin:0 0 5px;font-size:12px;color:var(--mut);font-family:ui-monospace,Menlo,monospace}
+.spk{margin:0 0 9px;font-size:12.5px;color:#41402F;border-left:2px solid var(--ln);padding-left:9px}
+.sop{margin-top:10px;border-top:1px solid var(--ln);padding-top:9px}
+.sop__sec{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);font-weight:800;margin-bottom:5px}
+.sop blockquote{margin:0;font-size:12.5px;line-height:1.62;color:#41402F;font-style:italic;
+ border-left:2px solid var(--ac);padding-left:10px}
+.rep{width:100%;border-collapse:collapse;margin:16px 0 0;font-size:12.5px;background:var(--pap);
+ border:1px solid var(--ln);border-radius:8px;overflow:hidden}
+.rep th,.rep td{text-align:left;padding:7px 12px;border-bottom:1px solid var(--ln)}
+.rep th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.rep td:nth-child(2),.rep td:nth-child(3){text-align:right;font-variant-numeric:tabular-nums;width:90px}
+.rep tr:last-child td{border-bottom:0;font-weight:700}
+.pill{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;
+ background:#E4E0D3;color:var(--mut)}
+.pill--listo{background:#DFF0E6;color:#1F7A52}
+@page{size:A3 portrait;margin:11mm}
+@media print{body{background:#fff}.wrap{max-width:none;padding:0}}
+</style></head><body><div class="wrap">
+<h1>Storyboard · ${esc(deck.title)}</h1>
+<p class="sub">${esc(deck.subtitle)}</p>
+<p class="meta">${esc(deck.autora)} · ${esc(deck.curso)}<br>${esc(deck.formato)} · ${esc(deck.registro)}</p>
+<div class="counts">
+  <div class="count"><b>${all.length}</b>láminas</div>
+  <div class="count"><b>${dias}</b>diagramas construidos (gratis)</div>
+  <div class="count count--spend"><b>${imgs.length-done}</b>imágenes por generar</div>
+  <div class="count"><b>${done}</b>imágenes listas</div>
+  <div class="count"><b>${tipo}</b>solo tipografía</div>
+  <div class="count"><b>${all.reduce((a,c)=>a+(c.guion?c.guion.trim().split(/\s+/).length:0),0)}</b>palabras de guion</div>
+</div>
+<div class="sv"><b>Sistema visual · borrador, pendiente de aprobación</b>
+  <div><i>Tratamiento:</i> ${esc(sv.tratamiento)}</div>
+  <div><i>Acento:</i> ${esc(sv.acento)}</div>
+  <div><i>Encuadre:</i> ${esc(sv.encuadre)}</div>
+  <div><i>Prohibido:</i> ${esc(sv.prohibido)}</div>
+</div>
+<table class="rep"><thead><tr><th>Bloque</th><th>Láminas</th><th>Minutos</th></tr></thead><tbody>
+${secs.map(x=>`<tr><td>${esc(x.section.title)}</td><td>${x.section.laminas}</td><td>${esc(x.section.tiempo)}</td></tr>`).join("")}
+<tr><td>Total</td><td>${all.length}</td><td>6:40</td></tr></tbody></table>
+${rows}</div></body></html>`;
+
+fs.mkdirSync("build",{recursive:true});
+fs.writeFileSync(OUT, html);
+console.log(`escrito: ${OUT}`);
+console.log(`laminas: ${all.length} | imagenes: ${imgs.length} (${done} listas) | diagramas: ${dias} | solo tipografia: ${tipo}`);
+const secSum = secs.reduce((a,s)=>a+(s.section.laminas||0),0);
+console.log(`suma de laminas declaradas en las secciones: ${secSum}  ${secSum===all.length?"coincide":"NO COINCIDE"}`);

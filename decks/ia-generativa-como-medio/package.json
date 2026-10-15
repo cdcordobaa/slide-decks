@@ -1,0 +1,18 @@
+{
+  "name": "ia-generativa-como-medio-deck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pecha Kucha del anteproyecto de tesis. Construido con la skill create-slide-deck de este repo.",
+  "scripts": {
+    "build": "python3 scripts/build-c.py",
+    "render": "NODE_PATH=\"$PWD/node_modules\" node ../../skill/scripts/render-pdf.mjs build/genealogia-c.html build/genealogia-c.pdf --screenshots build/shots --fail-on-overflow"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  },
+  "dependencies": {
+    "marked": "^18.0.12",
+    "yaml": "^2.5.1"
+  }
+}
